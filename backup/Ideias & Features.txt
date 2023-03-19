@@ -1,0 +1,8 @@
+					**FEATURES**
+- Elaboração de calculos de Indices(IMC, Água Diária);
+- Envio de Notificação para lembrar o usuário de tomar água; 
+
+
+					** IDEIAS **
+					
+- Apresentar um "corpo demonstrativo" no qual mostra qual parte do corpo é "afetada" pelo o exercício;

@@ -1,0 +1,1 @@
+Antes de fazer o COMMIT para o GITHUB, inserir o arquivo com a modificação neste diretório;
