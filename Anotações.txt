@@ -1,7 +1,7 @@
 Criar:
 	- Manter Usuário;
 	- Manter Treino;
-	- Manter Exercicio;
+	- Manter Exercicio;		
 	- Manter Aparelho;
 	
 	
