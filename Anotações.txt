@@ -1,0 +1,7 @@
+Criar:
+	- Manter Usuário;
+	- Manter Treino;
+	- Manter Exercicio;
+	- Manter Aparelho;
+	
+	

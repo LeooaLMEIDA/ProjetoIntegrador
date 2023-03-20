@@ -1,1 +1,3 @@
 Antes de fazer o COMMIT para o GITHUB, inserir o arquivo com a modificação neste diretório;
+
+/*Caso o Git trave na execução dos processo, deletar o arquivo index.lock na pasta: H:\Meu Drive\ProjetoIntegrador\.git  */
