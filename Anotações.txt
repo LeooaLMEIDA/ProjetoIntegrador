@@ -4,7 +4,6 @@ Criar:
 	- Manter Exercicio;		
 	- Manter Aparelho;
 	
-	
 *Agendamento das avaliações - Selecionar a data disponivel;
 *Como armazenar qual treino foi realizado;
 
