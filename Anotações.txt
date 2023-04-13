@@ -7,5 +7,6 @@ Criar:
 *Agendamento das avaliações - Selecionar a data disponivel;
 *Como armazenar qual treino foi realizado;
 *Verificar a questão do Login;
+	R: Não trabalhar com a criação de perfil, por parte do usuário. A academia é a responsável por gerar o perfil; - Não usando o Google Autenticator.
 
 	
