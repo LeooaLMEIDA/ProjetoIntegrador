@@ -8,5 +8,9 @@ Criar:
 *Como armazenar qual treino foi realizado;
 *Verificar a questão do Login;
 	R: Não trabalhar com a criação de perfil, por parte do usuário. A academia é a responsável por gerar o perfil; - Não usando o Google Autenticator.
+	
+	
+DENTRO DA CLASSE DE USO NÃO PODE COLOCAR ID(EXTRANGEIRO);
+EXPO GO framework - Framework para emular o aplicativo em qualquer plataforma;
 
 	
