@@ -1,0 +1,7 @@
+#- REGRAS DE NEGÓCIOS -#
+RN001 - 
+
+
+#- MENSAGENS -#
+MSG001 - 
+
