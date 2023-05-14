@@ -1,7 +1,33 @@
 #- REGRAS DE NEGÓCIOS -#
-RN001 - 
+RN001 - Para efetuar login, o Usuário precisa possuir as credenciais que foram disponibilizadas pela academia.
+RN002 -
+RN003 -
+RN004 -
+RN005 -
+RN006 -
+RN007 -
+RN008 -
+RN009 -
+RN010 -
+RN011 -
+RN012 -
+RN013 -
+RN014 -
+RN015 -
+RN016 -
 
 
 #- MENSAGENS -#
-MSG001 - 
+MSG001 - Registro gravado com sucesso!
+MSG002 - Campo {identificação do campo} não pode estar vazio.
 
+
+PRECISA DEFINIR QUAL SERÁ O NÚMERO:
+
+/*MANTER USUÁRIO*/
+RN - O Usuário não pode já possuir cadastrado, com base no mesmo e-mail.
+RN - Apenas o campo Complemento pode estar vazio na hora de salvar.
+
+/*MANTER AVALIACAO*/
+RN  - O arquivo da Avaliação deverá ser da extensão .pdf. 
+MSG - O arquivo selecionado não é PDF.
