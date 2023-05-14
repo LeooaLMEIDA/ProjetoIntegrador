@@ -21,56 +21,7 @@ class MainApp extends StatelessWidget {
       home: Login(),
     );
   }
-}
-
-/*
-class Login extends StatelessWidget {
-  const Login({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 10,
-        centerTitle: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(38.0),
-            bottomRight: Radius.circular(38.0),
-          ),
-        ),
-      ),
-      body: 
-      SizedBox(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Image.asset(
-                'images/Logo2.png',
-                alignment: Alignment.bottomCenter,
-                width: 220,
-                height: 250,
-              ),
-              Editor(
-                  dica: "bullkapp@bullkapp.com.br",
-                  rotulo: "E-mail",
-                  icon: Icons.account_circle),
-              Editor(
-                dica: "Senha",
-                rotulo: "Senha",
-                icon: Icons.password,
-              ),
-              ElevatedButton(
-                child: const Text('Entrar'),
-                onPressed: () => _verificaLogin(context),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-} */
+} 
 
 void _verificaLogin(BuildContext context) {
   @override

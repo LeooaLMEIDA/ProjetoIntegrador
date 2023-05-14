@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, unused_import
 
 import 'package:flutter/material.dart';
 
@@ -10,6 +10,35 @@ class Login extends StatefulWidget {
   @override
   State<Login> createState() => _LoginState();
 }
+/*
+class _LoginState extends State<Login> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 10,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(38.0),
+            bottomRight: Radius.circular(38.0),
+          ),
+        ),
+      ),
+      body: Container(
+        child: Column(
+          children: [
+            Image.asset(
+              'images/Logo2.png',
+              alignment: Alignment.bottomCenter,
+              width: 220,
+              height: 250,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}*/
 
 class _LoginState extends State<Login> {
   @override
