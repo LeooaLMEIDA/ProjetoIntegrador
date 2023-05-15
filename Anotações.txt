@@ -14,3 +14,5 @@ DENTRO DA CLASSE DE USO NÃO PODE COLOCAR ID(EXTRANGEIRO);
 EXPO GO framework - Framework para emular o aplicativo em qualquer plataforma;
 
 	
+VERIFICAR
+ - DEFINIR PADRÃO NOS BOTÕES;
