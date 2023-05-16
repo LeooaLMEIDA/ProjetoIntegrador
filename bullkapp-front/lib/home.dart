@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bullkapp/theme/bullkTheme.dart';
 import 'package:flutter/material.dart';
@@ -26,14 +26,10 @@ class TelaHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          Image.asset(
-            'images/Logo2.png',
-            width: 45,
-            height: 45,
-            alignment: AlignmentDirectional(-700,0),
-          ),
-        ],
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('images/Logo2.png'),
+        ),
         toolbarHeight: 60,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -48,13 +44,30 @@ class TelaHome extends StatelessWidget {
         //color: Colors.cyan,
         child: Column(
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Treinos();
-                }));
-              },
-              child: Text("Tela Treinos"),
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: GestureDetector(
+                      child: Image.asset("images/Treino.png", width: 340),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return Treinos();
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

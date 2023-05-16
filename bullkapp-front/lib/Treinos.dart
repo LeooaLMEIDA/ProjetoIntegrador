@@ -1,7 +1,9 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
+// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print
 
 import 'package:bullkapp/theme/bullkTheme.dart';
 import 'package:flutter/material.dart';
+
+import 'listaTreinos.dart';
 
 class Treinos extends StatelessWidget {
   const Treinos({super.key});
@@ -24,14 +26,10 @@ class TelaTreinos extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          Image.asset(
-            'images/Logo2.png',
-            width: 45,
-            height: 45,
-            alignment: AlignmentDirectional(-700,0),
-          ),
-        ],
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Image.asset('images/Logo2.png'),
+        ),
         toolbarHeight: 60,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -41,24 +39,51 @@ class TelaTreinos extends StatelessWidget {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(5),
         alignment: Alignment.topCenter,
         //color: Colors.cyan,
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(top: 10),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Text("Treino A" , textAlign: TextAlign.center),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: GestureDetector(
+                      child: Image.asset("images/TreinoA.png", width: 92),
+                      onTap: () {
+                        print("Treino A");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ListaTreinos();
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                  Expanded(
-                    child: Text("Treino B" , textAlign: TextAlign.center),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: GestureDetector(
+                      child: Image.asset("images/TreinoB.png", width: 92),
+                      onTap: () {
+                        print("Treino B");
+                      },
+                    ),
                   ),
-                  Expanded(
-                    child: Text("Treino C" , textAlign: TextAlign.center),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: GestureDetector(
+                      child: Image.asset("images/TreinoC.png", width: 92),
+                      onTap: () {
+                        print("Treino C");
+                      },
+                    ),
                   ),
                 ],
               ),

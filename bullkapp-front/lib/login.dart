@@ -44,12 +44,12 @@ class _LoginState extends State<Login> {
                 child: Column(
                   children: [
                     CampoChar(
-                        dica: "bullkapp@bullkapp.com.br",
-                        rotulo: "E-mail",
+                        dica: "E-mail",
+                        rotulo: "",
                         icon: Icons.account_circle),
                     CampoPassword(
                       dica: "Senha",
-                      rotulo: "Senha",
+                      rotulo: "",
                       icon: Icons.password,
                     ),
                     ElevatedButton(

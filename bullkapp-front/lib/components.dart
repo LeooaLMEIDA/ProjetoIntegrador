@@ -24,11 +24,10 @@ class CampoChar extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
           suffixIcon: icon != null ? Icon(icon) : null,
-          labelStyle: TextStyle(
-            fontSize: 20,
-            color: Color.fromARGB(249, 255, 255, 255),
+          hintStyle: TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255), 
           ),
-          labelText: rotulo,
+          //labelText: rotulo,
           hintText: dica,
         ),
         keyboardType: TextInputType.text,
@@ -47,9 +46,10 @@ class CampoPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(16.0),
       child: TextField(
         style: TextStyle(
+          
           fontSize: 24.0,
         ),
         decoration: InputDecoration(
@@ -61,11 +61,10 @@ class CampoPassword extends StatelessWidget {
             ),
           ),
           suffixIcon: icon != null ? Icon(icon) : null,
-          labelStyle: TextStyle(
-            fontSize: 20,
-            color: Color.fromARGB(249, 255, 255, 255),
+          hintStyle: TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255), 
           ),
-          labelText: rotulo,
+          //labelText: rotulo,
           hintText: dica,
         ),
         keyboardType: TextInputType.visiblePassword,
