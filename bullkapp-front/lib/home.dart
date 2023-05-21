@@ -28,7 +28,7 @@ class TelaHome extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Image.asset('images/Logo2.png'),
+          child: Image.asset('images/Logo3.png'),
         ),
         toolbarHeight: 60,
         shape: const RoundedRectangleBorder(
@@ -53,7 +53,8 @@ class TelaHome extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
-                      child: Image.asset("images/Treino.png", width: 340),
+                      child: Image.asset("images/Treino.png",
+                          width: MediaQuery.of(context).size.width - 60),
                       onTap: () {
                         Navigator.push(
                           context,

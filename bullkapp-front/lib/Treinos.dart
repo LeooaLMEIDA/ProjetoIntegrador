@@ -28,7 +28,7 @@ class TelaTreinos extends StatelessWidget {
       appBar: AppBar(
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Image.asset('images/Logo2.png'),
+          child: Image.asset('images/Logo3.png'),
         ),
         toolbarHeight: 60,
         shape: const RoundedRectangleBorder(

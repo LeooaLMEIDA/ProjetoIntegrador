@@ -27,7 +27,6 @@ class _LoginState extends State<Login> {
       ),
       body: Container(
         alignment: Alignment.topCenter,
-        //padding: EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -41,25 +40,71 @@ class _LoginState extends State<Login> {
                 ),
               ),
               Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    //Container dos Campos
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            //color: Colors.indigo,
+                            child: CampoChar(
+                                dica: "E-mail",
+                                rotulo: "",
+                                icon: Icons.account_circle),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            //color: Colors.deepOrangeAccent,
+                            child: CampoPassword(
+                              dica: "Senha",
+                              rotulo: "",
+                              icon: Icons.password,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Container(
                 child: Column(
                   children: [
-                    CampoChar(
-                        dica: "E-mail",
-                        rotulo: "",
-                        icon: Icons.account_circle),
-                    CampoPassword(
-                      dica: "Senha",
-                      rotulo: "",
-                      icon: Icons.password,
-                    ),
-                    ElevatedButton(
-                      child: const Text('Confirmar'),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return Home();
-                        }));
-                      },
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(160, 20)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Color.fromARGB(255, 255, 195 , 1)),
+                          foregroundColor:
+                              MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                          elevation: MaterialStateProperty.all(5.0),
+                          padding:
+                              MaterialStateProperty.all(EdgeInsets.all(16.0)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50.0),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          //Navigator.pushReplacement(context,
+                            //  MaterialPageRoute(builder: (context) {
+                           // return Home();
+                          //}));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Home();
+                          }));
+                        },
+                        child: const Text('Entrar'),
+                      ),
                     ),
                   ],
                 ),

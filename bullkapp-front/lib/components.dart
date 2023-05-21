@@ -1,6 +1,9 @@
-// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
+
+String email = "";
+String senha = "";
 
 class CampoChar extends StatelessWidget {
   final String? rotulo;
@@ -11,26 +14,34 @@ class CampoChar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        style: TextStyle(
-          fontSize: 24.0,
-        ),
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color.fromARGB(250, 1, 30, 62),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+    return Container(
+      child: Column(
+        children: [
+          TextField(
+            onChanged: (inputEmail) {
+              email = inputEmail;
+            },
+            keyboardType: TextInputType.emailAddress,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 24.0,
+            ),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color.fromARGB(250, 1, 30, 62),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              suffixIcon: icon != null ? Icon(icon) : null,
+              suffixIconColor: Colors.white,
+              hintStyle: TextStyle(
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              //labelText: rotulo,
+              hintText: dica,
+            ),
           ),
-          suffixIcon: icon != null ? Icon(icon) : null,
-          hintStyle: TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255), 
-          ),
-          //labelText: rotulo,
-          hintText: dica,
-        ),
-        keyboardType: TextInputType.text,
+        ],
       ),
     );
   }
@@ -45,13 +56,16 @@ class CampoPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
+    return Container(
       child: TextField(
+        onChanged: (inputPassword) {
+          senha = inputPassword;
+        },
         style: TextStyle(
-          
+          color: Colors.white,
           fontSize: 24.0,
         ),
+        obscureText: true,
         decoration: InputDecoration(
           filled: true,
           fillColor: Color.fromARGB(250, 1, 30, 62),
@@ -61,13 +75,13 @@ class CampoPassword extends StatelessWidget {
             ),
           ),
           suffixIcon: icon != null ? Icon(icon) : null,
+          suffixIconColor: Colors.white,
           hintStyle: TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255), 
+            color: Color.fromARGB(255, 255, 255, 255),
           ),
           //labelText: rotulo,
           hintText: dica,
         ),
-        keyboardType: TextInputType.visiblePassword,
       ),
     );
   }
