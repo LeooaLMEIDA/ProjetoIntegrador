@@ -1,20 +1,20 @@
 #- REGRAS DE NEGÓCIOS -#
-RN001 - Para efetuar login, o Usuário precisa possuir as credenciais que foram disponibilizadas pela academia.
-RN002 -
-RN003 -
-RN004 -
-RN005 -
-RN006 -
-RN007 -
-RN008 -
-RN009 -
-RN010 -
-RN011 -
-RN012 -
-RN013 -
-RN014 -
-RN015 -
-RN016 -
+RN01 - Para efetuar login, o Usuário precisa possuir as credenciais que foram disponibilizadas pela academia;
+RN02 - O login só é validado quando o os campos e-mail e senha [IMG-XXX] corresponderem aos dados preenchidos na tabela BULLK_USUARIO. 
+RN03 - 
+RN04 -
+RN05 -
+RN06 -
+RN07 -
+RN08 -
+RN09 -
+RN10 -
+RN11 -
+RN12 -
+RN13 -
+RN14 -
+RN15 -
+RN16 -
 
 
 #- MENSAGENS -#
@@ -26,8 +26,47 @@ PRECISA DEFINIR QUAL SERÁ O NÚMERO:
 
 /*MANTER USUÁRIO*/
 RN - O Usuário não pode já possuir cadastrado, com base no mesmo e-mail.
-RN - Apenas o campo Complemento pode estar vazio na hora de salvar.
+RN - Na Aplicação WEB não terá a opção de senha para o usuário Administrador;
+RN - Apenas usuários do tipo administrador poderá logar na plataforma WEB.
 
 /*MANTER AVALIACAO*/
 RN  - O arquivo da Avaliação deverá ser da extensão .pdf. 
 MSG - O arquivo selecionado não é PDF.
+
+/*IMAGENS*/
+	/*LOGIN*/
+	IMG-01 - Login - App
+	IMG-02 - Home - App
+	IMG-03 - Login - Web
+	IMG-04 - Home - Web
+	
+	/*USUARIO*/
+	IMG-05 - Perfil - App
+	IMG-06 - Avaliação - App
+	IMG-07 - Manutenção Usuário - Inicio - Web
+	IMG-08 - Manutenção Usuário - Cadastro - Web
+	IMG-09 - Manutenção Usuário - Edição - Web
+	IMG-09 - Manutenção Avaliação - Inicio - Web
+	IMG-10 - Manutenção Avaliação - Cadastro - Web
+    IMG-11 - Manutenção Avaliação - Edição - Web
+	
+	/*TREINO*/
+    IMG-12 - Treinos - App
+	IMG-13 - Treino A - App
+	IMG-14 - Treino B - App
+	IMG-15 - Treino C - App
+	IMG-16 - Treino A - Flexão - App
+	IMG-17 - Treino A - Flexão_Alternativo - App
+    IMG-18 - Manutenção Treino - Inicio - Web
+    IMG-19 - Manutenção Treino - Cadastro - Web
+    IMG-20 - Manutenção Treino - Edição - Web
+	
+	/*EXERCÍCIO*/
+	IMG-21 - Manutenção Exercício - Inicio - Web
+	IMG-22 - Manutenção Exercício - Cadastro - Web
+    IMG-23 - Manutenção Exercício - Edição - Web
+	
+	/*APARELHO*/
+	IMG-24 - Manutenção Aparelho - Inicio - Web
+	IMG-25 - Manutenção Aparelho - Cadastro - Web
+	IMG-26 - Manutenção Aparelho - Edição - Web
