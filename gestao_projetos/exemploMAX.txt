@@ -1,0 +1,85 @@
+﻿Favor, realizar os seguintes testes abaixo:
+SOL.: 156664
+
+***Confirmar no ANV200 se a base está atualizada***
+_________________________________________________________________________________________________________________
+OBJETIVO: 
+- Realizar testes de devolução de recebimento no GEX004.
+_________________________________________________________________________________________________________________
+
+OBS.: a alteração do Pavan na sol, foi permitir realizar devolução de recebimento no GEX004, sem a necessidade da mov. de devolução estar cadastrada no TFI003.
+
+
+
+PROCESSOS DE TESTES: 
+
+
+CENÁRIO 01:
+
+
+1) Criar contrato de recebimento no GPE001.
+
+2) Consultar o contrato no TGR007.
+	- verificar qual a movimentação do CONTRATO (campo Movimentação).
+
+3) Consultar a movimentação do CONTRATO no TCB008.
+	- verificar qual a movimentação de contra partida (esta é a movimentação de devolução).
+
+4) Consultar a movimentação de DEVOLUÇÃO no TFI034.
+	- caso não haja cadastro realizar o cadastro.
+
+5) Consultar a mov. de DEVOLUÇÃO no TFI003.
+	- Realizar cadastro informando:
+		- a Observação Fiscal, ICMS da Operação, Tributação ICMS e Trib. ICMS Dev.
+			- ao informar a Observação Fiscal, o campo "Benef Fiscal (Tab. 5.2)" deve ser preenchido com um código automaticamente.
+
+6) Para movimentação do CONTRATO, realizar os mesmos cadastros dos passos 4 e 5.
+	- porém, no TFI003, informar dados diferentes da mov. de devolução para os campos:  Observação Fiscal, ICMS da Operação, Tributação ICMS e Trib. ICMS Dev. 
+
+7) Realizar recebimento pelo GRE001.
+	- verificar se a nota de entrada no VFT008, na aba Impostos, o campo "Cód. Tab. 5.2" apresenta o mesmo códido do campo "Benef Fiscal (Tab. 5.2)" da mov. do contrato cadastrada no TFI003.
+		- deve apresentar o mesmo código.
+
+8) Realizar devolução pelo GEX004.
+	- como a mov. de devolução está cadastrada, DEVE ser realizada a devolução normalmente.
+	- Não deve ser apresentada nenhuma validação dizendo que falta parametrização da movimentação de devolução.
+
+9) No VFT008, verificar a nota de devolução gerada no GEX004.
+	- verificar se  a nota apresenta, na aba Impostos, os dados do TFI003 e TFI034 que foram cadastrados para mov. de devolução e mov. do contrato.
+	- DEVE apresentar o dados da mov. do Contrato nos campos: Imposto/CST, Cód. Tab. 5.2 e  no quadro Valores Impostos.
+
+Resultado esperado:
+- Deve ser possível realizar devolução pelo GEX004 com a movimentação de devolução ESTANDO ou NÃO cadastrada no TFI003.
+- Os dados da aba Imposto do VFT008 deve ser conforme o cadastrado no TFI034 e TFI003 para a mov. do Contrato, independente se a mov. de devolução foi cadastrada nessas telas.
+________________________________________________________________________________________________________________
+
+CENÁRIO 2:
+
+- Realizar o mesmo processo do cenário 1, porém, APENAS excluir o cadastro da movimentação de devolução do TFI003 (passo 5). 
+	- no passo 8, mesmo não tendo mov. de devolução cadastrada deve permitir emitir devolução sem ocorrer nenhuma validação acusando ausência de cadastro de mov. de devolução.
+
+Resultado esperado:
+- Deve ser possível realizar devolução pelo GEX004 com a movimentação de devolução ESTANDO ou NÃO cadastrada no TFI003.
+- Os dados da aba Imposto do VFT008 deve ser conforme o cadastrado no TFI034 e TFI003 para a mov. do Contrato, independente se a mov. de devolução foi cadastrada nessas telas.
+________________________________________________________________________________________________________________
+
+CENÁRIO 03:
+
+- Realizar o mesmo processo do cenário 02 excluindo o cadastro da mov. de devolução do TFI003, porém, realizar o recebimento (passo 7) e a devolução (passo 8) pelo MaxiconBalança.
+	- para a devolução pelo MB configurar no TGR114 para que a nota de saída fique pendente no GRE014.
+		- ao emitir a devolução pelo GRE014, mesmo não tendo mov. de devolução cadastrada deve permitir emitir devolução sem ocorrer nenhuma validação acusando ausência de cadastro de mov. de devolução.
+
+Resultado esperado:
+- Deve ser possível realizar devolução pelo GEX004 com a movimentação de devolução ESTANDO ou NÃO cadastrada no TFI003.
+- Os dados da aba Imposto do VFT008 deve ser conforme o cadastrado no TFI034 e TFI003 para a mov. do Contrato, independente se a mov. de devolução foi cadastrada nessas telas.
+________________________________________________________________________________________________________________
+
+Teste Complementar:
+-Realizar testes exploratórios.
+-Consultar os lançamentos para verificar a gravação dos dados.
+-Verificar a padronização das telas (1-55 : Checklist de Padronização).
+-Realizar teste de stress caso for relatório.	
+
+Obs: Analisar EVT do desenvolvedor e RCU.
+
+Qualquer dúvida chamar.
