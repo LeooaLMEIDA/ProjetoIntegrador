@@ -3,11 +3,17 @@ CRIAR TELA DE REQUISIÇÕES(ALTERAR SENHA);
 
 #- REGRAS DE NEGÓCIOS -#
 RN-01 - Para efetuar login, o Usuário precisa possuir as credenciais que foram disponibilizadas pela academia.
+
 RN-02 - O login só é validado quando o os campos e-mail e senha corresponderem aos dados preenchidos na tabela BULLK_USUARIO. {RN-01} 
+
 RN-03 - Os usuários cadastrados com Tipo de Usuário “Aluno”, apenas conseguirão realizar o login na aplicação App [IMG-01], enquanto os usuários cadastrados com Tipo de Usuário “Admin”, apenas conseguirão realizar o login na aplicação Web [IMG-03]. {RN-02}
-RN-04 - O Usuário que realiza o cadastro deve estar registrado com o Tipo de Usuário como “Admin”.
+
+RN-04 - O Usuário que realiza o cadastro ou as alterações deve estar registrado com o Tipo de Usuário como “Admin”.
+
 RN-05 - Para que cadastro seja realizado com sucesso, todos os campos obrigatórios, sinalizados com “*”, devem ser preenchidos.
+
 RN-06 - Um Usuário não pode ser cadastrado com o mesmo e-mail de outro Usuário.
+
 RN-07 - Os dados informados nos campos devem ser válidos.
 			- Nome: tamanho não pode ser maior que 60 caracteres;
 			- Data Nascimento: não pode ser maior ou igual a hoje;
@@ -15,34 +21,54 @@ RN-07 - Os dados informados nos campos devem ser válidos.
 			- E-mail: deve conter um e-mail válido;
 			- UrlAvatar: deve conter um url válido;
 			- Senha: deve conter mais de 8 caracteres.
-RN-08 - Os dados informados nos campos devem ser válidos.
+			
+RN-08 - Para alteração de senhas, o usuário terá que entrar em contato com a Secretária da Academia;
+			
+RN-09 - Os dados informados nos campos devem ser válidos.
 			- Descrição: tamanho não pode ser maior que 60 caracteres;
 			- Arquivo Avaliação: deve conter um arquivo tipo pdf válido.
-RN-09 - O usuário deve permitir que o aplicativo realize downloads para o dispositivo
-RN-10 - Os dados informados nos campos devem ser válidos.
-RN-11 - O Aluno consegue visualizar apenas os treinos atribuídos ao seu usuário, e que possuem status cadastrado como “Ativo”.
-RN-12 - Para que um treino possa ser considerado como alternativo, as seguintes condições devem ser satisfeitas:
+			
+RN-10 - Só poderá inserir uma avaliação para usuários que estão ativos.
+			
+RN-11 - O usuário deve permitir que o aplicativo realize downloads para o dispositivo.
+
+RN-12 - Os dados informados nos campos devem ser válidos.
+
+RN-13 - O Aluno consegue visualizar apenas os treinos atribuídos ao seu usuário, e que possuem status cadastrado como “Ativo”.
+RN-14 - Para que um treino possa ser considerado como alternativo, as seguintes condições devem ser satisfeitas:
 			- O Exercício não pode estar cadastrado como ativo no conjunto de treinos do Aluno
 			- O “Grupo Músculos” cadastrado no exercício deve ser o mesmo
 
-RN-13 -
-RN-14 -
-RN-15 -
-RN-16 -
+RN-15 - Não é possível fazer o processo de Inativação para Exercícios que estejam vinculados a um Treino ativo;
+
+RN-16 - Os dados informados nos campos devem ser válidos.
+			- Descrição: tamanho não pode ser maior que 60 caracteres;
+			- Imagem Ilustração: deve conter um arquivo do tipo imagem válido;
+			- Vídeo Ilustração: deve conter um url válido.
+			
+RN-17 - Os dados informados nos campos devem ser válidos.
+			- Descrição: tamanho não pode ser maior que 60 caracteres;
+			
+RN-18 - Não é possível fazer o processo de Inativação para Aparelhos que estejam vinculados a um Treino;
 
 
 #- MENSAGENS -#
-MSG001 - Registro gravado com sucesso!
-MSG002 - Campo {identificação do campo} não pode estar vazio.
-
+MSG001 - Registro gravado com sucesso! 
+MSG002 - Campo {identificação do campo} não pode estar vazio. ERRO
+MSG003 - Credenciais Incorretas, verificar. 
+MSG004 - Registro Inativado com sucesso! 
+MSG005 - Campos sinalizados com “*”, devem ser preenchidos.
+MSG006 - E-mail informado já pertence a outro usuário.
+MSG007 - O Arquivo selecionado não é do tipo .PDF
+MSG008 - Este processo não pode ser seguido, pois o usuário está inativo.
+MSG009 - Registro Excluído com sucesso!
+MSG010 - Download realizado com sucesso!
+MSG011 - Usuário não permitiu realizar download (baixar arquivos) neste dispositivo.
+MSG012 - Não é possível inativar um Exercício que esteja vinculado a um Treino;
+MSG013 - Não é possível inativar um Aparelho que esteja vinculado a um Exercício;
 
 
 PRECISA DEFINIR QUAL SERÁ O NÚMERO:
-
-/*MANTER USUÁRIO*/
-RN - O Usuário não pode já possuir cadastrado, com base no mesmo e-mail.
-RN - Na Aplicação WEB não terá a opção de senha para o usuário Administrador;
-RN - Apenas usuários do tipo administrador poderá logar na plataforma WEB.
 
 /*MANTER AVALIACAO*/
 RN  - O arquivo da Avaliação deve ser da extensão .pdf. 
@@ -66,6 +92,8 @@ RN  - O número de repetições deve ser maior que 0;
 	IMG-07 - Manutenção Usuário - Inicio - Web
 	IMG-08 - Manutenção Usuário - Cadastro - Web
 	IMG-09 - Manutenção Usuário - Edição - Web
+	
+	/*AVALIAÇÃO*/
 	IMG-10 - Manutenção Avaliação - Inicio - Web
 	IMG-11 - Manutenção Avaliação - Cadastro - Web
     IMG-12 - Manutenção Avaliação - Edição - Web
@@ -77,6 +105,7 @@ RN  - O número de repetições deve ser maior que 0;
 	IMG-16 - Treino C - App
 	IMG-17 - Treino A - Flexão - App
 	IMG-18 - Treino A - Flexão_Alternativo - App
+	
     IMG-19 - Manutenção Treino - Inicio - Web
     IMG-20 - Manutenção Treino - Cadastro - Web
     IMG-21 - Manutenção Treino - Edição - Web

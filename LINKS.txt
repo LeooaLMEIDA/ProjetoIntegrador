@@ -8,3 +8,5 @@ NOME DO PROJETO: BullkApp
  
  TRELLO:
  - https://trello.com/b/B9baaLd3/untitled-board
+ 
+ 
