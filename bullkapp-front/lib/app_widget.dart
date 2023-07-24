@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:bullkapp/theme/BullkTheme.dart' show myTheme;
+import 'package:bullkapp/training.dart';
+import 'package:bullkapp/views/training_list.dart';
 import 'package:flutter/material.dart';
 
 import 'home.dart';
@@ -18,6 +20,8 @@ class AppWidget extends StatelessWidget {
       routes: {
         '/': (context) => const Login(),
         '/home': (context) => const Home(),
+        '/training': (context) => const Training(),
+        '/traininglist': (context) => const TrainingList(),
       },
     );
   }
