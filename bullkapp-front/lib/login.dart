@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element
 
-import 'package:bullkapp/home.dart';
 import 'package:flutter/material.dart';
 
 import 'components.dart';
@@ -50,7 +49,7 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             //color: Colors.indigo,
-                            child: CampoChar(
+                            child: CharField(
                                 dica: "E-mail",
                                 rotulo: "",
                                 icon: Icons.account_circle),
@@ -60,7 +59,7 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             //color: Colors.deepOrangeAccent,
-                            child: CampoPassword(
+                            child: PasswordField(
                               dica: "Senha",
                               rotulo: "",
                               icon: Icons.password,
@@ -80,10 +79,10 @@ class _LoginState extends State<Login> {
                       child: ElevatedButton(
                         style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(Size(160, 20)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Color.fromARGB(255, 255, 195 , 1)),
-                          foregroundColor:
-                              MaterialStateProperty.all(Color.fromARGB(255, 0, 0, 0)),
+                          backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 255, 195, 1)),
+                          foregroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 0, 0, 0)),
                           elevation: MaterialStateProperty.all(5.0),
                           padding:
                               MaterialStateProperty.all(EdgeInsets.all(16.0)),
@@ -94,14 +93,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onPressed: () {
-                          //Navigator.pushReplacement(context,
-                            //  MaterialPageRoute(builder: (context) {
-                           // return Home();
-                          //}));
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return Home();
-                          }));
+                          Navigator.of(context).pushReplacementNamed('/home');
                         },
                         child: const Text('Entrar'),
                       ),
@@ -114,12 +106,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-}
-
-void _verificaLogin(BuildContext context) {
-  @override
-  String toString() {
-    return 'Login OK'.toString();
   }
 }

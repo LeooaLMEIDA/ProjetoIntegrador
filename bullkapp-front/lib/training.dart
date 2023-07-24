@@ -1,26 +1,24 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print
 
-import 'package:bullkapp/theme/bullkTheme.dart';
+import 'package:bullkapp/theme/BullkTheme.dart';
 import 'package:flutter/material.dart';
 
-import 'listaTreinos.dart';
-
-class Treinos extends StatelessWidget {
-  const Treinos({super.key});
+class Training extends StatelessWidget {
+  const Training({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: myTheme,
       home: const Scaffold(
-        body: TelaTreinos(),
+        body: TrainingScreen(),
       ),
     );
   }
 }
 
-class TelaTreinos extends StatelessWidget {
-  const TelaTreinos({super.key});
+class TrainingScreen extends StatelessWidget {
+  const TrainingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,14 +54,7 @@ class TelaTreinos extends StatelessWidget {
                       child: Image.asset("images/TreinoA.png", width: 92),
                       onTap: () {
                         print("Treino A");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return ListaTreinos();
-                            },
-                          ),
-                        );
+                        Navigator.of(context).pushReplacementNamed('');
                       },
                     ),
                   ),

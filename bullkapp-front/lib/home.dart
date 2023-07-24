@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
-import 'package:bullkapp/theme/bullkTheme.dart';
+import 'package:bullkapp/theme/BullkTheme.dart';
 import 'package:flutter/material.dart';
 
-import 'Treinos.dart';
+import 'treinos.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -13,14 +13,14 @@ class Home extends StatelessWidget {
     return MaterialApp(
       theme: myTheme,
       home: const Scaffold(
-        body: TelaHome(),
+        body: HomeScreen(),
       ),
     );
   }
 }
 
-class TelaHome extends StatelessWidget {
-  const TelaHome({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 String email = "";
 String senha = "";
 
-class CampoChar extends StatelessWidget {
+class CharField extends StatelessWidget {
   final String? rotulo;
   final String? dica;
   final IconData? icon;
 
-  const CampoChar({this.rotulo, this.dica, this.icon});
+  const CharField({this.rotulo, this.dica, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +47,12 @@ class CampoChar extends StatelessWidget {
   }
 }
 
-class CampoPassword extends StatelessWidget {
+class PasswordField extends StatelessWidget {
   final String? rotulo;
   final String? dica;
   final IconData? icon;
 
-  const CampoPassword({this.rotulo, this.dica, this.icon});
+  const PasswordField({this.rotulo, this.dica, this.icon});
 
   @override
   Widget build(BuildContext context) {

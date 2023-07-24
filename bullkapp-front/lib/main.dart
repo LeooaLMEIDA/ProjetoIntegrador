@@ -1,21 +1,7 @@
-import 'package:bullkapp/theme/bullkTheme.dart';
 import 'package:flutter/material.dart';
 
-import 'login.dart';
+import 'app_widget.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(const AppWidget());
 }
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "BullkApp",
-      theme: myTheme,
-      home: const Login(),
-    );
-  }
-} 
