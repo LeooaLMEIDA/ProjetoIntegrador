@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarCustom(title: ""),
+      appBar: CustomAppBar(title: ""),
       body: Container(
         alignment: Alignment.topCenter,
         padding: EdgeInsets.all(16),

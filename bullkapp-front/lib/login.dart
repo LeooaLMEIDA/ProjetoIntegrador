@@ -51,7 +51,7 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             //color: Colors.indigo,
-                            child: CharField(
+                            child: CustomCharField(
                                 dica: "E-mail",
                                 rotulo: "",
                                 icon: Icons.account_circle),
@@ -61,7 +61,7 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             //color: Colors.deepOrangeAccent,
-                            child: PasswordField(
+                            child: CustomPasswordField(
                               dica: "Senha",
                               rotulo: "",
                               icon: Icons.password,

@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 String email = "";
 String senha = "";
 
-class CharField extends StatelessWidget {
+class CustomCharField extends StatelessWidget {
   final String? rotulo;
   final String? dica;
   final IconData? icon;
 
-  const CharField({this.rotulo, this.dica, this.icon});
+  const CustomCharField({this.rotulo, this.dica, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,6 @@ class CharField extends StatelessWidget {
               hintStyle: TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
-              //labelText: rotulo,
               hintText: dica,
             ),
           ),
@@ -47,12 +46,12 @@ class CharField extends StatelessWidget {
   }
 }
 
-class PasswordField extends StatelessWidget {
+class CustomPasswordField extends StatelessWidget {
   final String? rotulo;
   final String? dica;
   final IconData? icon;
 
-  const PasswordField({this.rotulo, this.dica, this.icon});
+  const CustomPasswordField({this.rotulo, this.dica, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +78,6 @@ class PasswordField extends StatelessWidget {
           hintStyle: TextStyle(
             color: Color.fromARGB(255, 255, 255, 255),
           ),
-          //labelText: rotulo,
           hintText: dica,
         ),
       ),
