@@ -1,11 +1,8 @@
-// ignore_for_file: file_names
-
+// ignore_for_file: file_names, prefer_const_constructors
 import 'package:bullkapp/theme/BullkTheme.dart' show myTheme;
-import 'package:bullkapp/training.dart';
-import 'package:bullkapp/views/training_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-import 'home.dart';
 import 'login.dart';
 
 class AppWidget extends StatelessWidget {
@@ -13,16 +10,11 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: "BullkApp",
       theme: myTheme,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Login(),
-        '/home': (context) => const Home(),
-        '/training': (context) => const Training(),
-        '/traininglist': (context) => const TrainingList(),
-      },
+      home: Login(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

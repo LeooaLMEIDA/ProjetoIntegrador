@@ -1,21 +1,21 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print
-
-import 'package:bullkapp/theme/BullkTheme.dart';
+import 'package:bullkapp/views/training_list.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class Training extends StatelessWidget {
-  const Training({super.key});
+// class Training extends StatelessWidget {
+//   const Training();
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: myTheme,
-      home: const Scaffold(
-        body: TrainingScreen(),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetMaterialApp(
+//       theme: myTheme,
+//       home: const Scaffold(
+//         body: TrainingScreen(),
+//       ),
+//     );
+//   }
+// }
 
 class TrainingScreen extends StatelessWidget {
   const TrainingScreen({super.key});
@@ -39,7 +39,6 @@ class TrainingScreen extends StatelessWidget {
       body: Container(
         padding: EdgeInsets.all(5),
         alignment: Alignment.topCenter,
-        //color: Colors.cyan,
         child: Column(
           children: [
             Padding(
@@ -52,9 +51,8 @@ class TrainingScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
                       child: Image.asset("images/TreinoA.png", width: 92),
-                      onTap: () {
-                        print("Treino A");
-                        Navigator.of(context).pushReplacementNamed('');
+                      onTap: () async {
+                        await Get.to(() => TrainingList());
                       },
                     ),
                   ),

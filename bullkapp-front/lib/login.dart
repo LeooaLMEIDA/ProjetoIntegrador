@@ -1,11 +1,13 @@
-// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element
+// ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-import 'components.dart';
+import 'components/fields.dart';
+import 'home.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  const Login();
 
   @override
   State<Login> createState() => _LoginState();
@@ -92,8 +94,8 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacementNamed('/home');
+                        onPressed: () async {
+                          await Get.to(() => HomeScreen());
                         },
                         child: const Text('Entrar'),
                       ),
