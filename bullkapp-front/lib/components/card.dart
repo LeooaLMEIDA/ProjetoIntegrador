@@ -1,8 +1,6 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
-
-/// Flutter code sample for [Card].
 
 // void main() => runApp(const CardExample());
 
@@ -25,6 +23,17 @@ import 'package:flutter/material.dart';
 // }
 
 class CustomCard extends StatelessWidget {
+  final VoidCallback onTap;
+  final String exerciceName;
+  final String series;
+  final String repetition;
+
+  CustomCard(
+      {required this.onTap,
+      required this.exerciceName,
+      required this.series,
+      required this.repetition});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -36,7 +45,7 @@ class CustomCard extends StatelessWidget {
       color: Color.fromARGB(255, 11, 27, 83),
       child: InkWell(
         splashColor: Color.fromARGB(255, 11, 27, 83).withAlpha(100),
-        onTap: () {/*função*/},
+        onTap: onTap,
         child: SizedBox(
           width: 300,
           height: 120,
@@ -46,7 +55,7 @@ class CustomCard extends StatelessWidget {
                 top: 20,
                 left: 20,
                 child: Text(
-                  'Flexão',
+                  exerciceName,
                   style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
               ),
@@ -54,7 +63,7 @@ class CustomCard extends StatelessWidget {
                 bottom: 10,
                 right: 10,
                 child: Text(
-                  '2 X 15',
+                  '$series X $repetition',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),

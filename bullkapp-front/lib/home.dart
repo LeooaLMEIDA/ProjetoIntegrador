@@ -30,7 +30,6 @@ class HomeScreen extends StatelessWidget {
       body: Container(
         alignment: Alignment.topCenter,
         padding: EdgeInsets.all(16),
-        //color: Colors.cyan,
         child: Column(
           children: [
             Padding(

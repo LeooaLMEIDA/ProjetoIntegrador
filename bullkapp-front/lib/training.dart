@@ -1,21 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print
-import 'package:bullkapp/views/training_list.dart';
+import 'package:bullkapp/training_a.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-// class Training extends StatelessWidget {
-//   const Training();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GetMaterialApp(
-//       theme: myTheme,
-//       home: const Scaffold(
-//         body: TrainingScreen(),
-//       ),
-//     );
-//   }
-// }
 
 class TrainingScreen extends StatelessWidget {
   const TrainingScreen({super.key});
@@ -52,7 +38,7 @@ class TrainingScreen extends StatelessWidget {
                     child: GestureDetector(
                       child: Image.asset("images/TreinoA.png", width: 92),
                       onTap: () async {
-                        await Get.to(() => TrainingList());
+                        await Get.to(() => TrainingA());
                       },
                     ),
                   ),
