@@ -1,7 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Exercicio;
-import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.ExercicioRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ public class ExercicioService {
     private ExercicioRepository exercicioRepository;
 
     public Exercicio insert(Exercicio exercicio) throws Exception{
+        exercicio.setStatus(true);
         exercicioRepository.saveAndFlush(exercicio);
         return exercicio;
     }
@@ -46,8 +46,8 @@ public class ExercicioService {
         return exercicioRepository.findAll();
     }
 
-    private void validaInsert(Usuario usuario) throws Exception{
-        if (usuario.getId() != null){
+    private void validaInsert(Exercicio exercicio) throws Exception{
+        if (exercicio.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir um novo Exercicio");
         }
     }

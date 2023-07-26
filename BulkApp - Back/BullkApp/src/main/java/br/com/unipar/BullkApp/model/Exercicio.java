@@ -30,12 +30,12 @@ public class Exercicio {
 	@NonNull
 	private Long id;
 	@NonNull
+	@ApiModelProperty(required = true)
 	private String descricao;
 	@NonNull
 	private String imgIlustracao;
 	@NonNull
 	private String vdInstrucao;
-	@NonNull
 	private boolean status;
 	@ManyToOne
 	@NonNull
