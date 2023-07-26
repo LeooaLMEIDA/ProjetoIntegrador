@@ -1,11 +1,15 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print
 import 'package:bullkapp/components/appbar.dart';
-import 'package:bullkapp/training_a.dart';
+import 'package:bullkapp/pages/training_a.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../components/bottombar.dart';
+
 class TrainingScreen extends StatelessWidget {
-  const TrainingScreen({super.key});
+  final bool showBottomBar;
+
+  const TrainingScreen({super.key, required this.showBottomBar});
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +61,8 @@ class TrainingScreen extends StatelessWidget {
           ],
         ),
       ),
+      extendBody: true,
+      bottomNavigationBar: showBottomBar ? CustomBottomAppBar() : null,
     );
   }
 }

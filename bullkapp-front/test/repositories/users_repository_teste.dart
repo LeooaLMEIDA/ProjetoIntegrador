@@ -1,5 +1,5 @@
 import 'package:bullkapp/models/user.dart';
-import 'package:bullkapp/repositories/users_repository.dart';
+import 'package:bullkapp/repositories/user_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

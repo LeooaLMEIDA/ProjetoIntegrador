@@ -42,9 +42,9 @@ class CustomCard extends StatelessWidget {
       ),
       clipBehavior: Clip.hardEdge,
       borderOnForeground: true,
-      color: Color.fromARGB(255, 11, 27, 83),
+      color: Color.fromARGB(250, 1, 30, 62),
       child: InkWell(
-        splashColor: Color.fromARGB(255, 11, 27, 83).withAlpha(100),
+        splashColor: Color.fromARGB(250, 1, 30, 62).withAlpha(255),
         onTap: onTap,
         child: SizedBox(
           width: 300,

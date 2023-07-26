@@ -2,11 +2,11 @@
 
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/theme/BullkTheme.dart';
-import 'package:bullkapp/training.dart';
+import 'package:bullkapp/pages/training.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'components/bottombar.dart';
+import '../components/bottombar.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -46,7 +46,11 @@ class HomeScreen extends StatelessWidget {
                       child: Image.asset("images/Treino.png",
                           width: MediaQuery.of(context).size.width - 60),
                       onTap: () async {
-                        await Get.to(() => TrainingScreen());
+                        await Get.to(
+                          () => TrainingScreen(
+                            showBottomBar: true,
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -57,9 +61,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       extendBody: true,
-      bottomNavigationBar: bottomappbar(),
+      bottomNavigationBar: CustomBottomAppBar(),
     );
   }
 }
-
-

@@ -4,7 +4,7 @@ import 'package:bullkapp/components/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'components/fields.dart';
+import '../components/fields.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {

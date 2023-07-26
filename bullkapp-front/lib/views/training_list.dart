@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../components/card.dart';
 import '../models/user.dart';
-import '../repositories/users_repository.dart'; // Importe o UserRepository
+import '../repositories/user_repository.dart'; // Importe o UserRepository
 
 final userRepository = UserRepository();
 
