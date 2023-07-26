@@ -1,6 +1,8 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Exercicio;
+import br.com.unipar.BullkApp.repositories.AparelhoRepository;
 import br.com.unipar.BullkApp.repositories.ExercicioRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,16 @@ public class ExercicioService {
     @Autowired
     private ExercicioRepository exercicioRepository;
 
+    @Autowired
+    private AparelhoService aparelhoService;
+
     public Exercicio insert(Exercicio exercicio) throws Exception{
         exercicio.setStatus(true);
+
+//        aparelhoService = new AparelhoService();
+
+//        exercicio.setAparelho(aparelhoService.findById(exercicio.getAparelho().getId()));
+
         exercicioRepository.saveAndFlush(exercicio);
         return exercicio;
     }
@@ -38,8 +48,8 @@ public class ExercicioService {
         }
     }
 
-    public List<Exercicio> findByFilters(String nome) throws Exception{
-        return exercicioRepository.findByDescricaoContainingAllIgnoringCase(nome);
+    public List<Exercicio> findByFilters(String descricao) throws Exception{
+        return exercicioRepository.findByDescricaoContainingAllIgnoringCase(descricao);
     }
 
     public List<Exercicio> findAll() throws Exception{
