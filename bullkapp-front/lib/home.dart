@@ -6,6 +6,8 @@ import 'package:bullkapp/training.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'components/bottombar.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -54,6 +56,10 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+      extendBody: true,
+      bottomNavigationBar: bottomappbar(),
     );
   }
 }
+
+

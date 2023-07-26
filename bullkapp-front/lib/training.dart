@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print
+import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/training_a.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,18 +10,8 @@ class TrainingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Image.asset('images/Logo3.png'),
-        ),
-        toolbarHeight: 60,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(38.0),
-            bottomRight: Radius.circular(38.0),
-          ),
-        ),
+      appBar: CustomAppBar(
+        title: "",
       ),
       body: Container(
         padding: EdgeInsets.all(5),
