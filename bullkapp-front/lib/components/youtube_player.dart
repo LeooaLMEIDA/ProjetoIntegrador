@@ -12,12 +12,12 @@ class CustomYoutubePlayer extends StatelessWidget {
       controller: YoutubePlayerController(
         initialVideoId: YoutubePlayer.convertUrlToId(videoUrl) ?? '',
         flags: const YoutubePlayerFlags(
-          autoPlay: true,
-          mute: false,
+          autoPlay: false,
+          mute: true,
         ),
       ),
       showVideoProgressIndicator: true,
-      progressIndicatorColor: Colors.blueAccent,
+      progressIndicatorColor: const Color.fromARGB(250, 1, 30, 62),
     );
   }
 }

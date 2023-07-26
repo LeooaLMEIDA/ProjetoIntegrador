@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../components/fields.dart';
+import '../components/youtube_player.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -45,7 +46,6 @@ class _LoginState extends State<Login> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            //color: Colors.indigo,
                             child: CustomCharField(
                                 dica: "E-mail",
                                 rotulo: "",
@@ -55,7 +55,6 @@ class _LoginState extends State<Login> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            //color: Colors.deepOrangeAccent,
                             child: CustomPasswordField(
                               dica: "Senha",
                               rotulo: "",
@@ -90,7 +89,9 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onPressed: () async {
-                          await Get.to(() => HomeScreen());
+                          await Get.to(() => CustomYoutubePlayer(
+                                videoUrl: 'https://youtu.be/OaFfviCk894',
+                              ));
                         },
                         child: const Text('Entrar'),
                       ),

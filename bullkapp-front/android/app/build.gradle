@@ -47,10 +47,19 @@ android {
         applicationId "com.example.bullkapp"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
+        //minSdkVersion flutter.minSdkVersion
+        minSdkVersion 20
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    configurations {
+        all {
+            resolutionStrategy {
+                force 'com.pichillilorenzo.flutter_inappwebview:android-sdk:5.3.2'
+            }
+        }
     }
 
     buildTypes {
