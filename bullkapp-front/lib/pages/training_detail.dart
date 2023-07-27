@@ -3,9 +3,11 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
 import '../components/youtube_player.dart';
+import 'alternative_training_detail.dart';
 
 class TrainingDetail extends StatelessWidget {
   const TrainingDetail({super.key});
@@ -119,6 +121,9 @@ class AlternativeTrainingCard extends StatelessWidget {
       borderOnForeground: true,
       color: Color.fromARGB(250, 1, 30, 62),
       child: InkWell(
+        onTap: () async => await Get.to(
+          AlternativeTrainingDetail(),
+        ),
         splashColor: Color.fromARGB(250, 1, 30, 62).withAlpha(255),
         child: SizedBox(
           width: MediaQuery.of(context).size.width - 25,
