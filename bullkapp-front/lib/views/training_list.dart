@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../components/card.dart';
+import '../components/list_card.dart';
 import '../models/user.dart';
 import '../repositories/user_repository.dart'; // Importe o UserRepository
 
@@ -44,7 +44,7 @@ class _TrainingListState extends State<TrainingList> {
           final user = users[index];
           return Padding(
             padding: const EdgeInsets.all(4.0),
-            child: CustomCard(
+            child: CustomListCard(
               exerciceName: user.nome,
               onTap: () => selectTraining(index),
               repetition: '2',

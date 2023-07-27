@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../components/fields.dart';
-import '../components/youtube_player.dart';
 import 'home.dart';
 
 class Login extends StatefulWidget {
@@ -89,9 +88,9 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onPressed: () async {
-                          await Get.to(() => CustomYoutubePlayer(
-                                videoUrl: 'https://youtu.be/OaFfviCk894',
-                              ));
+                          await Get.to(
+                            () => HomeScreen(),
+                          );
                         },
                         child: const Text('Entrar'),
                       ),
