@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 
 class CustomSmallCard extends StatelessWidget {
-  final String series;
-  final String repetition;
+  final String mainLabel;
+  final String secondLabel;
 
-  CustomSmallCard({required this.series, required this.repetition});
+  CustomSmallCard({required this.mainLabel, required this.secondLabel});
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +28,15 @@ class CustomSmallCard extends StatelessWidget {
                 top: 10,
                 left: 10,
                 child: Text(
-                  "Repetições e Séries",
-                  style: TextStyle(fontSize: 12, color: Colors.white),
+                  mainLabel,
+                  style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),
               Positioned(
                 bottom: 10,
                 right: 10,
                 child: Text(
-                  '$series X $repetition',
+                  secondLabel,
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ),

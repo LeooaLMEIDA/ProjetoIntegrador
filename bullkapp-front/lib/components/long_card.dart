@@ -21,12 +21,12 @@ class CustomLongCard extends StatelessWidget {
         splashColor: Color.fromARGB(250, 1, 30, 62).withAlpha(255),
         child: SizedBox(
           width: MediaQuery.of(context).size.width - 25,
-          height: 60,
+          height: 50,
           child: Stack(
             children: [
               Positioned(
-                top: 10,
-                left: 20,
+                top: 12,
+                left: 10,
                 child: Text(
                   '$serie ª X $repetition',
                   style: TextStyle(fontSize: 22, color: Colors.white),
