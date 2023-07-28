@@ -16,7 +16,12 @@ public class AvaliacaoService {
     @Autowired
     private AvaliacaoRepository avaliacaoRepository;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     public Avaliacao insert(Avaliacao avaliacao) throws Exception{
+        avaliacao.setUsuario(usuarioService.findById(avaliacao.getUsuario().getId()));
+
         avaliacaoRepository.saveAndFlush(avaliacao);
 
         return avaliacao;

@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
+import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.TreinoRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,15 @@ public class TreinoService {
     @Autowired
     private ExercicioService exercicioService;
 
+    @Autowired
+    private UsuarioService usuarioService;
+
     public Treino insert(Treino treino) throws Exception{
         treino.setStatus(true);
 
-        Exercicio exercicio = exercicioService.findById(treino.getExercicio().getId());
+        treino.setExercicio(exercicioService.findById(treino.getExercicio().getId()));
 
-        treino.setExercicio(exercicio);
+        treino.setUsuario(usuarioService.findById(treino.getUsuario().getId()));
 
         treinoRepository.saveAndFlush(treino);
 

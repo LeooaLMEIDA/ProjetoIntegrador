@@ -1,11 +1,11 @@
 package br.com.unipar.BullkApp.model;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 import javax.persistence.*;
 
 import lombok.Data;
-import org.hibernate.annotations.ForeignKey;
 import org.springframework.lang.NonNull;
 
 import br.com.unipar.BullkApp.enums.CdTreinoENUM;
@@ -23,7 +23,6 @@ public class Treino {
 	@NonNull
 	private Long id;
 	@Enumerated(EnumType.STRING)
-	@NonNull
 	private CdTreinoENUM cdTreino;
 //	@NonNull
 	private int series;
@@ -35,11 +34,9 @@ public class Treino {
 	private boolean status;
 //	@NonNull
 	private Integer peso;
-	@OneToOne(cascade = CascadeType.ALL)
-	@NonNull
+	@ManyToOne
 	private Exercicio exercicio;
-	@ManyToOne(cascade = CascadeType.ALL)
-	@NonNull
+	@ManyToOne
 	private Usuario usuario;
 
 	public Treino() {
