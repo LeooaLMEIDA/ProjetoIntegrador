@@ -5,7 +5,7 @@ import 'package:bullkapp/pages/training.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../pages/training_detail.dart';
+import '../pages/profile.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   const CustomBottomAppBar({
@@ -65,7 +65,7 @@ class CustomBottomAppBar extends StatelessWidget {
                       height: 40,
                     ),
                     onTap: () async {
-                      await Get.to(() => TrainingDetail());
+                      await Get.to(() => ProfileScreen());
                     },
                   ),
                 ),

@@ -45,8 +45,8 @@ class _LoginState extends State<Login> {
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             child: CustomCharField(
-                                dica: "E-mail",
-                                rotulo: "",
+                                tip: "E-mail",
+                                label: "",
                                 icon: Icons.account_circle),
                           ),
                         ),

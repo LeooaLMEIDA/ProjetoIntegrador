@@ -6,11 +6,11 @@ String email = "";
 String senha = "";
 
 class CustomCharField extends StatelessWidget {
-  final String? rotulo;
-  final String? dica;
+  final String? label;
+  final String? tip;
   final IconData? icon;
 
-  const CustomCharField({this.rotulo, this.dica, this.icon});
+  const CustomCharField({this.icon, this.label, this.tip});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class CustomCharField extends StatelessWidget {
               hintStyle: TextStyle(
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
-              hintText: dica,
+              hintText: tip,
             ),
           ),
         ],
