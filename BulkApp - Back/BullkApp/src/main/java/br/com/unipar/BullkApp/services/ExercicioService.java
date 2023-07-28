@@ -24,12 +24,12 @@ public class ExercicioService {
     public Exercicio insert(Exercicio exercicio) throws Exception{
         exercicio.setStatus(true);
 
-        exercicioRepository.saveAndFlush(exercicio);
-
         Aparelho aparelho = aparelhoService.findById(exercicio.getAparelho().getId());
 
-        exercicio.getAparelho().setDescricao(aparelho.getDescricao());
-        exercicio.getAparelho().setStatus(aparelho.isStatus());
+        exercicio.setAparelho(aparelho);
+
+        exercicioRepository.saveAndFlush(exercicio);
+
         return exercicio;
     }
 
@@ -42,6 +42,10 @@ public class ExercicioService {
     public Exercicio findById(Long id) throws Exception{
         Optional<Exercicio> retorno = exercicioRepository.findById(id);
         if (retorno.isPresent()){
+            Aparelho aparelho = aparelhoService.findById(retorno.get().getAparelho().getId());
+
+            retorno.get().setAparelho(aparelho);
+
             return retorno.get();
         }
         else {

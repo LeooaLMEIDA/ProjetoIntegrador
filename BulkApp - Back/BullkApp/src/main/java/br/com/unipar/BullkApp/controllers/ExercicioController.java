@@ -37,7 +37,7 @@ public class ExercicioController {
     }
 
     @GetMapping(path = "/filter")
-    @ApiOperation(value = "Operação responsável pela busca do Exercicio via Nome")
+    @ApiOperation(value = "Operação responsável pela busca do Exercicio via descrição")
     public List<Exercicio> findByFilters(@RequestParam("descricao") String descricao)throws Exception{
         return exercicioService.findByFilters(descricao);
     }

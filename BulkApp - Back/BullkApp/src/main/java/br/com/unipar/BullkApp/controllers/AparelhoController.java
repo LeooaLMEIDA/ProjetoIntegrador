@@ -37,7 +37,7 @@ public class AparelhoController {
     }
 
     @GetMapping(path = "/filter")
-    @ApiOperation(value = "Operação responsável pela busca do Aparelho via Nome")
+    @ApiOperation(value = "Operação responsável pela busca do Aparelho via descrição")
     public List<Aparelho> findByFilters(@RequestParam("descricao") String descricao)throws Exception{
         return aparelhoService.findByFilters(descricao);
     }

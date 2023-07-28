@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
 import br.com.unipar.BullkApp.enums.GrupoMuscularENUM;
@@ -23,6 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(name = "BULLK_EXERCICIO")
 @ApiModel(description = "Modelo para Representação de um Exercicio")
+@Data
 public class Exercicio {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,47 +45,8 @@ public class Exercicio {
 	@Enumerated(EnumType.STRING)
 	@NonNull
 	private GrupoMuscularENUM grpMusculos;
-	
-	public Long getId() {
-		return id;
+
+	public Exercicio() {
+
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getDescricao() {
-		return descricao;
-	}
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
-	public String getImgIlustracao() {
-		return imgIlustracao;
-	}
-	public void setImgIlustracao(String imgIlustracao) {
-		this.imgIlustracao = imgIlustracao;
-	}
-	public String getVdInstrucao() {
-		return vdInstrucao;
-	}
-	public void setVdInstrucao(String vdInstrucao) {
-		this.vdInstrucao = vdInstrucao;
-	}
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	public Aparelho getAparelho() {
-		return aparelho;
-	}
-	public void setAparelho(Aparelho aparelho) {
-		this.aparelho = aparelho;
-	}
-	public GrupoMuscularENUM getGrpMusculos() {
-		return grpMusculos;
-	}
-	public void setGrpMusculos(GrupoMuscularENUM grpMuscular) {
-		this.grpMusculos = grpMuscular;
-	} 
 }

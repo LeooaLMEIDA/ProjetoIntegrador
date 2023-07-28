@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.springframework.lang.NonNull;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
@@ -23,6 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Entity
 @Table(name = "BULLK_USUARIO")
 @ApiModel(description = "Modelo para Representação de um Usuario")
+@Data
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,65 +50,8 @@ public class Usuario {
 	private boolean status;
 	@NonNull
 	private String senha;
-	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	public Date getDtNascimento() {
-		return dtNascimento;
-	}
-	public void setDtNascimento(Date dtNascimento) {
-		this.dtNascimento = dtNascimento;
-	}
-	public SexoENUM getSexo() {
-		return sexo;
-	}
-	public void setSexo(SexoENUM sexo) {
-		this.sexo = sexo;
-	}
-	public String getCelular() {
-		return celular;
-	}
-	public void setCelular(String telefone) {
-		this.celular = telefone;
-	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	public TipoUsuarioENUM getTpUsuario() {
-		return tpUsuario;
-	}
-	public void setTpUsuario(TipoUsuarioENUM tpUsuario) {
-		this.tpUsuario = tpUsuario;
-	}
-	public String getUrlAvatar() {
-		return urlAvatar;
-	}
-	public void setUrlAvatar(String urlAvatar) {
-		this.urlAvatar = urlAvatar;
-	}
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	public String getSenha() {
-		return senha;
-	}
-	public void setSenha(String senha) {
-		this.senha = senha;
+
+	public Usuario() {
+
 	}
 }
