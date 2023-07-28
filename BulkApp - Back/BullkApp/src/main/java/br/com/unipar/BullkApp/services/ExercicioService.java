@@ -24,11 +24,12 @@ public class ExercicioService {
     public Exercicio insert(Exercicio exercicio) throws Exception{
         exercicio.setStatus(true);
 
-//        aparelhoService = new AparelhoService();
-
-//        exercicio.setAparelho(aparelhoService.findById(exercicio.getAparelho().getId()));
-
         exercicioRepository.saveAndFlush(exercicio);
+
+        Aparelho aparelho = aparelhoService.findById(exercicio.getAparelho().getId());
+
+        exercicio.getAparelho().setDescricao(aparelho.getDescricao());
+        exercicio.getAparelho().setStatus(aparelho.isStatus());
         return exercicio;
     }
 

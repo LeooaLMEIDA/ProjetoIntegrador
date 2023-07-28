@@ -14,6 +14,7 @@ import java.util.List;
 @RequestMapping(path = "/exercicio")
 @Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Exercicio")
 public class ExercicioController {
+
     @Autowired
     private ExercicioService exercicioService;
 
