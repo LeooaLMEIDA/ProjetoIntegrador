@@ -2,6 +2,8 @@ import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
 
+import '../components/fields.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -12,25 +14,23 @@ class ProfileScreen extends StatelessWidget {
         title: "",
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
+        padding: const EdgeInsets.all(16.0),
+        child: Stack(
           children: [
-            Container(
-              height: 140,
-              color: Colors.amberAccent,
-              child: Stack(
-                children: [
-                  Positioned(
-                    top: 10,
-                    left: 10,
+            Column(
+              children: [
+                SizedBox(
+                  height: 120,
+                  child: Align(
+                    alignment: Alignment.center,
                     child: Container(
                       width: 120,
                       height: 120,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: Color.fromARGB(250, 1, 30, 62),
-                          width: 2.0,
+                          color: const Color.fromARGB(250, 1, 30, 62),
+                          width: 3.0,
                         ),
                       ),
                       clipBehavior: Clip.antiAlias,
@@ -42,16 +42,60 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-            Container(
-              height: 140,
-              color: const Color.fromARGB(255, 73, 66, 43),
+                ),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: CustomReadOnlyField(
+                        label: "Nome",
+                        inputType: TextInputType.name,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 8.0,
+                    ),
+                    Expanded(
+                      child: CustomReadOnlyField(
+                        label: "Telefone",
+                        inputType: TextInputType.phone,
+                      ),
+                    ),
+                  ],
+                ),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: CustomReadOnlyField(
+                        label: "E-mail",
+                        inputType: TextInputType.emailAddress,
+                      ),
+                    ),
+                  ],
+                ),
+                const Row(
+                  children: [
+                    Expanded(
+                      child: CustomReadOnlyField(
+                          label: "Data Nascimento",
+                          inputType: TextInputType.datetime),
+                    ),
+                    SizedBox(
+                      width: 8.0,
+                    ),
+                    Expanded(
+                      child: CustomReadOnlyField(
+                        label: "Sexo",
+                        inputType: TextInputType.text,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
       ),
+      extendBody: false,
       bottomNavigationBar: const CustomBottomAppBar(),
     );
   }

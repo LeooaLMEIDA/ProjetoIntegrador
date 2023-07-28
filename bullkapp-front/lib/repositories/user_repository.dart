@@ -5,7 +5,7 @@ import '../models/user.dart';
 class UserRepository {
   final Dio dio = Dio();
   final DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
-  final String url = 'https://959a-189-113-55-132.ngrok-free.app/usuario';
+  final String url = 'https://9efd-189-113-55-132.ngrok-free.app/usuario';
 
   UserRepository() {
     dio.interceptors.add(dioCacheManager.interceptor);

@@ -44,19 +44,22 @@ class _LoginState extends State<Login> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            child: CustomCharField(
-                                tip: "E-mail",
-                                label: "",
-                                icon: Icons.account_circle),
+                            child: CustomField(
+                              tip: "E-mail",
+                              label: "",
+                              icon: Icons.account_circle,
+                              inputType: TextInputType.emailAddress,
+                            ),
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
-                            child: CustomPasswordField(
-                              dica: "Senha",
-                              rotulo: "",
+                            child: CustomField(
+                              tip: "Senha",
+                              label: "",
                               icon: Icons.password,
+                              inputType: TextInputType.visiblePassword,
                             ),
                           ),
                         ),
@@ -70,29 +73,7 @@ class _LoginState extends State<Login> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: ElevatedButton(
-                        style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(Size(160, 20)),
-                          backgroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 255, 195, 1)),
-                          foregroundColor: MaterialStateProperty.all(
-                              Color.fromARGB(255, 0, 0, 0)),
-                          elevation: MaterialStateProperty.all(5.0),
-                          padding:
-                              MaterialStateProperty.all(EdgeInsets.all(16.0)),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.0),
-                            ),
-                          ),
-                        ),
-                        onPressed: () async {
-                          await Get.to(
-                            () => HomeScreen(),
-                          );
-                        },
-                        child: const Text('Entrar'),
-                      ),
+                      child: LoginButton(),
                     ),
                   ],
                 ),
@@ -101,6 +82,44 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class LoginButton extends StatelessWidget {
+  const LoginButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        minimumSize: MaterialStateProperty.all(
+          Size(160, 20),
+        ),
+        backgroundColor: MaterialStateProperty.all(
+          Color.fromARGB(255, 255, 195, 1),
+        ),
+        foregroundColor: MaterialStateProperty.all(
+          Color.fromARGB(255, 0, 0, 0),
+        ),
+        elevation: MaterialStateProperty.all(5.0),
+        padding: MaterialStateProperty.all(
+          EdgeInsets.all(16.0),
+        ),
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50.0),
+          ),
+        ),
+      ),
+      onPressed: () async {
+        await Get.to(
+          () => HomeScreen(),
+        );
+      },
+      child: const Text('Entrar'),
     );
   }
 }

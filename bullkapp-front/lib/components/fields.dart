@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 String email = "";
 String senha = "";
 
-class CustomCharField extends StatelessWidget {
+class CustomField extends StatelessWidget {
   final String? label;
   final String? tip;
   final IconData? icon;
+  final TextInputType inputType;
 
-  const CustomCharField({this.icon, this.label, this.tip});
+  const CustomField({this.icon, this.label, this.tip, required this.inputType});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class CustomCharField extends StatelessWidget {
             onChanged: (inputEmail) {
               email = inputEmail;
             },
-            keyboardType: TextInputType.emailAddress,
+            keyboardType: inputType,
             style: TextStyle(
               color: Colors.white,
               fontSize: 24.0,
@@ -46,39 +47,25 @@ class CustomCharField extends StatelessWidget {
   }
 }
 
-class CustomPasswordField extends StatelessWidget {
-  final String? rotulo;
-  final String? dica;
-  final IconData? icon;
+class CustomReadOnlyField extends StatelessWidget {
+  final String label;
+  final TextInputType inputType;
 
-  const CustomPasswordField({this.rotulo, this.dica, this.icon});
+  const CustomReadOnlyField(
+      {super.key, required this.label, required this.inputType});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TextField(
-        onChanged: (inputPassword) {
-          senha = inputPassword;
-        },
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 24.0,
-        ),
-        obscureText: true,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Color.fromARGB(250, 1, 30, 62),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20),
-            ),
-          ),
-          suffixIcon: icon != null ? Icon(icon) : null,
-          suffixIconColor: Colors.white,
-          hintStyle: TextStyle(
-            color: Color.fromARGB(255, 255, 255, 255),
-          ),
-          hintText: dica,
+    return TextField(
+      keyboardType: inputType,
+      style: TextStyle(
+        color: Colors.black,
+        fontSize: 16.0,
+      ),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: TextStyle(
+          color: Colors.black,
         ),
       ),
     );
