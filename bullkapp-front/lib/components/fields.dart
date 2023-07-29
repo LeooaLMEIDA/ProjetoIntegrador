@@ -57,6 +57,7 @@ class CustomReadOnlyField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      readOnly: true,
       keyboardType: inputType,
       style: TextStyle(
         color: Colors.black,

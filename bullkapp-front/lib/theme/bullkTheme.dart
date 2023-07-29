@@ -5,5 +5,5 @@ ThemeData myTheme = ThemeData(
   appBarTheme: const AppBarTheme(
     backgroundColor: Color.fromARGB(250, 1, 30, 62),
   ),
-  primaryColor: Color.fromARGB(250, 1, 30, 62),
+  primaryColor: Color.fromARGB(248, 1, 30, 62),
 );

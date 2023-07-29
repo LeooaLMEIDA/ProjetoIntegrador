@@ -1,8 +1,10 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../components/fields.dart';
+import 'body_evaluation.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -90,6 +92,25 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 16.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        "Recursos",
+                        style: TextStyle(
+                          fontFamily: 'Voltaire',
+                          fontSize: 30,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const Row(
+                  children: [
+                    AlternativeTrainingCard(),
+                  ],
+                ),
               ],
             ),
           ],
@@ -97,6 +118,58 @@ class ProfileScreen extends StatelessWidget {
       ),
       extendBody: false,
       bottomNavigationBar: const CustomBottomAppBar(),
+    );
+  }
+}
+
+class AlternativeTrainingCard extends StatelessWidget {
+  const AlternativeTrainingCard({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      clipBehavior: Clip.hardEdge,
+      borderOnForeground: true,
+      color: const Color.fromARGB(250, 1, 30, 62),
+      child: InkWell(
+        onTap: () async => await Get.to(
+          const BodyEvaluationScreen(),
+        ),
+        splashColor: const Color.fromARGB(250, 1, 30, 62).withAlpha(255),
+        child: SizedBox(
+          width: 200,
+          height: 80,
+          child: Stack(
+            children: [
+              Positioned(
+                bottom: 12,
+                left: 15,
+                child: Image.asset(
+                  'images/Balanca.png',
+                  width: 50,
+                  height: 55,
+                ),
+              ),
+              const Positioned(
+                bottom: 25,
+                right: 15,
+                child: Text(
+                  'Avaliações',
+                  style: TextStyle(
+                      fontFamily: 'Voltaire',
+                      fontSize: 30,
+                      color: Colors.white),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print
 
+import 'package:bullkapp/pages/training_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../components/list_card.dart';
 import '../models/user.dart';
@@ -46,7 +48,9 @@ class _TrainingListState extends State<TrainingList> {
             padding: const EdgeInsets.all(4.0),
             child: CustomListCard(
               exerciceName: user.nome,
-              onTap: () => selectTraining(index),
+              onTap: () async => await Get.to(
+                () => const TrainingDetail(),
+              ),
               repetition: '2',
               series: '15',
             ),

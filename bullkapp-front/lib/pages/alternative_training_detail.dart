@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bullkapp/components/appbar.dart';
+import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
@@ -14,7 +15,11 @@ class AlternativeTrainingDetail extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(title: ""),
       body: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        padding: const EdgeInsets.only(
+          top: 8.0,
+          left: 8.0,
+          right: 8.0,
+        ),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -67,6 +72,7 @@ class AlternativeTrainingDetail extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: CustomBottomAppBar(),
     );
   }
 }

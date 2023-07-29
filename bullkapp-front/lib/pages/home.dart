@@ -8,20 +8,6 @@ import 'package:get/get.dart';
 
 import '../components/bottombar.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      theme: myTheme,
-      home: const Scaffold(
-        body: HomeScreen(),
-      ),
-    );
-  }
-}
-
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -31,7 +17,7 @@ class HomeScreen extends StatelessWidget {
       appBar: CustomAppBar(title: ""),
       body: Container(
         alignment: Alignment.topCenter,
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
         child: Column(
           children: [
             Padding(
@@ -47,9 +33,7 @@ class HomeScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width - 60),
                       onTap: () async {
                         await Get.to(
-                          () => TrainingScreen(
-                            showBottomBar: true,
-                          ),
+                          () => TrainingScreen(showBottomBar: true),
                         );
                       },
                     ),
