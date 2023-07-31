@@ -37,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       clipBehavior: Clip.antiAlias,
                       child: Image.asset(
-                        'images/avatar.png',
+                        'images/Avatar.png',
                         width: 100,
                         height: 100,
                         fit: BoxFit.fill,
