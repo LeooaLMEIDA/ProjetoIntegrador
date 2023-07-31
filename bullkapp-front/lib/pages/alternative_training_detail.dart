@@ -7,8 +7,8 @@ import '../components/long_card.dart';
 import '../components/small_card.dart';
 import '../components/youtube_player.dart';
 
-class AlternativeTrainingDetail extends StatelessWidget {
-  const AlternativeTrainingDetail({super.key});
+class AlternativeWorkoutDetail extends StatelessWidget {
+  const AlternativeWorkoutDetail({super.key});
 
   @override
   Widget build(BuildContext context) {

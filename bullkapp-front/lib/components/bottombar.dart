@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:bullkapp/pages/home.dart';
-import 'package:bullkapp/pages/training.dart';
+import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -51,7 +51,7 @@ class CustomBottomAppBar extends StatelessWidget {
                       height: 60,
                     ),
                     onTap: () async {
-                      await Get.to(() => TrainingScreen(
+                      await Get.to(() => WorkoutScreen(
                             showBottomBar: true,
                           ));
                     },

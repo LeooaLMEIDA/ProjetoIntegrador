@@ -1,9 +1,8 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import '../components/search.dart';
+import '../components/evaluation_card.dart';
 
 class BodyEvaluationScreen extends StatelessWidget {
   const BodyEvaluationScreen({super.key});
@@ -18,50 +17,90 @@ class BodyEvaluationScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            const Text(
-              'Avaliações',
-              style: TextStyle(
-                fontFamily: 'Voltaire',
-                fontSize: 30,
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Avaliações',
+                    style: TextStyle(
+                      fontFamily: 'Voltaire',
+                      fontSize: 30,
+                    ),
+                  ),
+                ],
               ),
             ),
-            TextField(
-              keyboardType: TextInputType.text,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 20.0,
-              ),
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: const Color.fromARGB(255, 255, 212, 9),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-                suffixIcon: IconButton(
-                  onPressed: () async {
-                    final result = await showSearch(
-                      context: context,
-                      delegate: Search(),
+            const SearchField(),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 2,
+                  ),
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      children: [
+                        EvaluationCard(
+                          mainLabel: "31/07/2023",
+                        ),
+                      ],
                     );
                   },
-                  icon: const Icon(
-                    Icons.search,
-                    size: 32,
-                  ),
                 ),
-                suffixIconColor: Colors.black,
-                hintStyle: const TextStyle(
-                  color: Colors.black,
-                ),
-                hintText: "Buscar",
               ),
             ),
           ],
         ),
       ),
       bottomNavigationBar: const CustomBottomAppBar(),
+    );
+  }
+}
+
+class SearchField extends StatelessWidget {
+  const SearchField({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      keyboardType: TextInputType.text,
+      style: const TextStyle(
+        color: Colors.black,
+        fontSize: 20.0,
+      ),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: const Color.fromARGB(255, 255, 212, 9),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+        ),
+        contentPadding:
+            const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+        suffixIcon: IconButton(
+          onPressed: () async {
+            final result = await showSearch(
+              context: context,
+              delegate: Search(),
+            );
+          },
+          icon: const Icon(
+            Icons.search,
+            size: 32,
+          ),
+        ),
+        suffixIconColor: Colors.black,
+        hintStyle: const TextStyle(
+          color: Colors.black,
+        ),
+        hintText: "Buscar",
+      ),
     );
   }
 }

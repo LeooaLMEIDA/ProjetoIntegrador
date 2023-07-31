@@ -1,23 +1,23 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_print
 
-import 'package:bullkapp/pages/training_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../components/list_card.dart';
 import '../models/user.dart';
+import '../pages/workout_detail.dart';
 import '../repositories/user_repository.dart'; // Importe o UserRepository
 
 final userRepository = UserRepository();
 
-class TrainingList extends StatefulWidget {
-  const TrainingList({super.key});
+class WorkoutList extends StatefulWidget {
+  const WorkoutList({super.key});
 
   @override
-  _TrainingListState createState() => _TrainingListState();
+  _WorkoutListState createState() => _WorkoutListState();
 }
 
-class _TrainingListState extends State<TrainingList> {
+class _WorkoutListState extends State<WorkoutList> {
   List<User> users = [];
 
   @override
@@ -49,7 +49,7 @@ class _TrainingListState extends State<TrainingList> {
             child: CustomListCard(
               exerciceName: user.nome,
               onTap: () async => await Get.to(
-                () => const TrainingDetail(),
+                () => const WorkoutDetail(),
               ),
               repetition: '2',
               series: '15',
@@ -63,6 +63,6 @@ class _TrainingListState extends State<TrainingList> {
   }
 }
 
-void selectTraining(int index) {
+void selectWorkout(int index) {
   print('Treino $index tapped.');
 }

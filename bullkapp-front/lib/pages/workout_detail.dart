@@ -9,8 +9,8 @@ import '../components/small_card.dart';
 import '../components/youtube_player.dart';
 import 'alternative_training_detail.dart';
 
-class TrainingDetail extends StatelessWidget {
-  const TrainingDetail({super.key});
+class WorkoutDetail extends StatelessWidget {
+  const WorkoutDetail({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +85,8 @@ class TrainingDetail extends StatelessWidget {
                 padding: EdgeInsets.only(top: 4.0),
                 child: Row(
                   children: [
-                    AlternativeTrainingCard(
-                      trainingName: 'Tríceps Supinado',
+                    AlternativeWorkoutCard(
+                      workoutName: 'Tríceps Supinado',
                       series: '2',
                       repetition: '15',
                     ),
@@ -103,14 +103,14 @@ class TrainingDetail extends StatelessWidget {
   }
 }
 
-class AlternativeTrainingCard extends StatelessWidget {
-  final String trainingName;
+class AlternativeWorkoutCard extends StatelessWidget {
+  final String workoutName;
   final String series;
   final String repetition;
 
-  const AlternativeTrainingCard({
+  const AlternativeWorkoutCard({
     super.key,
-    required this.trainingName,
+    required this.workoutName,
     required this.series,
     required this.repetition,
   });
@@ -126,7 +126,7 @@ class AlternativeTrainingCard extends StatelessWidget {
       color: Color.fromARGB(250, 1, 30, 62),
       child: InkWell(
         onTap: () async => await Get.to(
-          AlternativeTrainingDetail(),
+          AlternativeWorkoutDetail(),
         ),
         splashColor: Color.fromARGB(250, 1, 30, 62).withAlpha(255),
         child: SizedBox(
@@ -138,7 +138,7 @@ class AlternativeTrainingCard extends StatelessWidget {
                 bottom: 10,
                 left: 10,
                 child: Text(
-                  trainingName,
+                  workoutName,
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),

@@ -108,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 const Row(
                   children: [
-                    AlternativeTrainingCard(),
+                    AlternativeWorkoutCard(),
                   ],
                 ),
               ],
@@ -122,8 +122,8 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class AlternativeTrainingCard extends StatelessWidget {
-  const AlternativeTrainingCard({
+class AlternativeWorkoutCard extends StatelessWidget {
+  const AlternativeWorkoutCard({
     super.key,
   });
 

@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:bullkapp/components/appbar.dart';
-import 'package:bullkapp/pages/training.dart';
+import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                           width: MediaQuery.of(context).size.width - 60),
                       onTap: () async {
                         await Get.to(
-                          () => TrainingScreen(showBottomBar: true),
+                          () => WorkoutScreen(showBottomBar: true),
                         );
                       },
                     ),
