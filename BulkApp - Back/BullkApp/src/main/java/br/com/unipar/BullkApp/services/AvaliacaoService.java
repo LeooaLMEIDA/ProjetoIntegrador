@@ -29,6 +29,9 @@ public class AvaliacaoService {
 
     public Avaliacao update(Avaliacao avaliacao) throws Exception {
         validaUpdate(avaliacao);
+
+
+
         avaliacaoRepository.saveAndFlush(avaliacao);
         return avaliacao;
     }

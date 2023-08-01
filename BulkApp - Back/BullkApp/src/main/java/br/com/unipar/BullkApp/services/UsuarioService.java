@@ -22,8 +22,20 @@ public class UsuarioService {
 
     public Usuario update(Usuario usuario) throws Exception {
         validaUpdate(usuario);
-        usuarioRepository.saveAndFlush(usuario);
-        return usuario;
+
+        Usuario usuario1 = findById(usuario.getId());
+
+        usuario1.setTpUsuario(usuario.getTpUsuario() != null ? usuario.getTpUsuario() : usuario1.getTpUsuario());
+        usuario1.setEmail(usuario.getEmail() != null ? usuario.getEmail() : usuario1.getEmail());
+        usuario1.setNome(usuario.getNome() != null ? usuario.getNome() : usuario1.getNome());
+        usuario1.setCelular(usuario.getCelular() != null ? usuario.getCelular() : usuario1.getCelular());
+        usuario1.setSenha(usuario.getSenha() != null ? usuario.getSenha() : usuario1.getSenha());
+        usuario1.setSexo(usuario.getSexo() != null ? usuario.getSexo() : usuario1.getSexo());
+        usuario1.setUrlAvatar(usuario.getUrlAvatar() != null ? usuario.getUrlAvatar() : usuario1.getUrlAvatar());
+        usuario1.setDtNascimento(usuario.getDtNascimento() != null ? usuario.getDtNascimento() : usuario1.getDtNascimento());
+
+        usuarioRepository.saveAndFlush(usuario1);
+        return usuario1;
     }
 
     public Usuario findById(Long id) throws Exception{
