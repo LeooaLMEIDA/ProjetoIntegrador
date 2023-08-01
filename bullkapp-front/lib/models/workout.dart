@@ -1,15 +1,20 @@
+import 'package:bullkapp/models/user.dart';
+import 'exercise.dart';
+
 class Workout {
+  int? id;
   String? cdTreino;
   int? series;
   int? repeticoes;
   String? descanso;
   bool? status;
   int? peso;
-  Exercicio? exercicio;
-  Exercicio? usuario;
+  Exercise? exercicio;
+  User? usuario;
 
   Workout(
-      {this.cdTreino,
+      {this.id,
+      this.cdTreino,
       this.series,
       this.repeticoes,
       this.descanso,
@@ -19,21 +24,21 @@ class Workout {
       this.usuario});
 
   Workout.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     cdTreino = json['cdTreino'];
     series = json['series'];
     repeticoes = json['repeticoes'];
     descanso = json['descanso'];
     status = json['status'];
     peso = json['peso'];
-    exercicio = json['exercicio'] != null
-        ? Exercicio.fromJson(json['exercicio'])
-        : null;
-    usuario =
-        json['usuario'] != null ? Exercicio.fromJson(json['usuario']) : null;
+    exercicio =
+        json['exercicio'] != null ? Exercise.fromJson(json['exercicio']) : null;
+    usuario = json['usuario'] != null ? User.fromJson(json['usuario']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['cdTreino'] = cdTreino;
     data['series'] = series;
     data['repeticoes'] = repeticoes;
@@ -46,22 +51,6 @@ class Workout {
     if (usuario != null) {
       data['usuario'] = usuario!.toJson();
     }
-    return data;
-  }
-}
-
-class Exercicio {
-  int? id;
-
-  Exercicio({this.id});
-
-  Exercicio.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
     return data;
   }
 }

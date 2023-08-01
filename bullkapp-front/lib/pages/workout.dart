@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors, prefer_const_literals_to_create_immutables, file_names, avoid_print
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/pages/workout_a.dart';
 import 'package:flutter/material.dart';
@@ -14,11 +13,11 @@ class WorkoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: "",
       ),
       body: Container(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         alignment: Alignment.topCenter,
         child: Column(
           children: [
@@ -33,7 +32,7 @@ class WorkoutScreen extends StatelessWidget {
                     child: GestureDetector(
                       child: Image.asset("images/TreinoA.png", width: 92),
                       onTap: () async {
-                        await Get.to(() => WorkoutA());
+                        await Get.to(() => const WorkoutA());
                       },
                     ),
                   ),
@@ -41,18 +40,14 @@ class WorkoutScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
                       child: Image.asset("images/TreinoB.png", width: 92),
-                      onTap: () {
-                        print("Treino B");
-                      },
+                      onTap: () {},
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
                       child: Image.asset("images/TreinoC.png", width: 92),
-                      onTap: () {
-                        print("Treino C");
-                      },
+                      onTap: () {},
                     ),
                   ),
                 ],
@@ -62,7 +57,7 @@ class WorkoutScreen extends StatelessWidget {
         ),
       ),
       extendBody: true,
-      bottomNavigationBar: showBottomBar ? CustomBottomAppBar() : null,
+      bottomNavigationBar: showBottomBar ? const CustomBottomAppBar() : null,
     );
   }
 }

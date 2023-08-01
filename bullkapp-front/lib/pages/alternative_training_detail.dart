@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +33,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                 ),
               ),
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: Container(
                   color: Colors.black38,
                   height: 200,
@@ -45,7 +43,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.only(top: 8),
                 child: Row(
                   children: [
                     CustomSmallCard(
@@ -72,7 +70,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: CustomBottomAppBar(),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }
