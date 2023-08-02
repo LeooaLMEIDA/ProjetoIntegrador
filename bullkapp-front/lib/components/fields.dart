@@ -2,46 +2,38 @@
 
 import 'package:flutter/material.dart';
 
-String email = "";
-String senha = "";
-
 class CustomField extends StatelessWidget {
-  final String? label;
   final String? tip;
   final IconData? icon;
   final TextInputType inputType;
+  final TextEditingController controller;
 
-  const CustomField({this.icon, this.label, this.tip, required this.inputType});
+  const CustomField(
+      {this.icon, this.tip, required this.inputType, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          TextField(
-            onChanged: (inputEmail) {
-              email = inputEmail;
-            },
-            keyboardType: inputType,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24.0,
-            ),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color.fromARGB(250, 1, 30, 62),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              suffixIcon: icon != null ? Icon(icon) : null,
-              suffixIconColor: Colors.white,
-              hintStyle: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              hintText: tip,
-            ),
+    return TextFormField(
+      controller: controller,
+      keyboardType: inputType,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 20.0,
+      ),
+      decoration: InputDecoration(
+        filled: true,
+        fillColor: Color.fromARGB(250, 1, 30, 62),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
           ),
-        ],
+        ),
+        suffixIcon: icon != null ? Icon(icon) : null,
+        suffixIconColor: Colors.white,
+        hintStyle: TextStyle(
+          color: Color.fromARGB(113, 255, 255, 255),
+        ),
+        hintText: tip,
       ),
     );
   }

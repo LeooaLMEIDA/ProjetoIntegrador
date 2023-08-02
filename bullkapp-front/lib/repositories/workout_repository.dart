@@ -17,7 +17,7 @@ class WorkoutRepository {
       final response = await dio.get(
         url,
         options: buildCacheOptions(
-          const Duration(minutes: 120),
+          const Duration(minutes: 2),
         ),
       );
 
