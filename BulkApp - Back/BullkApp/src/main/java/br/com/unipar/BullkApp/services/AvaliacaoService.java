@@ -29,10 +29,14 @@ public class AvaliacaoService {
 
     public Avaliacao update(Avaliacao avaliacao) throws Exception {
         validaUpdate(avaliacao);
-
-
-
         avaliacaoRepository.saveAndFlush(avaliacao);
+        return avaliacao;
+    }
+
+    public Avaliacao delete(Long id) throws  Exception {
+        Avaliacao avaliacao = findById(id);
+        validaUpdate(avaliacao);
+        avaliacaoRepository.delete(avaliacao);
         return avaliacao;
     }
 

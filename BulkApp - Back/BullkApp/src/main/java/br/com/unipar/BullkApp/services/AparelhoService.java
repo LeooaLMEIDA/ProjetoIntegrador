@@ -28,6 +28,14 @@ public class AparelhoService {
         return aparelho;
     }
 
+    public Aparelho delete(Long id) throws  Exception {
+        Aparelho aparelho = findById(id);
+        validaUpdate(aparelho);
+        aparelho.setStatus(false);
+        aparelhoRepository.saveAndFlush(aparelho);
+        return aparelho;
+    }
+
     public Aparelho findById(Long id) throws Exception{
         Optional<Aparelho> retorno = aparelhoRepository.findById(id);
         if (retorno.isPresent()){

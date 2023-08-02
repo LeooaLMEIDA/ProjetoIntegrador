@@ -30,6 +30,12 @@ public class TreinoController {
         return treinoService.update(treino);
     }
 
+    @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "Operação responsável por inativar um Treino existente")
+    public Treino delete(@PathVariable Long id) throws Exception {
+        return treinoService.delete(id);
+    }
+
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Treino via ID")
     public Treino findById(@PathVariable Long id) throws Exception{

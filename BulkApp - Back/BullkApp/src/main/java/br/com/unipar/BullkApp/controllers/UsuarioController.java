@@ -29,6 +29,12 @@ public class UsuarioController {
         return usuarioService.update(usuario);
     }
 
+    @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "Operação responsável por inativar um Usuário existente")
+    public Usuario delete(@PathVariable Long id) throws Exception {
+        return usuarioService.delete(id);
+    }
+
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Usuário via ID")
     public Usuario findById(@PathVariable Long id) throws Exception{

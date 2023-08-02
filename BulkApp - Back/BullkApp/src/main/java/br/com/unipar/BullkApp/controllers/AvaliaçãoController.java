@@ -30,6 +30,12 @@ public class AvaliaçãoController {
         return avaliacaoService.update(avaliacao);
     }
 
+    @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "Operação responsável por inativar uma Avaliação existente")
+    public Avaliacao delete(@PathVariable Long id) throws Exception {
+        return avaliacaoService.delete(id);
+    }
+
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Avaliação via ID")
     public Avaliacao findById(@PathVariable Long id) throws Exception{

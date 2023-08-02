@@ -30,6 +30,12 @@ public class ExercicioController {
         return exercicioService.update(exercicio);
     }
 
+    @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "Operação responsável por inativar um Exercicio existente")
+    public Exercicio delete(@PathVariable Long id) throws Exception {
+        return exercicioService.delete(id);
+    }
+
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Exercicio via ID")
     public Exercicio findById(@PathVariable Long id) throws Exception{

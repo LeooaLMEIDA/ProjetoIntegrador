@@ -1,8 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
-import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
-import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.TreinoRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +36,14 @@ public class TreinoService {
 
     public Treino update(Treino treino) throws Exception {
         validaUpdate(treino);
+        treinoRepository.saveAndFlush(treino);
+        return treino;
+    }
+
+    public Treino delete(Long id) throws  Exception {
+        Treino treino = findById(id);
+        validaUpdate(treino);
+        treino.setStatus(false);
         treinoRepository.saveAndFlush(treino);
         return treino;
     }

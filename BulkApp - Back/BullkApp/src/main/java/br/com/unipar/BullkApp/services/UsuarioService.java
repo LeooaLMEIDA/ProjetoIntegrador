@@ -16,6 +16,8 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario insert(Usuario usuario) throws Exception{
+        validaInsert(usuario);
+        usuario.setStatus(true);
         usuarioRepository.saveAndFlush(usuario);
         return usuario;
     }
@@ -33,9 +35,18 @@ public class UsuarioService {
         usuario1.setSexo(usuario.getSexo() != null ? usuario.getSexo() : usuario1.getSexo());
         usuario1.setUrlAvatar(usuario.getUrlAvatar() != null ? usuario.getUrlAvatar() : usuario1.getUrlAvatar());
         usuario1.setDtNascimento(usuario.getDtNascimento() != null ? usuario.getDtNascimento() : usuario1.getDtNascimento());
+        usuario1.setStatus(usuario.isStatus() == true ? usuario.isStatus() : usuario1.isStatus());
 
         usuarioRepository.saveAndFlush(usuario1);
         return usuario1;
+    }
+
+    public Usuario delete(Long id) throws  Exception {
+        Usuario usuario = findById(id);
+        validaUpdate(usuario);
+        usuario.setStatus(false);
+        usuarioRepository.saveAndFlush(usuario);
+        return usuario;
     }
 
     public Usuario findById(Long id) throws Exception{

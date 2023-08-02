@@ -30,6 +30,12 @@ public class AparelhoController {
         return aparelhoService.update(aparelho);
     }
 
+    @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "Operação responsável por inativar um Aparelho existente")
+    public Aparelho delete(@PathVariable Long id) throws Exception {
+        return aparelhoService.delete(id);
+    }
+
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Aparelho via ID")
     public Aparelho findById(@PathVariable Long id) throws Exception{
@@ -47,4 +53,6 @@ public class AparelhoController {
     public List<Aparelho> findAll() throws Exception{
         return aparelhoService.findAll();
     }
+
+
 }

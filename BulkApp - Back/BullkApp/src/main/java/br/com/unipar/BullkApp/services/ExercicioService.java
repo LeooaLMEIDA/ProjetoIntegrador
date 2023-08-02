@@ -2,7 +2,6 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Exercicio;
-import br.com.unipar.BullkApp.repositories.AparelhoRepository;
 import br.com.unipar.BullkApp.repositories.ExercicioRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,14 @@ public class ExercicioService {
 
     public Exercicio update(Exercicio exercicio) throws Exception {
         validaUpdate(exercicio);
+        exercicioRepository.saveAndFlush(exercicio);
+        return exercicio;
+    }
+
+    public Exercicio delete(Long id) throws  Exception {
+        Exercicio exercicio = findById(id);
+        validaUpdate(exercicio);
+        exercicio.setStatus(false);
         exercicioRepository.saveAndFlush(exercicio);
         return exercicio;
     }
