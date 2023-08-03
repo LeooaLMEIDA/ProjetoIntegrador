@@ -1,13 +1,13 @@
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
 
 import '../models/login.dart';
 
 class LoginRepository {
   final Dio dio = Dio();
-  final String url = 'https://9652-170-82-83-40.ngrok-free.app/login';
+  final String url = 'https://0bae-186-194-148-136.ngrok-free.app/login';
+  bool isAllowed = false;
 
-  Future<Login> postLogin(String email, String password) async {
+  Future<bool> postLogin(String email, String password) async {
     try {
       final response = await dio.post(
         url,
@@ -18,19 +18,14 @@ class LoginRepository {
       );
 
       if (response.statusCode == 200 && response.data == true) {
-        return Login(
-          email: email,
-          password: password,
-        );
-      } else {
-        throw Exception(
-          'Ocorreu um erro ao realizar o Login ${response.statusCode}',
-        );
+        isAllowed = response.data;
       }
     } catch (e) {
+      isAllowed = false;
       throw Exception(
         'Houve um erro ao realizar o Login $e',
       );
     }
+    return isAllowed;
   }
 }

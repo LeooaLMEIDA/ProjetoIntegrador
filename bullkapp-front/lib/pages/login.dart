@@ -7,6 +7,9 @@ import 'package:get/get.dart';
 import '../components/fields.dart';
 import 'home.dart';
 
+final LoginRepository loginRepository = LoginRepository();
+bool isAllowed = false;
+
 class Login extends StatefulWidget {
   const Login();
 
@@ -18,6 +21,21 @@ class _LoginState extends State<Login> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _viewPassword = false;
+
+  _DoLogin() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isNotEmpty || password.isNotEmpty) {
+      try {
+        final response = await loginRepository.postLogin(email, password);
+        isAllowed = response;
+      } catch (e) {
+        throw Exception('Erro ao fazer Login $e');
+      }
+      return isAllowed;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -175,25 +193,18 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onPressed: () async {
-                          var isAllowed = _DoLogin();
-
+                          isAllowed = await _DoLogin();
                           if (isAllowed) {
                             await Get.to(
                               () => HomeScreen(),
                             );
                           } else {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                title: Text('Erro de login'),
-                                content: Text('Usuário ou senha inválidos.'),
-                                actions: [
-                                  ElevatedButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: Text('OK'),
-                                  ),
-                                ],
-                              ),
+                            Get.snackbar(
+                              'Credenciais Incorretas',
+                              'Verifique os dados inseridos nos campos de E-mail/Senha.',
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
                             );
                           }
                         },
@@ -213,26 +224,6 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-
-  bool _DoLogin() {
-    final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
-    bool isAllowed = false;
-    final LoginRepository loginRepository = LoginRepository();
-
-    if (email.isEmpty || password.isEmpty) {
-      return false;
-    }
-
-    try {
-      final response = loginRepository.postLogin(email, password);
-      print(response);
-      // isAllowed = true;
-    } catch (e) {
-      // isAllowed = false;
-    }
-    return isAllowed;
   }
 }
 

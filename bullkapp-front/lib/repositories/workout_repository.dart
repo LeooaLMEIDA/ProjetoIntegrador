@@ -5,7 +5,7 @@ import 'package:dio_http_cache/dio_http_cache.dart';
 class WorkoutRepository {
   final Dio dio = Dio();
   final DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
-  final String url = 'https://9652-170-82-83-40.ngrok-free.app/treino';
+  final String url = 'https://0bae-186-194-148-136.ngrok-free.app/treino';
 
   WorkoutRepository() {
     dio.interceptors.add(dioCacheManager.interceptor);
