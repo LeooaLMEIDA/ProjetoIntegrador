@@ -2,10 +2,12 @@ import 'package:bullkapp/models/workout.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 
+import '../data/constants.dart';
+
 class WorkoutRepository {
   final Dio dio = Dio();
   final DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
-  final String url = 'https://0bae-186-194-148-136.ngrok-free.app/treino';
+  final String url = '$apiBaseURL/treino';
 
   WorkoutRepository() {
     dio.interceptors.add(dioCacheManager.interceptor);

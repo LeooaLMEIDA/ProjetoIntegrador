@@ -22,7 +22,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
   bool _viewPassword = false;
 
-  _DoLogin() async {
+  _doLogin() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
@@ -193,7 +193,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onPressed: () async {
-                          isAllowed = await _DoLogin();
+                          isAllowed = await _doLogin();
                           if (isAllowed) {
                             await Get.to(
                               () => HomeScreen(),

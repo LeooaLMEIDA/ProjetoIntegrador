@@ -1,13 +1,37 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
+import 'package:bullkapp/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../components/fields.dart';
+import '../models/user.dart';
 import 'body_evaluation.dart';
 
-class ProfileScreen extends StatelessWidget {
+final userRepository = UserRepository();
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  late User user;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUser();
+  }
+
+  Future<User> _fetchUser(String email) async {
+    try {
+      user = await userRepository.getByEmail(email)
+    } catch (e) {
+      
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

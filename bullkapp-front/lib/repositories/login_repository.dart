@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 
-import '../models/login.dart';
+import '../data/constants.dart';
 
 class LoginRepository {
   final Dio dio = Dio();
-  final String url = 'https://0bae-186-194-148-136.ngrok-free.app/login';
+  final String url = '$apiBaseURL/login';
   bool isAllowed = false;
 
   Future<bool> postLogin(String email, String password) async {

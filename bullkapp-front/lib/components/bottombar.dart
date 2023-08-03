@@ -3,6 +3,7 @@ import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../data/constants.dart';
 import '../pages/profile.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
@@ -19,7 +20,7 @@ class CustomBottomAppBar extends StatelessWidget {
       ),
       child: BottomAppBar(
         height: 70,
-        color: const Color.fromARGB(250, 1, 30, 62),
+        color: defaultColor,
         child: IconTheme(
           data: const IconThemeData(color: Colors.white),
           child: Padding(
