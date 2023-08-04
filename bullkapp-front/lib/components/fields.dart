@@ -8,8 +8,12 @@ class CustomField extends StatelessWidget {
   final TextInputType inputType;
   final TextEditingController controller;
 
-  const CustomField(
-      {this.icon, this.tip, required this.inputType, required this.controller});
+  const CustomField({
+    this.icon,
+    this.tip,
+    required this.inputType,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +46,17 @@ class CustomField extends StatelessWidget {
 class CustomReadOnlyField extends StatelessWidget {
   final String label;
   final TextInputType inputType;
+  final String? content;
 
   const CustomReadOnlyField(
-      {super.key, required this.label, required this.inputType});
+      {super.key, required this.label, required this.inputType, this.content});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: TextEditingController(text: content),
       readOnly: true,
+      enabled: false,
       keyboardType: inputType,
       style: TextStyle(
         color: Colors.black,

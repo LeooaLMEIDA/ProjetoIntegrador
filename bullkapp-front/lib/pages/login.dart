@@ -1,11 +1,14 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element, use_key_in_widget_constructors
 
 import 'package:bullkapp/components/appbar.dart';
+import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/repositories/login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/fields.dart';
+import '../models/user.dart';
 import 'home.dart';
+import 'profile.dart';
 
 final LoginRepository loginRepository = LoginRepository();
 bool isAllowed = false;
@@ -22,6 +25,12 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
   bool _viewPassword = false;
 
+  @override
+  void initState() {
+    super.initState();
+    _fetchUser();
+  }
+
   _doLogin() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
@@ -34,6 +43,23 @@ class _LoginState extends State<Login> {
         throw Exception('Erro ao fazer Login $e');
       }
       return isAllowed;
+    }
+  }
+
+  _fetchUser() async {
+    try {
+      User user = await userRepository.getByEmail(userController.email);
+      setState(() {
+        userController.setName(user.nome);
+        userController.setEmail(user.email);
+        userController.setPhone(user.celular);
+        userController.setDtBirth(user.dtNascimento);
+        userController.setGender(user.sexo);
+        userController.setUrlAvatar(user.urlAvatar);
+      });
+    } catch (e) {
+      throw Exception(
+          "Ocorreu um erro ao carregar as informações do Usuário $e");
     }
   }
 
@@ -195,6 +221,11 @@ class _LoginState extends State<Login> {
                         onPressed: () async {
                           isAllowed = await _doLogin();
                           if (isAllowed) {
+                            setState(() {
+                              UserController userController = Get.find();
+                              userController.setEmail(_emailController.text);
+                              _fetchUser();
+                            });
                             await Get.to(
                               () => HomeScreen(),
                             );

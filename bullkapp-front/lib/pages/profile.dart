@@ -1,5 +1,6 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
+import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,13 @@ import '../models/user.dart';
 import 'body_evaluation.dart';
 
 final userRepository = UserRepository();
+UserController userController = Get.find();
+
+String userNome = "";
+String userEmail = "";
+String userTelefone = "";
+String userSexo = "";
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -17,20 +25,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  late User user;
-
   @override
   void initState() {
     super.initState();
-    _fetchUser();
-  }
-
-  Future<User> _fetchUser(String email) async {
-    try {
-      user = await userRepository.getByEmail(email)
-    } catch (e) {
-      
-    }
   }
 
   @override
@@ -69,49 +66,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                const Row(
+                Row(
                   children: [
                     Expanded(
                       child: CustomReadOnlyField(
                         label: "Nome",
                         inputType: TextInputType.name,
+                        content: userController.name,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8.0,
                     ),
                     Expanded(
                       child: CustomReadOnlyField(
                         label: "Telefone",
                         inputType: TextInputType.phone,
+                        content: userController.phone,
                       ),
                     ),
                   ],
                 ),
-                const Row(
+                Row(
                   children: [
                     Expanded(
                       child: CustomReadOnlyField(
                         label: "E-mail",
                         inputType: TextInputType.emailAddress,
+                        content: userController.email,
                       ),
                     ),
                   ],
                 ),
-                const Row(
+                Row(
                   children: [
                     Expanded(
                       child: CustomReadOnlyField(
-                          label: "Data Nascimento",
-                          inputType: TextInputType.datetime),
+                        label: "Data Nascimento",
+                        inputType: TextInputType.datetime,
+                        content: userController.dtBirth,
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8.0,
                     ),
                     Expanded(
                       child: CustomReadOnlyField(
                         label: "Sexo",
                         inputType: TextInputType.text,
+                        content: userController.gender,
                       ),
                     ),
                   ],

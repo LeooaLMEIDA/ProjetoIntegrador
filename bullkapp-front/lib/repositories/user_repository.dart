@@ -21,7 +21,7 @@ class UserRepository {
         ),
       );
 
-      if (response.statusCode == 200 && response.data.isNotBlank) {
+      if (response.statusCode == 200 && response.data != null) {
         User user = User.fromJson(response.data);
         return user;
       } else {
