@@ -1,5 +1,5 @@
 import 'package:bullkapp/components/appbar.dart';
-import 'package:bullkapp/pages/workout_a.dart';
+import 'package:bullkapp/pages/workout_exercise.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +32,11 @@ class WorkoutScreen extends StatelessWidget {
                     child: GestureDetector(
                       child: Image.asset("images/TreinoA.png", width: 92),
                       onTap: () async {
-                        await Get.to(() => const WorkoutA());
+                        await Get.to(
+                          () => const WorkoutExercisesScreen(
+                            workoutCode: 'A',
+                          ),
+                        );
                       },
                     ),
                   ),
@@ -40,14 +44,26 @@ class WorkoutScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
                       child: Image.asset("images/TreinoB.png", width: 92),
-                      onTap: () {},
+                      onTap: () async {
+                        await Get.to(
+                          () => const WorkoutExercisesScreen(
+                            workoutCode: 'B',
+                          ),
+                        );
+                      },
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
                       child: Image.asset("images/TreinoC.png", width: 92),
-                      onTap: () {},
+                      onTap: () async {
+                        await Get.to(
+                          () => const WorkoutExercisesScreen(
+                            workoutCode: 'B',
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],

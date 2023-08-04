@@ -5,19 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../components/list_card.dart';
-import '../pages/workout_detail.dart';
+import '../pages/exercise_detail.dart';
 import '../repositories/workout_repository.dart'; // Importe o UserRepository
 
 final workoutRepository = WorkoutRepository();
 
-class WorkoutList extends StatefulWidget {
-  const WorkoutList({super.key});
+class ExerciseList extends StatefulWidget {
+  const ExerciseList({super.key, required this.workoutCode});
+  final String workoutCode;
 
   @override
-  _WorkoutListState createState() => _WorkoutListState();
+  _ExerciseListState createState() => _ExerciseListState();
 }
 
-class _WorkoutListState extends State<WorkoutList> {
+class _ExerciseListState extends State<ExerciseList> {
   List<Workout> workouts = [];
 
   @override
@@ -28,7 +29,8 @@ class _WorkoutListState extends State<WorkoutList> {
 
   Future<void> _fetchWorkout() async {
     try {
-      List<Workout> fetchedWorkout = await workoutRepository.getWorkouts();
+      List<Workout> fetchedWorkout =
+          await workoutRepository.getWorkoutsByWorkoutCode(widget.workoutCode);
       setState(() {
         workouts = fetchedWorkout;
       });
@@ -49,7 +51,7 @@ class _WorkoutListState extends State<WorkoutList> {
             child: CustomListCard(
               exerciceName: workout.exercicio?.descricao ?? '',
               onTap: () async => await Get.to(
-                () => const WorkoutDetail(),
+                () => const ExerciseDetail(),
               ),
               repetition: workout.repeticoes.toString(),
               series: workout.series.toString(),

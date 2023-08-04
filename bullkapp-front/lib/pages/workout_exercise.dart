@@ -1,10 +1,11 @@
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/pages/workout.dart';
-import 'package:bullkapp/views/workout_list.dart';
+import 'package:bullkapp/views/exercise_list.dart';
 import 'package:flutter/material.dart';
 
-class WorkoutA extends StatelessWidget {
-  const WorkoutA({super.key});
+class WorkoutExercisesScreen extends StatelessWidget {
+  final String workoutCode;
+  const WorkoutExercisesScreen({super.key, required this.workoutCode});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,9 @@ class WorkoutA extends StatelessWidget {
           Expanded(
             child: Container(
               color: Colors.white,
-              child: const WorkoutList(),
+              child: ExerciseList(
+                workoutCode: workoutCode,
+              ),
             ),
           ),
         ],

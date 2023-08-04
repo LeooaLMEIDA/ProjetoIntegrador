@@ -9,8 +9,8 @@ import '../components/small_card.dart';
 import '../components/youtube_player.dart';
 import 'alternative_training_detail.dart';
 
-class WorkoutDetail extends StatelessWidget {
-  const WorkoutDetail({super.key});
+class ExerciseDetail extends StatelessWidget {
+  const ExerciseDetail({super.key});
 
   @override
   Widget build(BuildContext context) {

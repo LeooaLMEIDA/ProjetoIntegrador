@@ -13,11 +13,10 @@ class WorkoutRepository {
     dio.interceptors.add(dioCacheManager.interceptor);
   }
 
-  Future<List<Workout>> getWorkouts() async {
-    // dioCacheManager.clearAll(); //caso precise forçar a zerar o cache em testes
+  Future<List<Workout>> getWorkoutsByWorkoutCode(String workoutCode) async {
     try {
       final response = await dio.get(
-        url,
+        '$url/filter?cdTreino=$workoutCode',
         options: buildCacheOptions(
           const Duration(minutes: 2),
         ),
@@ -36,4 +35,28 @@ class WorkoutRepository {
       throw Exception('Erro ao obter os treinos: $e');
     }
   }
+
+  // Future<List<Workout>> getWorkouts() async {
+  //   // dioCacheManager.clearAll(); //caso precise forçar a zerar o cache em testes
+  //   try {
+  //     final response = await dio.get(
+  //       url,
+  //       options: buildCacheOptions(
+  //         const Duration(minutes: 2),
+  //       ),
+  //     );
+
+  //     if (response.statusCode == 200) {
+  //       List<Workout> workouts = (response.data as List)
+  //           .map((json) => Workout.fromJson(json))
+  //           .toList();
+  //       return workouts;
+  //     } else {
+  //       throw Exception(
+  //           'Erro ao obter os treinos. Código de status: ${response.statusCode}');
+  //     }
+  //   } catch (e) {
+  //     throw Exception('Erro ao obter os treinos: $e');
+  //   }
+  // }
 }
