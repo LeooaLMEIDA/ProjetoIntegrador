@@ -3,7 +3,6 @@ import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/theme/BullkTheme.dart' show myTheme;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'login.dart';
 

@@ -12,6 +12,7 @@ class UserRepository {
   }
 
   Future<User> getByEmail(String email) async {
+    dioCacheManager.clearAll();
     final String url = "$apiBaseURL/usuario/email?email=$email";
     try {
       final response = await dio.get(

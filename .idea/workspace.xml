@@ -13,7 +13,7 @@
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BulkApp - Back/BullkApp/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/BulkApp - Back/BullkApp/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +79,7 @@
       <updated>1690321708940</updated>
       <workItem from="1690321709940" duration="2275000" />
       <workItem from="1691183826776" duration="561000" />
-      <workItem from="1691199826856" duration="321000" />
+      <workItem from="1691199826856" duration="1227000" />
     </task>
     <servers />
   </component>

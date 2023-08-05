@@ -25,7 +25,7 @@ class EvaluationCard extends StatelessWidget {
             child: Text(
               mainLabel,
               style: TextStyle(
-                fontSize: 25,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),

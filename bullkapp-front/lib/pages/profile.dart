@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../components/fields.dart';
-import '../models/user.dart';
 import 'body_evaluation.dart';
 
 final userRepository = UserRepository();
@@ -58,7 +57,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       clipBehavior: Clip.antiAlias,
                       child: Image.asset(
-                        'images/Avatar.png',
+                        'images/avatar.png',
                         width: 100,
                         height: 100,
                         fit: BoxFit.fill,
@@ -119,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                const Padding(
+                 const Padding(
                   padding: EdgeInsets.only(top: 16.0),
                   child: Row(
                     children: [
@@ -133,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                const Row(
+                 const Row(
                   children: [
                     AlternativeWorkoutCard(),
                   ],

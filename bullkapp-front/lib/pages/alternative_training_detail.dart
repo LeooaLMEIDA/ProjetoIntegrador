@@ -21,7 +21,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
+               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                   children: [
