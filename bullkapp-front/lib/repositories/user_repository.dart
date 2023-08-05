@@ -13,10 +13,11 @@ class UserRepository {
 
   Future<User> getByEmail(String email) async {
     dioCacheManager.clearAll();
-    final String url = "$apiBaseURL/usuario/email?email=$email";
+    //final String url = "$apiBaseURL/usuario/email?email=$email";
+
     try {
       final response = await dio.get(
-        url,
+        "https://6885-177-53-201-44.ngrok-free.app/usuario/email?email=leonardo.l@edu.unipar.br",
         options: buildCacheOptions(
           const Duration(minutes: 120),
         ),

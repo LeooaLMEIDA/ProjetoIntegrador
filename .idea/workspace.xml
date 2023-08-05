@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba7ba494-8385-43df-9410-0dc0e39ec53c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/ProjetoIntegrador.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bullkapp-front/lib/pages/body_evaluation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/bullkapp-front/lib/pages/body_evaluation.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +72,8 @@
       <updated>1690321708940</updated>
       <workItem from="1690321709940" duration="2275000" />
       <workItem from="1691183826776" duration="561000" />
-      <workItem from="1691199826856" duration="1227000" />
+      <workItem from="1691199826856" duration="1230000" />
+      <workItem from="1691236912982" duration="322000" />
     </task>
     <servers />
   </component>
