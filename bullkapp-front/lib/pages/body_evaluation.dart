@@ -17,7 +17,7 @@ class BodyEvaluationScreen extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-             const Padding(
+            const Padding(
               padding: EdgeInsets.all(8.0),
               child: Row(
                 children: [
@@ -38,7 +38,7 @@ class BodyEvaluationScreen extends StatelessWidget {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 8,
+                    crossAxisSpacing: 4,
                     mainAxisSpacing: 2,
                   ),
                   itemCount: 5,

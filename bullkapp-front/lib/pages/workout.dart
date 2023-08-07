@@ -32,6 +32,7 @@ class WorkoutScreen extends StatelessWidget {
                     child: GestureDetector(
                       child: Image.asset("images/TreinoA.png", width: 92),
                       onTap: () async {
+                        print("Treino A");
                         await Get.to(
                           () => const WorkoutExercisesScreen(
                             workoutCode: 'A',

@@ -26,7 +26,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Flexão',
+                      'Tríceps Supinado',
                       style: TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
                     ),
                   ],

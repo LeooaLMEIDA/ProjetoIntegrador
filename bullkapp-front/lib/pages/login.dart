@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    _fetchUser();
+    //_fetchUser();
   }
 
   _doLogin() async {
@@ -162,9 +162,11 @@ class _LoginState extends State<Login> {
                                     ),
                                   ),
                                   suffixIcon: IconButton(
-                                    icon: Icon(_viewPassword
-                                        ? Icons.visibility_off_outlined
-                                        : Icons.visibility_outlined),
+                                    icon: Icon(
+                                      _viewPassword
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                    ),
                                     onPressed: () {
                                       setState(() {
                                         _viewPassword = !_viewPassword;

@@ -19,7 +19,7 @@ class EvaluationCard extends StatelessWidget {
       child: InkWell(
         splashColor: Color.fromARGB(160, 4, 53, 101).withAlpha(255),
         child: SizedBox(
-          width: MediaQuery.of(context).size.width - 230,
+          width: MediaQuery.of(context).size.width - 220,
           height: 160,
           child: Center(
             child: Text(
