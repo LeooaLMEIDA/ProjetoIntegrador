@@ -12,13 +12,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title!),
-      leading: Padding(
-        padding: const EdgeInsets.only(left: 50),
-        child: Transform.scale(
-          scale: 15.0,
-          child: Image.asset('images/Logo.png'),
-        ),
-      ),
+      // leading: Padding(
+      //   padding: const EdgeInsets.only(left: 50),
+      //   child: Transform.scale(
+      //     scale: 15.0,
+      //     child: Image.asset(
+      //       'images/avatar.png',
+      //     ),
+      //   ),
+      // ),
       toolbarHeight: 60,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
