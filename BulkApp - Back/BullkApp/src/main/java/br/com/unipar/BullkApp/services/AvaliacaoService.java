@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
+import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,6 @@ public class AvaliacaoService {
 
     public Avaliacao delete(Long id) throws  Exception {
         Avaliacao avaliacao = findById(id);
-        validaUpdate(avaliacao);
         avaliacaoRepository.delete(avaliacao);
         return avaliacao;
     }
@@ -68,5 +68,9 @@ public class AvaliacaoService {
         if (avaliacao.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro da Avaliacao");
         }
+    }
+
+    public List<Avaliacao> findByUsuario(Usuario usuario) {
+        return avaliacaoRepository.findByUsuario(usuario);
     }
 }

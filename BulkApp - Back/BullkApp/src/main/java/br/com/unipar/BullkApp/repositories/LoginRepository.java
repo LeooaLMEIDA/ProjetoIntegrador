@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface LoginRepository extends JpaRepository<Usuario, Long> {
         @Query
-        Usuario findByEmail(String email);
+        Usuario findByEmailIsContainingIgnoreCase(String email);
 }

@@ -14,4 +14,7 @@ import br.com.unipar.BullkApp.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query
 	public List<Usuario> findByNomeContainingAllIgnoringCase(String nome);
+
+	@Query
+	public Usuario findByEmailIsContainingIgnoreCase(String email);
 }

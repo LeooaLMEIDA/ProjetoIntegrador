@@ -27,6 +27,8 @@ public class ExercicioService {
 
         exercicio.setAparelho(aparelho);
 
+        validaInsert(exercicio);
+
         exercicioRepository.saveAndFlush(exercicio);
 
         return exercicio;
@@ -34,11 +36,21 @@ public class ExercicioService {
 
     public Exercicio update(Exercicio exercicio) throws Exception {
         validaUpdate(exercicio);
-        exercicioRepository.saveAndFlush(exercicio);
-        return exercicio;
+
+        Exercicio exercicio1 = findById(exercicio.getId());
+
+        exercicio1.setDescricao(exercicio.getDescricao() != null ? exercicio.getDescricao() : exercicio1.getDescricao());
+        exercicio1.setStatus(exercicio.isStatus() == true ? exercicio.isStatus() : exercicio1.isStatus());
+        exercicio1.setAparelho(exercicio.getAparelho() != null ? aparelhoService.findById(exercicio.getAparelho().getId()) : exercicio1.getAparelho());
+        exercicio1.setGrpMusculos(exercicio.getGrpMusculos() != null ? exercicio.getGrpMusculos() : exercicio1.getGrpMusculos());
+        exercicio1.setImgIlustracao(exercicio.getImgIlustracao() != null ? exercicio.getImgIlustracao() : exercicio1.getImgIlustracao());
+        exercicio1.setVdInstrucao(exercicio.getVdInstrucao() != null ? exercicio.getVdInstrucao() : exercicio1.getVdInstrucao());
+
+        exercicioRepository.saveAndFlush(exercicio1);
+        return exercicio1;
     }
 
-    public Exercicio delete(Long id) throws  Exception {
+    public Exercicio delete(Long id) throws Exception {
         Exercicio exercicio = findById(id);
         validaUpdate(exercicio);
         exercicio.setStatus(false);
@@ -72,11 +84,21 @@ public class ExercicioService {
         if (exercicio.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir um novo Exercicio");
         }
+
+        if (!exercicio.getAparelho().isStatus()){
+            throw new Exception("Não é possível inserir um exercício com um Aparelho inativado");
+        }
+
+
     }
 
     private void validaUpdate(Exercicio exercicio) throws Exception{
         if (exercicio.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Exercicio");
         }
+    }
+
+    public List<Exercicio> findByAparelho(Aparelho aparelho) {
+        return exercicioRepository.findByAparelho(aparelho);
     }
 }

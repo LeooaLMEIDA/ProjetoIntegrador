@@ -78,4 +78,8 @@ public class UsuarioService {
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Usuário");
         }
     }
+
+    public Usuario findByEmail(String email) throws Exception {
+        return usuarioRepository.findByEmailIsContainingIgnoreCase(email);
+    }
 }

@@ -1,7 +1,9 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Exercicio;
+import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.ExercicioService;
+import br.com.unipar.BullkApp.services.TreinoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class ExercicioController {
     @Autowired
     private ExercicioService exercicioService;
 
+    @Autowired
+    private TreinoService treinoService;
+
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Exercicio")
     public Exercicio insert(@RequestBody @Valid Exercicio exercicio) throws Exception{
@@ -33,7 +38,15 @@ public class ExercicioController {
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Exercicio existente")
     public Exercicio delete(@PathVariable Long id) throws Exception {
-        return exercicioService.delete(id);
+        Exercicio exercicio = exercicioService.delete(id);
+
+        List<Treino> treinos = treinoService.findByExercicio(exercicio);
+
+        for (Treino treino : treinos) {
+            treinoService.delete(treino.getId());
+        }
+
+        return exercicio;
     }
 
     @GetMapping(path = "/{id}")

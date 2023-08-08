@@ -1,7 +1,10 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Aparelho;
+import br.com.unipar.BullkApp.model.Exercicio;
+import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.AparelhoService;
+import br.com.unipar.BullkApp.services.ExercicioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,9 @@ public class AparelhoController {
     @Autowired
     private AparelhoService aparelhoService;
 
+    @Autowired
+    private ExercicioService exercicioService;
+
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Aparelho")
     public Aparelho insert(@RequestBody @Valid Aparelho aparelho) throws Exception{
@@ -33,7 +39,14 @@ public class AparelhoController {
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Aparelho existente")
     public Aparelho delete(@PathVariable Long id) throws Exception {
-        return aparelhoService.delete(id);
+        Aparelho aparelho = aparelhoService.delete(id);
+
+        List<Exercicio> exercicios = exercicioService.findByAparelho(aparelho);
+
+        for (Exercicio exercicio : exercicios) {
+            exercicioService.delete(exercicio.getId());
+        }
+        return aparelho;
     }
 
     @GetMapping(path = "/{id}")

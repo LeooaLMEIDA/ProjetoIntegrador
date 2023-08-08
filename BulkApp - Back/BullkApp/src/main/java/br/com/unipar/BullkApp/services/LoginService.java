@@ -12,7 +12,7 @@ public class LoginService {
     private LoginRepository loginRepository;
 
     public boolean login(Login login){
-        Usuario user = loginRepository.findByEmail(login.getEmail());
+        Usuario user = loginRepository.findByEmailIsContainingIgnoreCase(login.getEmail());
         if (user != null && user.getSenha().equals(login.getSenha())){
             return true;
         }

@@ -1,6 +1,10 @@
 package br.com.unipar.BullkApp.controllers;
 
+import br.com.unipar.BullkApp.model.Avaliacao;
+import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
+import br.com.unipar.BullkApp.services.AvaliacaoService;
+import br.com.unipar.BullkApp.services.TreinoService;
 import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,8 +18,15 @@ import java.util.List;
 @RequestMapping(path = "/usuario")
 @Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Usuário")
 public class UsuarioController {
+
     @Autowired
     private UsuarioService usuarioService;
+
+    @Autowired
+    private TreinoService treinoService;
+
+    @Autowired
+    private AvaliacaoService avaliacaoService;
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")
@@ -32,7 +43,21 @@ public class UsuarioController {
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Usuário existente")
     public Usuario delete(@PathVariable Long id) throws Exception {
-        return usuarioService.delete(id);
+        Usuario usuario = usuarioService.delete(id);
+
+        List<Treino> treinos = treinoService.findByUsuario(usuario);
+
+        for (Treino treino : treinos) {
+            treinoService.delete(treino.getId());
+        }
+
+        List<Avaliacao> avaliacoes = avaliacaoService.findByUsuario(usuario);
+
+        for (Avaliacao avaliacao : avaliacoes) {
+            avaliacaoService.delete(avaliacao.getId());
+        }
+
+        return usuario;
     }
 
     @GetMapping(path = "/{id}")
@@ -51,5 +76,10 @@ public class UsuarioController {
     @ApiOperation(value = "Operação resposável por listar todos os Usuário cadastrados no sistema")
     public List<Usuario> findAll() throws Exception{
         return usuarioService.findAll();
+    }
+
+    @GetMapping(path = "/email")
+    public Usuario findByEmail(@RequestParam("email") String email) throws Exception {
+        return usuarioService.findByEmail(email);
     }
 }

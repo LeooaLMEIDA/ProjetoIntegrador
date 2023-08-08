@@ -24,8 +24,14 @@ public class AparelhoService {
 
     public Aparelho update(Aparelho aparelho) throws Exception {
         validaUpdate(aparelho);
-        aparelhoRepository.saveAndFlush(aparelho);
-        return aparelho;
+
+        Aparelho aparelho1 = findById(aparelho.getId());
+
+        aparelho1.setDescricao(aparelho.getDescricao() != null ? aparelho.getDescricao() : aparelho1.getDescricao());
+        aparelho1.setStatus(aparelho.isStatus() == true ? aparelho.isStatus() : aparelho1.isStatus());
+
+        aparelhoRepository.saveAndFlush(aparelho1);
+        return aparelho1;
     }
 
     public Aparelho delete(Long id) throws  Exception {

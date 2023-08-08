@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.repositories;
 
 import java.util.List;
 
+import br.com.unipar.BullkApp.model.Aparelho;
 import io.swagger.annotations.ApiModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,7 @@ import br.com.unipar.BullkApp.model.Exercicio;
 public interface ExercicioRepository extends JpaRepository<Exercicio, Long> {
 	@Query
 	public List<Exercicio> findByDescricaoContainingAllIgnoringCase(String descricao);
+
+	@Query
+    public List<Exercicio> findByAparelho(Aparelho aparelho);
 }
