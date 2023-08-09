@@ -226,7 +226,6 @@ class _LoginState extends State<Login> {
                             setState(() {
                               UserController userController = Get.find();
                               userController.setEmail(_emailController.text);
-                              print(userController.email);
                               _fetchUser();
                             });
                             await Get.to(
