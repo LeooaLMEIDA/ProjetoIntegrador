@@ -78,6 +78,10 @@ public class TreinoService {
         return treinoRepository.findByCdTreinoContainingAllIgnoringCase(cdTreino);
     }
 
+    public List<Treino> findByFilters(Long id) throws Exception{
+        return treinoRepository.findByUsuario(usuarioService.findById(id));
+    }
+
     public List<Treino> findAll() throws Exception{
         return treinoRepository.findAll();
     }

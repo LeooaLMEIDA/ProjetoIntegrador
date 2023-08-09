@@ -1,7 +1,9 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Treino;
+import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.TreinoService;
+import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,11 @@ public class TreinoController {
     @ApiOperation(value = "Operação resposável por listar todos os Treinos cadastrados no sistema")
     public List<Treino> findAll() throws Exception{
         return treinoService.findAll();
+    }
+
+    @GetMapping(path = "/filter/usuario")
+    @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
+    public List<Treino> findByFilters(@RequestParam("id") Long id_usuario)throws Exception{
+        return treinoService.findByFilters(id_usuario);
     }
 }

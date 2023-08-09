@@ -12,6 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import org.springframework.lang.NonNull;
@@ -29,26 +32,26 @@ public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(notes = "Id Autogerado pelo sistema")
-	@NonNull
 	private Long id;
-	@NonNull
+	@NotNull
 	private String nome;
-	@NonNull
+	@NotNull
 	private Date dtNascimento;
-	@NonNull
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private SexoENUM sexo;
-	@NonNull
+	@NotNull
 	private String celular;
-	@NonNull
+	@NotNull
 	private String email;
+	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoUsuarioENUM tpUsuario;
-	@NonNull
+	@NotNull
 	private String urlAvatar = "x";
-	@NonNull
+	@NotNull
 	private boolean status;
-	@NonNull
+	@NotNull
 	private String senha;
 
 	public Usuario() {
