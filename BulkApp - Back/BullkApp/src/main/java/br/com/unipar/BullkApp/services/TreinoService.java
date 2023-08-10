@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,8 +79,17 @@ public class TreinoService {
         return treinoRepository.findByCdTreinoContainingAllIgnoringCase(cdTreino);
     }
 
-    public List<Treino> findByFilters(Long id) throws Exception{
-        return treinoRepository.findByUsuario(usuarioService.findById(id));
+    public List<Treino> findByUsuario(Long id) throws Exception{
+        List<Treino> treinos = treinoRepository.findByUsuario(usuarioService.findById(id));
+
+        List<Treino> treinosAtivos = new ArrayList<>();
+
+        for (Treino treino : treinos) {
+            if (treino.isStatus())
+                treinosAtivos.add(treino);
+        }
+
+        return treinosAtivos;
     }
 
     public List<Treino> findAll() throws Exception{

@@ -71,6 +71,10 @@ public class UsuarioService {
         if (usuario.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir um novo Usuário");
         }
+        Usuario usuario1 = findByEmail(usuario.getEmail());
+        if (usuario1 != null) {
+            throw new Exception("Já existe um usuário cadastrados com o email " + usuario1.getEmail());
+        }
     }
 
     private void validaUpdate(Usuario usuario) throws Exception{
