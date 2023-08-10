@@ -14,7 +14,7 @@ public class LoginService {
     @Autowired
     private LoginRepository loginRepository;
 
-    public boolean login(Login login) throws Exception {
+    public Usuario login(Login login) throws Exception {
         Optional<Usuario> user = Optional.ofNullable(loginRepository.findByEmailIsContainingIgnoreCase(login.getEmail()));
         if (!user.isPresent()){
             throw new Exception("Usuario " + login.getEmail() + " não encontrado");
@@ -28,6 +28,6 @@ public class LoginService {
             throw new Exception("Senha Incorreta");
         }
 
-        return true;
+        return user.get();
     }
 }

@@ -26,7 +26,7 @@ public class AvaliaçãoController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de uma Avaliação já existente")
-    public Avaliacao update(@RequestBody @Valid Avaliacao avaliacao) throws Exception{
+    public Avaliacao update(@RequestBody Avaliacao avaliacao) throws Exception{
         return avaliacaoService.update(avaliacao);
     }
 

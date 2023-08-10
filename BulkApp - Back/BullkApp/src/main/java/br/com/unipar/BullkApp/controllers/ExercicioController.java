@@ -31,7 +31,7 @@ public class ExercicioController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Exercicio já existente")
-    public Exercicio update(@RequestBody @Valid Exercicio exercicio) throws Exception{
+    public Exercicio update(@RequestBody Exercicio exercicio) throws Exception{
         return exercicioService.update(exercicio);
     }
 

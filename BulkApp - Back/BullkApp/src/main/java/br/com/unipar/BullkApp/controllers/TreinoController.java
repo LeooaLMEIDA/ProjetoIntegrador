@@ -28,7 +28,7 @@ public class TreinoController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Treino já existente")
-    public Treino update(@RequestBody @Valid Treino treino) throws Exception{
+    public Treino update(@RequestBody Treino treino) throws Exception{
         return treinoService.update(treino);
     }
 

@@ -36,7 +36,7 @@ public class UsuarioController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Usuário já existente")
-    public Usuario update(@RequestBody @Valid Usuario usuario) throws Exception{
+    public Usuario update(@RequestBody Usuario usuario) throws Exception{
         return usuarioService.update(usuario);
     }
 

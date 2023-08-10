@@ -7,6 +7,7 @@ import br.com.unipar.BullkApp.services.AparelhoService;
 import br.com.unipar.BullkApp.services.ExercicioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +33,7 @@ public class AparelhoController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Aparelho já existente")
-    public Aparelho update(@RequestBody @Valid Aparelho aparelho) throws Exception{
+    public Aparelho update(@RequestBody Aparelho aparelho) throws Exception{
         return aparelhoService.update(aparelho);
     }
 

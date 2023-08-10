@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Login;
+import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +16,7 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping
-    public boolean login(@RequestBody Login login) throws Exception {
+    public Usuario login(@RequestBody Login login) throws Exception {
         return loginService.login(login);
     }
 }
