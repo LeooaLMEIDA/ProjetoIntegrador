@@ -102,10 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ElevatedButton(
                         style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(
-                            const Size(
-                              160,
-                              20,
-                            ),
+                            const Size(160, 20),
                           ),
                           backgroundColor: MaterialStateProperty.all(
                             const Color.fromARGB(255, 255, 195, 1),
@@ -133,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ],
