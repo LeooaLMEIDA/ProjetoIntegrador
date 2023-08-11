@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Login;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
@@ -14,7 +15,7 @@ public class LoginService {
     @Autowired
     private LoginRepository loginRepository;
 
-    public Usuario login(Login login) throws Exception {
+    public UsuarioDTO login(Login login) throws Exception {
         Optional<Usuario> user = Optional.ofNullable(loginRepository.findByEmailIsContainingIgnoreCase(login.getEmail()));
         if (!user.isPresent()){
             throw new Exception("Usuario " + login.getEmail() + " não encontrado");
@@ -28,6 +29,9 @@ public class LoginService {
             throw new Exception("Senha Incorreta");
         }
 
-        return user.get();
+        UsuarioDTO usuarioDTO = new UsuarioDTO();
+        usuarioDTO.consultaDTO(user.get());
+
+        return usuarioDTO;
     }
 }

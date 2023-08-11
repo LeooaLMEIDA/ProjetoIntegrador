@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.UsuarioRepository;
 import io.swagger.annotations.ApiModel;
@@ -71,7 +72,7 @@ public class UsuarioService {
         if (usuario.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir um novo Usuário");
         }
-        Usuario usuario1 = findByEmail(usuario.getEmail());
+        UsuarioDTO usuario1 = findByEmail(usuario.getEmail());
         if (usuario1 != null) {
             throw new Exception("Já existe um usuário cadastrados com o email " + usuario1.getEmail());
         }
@@ -83,7 +84,7 @@ public class UsuarioService {
         }
     }
 
-    public Usuario findByEmail(String email) throws Exception {
+    public UsuarioDTO findByEmail(String email) throws Exception {
         return usuarioRepository.findByEmailIsContainingIgnoreCase(email);
     }
 }

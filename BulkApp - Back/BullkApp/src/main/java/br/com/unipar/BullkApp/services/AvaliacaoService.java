@@ -1,12 +1,15 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +61,22 @@ public class AvaliacaoService {
         return avaliacaoRepository.findAll();
     }
 
+    public List<AvaliacaoDTO> findByUsuario(Long id) throws Exception {
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByUsuario(usuarioService.findById(id));
+
+        List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
+
+        for(Avaliacao avaliacao : avaliacoes){
+            avaliacaoDTOS.add(new AvaliacaoDTO().consultaDTO(avaliacao));
+        }
+
+        return avaliacaoDTOS;
+    }
+
+    public List<Avaliacao> findByUsuario(Usuario usuario){
+        return avaliacaoRepository.findByUsuario(usuario);
+    }
+
     private void validaInsert(Avaliacao avaliacao) throws Exception{
         if (avaliacao.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir uma nova Avaliacao");
@@ -68,9 +87,5 @@ public class AvaliacaoService {
         if (avaliacao.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro da Avaliacao");
         }
-    }
-
-    public List<Avaliacao> findByUsuario(Usuario usuario) {
-        return avaliacaoRepository.findByUsuario(usuario);
     }
 }
