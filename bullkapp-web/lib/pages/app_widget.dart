@@ -1,7 +1,8 @@
-import 'package:bullkappweb/login.dart';
 import 'package:bullkappweb/theme/bullkTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'login.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
