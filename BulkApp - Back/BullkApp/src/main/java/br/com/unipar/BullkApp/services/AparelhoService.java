@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ public class AparelhoService {
 
     public Aparelho insert(Aparelho aparelho) throws Exception{
         aparelho.setStatus(true);
+        aparelho.setDataCriacao(LocalDateTime.now());
+        aparelho.setDataModificacao(LocalDateTime.now());
         aparelhoRepository.saveAndFlush(aparelho);
         return aparelho;
     }
@@ -29,6 +32,7 @@ public class AparelhoService {
 
         aparelho1.setDescricao(aparelho.getDescricao() != null ? aparelho.getDescricao() : aparelho1.getDescricao());
         aparelho1.setStatus(aparelho.isStatus() == true ? aparelho.isStatus() : aparelho1.isStatus());
+        aparelho1.setDataModificacao(LocalDateTime.now());
 
         aparelhoRepository.saveAndFlush(aparelho1);
         return aparelho1;
@@ -38,6 +42,8 @@ public class AparelhoService {
         Aparelho aparelho = findById(id);
         validaUpdate(aparelho);
         aparelho.setStatus(false);
+        aparelho.setDataExclusao(LocalDateTime.now());
+        aparelho.setDataModificacao(LocalDateTime.now());
         aparelhoRepository.saveAndFlush(aparelho);
         return aparelho;
     }

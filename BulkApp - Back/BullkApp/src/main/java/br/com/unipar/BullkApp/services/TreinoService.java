@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,9 @@ public class TreinoService {
 
         validaInsert(treino);
 
+        treino.setDataCriacao(LocalDateTime.now());
+        treino.setDataModificacao(LocalDateTime.now());
+
         treinoRepository.saveAndFlush(treino);
 
         return treino;
@@ -53,6 +57,8 @@ public class TreinoService {
         treino1.setRepeticoes(treino.getRepeticoes() != 0 ? treino.getRepeticoes() : treino1.getRepeticoes());
         treino1.setSeries(treino.getSeries() != 0 ? treino.getSeries() : treino1.getSeries());
 
+        treino1.setDataModificacao(LocalDateTime.now());
+
         treinoRepository.saveAndFlush(treino1);
         return treino1;
     }
@@ -61,6 +67,8 @@ public class TreinoService {
         Treino treino = findById(id);
         validaUpdate(treino);
         treino.setStatus(false);
+        treino.setDataExclusao(LocalDateTime.now());
+        treino.setDataModificacao(LocalDateTime.now());
         treinoRepository.saveAndFlush(treino);
         return treino;
     }

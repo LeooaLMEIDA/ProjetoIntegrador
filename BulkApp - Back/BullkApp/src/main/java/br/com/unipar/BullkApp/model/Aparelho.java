@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -32,6 +33,9 @@ public class Aparelho {
 	private String descricao;
 	@NonNull
 	private boolean status;
+	private LocalDateTime dataCriacao;
+	private LocalDateTime dataModificacao;
+	private LocalDateTime dataExclusao;
 
 	public Aparelho() {
 

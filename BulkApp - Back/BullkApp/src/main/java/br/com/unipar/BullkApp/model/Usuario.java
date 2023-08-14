@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.model;
 
 import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Entity
 @Table(name = "BULLK_USUARIO")
@@ -53,6 +55,10 @@ public class Usuario {
 	private boolean status;
 	@NotNull
 	private String senha;
+	private LocalDateTime dataCriacao;
+	private LocalDateTime dataModificacao;
+	private LocalDateTime dataExclusao;
+
 
 	public Usuario() {
 

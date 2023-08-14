@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
@@ -7,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +25,9 @@ public class AvaliacaoService {
     public Avaliacao insert(Avaliacao avaliacao) throws Exception{
         avaliacao.setUsuario(usuarioService.findById(avaliacao.getUsuario().getId()));
 
+        avaliacao.setDataCriacao(LocalDateTime.now());
+        avaliacao.setDataModificacao(LocalDateTime.now());
+
         avaliacaoRepository.saveAndFlush(avaliacao);
 
         return avaliacao;
@@ -30,12 +35,24 @@ public class AvaliacaoService {
 
     public Avaliacao update(Avaliacao avaliacao) throws Exception {
         validaUpdate(avaliacao);
+
+        Avaliacao avaliacao1 = findById(avaliacao.getId());
+
+        avaliacao1.setDescricao(avaliacao.getDescricao() != null ? avaliacao.getDescricao() : avaliacao1.getDescricao());
+        avaliacao1.setUsuario(avaliacao.getUsuario() != null ? avaliacao.getUsuario() : avaliacao1.getUsuario());
+        avaliacao1.setArqAvaliacao(avaliacao.getArqAvaliacao() != null ? avaliacao.getArqAvaliacao() : avaliacao1.getArqAvaliacao());
+        avaliacao1.setObservacao(avaliacao.getObservacao() != null ? avaliacao.getObservacao() : avaliacao1.getObservacao());
+
+        avaliacao1.setDataModificacao(LocalDateTime.now());
+
         avaliacaoRepository.saveAndFlush(avaliacao);
         return avaliacao;
     }
 
     public Avaliacao delete(Long id) throws  Exception {
         Avaliacao avaliacao = findById(id);
+        avaliacao.setDataExclusao(LocalDateTime.now());
+        avaliacao.setDataModificacao(LocalDateTime.now());
         avaliacaoRepository.delete(avaliacao);
         return avaliacao;
     }

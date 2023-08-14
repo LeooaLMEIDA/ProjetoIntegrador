@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class Exercicio {
 	@Enumerated(EnumType.STRING)
 	@NonNull
 	private GrupoMuscularENUM grpMusculos;
+	private LocalDateTime dataCriacao;
+	private LocalDateTime dataModificacao;
+	private LocalDateTime dataExclusao;
 
 	public Exercicio() {
 

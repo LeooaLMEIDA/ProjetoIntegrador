@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ public class UsuarioService {
     public Usuario insert(Usuario usuario) throws Exception{
         validaInsert(usuario);
         usuario.setStatus(true);
+        usuario.setDataCriacao(LocalDateTime.now());
+        usuario.setDataModificacao(LocalDateTime.now());
         usuarioRepository.saveAndFlush(usuario);
         return usuario;
     }
@@ -37,6 +40,8 @@ public class UsuarioService {
         usuario1.setDtNascimento(usuario.getDtNascimento() != null ? usuario.getDtNascimento() : usuario1.getDtNascimento());
         usuario1.setStatus(usuario.isStatus() == true ? usuario.isStatus() : usuario1.isStatus());
 
+        usuario1.setDataModificacao(LocalDateTime.now());
+
         usuarioRepository.saveAndFlush(usuario1);
         return usuario1;
     }
@@ -45,6 +50,8 @@ public class UsuarioService {
         Usuario usuario = findById(id);
         validaUpdate(usuario);
         usuario.setStatus(false);
+        usuario.setDataExclusao(LocalDateTime.now());
+        usuario.setDataModificacao(LocalDateTime.now());
         usuarioRepository.saveAndFlush(usuario);
         return usuario;
     }

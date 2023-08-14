@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,9 @@ public class ExercicioService {
 
         validaInsert(exercicio);
 
+        exercicio.setDataCriacao(LocalDateTime.now());
+        exercicio.setDataModificacao(LocalDateTime.now());
+
         exercicioRepository.saveAndFlush(exercicio);
 
         return exercicio;
@@ -46,6 +50,8 @@ public class ExercicioService {
         exercicio1.setImgIlustracao(exercicio.getImgIlustracao() != null ? exercicio.getImgIlustracao() : exercicio1.getImgIlustracao());
         exercicio1.setVdInstrucao(exercicio.getVdInstrucao() != null ? exercicio.getVdInstrucao() : exercicio1.getVdInstrucao());
 
+        exercicio1.setDataModificacao(LocalDateTime.now());
+
         exercicioRepository.saveAndFlush(exercicio1);
         return exercicio1;
     }
@@ -54,6 +60,8 @@ public class ExercicioService {
         Exercicio exercicio = findById(id);
         validaUpdate(exercicio);
         exercicio.setStatus(false);
+        exercicio.setDataExclusao(LocalDateTime.now());
+        exercicio.setDataModificacao(LocalDateTime.now());
         exercicioRepository.saveAndFlush(exercicio);
         return exercicio;
     }

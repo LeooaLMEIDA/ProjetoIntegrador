@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.model;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.persistence.*;
@@ -38,6 +39,9 @@ public class Treino {
 	private Exercicio exercicio;
 	@ManyToOne
 	private Usuario usuario;
+	private LocalDateTime dataCriacao;
+	private LocalDateTime dataModificacao;
+	private LocalDateTime dataExclusao;
 
 	public Treino() {
 

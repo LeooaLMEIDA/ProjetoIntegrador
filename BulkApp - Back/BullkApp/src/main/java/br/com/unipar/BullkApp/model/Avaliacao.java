@@ -13,6 +13,8 @@ import org.springframework.lang.NonNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "BULLK_AVALIACAO")
 @ApiModel(description = "Modelo para Representação de uma Avaliação Corporal")
@@ -31,6 +33,9 @@ public class Avaliacao {
 	@OneToOne
 	@NonNull
 	private Usuario usuario;
+	private LocalDateTime dataCriacao;
+	private LocalDateTime dataModificacao;
+	private LocalDateTime dataExclusao;
 
 	public Avaliacao() {
 
