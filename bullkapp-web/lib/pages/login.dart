@@ -62,6 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                             TextFormField(
+                              controller: _emailController,
                               decoration: const InputDecoration(
                                 filled: true,
                                 fillColor: Color.fromARGB(250, 1, 30, 62),
@@ -165,7 +166,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: () async {
                             print("object");
                             await Get.to(
-                              () => const HomeScreen(),
+                              () => HomeScreen(),
                             );
                           },
                           child: const Text(

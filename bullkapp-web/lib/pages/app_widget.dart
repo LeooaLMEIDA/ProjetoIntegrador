@@ -2,7 +2,7 @@ import 'package:bullkappweb/theme/bullkTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'login.dart';
+import 'home.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: "BullkApp",
       theme: myTheme,
-      home: const LoginScreen(),
+      home: HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

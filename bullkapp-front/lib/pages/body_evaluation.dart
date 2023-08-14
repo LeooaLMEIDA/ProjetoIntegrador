@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:bullkapp/components/appbar.dart' show CustomAppBar;
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
