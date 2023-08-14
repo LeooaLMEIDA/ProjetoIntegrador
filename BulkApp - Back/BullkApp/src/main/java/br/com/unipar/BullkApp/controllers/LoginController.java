@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.controllers;
 
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Login;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.LoginService;
@@ -16,7 +17,7 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping
-    public Usuario login(@RequestBody Login login) throws Exception {
+    public UsuarioDTO login(@RequestBody Login login) throws Exception {
         return loginService.login(login);
     }
 }

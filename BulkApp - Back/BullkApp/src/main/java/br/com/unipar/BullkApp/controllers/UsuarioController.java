@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
@@ -79,7 +80,7 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/email")
-    public Usuario findByEmail(@RequestParam("email") String email) throws Exception {
+    public UsuarioDTO findByEmail(@RequestParam("email") String email) throws Exception {
         return usuarioService.findByEmail(email);
     }
 }

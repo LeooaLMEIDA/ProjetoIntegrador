@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
@@ -87,14 +88,16 @@ public class TreinoService {
         return treinoRepository.findByCdTreinoContainingAllIgnoringCase(cdTreino);
     }
 
-    public List<Treino> findByUsuario(Long id) throws Exception{
+    public List<TreinoDTO> findByUsuario(Long id) throws Exception{
         List<Treino> treinos = treinoRepository.findByUsuario(usuarioService.findById(id));
 
-        List<Treino> treinosAtivos = new ArrayList<>();
+        List<TreinoDTO> treinosAtivos = new ArrayList<TreinoDTO>();
 
         for (Treino treino : treinos) {
-            if (treino.isStatus())
-                treinosAtivos.add(treino);
+            if (treino.isStatus()){
+                TreinoDTO treinoDTO = new TreinoDTO();
+                treinosAtivos.add(treinoDTO.consultaDTO(treino));
+            }
         }
 
         return treinosAtivos;

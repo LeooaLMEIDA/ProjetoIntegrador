@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.repositories;
 
 import java.util.List;
 
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +20,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
-	public Usuario findByEmailIsContainingIgnoreCase(String email);
+	public UsuarioDTO findByEmailIsContainingIgnoreCase(String email);
 }

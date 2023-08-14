@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.controllers;
 
+import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.TreinoService;
@@ -58,7 +59,7 @@ public class TreinoController {
 
     @GetMapping(path = "/filter/usuario")
     @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
-    public List<Treino> findByUsuario(@RequestParam("id") Long id_usuario)throws Exception{
+    public List<TreinoDTO> findByUsuario(@RequestParam("id") Long id_usuario)throws Exception{
         return treinoService.findByUsuario(id_usuario);
     }
 }

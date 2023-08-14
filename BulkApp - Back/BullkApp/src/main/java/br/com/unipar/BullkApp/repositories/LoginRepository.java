@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.repositories;
 
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

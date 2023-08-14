@@ -1,6 +1,8 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,5 +54,11 @@ public class AvaliaçãoController {
     @ApiOperation(value = "Operação resposável por listar todos os Avaliação cadastrados no sistema")
     public List<Avaliacao> findAll() throws Exception{
         return avaliacaoService.findAll();
+    }
+
+    @GetMapping(path = "/filter/usuario")
+    @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
+    public List<AvaliacaoDTO> findByUsuario(@RequestParam("id") Long id_usuario)throws Exception{
+        return avaliacaoService.findByUsuario(id_usuario);
     }
 }
