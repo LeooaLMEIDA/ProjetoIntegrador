@@ -3,8 +3,7 @@ import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/theme/BullkTheme.dart' show myTheme;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'login.dart';
+import 'home.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -14,7 +13,7 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: "BullkApp",
       theme: myTheme,
-      home: Login(),
+      home: HomeScreen(),
       debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {
         Get.put<UserController>(UserController(), permanent: true);
