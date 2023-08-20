@@ -36,6 +36,23 @@ class WorkoutRepository {
     }
   }
 
+  Future<Workout> getWorkout(int? exerciseId) async {
+    try {
+      final response = await dio.get('$url/$exerciseId');
+
+      if (response.statusCode == 200) {
+        Workout workout = Workout.fromJson(response.data);
+        return workout;
+      } else {
+        throw Exception(
+            "Erro ao buscar Exercício. Código de Status: ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception("Houve um problema para requerir o Exercício $e");
+    }
+  }
+
+
   // Future<List<Workout>> getWorkouts() async {
   //   // dioCacheManager.clearAll(); //caso precise forçar a zerar o cache em testes
   //   try {

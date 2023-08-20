@@ -1,16 +1,47 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
+import 'package:bullkapp/models/exercise.dart';
+import 'package:bullkapp/models/workout.dart';
+import 'package:bullkapp/repositories/exercise_repository.dart';
+import 'package:bullkapp/repositories/workout_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
 import 'alternative_training_detail.dart';
 
-class ExerciseDetail extends StatelessWidget {
-  const ExerciseDetail({super.key});
+class ExerciseDetail extends StatefulWidget {
+  final int? exerciseId;
+  const ExerciseDetail({super.key, this.exerciseId});
+
+  @override
+  State<ExerciseDetail> createState() => _ExerciseDetailState();
+}
+
+class _ExerciseDetailState extends State<ExerciseDetail> {
+  Workout returnWorkout = Workout();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchWorkout();
+  }
+
+  _fetchWorkout() async {
+    try {
+      Workout workout = await WorkoutRepository().getWorkout(widget.exerciseId);
+      setState(() {
+        returnWorkout = workout;
+      });
+    } catch (e) {
+      throw Exception(
+          "Ocorreu um erro ao carregar as informações do Usuário $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    int iSeries = returnWorkout.series ?? 0;
     return Scaffold(
       appBar: const CustomAppBar(title: ""),
       body: Padding(
@@ -22,13 +53,14 @@ class ExerciseDetail extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Text(
-                      'Flexão',
-                      style: TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
+                      returnWorkout.exercicio?.descricao ?? "",
+                      style:
+                          const TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
                     ),
                   ],
                 ),
@@ -50,22 +82,24 @@ class ExerciseDetail extends StatelessWidget {
                   children: [
                     CustomSmallCard(
                       mainLabel: "Repetições e Séries",
-                      secondLabel: "15 X 2",
+                      secondLabel:
+                          "${returnWorkout.repeticoes} X ${returnWorkout.series}",
                     ),
                     const Spacer(),
                     CustomSmallCard(
                       mainLabel: "Intervalo",
-                      secondLabel: "30 Segundos",
+                      secondLabel: "${returnWorkout.descanso}",
                     ),
                   ],
                 ),
               ),
               Column(
                 children: [
-                  CustomLongCard(serie: '1', repetition: '15'),
-                  CustomLongCard(serie: '2', repetition: '15'),
-                  CustomLongCard(serie: '3', repetition: '15'),
-                  CustomLongCard(serie: '3', repetition: '15'),
+                  for (int i = 1; i <= iSeries; i++)
+                    CustomLongCard(
+                      serie: i.toString(),
+                      repetition: returnWorkout.repeticoes.toString(),
+                    )
                 ],
               ),
               const Padding(

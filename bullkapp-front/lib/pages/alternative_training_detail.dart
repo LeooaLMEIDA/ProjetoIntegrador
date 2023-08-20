@@ -21,7 +21,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-               const Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                   children: [
@@ -37,9 +37,9 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                 child: Container(
                   color: Colors.black38,
                   height: 200,
-                  child: const CustomYoutubePlayer(
-                    videoUrl: 'https://youtu.be/XkEA4xT34jg',
-                  ),
+                  // child: const CustomYoutubePlayer(
+                  //   videoUrl: 'https://youtu.be/XkEA4xT34jg',
+                  child: Image.asset("images/flexao.gif"),
                 ),
               ),
               Padding(

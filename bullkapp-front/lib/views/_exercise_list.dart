@@ -51,7 +51,7 @@ class _ExerciseListState extends State<ExerciseList> {
             child: CustomListCard(
               exerciceName: workout.exercicio?.descricao ?? '',
               onTap: () async => await Get.to(
-                () => const ExerciseDetail(),
+                () => const ExerciseDetail(exerciseId: 1),
               ),
               repetition: workout.repeticoes.toString(),
               series: workout.series.toString(),

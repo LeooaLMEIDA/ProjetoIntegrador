@@ -48,7 +48,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 children: _trainingIcons.entries.map((entry) {
                   final trainingCode = entry.key;
                   final iconPath = entry.value;
-
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
@@ -67,7 +66,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 }).toList(),
               ),
             ),
-            Text(_trainingSelected),
             Expanded(
               child: Container(
                 color: const Color.fromARGB(255, 255, 255, 255),
@@ -96,9 +94,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           padding: const EdgeInsets.all(4.0),
           child: CustomListCard(
             exerciceName: workout.exercicio?.descricao ?? '',
-            onTap: () async => await Get.to(
-              () => const ExerciseDetail(),
-            ),
+            onTap: () async {
+              await Get.to(
+                () => ExerciseDetail(exerciseId: workout.id),
+              );
+            },
             repetition: workout.repeticoes.toString(),
             series: workout.series.toString(),
           ),
@@ -119,7 +119,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       });
     } catch (e) {
       Get.snackbar(
-        'OOPS',
+        'ERRO',
         'Erro ao obter os Treinos!',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
