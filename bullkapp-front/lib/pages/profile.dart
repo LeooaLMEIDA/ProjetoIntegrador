@@ -4,7 +4,6 @@ import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../components/fields.dart';
 import 'body_evaluation.dart';
 
@@ -118,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-                 const Padding(
+                const Padding(
                   padding: EdgeInsets.only(top: 16.0),
                   child: Row(
                     children: [
@@ -132,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                 const Row(
+                const Row(
                   children: [
                     AlternativeWorkoutCard(),
                   ],
@@ -187,9 +186,10 @@ class AlternativeWorkoutCard extends StatelessWidget {
                 child: Text(
                   'Avaliações',
                   style: TextStyle(
-                      fontFamily: 'Voltaire',
-                      fontSize: 30,
-                      color: Colors.white),
+                    fontFamily: 'Voltaire',
+                    fontSize: 30,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

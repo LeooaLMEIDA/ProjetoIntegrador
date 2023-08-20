@@ -12,7 +12,7 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: "BullkApp",
       theme: myTheme,
-      home: HomeScreen(),
+      home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

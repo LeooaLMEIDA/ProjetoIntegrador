@@ -1,4 +1,3 @@
-// ignore_for_file: file_names, prefer_const_constructors
 import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/theme/BullkTheme.dart' show myTheme;
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ class AppWidget extends StatelessWidget {
     return GetMaterialApp(
       title: "BullkApp",
       theme: myTheme,
-      home: HomeScreen(),
+      home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
       initialBinding: BindingsBuilder(() {
         Get.put<UserController>(UserController(), permanent: true);

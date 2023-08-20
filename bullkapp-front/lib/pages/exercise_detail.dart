@@ -1,12 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
-import '../components/youtube_player.dart';
 import 'alternative_training_detail.dart';
 
 class ExerciseDetail extends StatelessWidget {
@@ -25,7 +22,7 @@ class ExerciseDetail extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-               Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(
                   children: [
@@ -37,17 +34,18 @@ class ExerciseDetail extends StatelessWidget {
                 ),
               ),
               ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
                 child: Container(
                   color: Colors.black38,
                   height: 200,
-                  child: const CustomYoutubePlayer(
-                    videoUrl: 'https://youtu.be/XkEA4xT34jg',
-                  ),
+                  child: Image.asset("images/flexao.gif"),
+                  // child: const CustomYoutubePlayer(
+                  //   videoUrl: 'https://youtu.be/XkEA4xT34jg',
+                  // ),
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.only(top: 8),
                 child: Row(
                   children: [
                     CustomSmallCard(
@@ -70,10 +68,10 @@ class ExerciseDetail extends StatelessWidget {
                   CustomLongCard(serie: '3', repetition: '15'),
                 ],
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Row(
-                  children: const [
+                  children: [
                     Text(
                       'Exercício Alternativo',
                       style: TextStyle(fontSize: 22, fontFamily: 'Voltaire'),
@@ -81,7 +79,7 @@ class ExerciseDetail extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 4.0),
                 child: Row(
                   children: [
@@ -98,7 +96,7 @@ class ExerciseDetail extends StatelessWidget {
         ),
       ),
       //extendBody: false,
-      bottomNavigationBar: CustomBottomAppBar(),
+      bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
 }
@@ -123,12 +121,12 @@ class AlternativeWorkoutCard extends StatelessWidget {
       ),
       clipBehavior: Clip.hardEdge,
       borderOnForeground: true,
-      color: Color.fromARGB(250, 1, 30, 62),
+      color: const Color.fromARGB(250, 1, 30, 62),
       child: InkWell(
         onTap: () async => await Get.to(
-          AlternativeWorkoutDetail(),
+          const AlternativeWorkoutDetail(),
         ),
-        splashColor: Color.fromARGB(250, 1, 30, 62).withAlpha(255),
+        splashColor: const Color.fromARGB(250, 1, 30, 62).withAlpha(255),
         child: SizedBox(
           width: MediaQuery.of(context).size.width - 25,
           height: 46,
@@ -139,7 +137,7 @@ class AlternativeWorkoutCard extends StatelessWidget {
                 left: 10,
                 child: Text(
                   workoutName,
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                  style: const TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
               Positioned(
@@ -147,7 +145,7 @@ class AlternativeWorkoutCard extends StatelessWidget {
                 right: 12,
                 child: Text(
                   '$series X $repetition',
-                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  style: const TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),
             ],

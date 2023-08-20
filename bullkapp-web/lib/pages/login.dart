@@ -164,9 +164,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           onPressed: () async {
-                            print("object");
                             await Get.to(
-                              () => HomeScreen(),
+                              () => const HomeScreen(),
                             );
                           },
                           child: const Text(
