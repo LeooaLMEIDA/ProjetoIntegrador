@@ -3,7 +3,9 @@ package br.com.unipar.BullkApp.controllers;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
+import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
+import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class AvaliaçãoController {
 
     @Autowired
     private AvaliacaoService avaliacaoService;
+
+    @Autowired
+    private UsuarioService usuarioService;
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de uma nova Avaliação")

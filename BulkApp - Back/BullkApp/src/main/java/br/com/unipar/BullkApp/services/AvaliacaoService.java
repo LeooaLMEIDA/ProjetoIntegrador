@@ -1,12 +1,14 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +70,19 @@ public class AvaliacaoService {
         if (avaliacao.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro da Avaliacao");
         }
+    }
+
+    public List<AvaliacaoDTO> findByUsuario(Long id) {
+        Usuario usuario = usuarioService.findById(id);
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByUsuario(usuario);
+
+        List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
+
+        for (Avaliacao avaliacao : avaliacoes) {
+            AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
+            avaliacaoDTOS.add(avaliacaoDTO.consultaDTO(avaliacao));
+        }
+        return avaliacaoDTOS;
     }
 
     public List<Avaliacao> findByUsuario(Usuario usuario) {
