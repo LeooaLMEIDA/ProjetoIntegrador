@@ -1,3 +1,4 @@
+import 'package:bullkapp/models/user.dart';
 import 'package:dio/dio.dart';
 
 import '../data/constants.dart';
@@ -5,11 +6,11 @@ import '../data/constants.dart';
 class LoginRepository {
   final Dio dio = Dio();
   final String url = '$apiBaseURL/login';
-  bool isAllowed = false;
 
-  Future<bool> postLogin(String email, String password) async {
+  Future<User> postLogin(String email, String password) async {
+    Response response;
     try {
-      final response = await dio.post(
+      response = await dio.post(
         url,
         data: {
           "email": email,
@@ -17,15 +18,23 @@ class LoginRepository {
         },
       );
 
-      if (response.statusCode == 200 && response.data == true) {
-        isAllowed = response.data;
+      if (response.statusCode == 200) {
+        User user = User.fromJson(response.data);
+        return user;
+      } else {
+        final error = response.data;
+        throw Exception(error['message']);
       }
-    } catch (e) {
-      isAllowed = false;
-      throw Exception(
-        'Houve um erro ao realizar o Login $e',
-      );
+    } on DioError catch (e) {
+      if (e.response != null) {
+        final errorData = e.response?.data;
+        if (errorData != null && errorData is Map<String, dynamic>) {
+          final errorMessage =
+              errorData['message'] ?? 'Erro de autenticação desconhecido';
+          throw Exception(errorMessage);
+        }
+      }
+      throw Exception('Houve um erro ao realizar o Login: ${e.message}');
     }
-    return isAllowed;
   }
 }

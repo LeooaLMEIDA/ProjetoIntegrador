@@ -3,7 +3,6 @@ import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
-import '../components/youtube_player.dart';
 
 class AlternativeWorkoutDetail extends StatelessWidget {
   const AlternativeWorkoutDetail({super.key});

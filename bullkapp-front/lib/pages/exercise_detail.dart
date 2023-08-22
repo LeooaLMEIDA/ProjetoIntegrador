@@ -1,8 +1,6 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
-import 'package:bullkapp/models/exercise.dart';
 import 'package:bullkapp/models/workout.dart';
-import 'package:bullkapp/repositories/exercise_repository.dart';
 import 'package:bullkapp/repositories/workout_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

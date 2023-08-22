@@ -2,7 +2,7 @@
 
 class User {
   int? id;
-  String nome = "";
+  String? nome = "";
   String dtNascimento = "";
   String sexo = "";
   String celular = "";
@@ -14,7 +14,7 @@ class User {
 
   User(
       {this.id,
-      required this.nome,
+      this.nome,
       required this.dtNascimento,
       required this.sexo,
       required this.celular,
