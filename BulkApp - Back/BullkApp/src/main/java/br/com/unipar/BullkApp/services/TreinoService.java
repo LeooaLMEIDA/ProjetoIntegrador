@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 @ApiModel(description = "Classe responsável pela regras de Negócio referente ao Treino")
@@ -94,7 +95,7 @@ public class TreinoService {
         List<TreinoDTO> treinosAtivos = new ArrayList<TreinoDTO>();
 
         for (Treino treino : treinos) {
-            if (treino.isStatus()){
+            if (treino.isStatus() && !treino.isAlternativo()){
                 treinosAtivos.add(TreinoDTO.consultaDTO(treino));
             }
         }
@@ -132,5 +133,26 @@ public class TreinoService {
 
     public List<Treino> findByUsuario(Usuario usuario) {
         return treinoRepository.findByUsuario(usuario);
+    }
+
+    public TreinoDTO findAlternativo(Long idTreino) throws Exception {
+        Treino treino1 = findById(idTreino);
+
+        List<Treino> treinos = findByUsuario(treino1.getUsuario());
+
+        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+
+        for (Treino treino : treinos) {
+            if (treino.isAlternativo() && treino.isStatus() && treino1.getExercicio().getGrpMusculos() == treino.getExercicio().getGrpMusculos()) {
+                treinoDTOS.add(TreinoDTO.consultaDTO(treino));
+            }
+        }
+
+        if (treinoDTOS.size() == 0)
+            return null;
+        else if (treinoDTOS.size() == 1)
+            return treinoDTOS.get(0);
+        else
+            return treinoDTOS.get(new Random().nextInt(treinos.size()));
     }
 }

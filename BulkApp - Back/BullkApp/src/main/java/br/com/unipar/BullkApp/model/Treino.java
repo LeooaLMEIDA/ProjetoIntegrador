@@ -36,6 +36,7 @@ public class Treino {
 	private boolean status;
 //	@NonNull
 	private Integer peso;
+	private boolean alternativo;
 	@ManyToOne
 	private Exercicio exercicio;
 	@ManyToOne

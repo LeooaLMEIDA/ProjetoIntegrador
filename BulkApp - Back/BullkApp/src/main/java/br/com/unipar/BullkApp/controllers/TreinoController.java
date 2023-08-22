@@ -57,9 +57,15 @@ public class TreinoController {
         return treinoService.findAll();
     }
 
-    @GetMapping(path = "/filter/usuario")
+    @GetMapping(path = "/filter/usuario/{id_usuario}")
     @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
-    public List<TreinoDTO> findByUsuario(@RequestParam("id") Long id_usuario)throws Exception{
+    public List<TreinoDTO> findByUsuario(@PathVariable Long id_usuario)throws Exception{
         return treinoService.findByUsuario(id_usuario);
+    }
+
+    @GetMapping(path = "/filter/alternativo/{id_treino}")
+    @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
+    public TreinoDTO findAlternativo(@PathVariable Long id_treino)throws Exception{
+        return treinoService.findAlternativo(id_treino);
     }
 }
