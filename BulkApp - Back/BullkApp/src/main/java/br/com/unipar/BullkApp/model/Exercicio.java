@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -37,8 +38,11 @@ public class Exercicio {
 	@Enumerated(EnumType.STRING)
 	@NonNull
 	private GrupoMuscularENUM grpMusculos;
+	@JsonIgnore
 	private LocalDateTime dataCriacao;
+	@JsonIgnore
 	private LocalDateTime dataModificacao;
+	@JsonIgnore
 	private LocalDateTime dataExclusao;
 
 	public Exercicio() {

@@ -72,15 +72,14 @@ public class AvaliacaoService {
         }
     }
 
-    public List<AvaliacaoDTO> findByUsuario(Long id) {
+    public List<AvaliacaoDTO> findByUsuario(Long id) throws Exception {
         Usuario usuario = usuarioService.findById(id);
         List<Avaliacao> avaliacoes = avaliacaoRepository.findByUsuario(usuario);
 
         List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
 
         for (Avaliacao avaliacao : avaliacoes) {
-            AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
-            avaliacaoDTOS.add(avaliacaoDTO.consultaDTO(avaliacao));
+            avaliacaoDTOS.add(AvaliacaoDTO.consultaDTO(avaliacao));
         }
         return avaliacaoDTOS;
     }

@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -55,8 +56,11 @@ public class Usuario {
 	private boolean status;
 	@NotNull
 	private String senha;
+	@JsonIgnore
 	private LocalDateTime dataCriacao;
+	@JsonIgnore
 	private LocalDateTime dataModificacao;
+	@JsonIgnore
 	private LocalDateTime dataExclusao;
 
 

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -33,8 +34,11 @@ public class Avaliacao {
 	@OneToOne
 	@NonNull
 	private Usuario usuario;
+	@JsonIgnore
 	private LocalDateTime dataCriacao;
+	@JsonIgnore
 	private LocalDateTime dataModificacao;
+	@JsonIgnore
 	private LocalDateTime dataExclusao;
 
 	public Avaliacao() {

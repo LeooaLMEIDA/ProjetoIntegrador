@@ -95,8 +95,7 @@ public class TreinoService {
 
         for (Treino treino : treinos) {
             if (treino.isStatus()){
-                TreinoDTO treinoDTO = new TreinoDTO();
-                treinosAtivos.add(treinoDTO.consultaDTO(treino));
+                treinosAtivos.add(TreinoDTO.consultaDTO(treino));
             }
         }
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -39,8 +40,11 @@ public class Treino {
 	private Exercicio exercicio;
 	@ManyToOne
 	private Usuario usuario;
+	@JsonIgnore
 	private LocalDateTime dataCriacao;
+	@JsonIgnore
 	private LocalDateTime dataModificacao;
+	@JsonIgnore
 	private LocalDateTime dataExclusao;
 
 	public Treino() {

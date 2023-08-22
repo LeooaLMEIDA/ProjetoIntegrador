@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -33,8 +34,11 @@ public class Aparelho {
 	private String descricao;
 	@NonNull
 	private boolean status;
+	@JsonIgnore
 	private LocalDateTime dataCriacao;
+	@JsonIgnore
 	private LocalDateTime dataModificacao;
+	@JsonIgnore
 	private LocalDateTime dataExclusao;
 
 	public Aparelho() {

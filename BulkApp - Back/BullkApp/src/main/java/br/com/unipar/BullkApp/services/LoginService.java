@@ -29,8 +29,7 @@ public class LoginService {
             throw new Exception("Senha Incorreta");
         }
 
-        UsuarioDTO usuarioDTO = new UsuarioDTO();
-        usuarioDTO.consultaDTO(user.get());
+        UsuarioDTO usuarioDTO = UsuarioDTO.consultaDTO(user.get());
 
         return usuarioDTO;
     }
