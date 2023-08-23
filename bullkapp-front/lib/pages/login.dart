@@ -182,8 +182,23 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         onPressed: () async {
-                          await _doLogin();
-                          Get.to(() => HomeScreen());
+                          final String email = _emailController.text.trim();
+                          final String senha = _passwordController.text.trim();
+                          if (email.isNotEmpty && senha.isNotEmpty) {
+                            try {
+                              await _doLogin();
+                              Get.to(() => HomeScreen());
+                            } catch (e) {
+                              Get.snackbar(
+                                'Credenciais Incorretas',
+                                e.toString(),
+                                // 'Verifique os dados inseridos nos campos de E-mail/Senha.',
+                                snackPosition: SnackPosition.BOTTOM,
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                              );
+                            }
+                          }
                         },
                         child: const Text(
                           'Entrar',
@@ -211,14 +226,14 @@ class _LoginState extends State<Login> {
       try {
         final response = await loginRepository.postLogin(email, password);
         user = response;
-        // userController.setName(user.nome);
-        // userController.setEmail(user.email);
-        // userController.setPhone(user.celular);
-        // userController.setDtBirth(user.dtNascimento);
-        // userController.setGender(user.sexo);
-        // userController.setUrlAvatar(user.urlAvatar);
+        userController.setName(user.nome ?? "");
+        userController.setEmail(user.email);
+        userController.setPhone(user.celular);
+        userController.setDtBirth(user.dtNascimento);
+        userController.setGender(user.sexo);
+        userController.setUrlAvatar(user.urlAvatar);
       } catch (e) {
-        throw Exception('Erro ao fazer Login $e');
+        throw Exception(e);
       }
     }
   }

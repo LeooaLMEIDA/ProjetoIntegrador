@@ -34,7 +34,7 @@ class LoginRepository {
           throw Exception(errorMessage);
         }
       }
-      throw Exception('Houve um erro ao realizar o Login: ${e.message}');
+      throw Exception(e.message);
     }
   }
 }
