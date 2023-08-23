@@ -18,12 +18,17 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario insert(Usuario usuario) throws Exception{
-        validaInsert(usuario);
-        usuario.setStatus(true);
-        usuario.setDataCriacao(LocalDateTime.now());
-        usuario.setDataModificacao(LocalDateTime.now());
-        usuarioRepository.saveAndFlush(usuario);
-        return usuario;
+        try {
+            validaInsert(usuario);
+            usuario.setStatus(true);
+            usuario.setDataCriacao(LocalDateTime.now());
+            usuario.setDataModificacao(LocalDateTime.now());
+            usuarioRepository.saveAndFlush(usuario);
+            return usuario;
+        } catch (Exception e) {
+            throw new Exception("Erro: " + e.getMessage());
+        }
+
     }
 
     public Usuario update(Usuario usuario) throws Exception {
@@ -81,7 +86,7 @@ public class UsuarioService {
         }
         UsuarioDTO usuario1 = findByEmail(usuario.getEmail());
         if (usuario1 != null) {
-            throw new Exception("Já existe um usuário cadastrados com o email " + usuario1.getEmail());
+            throw new Exception("Já existe um usuário cadastrado com o email " + usuario1.getEmail());
         }
     }
 
@@ -92,6 +97,6 @@ public class UsuarioService {
     }
 
     public UsuarioDTO findByEmail(String email) throws Exception {
-        return usuarioRepository.findByEmailIsContainingIgnoreCase(email);
+        return UsuarioDTO.consultaDTO(usuarioRepository.findByEmailIgnoreCase(email));
     }
 }

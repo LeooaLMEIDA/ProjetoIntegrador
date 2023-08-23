@@ -20,5 +20,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
-	public UsuarioDTO findByEmailIsContainingIgnoreCase(String email);
+	public Usuario findByEmailIgnoreCase(String email);
 }

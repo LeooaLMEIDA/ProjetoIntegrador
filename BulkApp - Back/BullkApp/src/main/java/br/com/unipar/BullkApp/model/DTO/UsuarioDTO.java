@@ -38,6 +38,7 @@ public class UsuarioDTO {
         usuarioDTO.setStatus(usuario.isStatus());
         usuarioDTO.setDtNascimento(usuario.getDtNascimento());
         usuarioDTO.setUrlAvatar(usuario.getUrlAvatar());
+        usuarioDTO.setNome(usuario.getNome());
 
         return usuarioDTO;
     }
