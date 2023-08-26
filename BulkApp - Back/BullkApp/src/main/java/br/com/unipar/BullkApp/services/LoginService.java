@@ -16,7 +16,7 @@ public class LoginService {
     private LoginRepository loginRepository;
 
     public UsuarioDTO login(Login login) throws Exception {
-        Optional<Usuario> user = Optional.ofNullable(loginRepository.findByEmailIsContainingIgnoreCase(login.getEmail()));
+        Optional<Usuario> user = Optional.ofNullable(loginRepository.findByEmailIsIgnoreCase(login.getEmail()));
         if (!user.isPresent()){
             throw new Exception("Usuario " + login.getEmail() + " não encontrado");
         }

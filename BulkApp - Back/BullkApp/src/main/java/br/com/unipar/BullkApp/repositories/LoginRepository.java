@@ -14,5 +14,5 @@ import java.util.List;
 public interface LoginRepository extends JpaRepository<Usuario, Long> {
         @Query
         @ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
-        Usuario findByEmailIsContainingIgnoreCase(String email);
+        Usuario findByEmailIsIgnoreCase(String email);
 }
