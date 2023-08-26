@@ -1,6 +1,5 @@
 import 'package:bullkapp/models/user.dart';
 import 'package:dio/dio.dart';
-
 import '../data/constants.dart';
 
 class LoginRepository {
@@ -27,8 +26,11 @@ class LoginRepository {
       }
     } on DioError catch (e) {
       if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
         final errorData = e.response?.data;
-        if (errorData != null && errorData is Map<String, dynamic>) {
+        if (errorData != null) {
           final errorMessage =
               errorData['message'] ?? 'Erro de autenticação desconhecido';
           throw Exception(errorMessage);
