@@ -160,10 +160,7 @@ class _LoginState extends State<Login> {
                       child: ElevatedButton(
                         style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(
-                            Size(
-                              160,
-                              20,
-                            ),
+                            Size(160, 20),
                           ),
                           backgroundColor: MaterialStateProperty.all(
                             Color.fromARGB(255, 255, 195, 1),
@@ -184,15 +181,24 @@ class _LoginState extends State<Login> {
                         onPressed: () async {
                           final String email = _emailController.text.trim();
                           final String senha = _passwordController.text.trim();
+                          String message;
                           if (email.isNotEmpty && senha.isNotEmpty) {
                             try {
                               await _doLogin();
                               Get.to(() => HomeScreen());
+                              Get.snackbar(
+                                'SUCESSO',
+                                "BEM VINDO(A)",
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.green,
+                                colorText: Color.fromARGB(255, 255, 255, 255),
+                              );
                             } catch (e) {
+                              message = e.toString();
                               Get.snackbar(
                                 'Credenciais Incorretas',
-                                e.toString(),
-                                // 'Verifique os dados inseridos nos campos de E-mail/Senha.',
+                                message.substring(22),
                                 snackPosition: SnackPosition.BOTTOM,
                                 backgroundColor: Colors.red,
                                 colorText: Colors.white,
@@ -238,30 +244,3 @@ class _LoginState extends State<Login> {
     }
   }
 }
-
-/*
-Get.snackbar(
-    'Credenciais Incorretas',
-    'Verifique os dados inseridos nos campos de E-mail/Senha.',
-    snackPosition: SnackPosition.BOTTOM,
-    backgroundColor: Colors.red,
-    colorText: Colors.white,
-  );
-*/
-
-// _fetchUser() async {
-    //   try {
-    //     User user = await userRepository.getByEmail(userController.email);
-    //     setState(() {
-    //       userController.setName(user.nome);
-    //       userController.setEmail(user.email);
-    //       userController.setPhone(user.celular);
-    //       userController.setDtBirth(user.dtNascimento);
-    //       userController.setGender(user.sexo);
-    //       userController.setUrlAvatar(user.urlAvatar);
-    //     });
-    //   } catch (e) {
-    //     throw Exception(
-    //         "Ocorreu um erro ao carregar as informações do Usuário $e");
-    //   }
-    // }

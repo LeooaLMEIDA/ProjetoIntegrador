@@ -26,13 +26,10 @@ class LoginRepository {
       }
     } on DioError catch (e) {
       if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
         final errorData = e.response?.data;
         if (errorData != null) {
           final errorMessage =
-              errorData['message'] ?? 'Erro de autenticação desconhecido';
+              errorData['errors'][0] ?? 'Erro de autenticação desconhecido';
           throw Exception(errorMessage);
         }
       }
