@@ -154,6 +154,6 @@ public class TreinoService {
         else if (treinoDTOS.size() == 1)
             return treinoDTOS.get(0);
         else
-            return treinoDTOS.get(new Random().nextInt(treinos.size()));
+            return treinoDTOS.get(new Random().nextInt(treinoDTOS.size()));
     }
 }
