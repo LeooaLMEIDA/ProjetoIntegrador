@@ -58,6 +58,7 @@ public class TreinoService {
         treino1.setDescanso(treino.getDescanso() != null ? treino.getDescanso() : treino1.getDescanso());
         treino1.setRepeticoes(treino.getRepeticoes() != 0 ? treino.getRepeticoes() : treino1.getRepeticoes());
         treino1.setSeries(treino.getSeries() != 0 ? treino.getSeries() : treino1.getSeries());
+        treino1.setAlternativo(treino.isAlternativo() == true ? treino.isAlternativo() : treino1.isAlternativo());
 
         treino1.setDataModificacao(LocalDateTime.now());
 
