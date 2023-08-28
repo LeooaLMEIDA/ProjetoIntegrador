@@ -6,4 +6,5 @@ ThemeData myTheme = ThemeData(
     backgroundColor: Color.fromARGB(250, 1, 30, 62),
   ),
   primaryColor: Color.fromARGB(248, 1, 30, 62),
+  secondaryHeaderColor: Color.fromARGB(248, 1, 30, 62),
 );

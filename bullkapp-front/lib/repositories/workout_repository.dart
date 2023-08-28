@@ -38,7 +38,12 @@ class WorkoutRepository {
 
   Future<Workout> getWorkout(int? exerciseId) async {
     try {
-      final response = await dio.get('$url/$exerciseId');
+      final response = await dio.get(
+        '$url/$exerciseId',
+        options: buildCacheOptions(
+          const Duration(minutes: 2),
+        ),
+      );
 
       if (response.statusCode == 200) {
         Workout workout = Workout.fromJson(response.data);
@@ -51,29 +56,4 @@ class WorkoutRepository {
       throw Exception("Houve um problema para requerir o Exercício $e");
     }
   }
-
-
-  // Future<List<Workout>> getWorkouts() async {
-  //   // dioCacheManager.clearAll(); //caso precise forçar a zerar o cache em testes
-  //   try {
-  //     final response = await dio.get(
-  //       url,
-  //       options: buildCacheOptions(
-  //         const Duration(minutes: 2),
-  //       ),
-  //     );
-
-  //     if (response.statusCode == 200) {
-  //       List<Workout> workouts = (response.data as List)
-  //           .map((json) => Workout.fromJson(json))
-  //           .toList();
-  //       return workouts;
-  //     } else {
-  //       throw Exception(
-  //           'Erro ao obter os treinos. Código de status: ${response.statusCode}');
-  //     }
-  //   } catch (e) {
-  //     throw Exception('Erro ao obter os treinos: $e');
-  //   }
-  // }
 }

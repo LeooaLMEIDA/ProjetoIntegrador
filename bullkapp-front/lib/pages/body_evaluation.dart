@@ -38,8 +38,8 @@ class BodyEvaluationScreen extends StatelessWidget {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 2,
+                    crossAxisSpacing: 2,
+                    mainAxisSpacing: 5,
                   ),
                   itemCount: 5,
                   itemBuilder: (context, index) {

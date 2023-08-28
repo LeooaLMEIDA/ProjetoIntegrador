@@ -1,5 +1,6 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
+import 'package:bullkapp/components/image.dart';
 import 'package:flutter/material.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
@@ -38,7 +39,46 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                   height: 200,
                   // child: const CustomYoutubePlayer(
                   //   videoUrl: 'https://youtu.be/XkEA4xT34jg',
-                  child: Image.asset("images/flexao.gif"),
+                  child: Stack(
+                    children: [
+                      LoadImage(
+                          url:
+                              "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
+                          defaultImage: "images/exercicios/flexao.gif"),
+                      Positioned(
+                        bottom: 1,
+                        right: 1,
+                        child: Builder(
+                          builder: (BuildContext context) {
+                            return IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      title: const Text(
+                                          'Informações do Exercício'),
+                                      content: const Text('Nome Do Exercício:'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(context)
+                                                .pop(); // Fechar o modal
+                                          },
+                                          child: const Text('Fechar'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              icon: const Icon(Icons.info_outline, size: 25),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               Padding(
