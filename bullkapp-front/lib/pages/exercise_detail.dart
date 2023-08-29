@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
+import '../data/infoWorkouts.dart';
 import 'alternative_training_detail.dart';
 
 class ExerciseDetail extends StatefulWidget {
@@ -87,7 +88,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                     return AlertDialog(
                                       title: const Text(
                                           'Informações do Exercício'),
-                                      content: const Text('Nome Do Exercício:'),
+                                      content: Text(detailFlexao),
                                       actions: [
                                         TextButton(
                                           onPressed: () {

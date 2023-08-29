@@ -57,9 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       clipBehavior: Clip.antiAlias,
-                      child: LoadImage(
-                        url: userController.urlAvatar,
-                        defaultImage: defaultImage,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: LoadImage(
+                          url: userController.urlAvatar,
+                          defaultImage: defaultImageProfile,
+                        ),
                       ),
                     ),
                   ),
@@ -131,9 +134,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                const Row(
+                Row(
                   children: [
                     AlternativeWorkoutCard(),
+                    TextButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.back();
+                          Get.until((route) => !Get.isOverlaysOpen);
+                        },
+                        child: Text("Sair"))
                   ],
                 ),
               ],
