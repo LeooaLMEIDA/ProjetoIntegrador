@@ -1,4 +1,5 @@
 import 'package:bullkapp/components/appbar.dart';
+import 'package:bullkapp/pages/login.dart';
 import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async => _toGoOut(),
       child: Scaffold(
         appBar: const CustomAppBar(title: ""),
         body: Container(
@@ -46,5 +47,23 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: const CustomBottomAppBar(),
       ),
     );
+  }
+
+  Future<bool> _toGoOut() async {
+    bool out = false;
+    Get.defaultDialog(
+      title: 'Confirmação de Saída',
+      content: const Text('Você realmente deseja sair da aplicação?'),
+      textConfirm: 'Sim',
+      textCancel: 'Não',
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.red,
+      cancelTextColor: Colors.black,
+      onConfirm: () {
+        Get.to(() => const Login());
+        out = true;
+      },
+    );
+    return out;
   }
 }

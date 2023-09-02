@@ -3,6 +3,7 @@ import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/components/image.dart';
 import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/data/constants.dart';
+import 'package:bullkapp/pages/login.dart';
 import 'package:bullkapp/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -136,14 +137,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 Row(
                   children: [
-                    AlternativeWorkoutCard(),
+                    const AlternativeWorkoutCard(),
                     TextButton(
-                        onPressed: () {
-                          Get.back();
-                          Get.back();
-                          Get.until((route) => !Get.isOverlaysOpen);
-                        },
-                        child: Text("Sair"))
+                      onPressed: () async {
+                        await Get.to(() => const Login());
+                      },
+                      child: const Text("Sair"),
+                    )
                   ],
                 ),
               ],
