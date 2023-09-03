@@ -7,10 +7,13 @@ class LoadImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(url, errorBuilder: (context, exception, stackTrace) {
-      return Image.asset(
-        defaultImage,
-      );
-    });
+    return Image.network(
+      url,
+      errorBuilder: (context, exception, stackTrace) {
+        return Image.asset(
+          defaultImage,
+        );
+      },
+    );
   }
 }

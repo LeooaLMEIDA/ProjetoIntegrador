@@ -96,7 +96,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             exerciceName: workout.exercicio?.descricao ?? '',
             onTap: () async {
               await Get.to(
-                () => ExerciseDetail(exerciseId: workout.id),
+                () => ExerciseDetail(
+                  exerciseId: workout.id,
+                  description: workout.exercicio?.descricao ?? '',
+                  imgIllustration: workout.exercicio?.imgIlustracao ?? '',
+                  repetitions: workout.repeticoes ?? 0,
+                  rest: workout.descanso ?? "",
+                  series: workout.series ?? 0,
+                ),
               );
             },
             repetition: workout.repeticoes.toString(),

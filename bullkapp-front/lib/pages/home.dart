@@ -56,12 +56,11 @@ class HomeScreen extends StatelessWidget {
       content: const Text('Você realmente deseja sair da aplicação?'),
       textConfirm: 'Sim',
       textCancel: 'Não',
-      confirmTextColor: Colors.white,
+      confirmTextColor: const Color.fromARGB(255, 255, 255, 255),
       buttonColor: Colors.red,
-      cancelTextColor: Colors.black,
+      cancelTextColor: const Color.fromARGB(255, 0, 0, 0),
       onConfirm: () {
         Get.to(() => const Login());
-        out = true;
       },
     );
     return out;

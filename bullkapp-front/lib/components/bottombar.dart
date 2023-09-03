@@ -1,4 +1,5 @@
 import 'package:bullkapp/pages/home.dart';
+import 'package:bullkapp/pages/login.dart';
 import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,9 +8,8 @@ import '../data/constants.dart';
 import '../pages/profile.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
-  const CustomBottomAppBar({
-    super.key,
-  });
+  final bool isProfile;
+  const CustomBottomAppBar({super.key, this.isProfile = false});
 
   @override
   Widget build(BuildContext context) {
@@ -59,12 +59,14 @@ class CustomBottomAppBar extends StatelessWidget {
                 Expanded(
                   child: GestureDetector(
                     child: Image.asset(
-                      "images/user.png",
+                      isProfile ? "images/Out.png" : "images/user.png",
                       width: 60,
                       height: 40,
                     ),
                     onTap: () async {
-                      await Get.to(() => const ProfileScreen());
+                      isProfile
+                          ? toGoOut()
+                          : await Get.to(() => const ProfileScreen());
                     },
                   ),
                 ),
@@ -75,4 +77,19 @@ class CustomBottomAppBar extends StatelessWidget {
       ),
     );
   }
+}
+
+void toGoOut() async {
+  Get.defaultDialog(
+    title: 'Confirmação de Saída',
+    content: const Text('Você realmente deseja sair da aplicação?'),
+    textConfirm: 'Sim',
+    textCancel: 'Não',
+    confirmTextColor: const Color.fromARGB(255, 255, 255, 255),
+    buttonColor: Colors.red,
+    cancelTextColor: const Color.fromARGB(255, 0, 0, 0),
+    onConfirm: () {
+      Get.to(() => const Login());
+    },
+  );
 }

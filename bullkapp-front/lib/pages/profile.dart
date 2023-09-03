@@ -135,15 +135,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ],
                   ),
                 ),
-                Row(
+                const Row(
                   children: [
-                    const AlternativeWorkoutCard(),
-                    TextButton(
-                      onPressed: () async {
-                        await Get.to(() => const Login());
-                      },
-                      child: const Text("Sair"),
-                    )
+                    AlternativeWorkoutCard(),
                   ],
                 ),
               ],
@@ -152,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
       extendBody: false,
-      bottomNavigationBar: const CustomBottomAppBar(),
+      bottomNavigationBar: const CustomBottomAppBar(isProfile: true),
     );
   }
 }

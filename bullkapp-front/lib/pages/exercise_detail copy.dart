@@ -1,7 +1,6 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/components/image.dart';
-import 'package:bullkapp/data/constants.dart';
 import 'package:bullkapp/models/workout.dart';
 import 'package:bullkapp/repositories/workout_repository.dart';
 import 'package:flutter/material.dart';
@@ -13,20 +12,7 @@ import 'alternative_training_detail.dart';
 
 class ExerciseDetail extends StatefulWidget {
   final int? exerciseId;
-  final String description;
-  final String imgIllustration;
-  final int repetitions;
-  final int series;
-  final String rest;
-
-  const ExerciseDetail(
-      {super.key,
-      this.exerciseId,
-      required this.description,
-      required this.imgIllustration,
-      required this.repetitions,
-      required this.series,
-      required this.rest});
+  const ExerciseDetail({super.key, this.exerciseId});
 
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
@@ -72,8 +58,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 child: Row(
                   children: [
                     Text(
-                      widget.description,
-                      //returnWorkout.exercicio?.descricao ?? "",
+                      returnWorkout.exercicio?.descricao ?? "",
                       style:
                           const TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
                     ),
@@ -88,9 +73,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   child: Stack(
                     children: [
                       LoadImage(
-                          url: widget.imgIllustration,
-                          // url: returnWorkout.exercicio?.imgIlustracao ?? "",
-                          defaultImage: defaultImageWorkout),
+                          url: returnWorkout.exercicio?.imgIlustracao ?? "",
+                          defaultImage: "images/exercicios/legpress.gif"),
                       Positioned(
                         bottom: 1,
                         right: 1,
@@ -108,7 +92,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                       actions: [
                                         TextButton(
                                           onPressed: () {
-                                            Get.back();
+                                            Navigator.of(context)
+                                                .pop(); // Fechar o modal
                                           },
                                           child: const Text('Fechar'),
                                         ),
@@ -131,15 +116,14 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 child: Row(
                   children: [
                     CustomSmallCard(
-                        mainLabel: "Repetições e Séries",
-                        secondLabel:
-                            // "${returnWorkout.repeticoes} X ${returnWorkout.series}",
-                            "${widget.repetitions} X ${widget.series}"),
+                      mainLabel: "Repetições e Séries",
+                      secondLabel:
+                          "${returnWorkout.repeticoes} X ${returnWorkout.series}",
+                    ),
                     const Spacer(),
                     CustomSmallCard(
                       mainLabel: "Intervalo",
-                      // secondLabel: "${returnWorkout.descanso}",
-                      secondLabel: widget.rest,
+                      secondLabel: "${returnWorkout.descanso}",
                     ),
                   ],
                 ),
