@@ -1,15 +1,30 @@
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/components/image.dart';
+import 'package:bullkapp/data/constants.dart';
 import 'package:flutter/material.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
+import 'package:get/get.dart';
 
 class AlternativeWorkoutDetail extends StatelessWidget {
-  const AlternativeWorkoutDetail({super.key});
+  final String description;
+  final String imgIllustration;
+  final int repetitions;
+  final int series;
+  final String rest;
+
+  const AlternativeWorkoutDetail(
+      {super.key,
+      required this.description,
+      required this.imgIllustration,
+      required this.repetitions,
+      required this.series,
+      required this.rest});
 
   @override
   Widget build(BuildContext context) {
+    int iSeries = series;
     return Scaffold(
       appBar: const CustomAppBar(title: ""),
       body: Padding(
@@ -21,13 +36,16 @@ class AlternativeWorkoutDetail extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Row(
                   children: [
                     Text(
-                      'Tríceps Supinado',
-                      style: TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
+                      description,
+                      style: const TextStyle(
+                        fontSize: 34,
+                        fontFamily: 'Voltaire',
+                      ),
                     ),
                   ],
                 ),
@@ -37,14 +55,12 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                 child: Container(
                   color: Colors.black38,
                   height: 200,
-                  // child: const CustomYoutubePlayer(
-                  //   videoUrl: 'https://youtu.be/XkEA4xT34jg',
                   child: Stack(
                     children: [
-                      LoadImage(
-                          url:
-                              "https://www.seiu1000.org/sites/main/files/main-images/camera_lense_0.jpeg",
-                          defaultImage: "images/exercicios/flexao.gif"),
+                      const LoadImage(
+                        url: "",
+                        defaultImage: defaultImageWorkout,
+                      ),
                       Positioned(
                         bottom: 1,
                         right: 1,
@@ -62,8 +78,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                                       actions: [
                                         TextButton(
                                           onPressed: () {
-                                            Navigator.of(context)
-                                                .pop(); // Fechar o modal
+                                            Get.back();
                                           },
                                           child: const Text('Fechar'),
                                         ),
@@ -99,10 +114,11 @@ class AlternativeWorkoutDetail extends StatelessWidget {
               ),
               Column(
                 children: [
-                  CustomLongCard(serie: '1', repetition: '15'),
-                  CustomLongCard(serie: '2', repetition: '15'),
-                  CustomLongCard(serie: '3', repetition: '15'),
-                  CustomLongCard(serie: '3', repetition: '15'),
+                  for (int i = 1; i <= iSeries; i++)
+                    CustomLongCard(
+                      serie: i.toString(),
+                      repetition: repetitions.toString(),
+                    )
                 ],
               )
             ],

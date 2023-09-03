@@ -3,7 +3,6 @@ import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/components/image.dart';
 import 'package:bullkapp/controllers/user_controller.dart';
 import 'package:bullkapp/data/constants.dart';
-import 'package:bullkapp/pages/login.dart';
 import 'package:bullkapp/repositories/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

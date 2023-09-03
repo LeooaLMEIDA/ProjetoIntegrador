@@ -38,12 +38,13 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
   @override
   void initState() {
     super.initState();
-    _fetchWorkout();
+    _fetchAlternativeWorkout();
   }
 
-  _fetchWorkout() async {
+  _fetchAlternativeWorkout() async {
     try {
-      Workout workout = await WorkoutRepository().getWorkout(widget.exerciseId);
+      Workout workout =
+          await WorkoutRepository().getAlternativeWorkout(widget.exerciseId);
       setState(() {
         returnWorkout = workout;
       });
@@ -73,7 +74,6 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   children: [
                     Text(
                       widget.description,
-                      //returnWorkout.exercicio?.descricao ?? "",
                       style:
                           const TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
                     ),
@@ -89,7 +89,6 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     children: [
                       LoadImage(
                           url: widget.imgIllustration,
-                          // url: returnWorkout.exercicio?.imgIlustracao ?? "",
                           defaultImage: defaultImageWorkout),
                       Positioned(
                         bottom: 1,
@@ -133,12 +132,10 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     CustomSmallCard(
                         mainLabel: "Repetições e Séries",
                         secondLabel:
-                            // "${returnWorkout.repeticoes} X ${returnWorkout.series}",
                             "${widget.repetitions} X ${widget.series}"),
                     const Spacer(),
                     CustomSmallCard(
                       mainLabel: "Intervalo",
-                      // secondLabel: "${returnWorkout.descanso}",
                       secondLabel: widget.rest,
                     ),
                   ],
@@ -164,14 +161,17 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   ],
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 4.0),
+              Padding(
+                padding: const EdgeInsets.only(top: 4.0),
                 child: Row(
                   children: [
                     AlternativeWorkoutCard(
-                      workoutName: 'Tríceps Supinado',
-                      series: '2',
-                      repetition: '15',
+                      description: returnWorkout.exercicio?.descricao ?? "",
+                      series: returnWorkout.series ?? 0,
+                      repetitions: returnWorkout.repeticoes ?? 0,
+                      imgIllustration:
+                          returnWorkout.exercicio?.imgIlustracao ?? "",
+                      rest: returnWorkout.descanso ?? "",
                     ),
                   ],
                 ),
@@ -187,15 +187,19 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
 }
 
 class AlternativeWorkoutCard extends StatelessWidget {
-  final String workoutName;
-  final String series;
-  final String repetition;
+  final String description;
+  final String imgIllustration;
+  final int repetitions;
+  final int series;
+  final String rest;
 
   const AlternativeWorkoutCard({
     super.key,
-    required this.workoutName,
     required this.series,
-    required this.repetition,
+    required this.description,
+    required this.imgIllustration,
+    required this.repetitions,
+    required this.rest,
   });
 
   @override
@@ -209,7 +213,13 @@ class AlternativeWorkoutCard extends StatelessWidget {
       color: const Color.fromARGB(250, 1, 30, 62),
       child: InkWell(
         onTap: () async => await Get.to(
-          const AlternativeWorkoutDetail(),
+          AlternativeWorkoutDetail(
+            description: description,
+            imgIllustration: imgIllustration,
+            repetitions: repetitions,
+            rest: rest,
+            series: series,
+          ),
         ),
         splashColor: const Color.fromARGB(250, 1, 30, 62).withAlpha(255),
         child: SizedBox(
@@ -221,7 +231,7 @@ class AlternativeWorkoutCard extends StatelessWidget {
                 bottom: 10,
                 left: 10,
                 child: Text(
-                  workoutName,
+                  description,
                   style: const TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
@@ -229,7 +239,7 @@ class AlternativeWorkoutCard extends StatelessWidget {
                 bottom: 10,
                 right: 12,
                 child: Text(
-                  '$series X $repetition',
+                  '$series X $repetitions',
                   style: const TextStyle(fontSize: 18, color: Colors.white),
                 ),
               ),

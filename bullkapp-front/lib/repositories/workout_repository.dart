@@ -56,4 +56,25 @@ class WorkoutRepository {
       throw Exception("Houve um problema para requerir o Exercício $e");
     }
   }
+
+  Future<Workout> getAlternativeWorkout(int? code) async {
+    try {
+      final response = await dio.get(
+        '$url/filter/alternativo/$code',
+        options: buildCacheOptions(
+          const Duration(minutes: 2),
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        Workout workout = Workout.fromJson(response.data);
+        return workout;
+      } else {
+        throw Exception(
+            'Erro ao obter o treino. Código de status: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Erro ao obter os treinos: $e');
+    }
+  }
 }

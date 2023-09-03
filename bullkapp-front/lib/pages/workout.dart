@@ -79,7 +79,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           ],
         ),
       ),
-      extendBody: true,
+      extendBody: false,
       bottomNavigationBar:
           widget.showBottomBar ? const CustomBottomAppBar() : null,
     );
@@ -97,7 +97,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             onTap: () async {
               await Get.to(
                 () => ExerciseDetail(
-                  exerciseId: workout.id,
+                  exerciseId: workout.id ?? 0,
                   description: workout.exercicio?.descricao ?? '',
                   imgIllustration: workout.exercicio?.imgIlustracao ?? '',
                   repetitions: workout.repeticoes ?? 0,
