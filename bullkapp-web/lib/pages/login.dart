@@ -1,7 +1,11 @@
 import 'package:bullkappweb/components/appbar.dart';
+import 'package:bullkappweb/models/user.dart';
 import 'package:bullkappweb/pages/home.dart';
+import 'package:bullkappweb/repositories/login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+LoginRepository loginRepository = LoginRepository();
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,11 +18,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _viewPassword = false;
+  
+  late User user;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -164,9 +170,32 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           onPressed: () async {
-                            await Get.to(
-                              () => const HomeScreen(),
-                            );
+                            final String email = _emailController.text.trim();
+                            final String senha = _passwordController.text.trim();
+                            String message;
+                            if (email.isNotEmpty && senha.isNotEmpty) {
+                              try {
+                                await _doLogin();
+                                Get.to(() => const HomeScreen());
+                                Get.snackbar(
+                                  'SUCESSO',
+                                  "BEM VINDO(A)",
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  duration: const Duration(seconds: 2),
+                                  backgroundColor: Colors.green,
+                                  colorText: const Color.fromARGB(255, 255, 255, 255),
+                                );
+                              } catch (e) {
+                                message = e.toString();
+                                Get.snackbar(
+                                  'Credenciais Incorretas',
+                                  message.substring(22),
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  backgroundColor: Colors.red,
+                                  colorText: Colors.white,
+                                );
+                              }
+                            }
                           },
                           child: const Text(
                             'Entrar',
@@ -185,5 +214,19 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  _doLogin() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (email.isNotEmpty || password.isNotEmpty) {
+      try {
+        final response = await loginRepository.postLogin(email, password);
+        user = response;
+      } catch (e) {
+        throw Exception(e);
+      }
+    }
   }
 }
