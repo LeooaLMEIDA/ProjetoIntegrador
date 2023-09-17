@@ -15,7 +15,7 @@ public class AvaliacaoDTO {
     private Long id;
     private String descricao;
     private String observacao;
-    private Byte arqAvaliacao;
+    private byte[] arqAvaliacao;
 
     public static AvaliacaoDTO consultaDTO(Avaliacao avaliacao){
         AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
