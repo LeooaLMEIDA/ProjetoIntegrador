@@ -17,7 +17,7 @@ public class LoginService {
 
     public UsuarioDTO login(Login login) throws Exception {
         Optional<Usuario> user = Optional.ofNullable(loginRepository.findByEmailIsIgnoreCase(login.getEmail()));
-        if (!user.isPresent()){
+        if (user.isEmpty()){
             throw new Exception("Usuario " + login.getEmail() + " não encontrado");
         }
 
@@ -29,8 +29,6 @@ public class LoginService {
             throw new Exception("Senha Incorreta");
         }
 
-        UsuarioDTO usuarioDTO = UsuarioDTO.consultaDTO(user.get());
-
-        return usuarioDTO;
+        return UsuarioDTO.consultaDTO(user.get());
     }
 }

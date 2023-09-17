@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 import org.springframework.lang.NonNull;
 
 import io.swagger.annotations.ApiModel;
@@ -30,7 +31,8 @@ public class Avaliacao {
 	private String descricao;
 	private String observacao;
 	@NonNull
-	private String arqAvaliacao;
+	@Type(type = "org.hibernate.type.BinaryType")
+	private byte[] arqAvaliacao;
 	@OneToOne
 	@NonNull
 	private Usuario usuario;

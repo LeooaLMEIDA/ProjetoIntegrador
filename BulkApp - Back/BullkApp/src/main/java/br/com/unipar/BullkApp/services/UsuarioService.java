@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.UsuarioRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,6 +99,20 @@ public class UsuarioService {
     }
 
     public UsuarioDTO findByEmail(String email) throws Exception {
-        return UsuarioDTO.consultaDTO(usuarioRepository.findByEmailIgnoreCase(email));
+        Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByEmailIgnoreCase(email));
+        if (usuario.isPresent()){
+            return UsuarioDTO.consultaDTO(usuario.get());
+        } else {
+            return null;
+        }
+    }
+
+    public List<SexoENUM> findSexo() {
+        List<SexoENUM> sexoENUMS = new ArrayList<>();
+
+        sexoENUMS.add(SexoENUM.FEMININO);
+        sexoENUMS.add(SexoENUM.MASCULINO);
+
+        return sexoENUMS;
     }
 }

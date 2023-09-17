@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.controllers;
 
+import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
@@ -83,5 +84,10 @@ public class UsuarioController {
     @GetMapping(path = "/email")
     public UsuarioDTO findByEmail(@RequestParam("email") String email) throws Exception {
         return usuarioService.findByEmail(email);
+    }
+
+    @GetMapping(path = "/sexo")
+    public List<SexoENUM> findSexo() throws Exception {
+        return usuarioService.findSexo();
     }
 }
