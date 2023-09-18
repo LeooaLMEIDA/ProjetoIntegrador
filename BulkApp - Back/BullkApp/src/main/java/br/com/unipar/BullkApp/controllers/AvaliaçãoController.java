@@ -2,14 +2,18 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
-import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
-import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
 import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -24,6 +28,29 @@ public class AvaliaçãoController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+    @GetMapping("/")
+    public String get(Model model){
+        List<Avaliacao> avaliacaos = avaliacaoService.getFiles();
+        model.addAttribute("docs", avaliacaos);
+        return "avalicao";
+    }
+
+    @PostMapping("/uploadArquivo")
+    public String uploadMultipleFiles(@RequestParam("files")MultipartFile[] files){
+        for (MultipartFile file : files) {
+            avaliacaoService.saveFile(file);
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/downloadFile/{fileId}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) {
+        Avaliacao avaliacao = avaliacaoService.getFile(fileId).get();
+        return ResponseEntity.ok().contentType(MediaType.parseMediaType(avaliacao.getArqType()))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\""+avaliacao.getArqName()+"\"")
+                .body(new ByteArrayResource(avaliacao.getArqAvaliacao()));
+    }
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de uma nova Avaliação")

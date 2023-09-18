@@ -7,6 +7,7 @@ import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,33 @@ public class AvaliacaoService {
     @Autowired
     private UsuarioService usuarioService;
 
+    public Optional<Avaliacao> getFile(Long fileId) {
+        return avaliacaoRepository.findById(fileId);
+    }
+
+    public List<Avaliacao> getFiles(){
+        return avaliacaoRepository.findAll();
+    }
+
+    public Avaliacao saveFile(MultipartFile file){
+        try {
+            Avaliacao avaliacao = new Avaliacao();
+            avaliacao.setUsuario(usuarioService.findById(1L));
+            avaliacao.setArqName(file.getName());
+            avaliacao.setDescricao("teste1");
+            avaliacao.setArqType(file.getContentType());
+            avaliacao.setArqAvaliacao(file.getBytes());
+            return avaliacaoRepository.saveAndFlush(avaliacao);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public Avaliacao insert(Avaliacao avaliacao) throws Exception{
         avaliacao.setUsuario(usuarioService.findById(avaliacao.getUsuario().getId()));
+
+
 
         avaliacaoRepository.saveAndFlush(avaliacao);
 

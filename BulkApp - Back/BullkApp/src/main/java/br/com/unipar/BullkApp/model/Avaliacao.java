@@ -1,11 +1,6 @@
 package br.com.unipar.BullkApp.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -31,8 +26,11 @@ public class Avaliacao {
 	private String descricao;
 	private String observacao;
 	@NonNull
-	@Type(type = "org.hibernate.type.BinaryType")
+	//@Type(type = "org.hibernate.type.BinaryType")
+	@Lob
 	private byte[] arqAvaliacao;
+	private String arqType;
+	private String arqName;
 	@OneToOne
 	@NonNull
 	private Usuario usuario;
