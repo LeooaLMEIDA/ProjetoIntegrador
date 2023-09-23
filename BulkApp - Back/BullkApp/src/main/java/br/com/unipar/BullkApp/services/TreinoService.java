@@ -86,8 +86,24 @@ public class TreinoService {
         }
     }
 
-    public List<Treino> findByFilters(String cdTreino) throws Exception{
+    public List<Treino> findByFiltersCdTreino(String cdTreino) throws Exception{
         return treinoRepository.findByCdTreinoContainingAllIgnoringCase(cdTreino);
+    }
+
+    public List<TreinoDTO> findByFiltersUsuarioTreino(String cdTreino, Long usuario_id) throws Exception{
+        Usuario usuario = usuarioService.findById(usuario_id);
+
+        List<Treino> treinos = treinoRepository.findByCdTreinoContainingAllIgnoringCaseAndUsuario(cdTreino, usuario);
+
+        List<TreinoDTO> treinosAtivos = new ArrayList<TreinoDTO>();
+
+        for (Treino treino : treinos) {
+            if (treino.isStatus() && !treino.isAlternativo()){
+                treinosAtivos.add(TreinoDTO.consultaDTO(treino));
+            }
+        }
+
+        return treinosAtivos;
     }
 
     public List<TreinoDTO> findByUsuario(Long id) throws Exception{

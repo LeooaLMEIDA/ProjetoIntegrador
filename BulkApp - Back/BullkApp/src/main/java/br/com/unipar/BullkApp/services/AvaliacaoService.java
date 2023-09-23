@@ -4,11 +4,14 @@ import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
+import br.com.unipar.BullkApp.util.MapperAvaliacao;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,15 +34,23 @@ public class AvaliacaoService {
         return avaliacaoRepository.findAll();
     }
 
-    public Avaliacao saveFile(MultipartFile file){
+    public Avaliacao saveFile(MultipartFile file, String data){
         try {
-            Avaliacao avaliacao = new Avaliacao();
-            avaliacao.setUsuario(usuarioService.findById(1L));
-            avaliacao.setArqName(file.getName());
-            avaliacao.setDescricao("teste1");
-            avaliacao.setArqType(file.getContentType());
-            avaliacao.setArqAvaliacao(file.getBytes());
-            return avaliacaoRepository.saveAndFlush(avaliacao);
+            ObjectMapper objectMapper = new ObjectMapper();
+            MapperAvaliacao avaliacao = objectMapper.readValue(data, MapperAvaliacao.class);
+
+            Avaliacao avaliacao1 = new Avaliacao();
+            avaliacao1.setUsuario(avaliacao.getUsuario());
+            avaliacao1.setArqName(file.getName());
+            avaliacao1.setDescricao(avaliacao.getDescricao());
+            avaliacao1.setObservacao(avaliacao.getObservacao());
+            avaliacao1.setArqType(file.getContentType());
+            avaliacao1.setArqAvaliacao(file.getBytes());
+
+            avaliacao1.setDataCriacao(LocalDateTime.now());
+            avaliacao1.setDataModificacao(LocalDateTime.now());
+
+            return avaliacaoRepository.saveAndFlush(avaliacao1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,7 +60,8 @@ public class AvaliacaoService {
     public Avaliacao insert(Avaliacao avaliacao) throws Exception{
         avaliacao.setUsuario(usuarioService.findById(avaliacao.getUsuario().getId()));
 
-
+        avaliacao.setDataCriacao(LocalDateTime.now());
+        avaliacao.setDataModificacao(LocalDateTime.now());
 
         avaliacaoRepository.saveAndFlush(avaliacao);
 

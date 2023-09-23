@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/avaliacao")
 @Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Avaliação")
-public class AvaliaçãoController {
+public class AvaliacaoController {
 
     @Autowired
     private AvaliacaoService avaliacaoService;
@@ -37,9 +37,9 @@ public class AvaliaçãoController {
     }
 
     @PostMapping("/uploadArquivo")
-    public String uploadMultipleFiles(@RequestParam("files")MultipartFile[] files){
+    public String uploadMultipleFiles(@RequestParam("files")MultipartFile[] files, @RequestParam("data") String data){
         for (MultipartFile file : files) {
-            avaliacaoService.saveFile(file);
+            avaliacaoService.saveFile(file, data);
         }
         return "redirect:/";
     }
@@ -78,7 +78,7 @@ public class AvaliaçãoController {
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Avaliação via descrição")
-    public List<Avaliacao> findByFilters(@RequestParam("descricao") String descricao)throws Exception{
+    public List<Avaliacao> findByFilters(@RequestParam("usuario_id") String descricao)throws Exception{
         return avaliacaoService.findByFilters(descricao);
     }
 
@@ -88,9 +88,9 @@ public class AvaliaçãoController {
         return avaliacaoService.findAll();
     }
 
-    @GetMapping(path = "/filter/usuario")
-    @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
-    public List<AvaliacaoDTO> findByUsuario(@RequestParam("id") Long id_usuario)throws Exception{
+    @GetMapping(path = "/filter/usuario/{id_usuario}")
+    @ApiOperation(value = "Operação responsável pela busca dos Avaliações atribuidas a um Usuário")
+    public List<AvaliacaoDTO> findByUsuario(@PathVariable Long id_usuario)throws Exception{
         return avaliacaoService.findByUsuario(id_usuario);
     }
 }

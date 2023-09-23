@@ -9,6 +9,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -23,6 +24,7 @@ import io.swagger.annotations.ApiModelProperty;
 @Table(name = "BULLK_APARELHO")
 @ApiModel(description = "Modelo para Representação de um Aparelho")
 @Data
+@AllArgsConstructor
 public class Aparelho {
 	
 	@Id

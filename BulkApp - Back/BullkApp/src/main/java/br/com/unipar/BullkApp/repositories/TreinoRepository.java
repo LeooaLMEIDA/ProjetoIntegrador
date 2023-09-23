@@ -20,6 +20,10 @@ public interface TreinoRepository extends JpaRepository<Treino, Long> {
 	public List<Treino> findByCdTreinoContainingAllIgnoringCase(String cdTreino);
 
 	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Código e Usuário do Treino")
+	public List<Treino> findByCdTreinoContainingAllIgnoringCaseAndUsuario(String cdTreino, Usuario usuario);
+
+	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Exercício")
 	public List<Treino> findByExercicio(Exercicio exercicio);
 
