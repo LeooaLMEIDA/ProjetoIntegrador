@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EvaluationCard extends StatelessWidget {
   final String mainLabel;
@@ -20,32 +21,44 @@ class EvaluationCard extends StatelessWidget {
         splashColor: Color.fromARGB(160, 4, 53, 101).withAlpha(255),
         child: SizedBox(
           width: MediaQuery.of(context).size.width * .37,
-          //height: 160,
-          child: Stack(
-            children: [
-              Positioned(
-                top: 110,
-                left: 92,
-                child: Image.asset(
-                  "images/download.png",
-                  width: 35,
-                  height: 35,
-                ),
-              ),
-              Center(
-                child: Text(
-                  mainLabel,
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+          child: GestureDetector(
+            child: Stack(
+              children: [
+                Positioned(
+                  top: 110,
+                  left: 92,
+                  child: Image.asset(
+                    "images/download.png",
+                    width: 35,
+                    height: 35,
                   ),
                 ),
-              ),
-            ],
+                Center(
+                  child: Text(
+                    mainLabel,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onTap: () {
+              abrirURL();
+            },
           ),
         ),
       ),
     );
+  }
+
+  void abrirURL() async {
+    const url =
+        'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf';
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    }
   }
 }
