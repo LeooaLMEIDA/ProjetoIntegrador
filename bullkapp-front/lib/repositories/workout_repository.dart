@@ -1,13 +1,19 @@
 import 'package:bullkapp/models/workout.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:get/get.dart';
 
+import '../controllers/user_controller.dart';
 import '../data/constants.dart';
 
 class WorkoutRepository {
   final Dio dio = Dio();
   final DioCacheManager dioCacheManager = DioCacheManager(CacheConfig());
   final String url = '$apiBaseURL/treino';
+
+  UserController userController = Get.find();
+
+  int id = 0;
 
   WorkoutRepository() {
     dio.interceptors.add(dioCacheManager.interceptor);
@@ -16,7 +22,7 @@ class WorkoutRepository {
   Future<List<Workout>> getWorkoutsByWorkoutCode(String workoutCode) async {
     try {
       final response = await dio.get(
-        '$url/filter?cdTreino=$workoutCode',
+        '$url/filter/usuario?cdTreino=$workoutCode&usuario_id=${userController.id}',
         options: buildCacheOptions(
           const Duration(minutes: 2),
         ),

@@ -21,15 +21,28 @@ class EvaluationCard extends StatelessWidget {
         child: SizedBox(
           width: MediaQuery.of(context).size.width * .37,
           //height: 160,
-          child: Center(
-            child: Text(
-              mainLabel,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+          child: Stack(
+            children: [
+              Positioned(
+                top: 110,
+                left: 92,
+                child: Image.asset(
+                  "images/download.png",
+                  width: 35,
+                  height: 35,
+                ),
               ),
-            ),
+              Center(
+                child: Text(
+                  mainLabel,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

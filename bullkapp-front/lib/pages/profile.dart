@@ -9,7 +9,6 @@ import 'package:get/get.dart';
 import '../components/fields.dart';
 import 'body_evaluation.dart';
 
-final userRepository = UserRepository();
 UserController userController = Get.find();
 
 String userNome = "";
@@ -108,9 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         content: userController.dtBirth,
                       ),
                     ),
-                    const SizedBox(
-                      width: 8.0,
-                    ),
+                    const SizedBox(width: 8.0),
                     Expanded(
                       child: CustomReadOnlyField(
                         label: "Sexo",
@@ -177,11 +174,7 @@ class AlternativeWorkoutCard extends StatelessWidget {
               Positioned(
                 bottom: 12,
                 left: 15,
-                child: Image.asset(
-                  'images/Balanca.png',
-                  width: 50,
-                  height: 55,
-                ),
+                child: Image.asset('images/Balanca.png', width: 50, height: 55),
               ),
               const Positioned(
                 bottom: 25,

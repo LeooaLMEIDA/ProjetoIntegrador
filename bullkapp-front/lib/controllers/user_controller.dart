@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 class UserController extends GetxController {
+  final RxInt _id = 0.obs;
   final RxString _name = ''.obs;
   final RxString _phone = ''.obs;
   final RxString _email = ''.obs;
@@ -8,12 +9,17 @@ class UserController extends GetxController {
   final RxString _gender = ''.obs;
   final RxString _urlAvatar = ''.obs;
 
+  int get id => _id.value;
   String get name => _name.value;
   String get phone => _phone.value;
   String get email => _email.value;
   String get dtBirth => _dtBirth.value;
   String get gender => _gender.value;
   String get urlAvatar => _urlAvatar.value;
+
+  void setId(int id) {
+    _id.value = id;
+  }
 
   void setEmail(String email) {
     _email.value = email;

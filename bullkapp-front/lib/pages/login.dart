@@ -85,9 +85,7 @@ class _LoginState extends State<Login> {
                               ],
                             ),
                           ),
-                          SizedBox(
-                            height: 8,
-                          ),
+                          SizedBox(height: 8),
                           Container(
                             child: Column(
                               children: [
@@ -95,16 +93,13 @@ class _LoginState extends State<Login> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.only(
-                                        left: 8.0,
-                                        right: 8.0,
-                                      ),
+                                          left: 8.0, right: 8.0),
                                       child: Text(
                                         "Senha",
                                         style: TextStyle(
-                                          fontFamily: "Voltaire",
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                            fontFamily: "Voltaire",
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ],
@@ -236,6 +231,7 @@ class _LoginState extends State<Login> {
       try {
         final response = await loginRepository.postLogin(email, password);
         user = response;
+        userController.setId(user.id ?? 0);
         userController.setName(user.nome ?? "");
         userController.setEmail(user.email);
         userController.setPhone(user.celular);
