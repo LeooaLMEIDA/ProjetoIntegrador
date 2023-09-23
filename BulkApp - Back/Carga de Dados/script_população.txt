@@ -1,0 +1,24 @@
+COPY bullk_aparelho(id, descricao, status, data_criacao, data_modificacao, data_exclusao)
+FROM 'C:\Users\Public\Downloads\Aparelhos.csv'
+DELIMITER ';'
+CSV HEADER;
+
+COPY bullk_exercicio(id,data_criacao,data_exclusao,data_modificacao,descricao,grp_musculos,img_ilustracao,status,vd_instrucao,aparelho_id)
+FROM 'C:\Users\Public\Downloads\Exercicios.csv'
+DELIMITER ';'
+CSV HEADER;
+
+COPY bullk_usuario(id,celular,data_criacao,data_exclusao,data_modificacao,dt_nascimento,email,nome,senha,sexo,status,tp_usuario,url_avatar)
+FROM 'C:\Users\Public\Downloads\Usuarios.csv'
+DELIMITER ';'
+CSV HEADER;
+
+COPY bullk_avaliacao(id,arq_avaliacao,arq_name,arq_type,data_criacao,data_exclusao,data_modificacao,descricao,observacao,usuario_id)
+FROM 'C:\Users\Public\Downloads\Avaliacoes.csv'
+DELIMITER ';'
+CSV HEADER;
+
+COPY bullk_treino(id,alternativo,cd_treino,data_criacao,data_exclusao,data_modificacao,descanso,peso,repeticoes,series,status,exercicio_id,usuario_id)
+FROM 'C:\Users\Public\Downloads\Treinos.csv'
+DELIMITER ';'
+CSV HEADER;

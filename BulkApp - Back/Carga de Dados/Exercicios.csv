@@ -1,0 +1,101 @@
+﻿id;data_criacao;data_exclusao;data_modificacao;descricao;grp_musculos;img_ilustracao;status;vd_instrucao;aparelho_id
+1;2023-09-23T08:00:00;;2023-09-23T10:30:00;Agachamento;GLUTEO;imagem1.jpg;true;Instrução 1;23
+2;2023-09-23T08:15:00;;2023-09-23T11:45:00;Supino Reto;QUADRICEPS;imagem2.jpg;false;Instrução 2;46
+3;2023-09-23T08:30:00;;2023-09-23T12:00:00;Leg Press 45°;DELTOIDE;imagem3.jpg;true;Instrução 3;12
+4;2023-09-23T08:45:00;;2023-09-23T12:15:00;Barra Fixa;TRAPEZIO;imagem4.jpg;false;Instrução 4;38
+5;2023-09-23T09:00:00;;2023-09-23T12:30:00;Crucifixo PEITORAL;PEITORAL;imagem5.jpg;true;Instrução 5;15
+6;2023-09-23T09:15:00;;2023-09-23T12:45:00;Leg Curl ISQUOTIBIAL;ISQUOTIBIAL;imagem6.jpg;false;Instrução 6;7
+7;2023-09-23T09:30:00;;2023-09-23T13:00:00;Desenvolvimento BICEPS;BICEPS;imagem7.jpg;true;Instrução 7;41
+8;2023-09-23T09:45:00;;2023-09-23T13:15:00;Prancha Abdominal;RECTO_ABDOMINAL;imagem8.jpg;false;Instrução 8;2
+9;2023-09-23T10:00:00;;2023-09-23T13:30:00;Tríceps Pulley TRICEPS;TRICEPS;imagem9.jpg;true;Instrução 9;33
+10;2023-09-23T10:15:00;;2023-09-23T13:45:00;Agachamento Sumô;GEMEOS;imagem10.jpg;false;Instrução 10;19
+11;2023-09-23T10:30:00;;2023-09-23T14:00:00;Supino Inclinado;PEITORAL;imagem11.jpg;true;Instrução 11;14
+12;2023-09-23T10:45:00;;2023-09-23T14:15:00;Leg Curl SENTADO;ISQUOTIBIAL;imagem12.jpg;false;Instrução 12;27
+13;2023-09-23T11:00:00;;2023-09-23T14:30:00;Barra Fixa Larga;TRAPEZIO;imagem13.jpg;true;Instrução 13;45
+14;2023-09-23T11:15:00;;2023-09-23T14:45:00;Supino Declinado;PEITORAL;imagem14.jpg;false;Instrução 14;8
+15;2023-09-23T11:30:00;;2023-09-23T15:00:00;Agachamento Frontal;GLUTEO;imagem15.jpg;true;Instrução 15;37
+16;2023-09-23T11:45:00;;2023-09-23T15:15:00;Leg Press Vertical;QUADRICEPS;imagem16.jpg;false;Instrução 16;3
+17;2023-09-23T12:00:00;;2023-09-23T15:30:00;Tríceps Testa;TRICEPS;imagem17.jpg;true;Instrução 17;22
+18;2023-09-23T12:15:00;;2023-09-23T15:45:00;Extensora;QUADRICEPS;imagem18.jpg;false;Instrução 18;30
+19;2023-09-23T12:30:00;;2023-09-23T16:00:00;Cadeira Extensora;QUADRICEPS;imagem19.jpg;true;Instrução 19;47
+20;2023-09-23T12:45:00;;2023-09-23T16:15:00;Tríceps Pulldown;TRICEPS;imagem20.jpg;false;Instrução 20;10
+21;2023-09-23T13:00:00;;2023-09-23T16:30:00;Supino Máquina;PEITORAL;imagem21.jpg;true;Instrução 21;31
+22;2023-09-23T13:15:00;;2023-09-23T16:45:00;Leg Curl Deitado;ISQUOTIBIAL;imagem22.jpg;false;Instrução 22;50
+23;2023-09-23T13:30:00;;2023-09-23T17:00:00;Desenvolvimento Militar;DELTOIDE;imagem23.jpg;true;Instrução 23;13
+24;2023-09-23T13:45:00;;2023-09-23T17:15:00;Pull-Up;TRAPEZIO;imagem24.jpg;false;Instrução 24;48
+25;2023-09-23T14:00:00;;2023-09-23T17:30:00;Abdominal Oblíquo;OBLIQUOS;imagem25.jpg;true;Instrução 25;44
+26;2023-09-23T14:15:00;;2023-09-23T17:45:00;Agachamento Livre;GLUTEO;imagem26.jpg;false;Instrução 26;34
+27;2023-09-23T14:30:00;;2023-09-23T18:00:00;Supino Fechado;PEITORAL;imagem27.jpg;true;Instrução 27;1
+28;2023-09-23T14:45:00;;2023-09-23T18:15:00;Puxada Alta;TRAPEZIO;imagem28.jpg;false;Instrução 28;29
+29;2023-09-23T15:00:00;;2023-09-23T18:30:00;Prancha;RECTO_ABDOMINAL;imagem29.jpg;true;Instrução 29;42
+30;2023-09-23T15:15:00;;2023-09-23T18:45:00;Rosca Direta;BICEPS;imagem30.jpg;false;Instrução 30;16
+31;2023-09-23T15:30:00;;2023-09-23T19:00:00;Cadeira Flexora;QUADRICEPS;imagem31.jpg;true;Instrução 31;9
+32;2023-09-23T15:45:00;;2023-09-23T19:15:00;Tríceps Coice;TRICEPS;imagem32.jpg;false;Instrução 32;35
+33;2023-09-23T16:00:00;;2023-09-23T19:30:00;Glúteos 4 Apoios;GLUTEO;imagem33.jpg;true;Instrução 33;21
+34;2023-09-23T16:15:00;;2023-09-23T19:45:00;Supino com Halteres;PEITORAL;imagem34.jpg;false;Instrução 34;11
+35;2023-09-23T16:30:00;;2023-09-23T20:00:00;Crossover;PEITORAL;imagem35.jpg;true;Instrução 35;32
+36;2023-09-23T16:45:00;;2023-09-23T20:15:00;Agachamento Hack;QUADRICEPS;imagem36.jpg;false;Instrução 36;20
+37;2023-09-23T17:00:00;;2023-09-23T20:30:00;Tríceps Banco;TRICEPS;imagem37.jpg;true;Instrução 37;36
+38;2023-09-23T17:15:00;;2023-09-23T20:45:00;Elevação Frontal;DELTOIDE;imagem38.jpg;false;Instrução 38;24
+39;2023-09-23T17:30:00;;2023-09-23T21:00:00;Remada Alta;TRAPEZIO;imagem39.jpg;true;Instrução 39;40
+40;2023-09-23T17:45:00;;2023-09-23T21:15:00;Abdominal com Corda;OBLIQUOS;imagem40.jpg;false;Instrução 40;49
+41;2023-09-23T18:00:00;;2023-09-23T21:30:00;Agachamento Frontal Smith;GLUTEO;imagem41.jpg;true;Instrução 41;17
+42;2023-09-23T18:15:00;;2023-09-23T21:45:00;Supino Declinado Smith;PEITORAL;imagem42.jpg;false;Instrução 42;5
+43;2023-09-23T18:30:00;;2023-09-23T22:00:00;Curl Alternado;BICEPS;imagem43.jpg;true;Instrução 43;28
+44;2023-09-23T18:45:00;;2023-09-23T22:15:00;Leg Press 90°;QUADRICEPS;imagem44.jpg;false;Instrução 44;6
+45;2023-09-23T19:00:00;;2023-09-23T22:30:00;Pull-Down;TRAPEZIO;imagem45.jpg;true;Instrução 45;43
+46;2023-09-23T19:15:00;;2023-09-23T22:45:00;Cadeira Abdutora;DELTOIDE;imagem46.jpg;false;Instrução 46;25
+47;2023-09-23T19:30:00;;2023-09-23T23:00:00;Leg Press 45°;QUADRICEPS;imagem47.jpg;true;Instrução 47;39
+48;2023-09-23T19:45:00;;2023-09-23T23:15:00;Tríceps Testa;BICEPS;imagem48.jpg;false;Instrução 48;4
+49;2023-09-23T20:00:00;;2023-09-23T23:30:00;Extensora de Quadril;GLUTEO;imagem49.jpg;true;Instrução 49;26
+50;2023-09-23T20:15:00;;2023-09-23T23:45:00;Elevação Lateral;DELTOIDE;imagem50.jpg;false;Instrução 50;9
+51;2023-09-23T20:30:00;;2023-09-24T00:00:00;Agachamento Bulgáro;QUADRICEPS;imagem51.jpg;true;Instrução 51;48
+52;2023-09-23T20:45:00;;2023-09-24T00:15:00;Rosca Concentrada;BICEPS;imagem52.jpg;false;Instrução 52;40
+53;2023-09-23T21:00:00;;2023-09-24T00:30:00;Stiff;GLUTEO;imagem53.jpg;true;Instrução 53;31
+54;2023-09-23T21:15:00;;2023-09-24T00:45:00;Tríceps Testa com Corda;TRICEPS;imagem54.jpg;false;Instrução 54;14
+55;2023-09-23T21:30:00;;2023-09-24T01:00:00;Leg Press 45° Unilateral;QUADRICEPS;imagem55.jpg;true;Instrução 55;19
+56;2023-09-23T21:45:00;;2023-09-24T01:15:00;Desenvolvimento Militar com Barra;DELTOIDE;imagem56.jpg;false;Instrução 56;30
+57;2023-09-23T22:00:00;;2023-09-24T01:30:00;Chin-Up;TRAPEZIO;imagem57.jpg;true;Instrução 57;7
+58;2023-09-23T22:15:00;;2023-09-24T01:45:00;Prancha Lateral;OBLIQUOS;imagem58.jpg;false;Instrução 58;42
+59;2023-09-23T22:30:00;;2023-09-24T02:00:00;Remada Curvada BICEPS;BICEPS;imagem59.jpg;true;Instrução 59;24
+60;2023-09-23T22:45:00;;2023-09-24T02:15:00;Agachamento Sissy;GLUTEO;imagem60.jpg;false;Instrução 60;16
+61;2023-09-23T23:00:00;;2023-09-24T02:30:00;Supino Fechado;PEITORAL;imagem61.jpg;true;Instrução 61;38
+62;2023-09-23T23:15:00;;2023-09-24T02:45:00;Puxada Alta;TRAPEZIO;imagem62.jpg;false;Instrução 62;3
+63;2023-09-23T23:30:00;;2023-09-24T03:00:00;Cadeira Abdutora;DELTOIDE;imagem63.jpg;true;Instrução 63;22
+64;2023-09-23T23:45:00;;2023-09-24T03:15:00;Curl Direto;BICEPS;imagem64.jpg;false;Instrução 64;35
+65;2023-09-24T00:00:00;;2023-09-24T03:30:00;Glúteos 4 Apoios;QUADRICEPS;imagem65.jpg;true;Instrução 65;21
+66;2023-09-24T00:15:00;;2023-09-24T03:45:00;Supino com Halteres;PEITORAL;imagem66.jpg;false;Instrução 66;43
+67;2023-09-24T00:30:00;;2023-09-24T04:00:00;Agachamento Livre;GLUTEO;imagem67.jpg;true;Instrução 67;50
+68;2023-09-24T00:45:00;;2023-09-24T04:15:00;Barra Fixa;TRAPEZIO;imagem68.jpg;false;Instrução 68;12
+69;2023-09-24T01:00:00;;2023-09-24T04:30:00;Tríceps Coice;TRICEPS;imagem69.jpg;true;Instrução 69;32
+70;2023-09-24T01:15:00;;2023-09-24T04:45:00;Crossover;PEITORAL;imagem70.jpg;false;Instrução 70;28
+71;2023-09-24T01:30:00;;2023-09-24T05:00:00;Agachamento Hack;QUADRICEPS;imagem71.jpg;true;Instrução 71;44
+72;2023-09-24T01:45:00;;2023-09-24T05:15:00;Tríceps Banco;TRICEPS;imagem72.jpg;false;Instrução 72;9
+73;2023-09-24T02:00:00;;2023-09-24T05:30:00;Extensora de Quadril;GLUTEO;imagem73.jpg;true;Instrução 73;25
+74;2023-09-24T02:15:00;;2023-09-24T05:45:00;Elevação Lateral;DELTOIDE;imagem74.jpg;false;Instrução 74;47
+75;2023-09-24T02:30:00;;2023-09-24T06:00:00;Abdominal com Corda;OBLIQUOS;imagem75.jpg;true;Instrução 75;20
+76;2023-09-24T02:45:00;;2023-09-24T06:15:00;Agachamento Frontal Smith;GLUTEO;imagem76.jpg;false;Instrução 76;18
+77;2023-09-24T03:00:00;;2023-09-24T06:30:00;Supino Declinado Smith;PEITORAL;imagem77.jpg;true;Instrução 77;37
+78;2023-09-24T03:15:00;;2023-09-24T06:45:00;Rosca Concentrada;BICEPS;imagem78.jpg;false;Instrução 78;6
+79;2023-09-24T03:30:00;;2023-09-24T07:00:00;Stiff;GLUTEO;imagem79.jpg;true;Instrução 79;26
+80;2023-09-24T03:45:00;;2023-09-24T07:15:00;Tríceps Testa com Corda;TRICEPS;imagem80.jpg;false;Instrução 80;4
+81;2023-09-24T04:00:00;;2023-09-24T07:30:00;Leg Press 45° Unilateral;QUADRICEPS;imagem81.jpg;true;Instrução 81;31
+82;2023-09-24T04:15:00;;2023-09-24T07:45:00;Desenvolvimento Militar com Barra;DELTOIDE;imagem82.jpg;false;Instrução 82;16
+83;2023-09-24T04:30:00;;2023-09-24T08:00:00;Chin-Up;TRAPEZIO;imagem83.jpg;true;Instrução 83;38
+84;2023-09-24T04:45:00;;2023-09-24T08:15:00;Prancha Lateral;OBLIQUOS;imagem84.jpg;false;Instrução 84;5
+85;2023-09-24T05:00:00;;2023-09-24T08:30:00;Remada Curvada BICEPS;BICEPS;imagem85.jpg;true;Instrução 85;49
+86;2023-09-24T05:15:00;;2023-09-24T08:45:00;Agachamento Sissy;GLUTEO;imagem86.jpg;false;Instrução 86;29
+87;2023-09-24T05:30:00;;2023-09-24T09:00:00;Supino Fechado;PEITORAL;imagem87.jpg;true;Instrução 87;39
+88;2023-09-24T05:45:00;;2023-09-24T09:15:00;Puxada Alta;TRAPEZIO;imagem88.jpg;false;Instrução 88;47
+89;2023-09-24T06:00:00;;2023-09-24T09:30:00;Cadeira Abdutora;DELTOIDE;imagem89.jpg;true;Instrução 89;10
+90;2023-09-24T06:15:00;;2023-09-24T09:45:00;Curl Direto;BICEPS;imagem90.jpg;false;Instrução 90;33
+91;2023-09-24T06:30:00;;2023-09-24T10:00:00;Glúteos 4 Apoios;QUADRICEPS;imagem91.jpg;true;Instrução 91;45
+92;2023-09-24T06:45:00;;2023-09-24T10:15:00;Supino com Halteres;PEITORAL;imagem92.jpg;false;Instrução 92;1
+93;2023-09-24T07:00:00;;2023-09-24T10:30:00;Agachamento Livre;GLUTEO;imagem93.jpg;true;Instrução 93;8
+94;2023-09-24T07:15:00;;2023-09-24T10:45:00;Barra Fixa;TRAPEZIO;imagem94.jpg;false;Instrução 94;19
+95;2023-09-24T07:30:00;;2023-09-24T11:00:00;Tríceps Coice;TRICEPS;imagem95.jpg;true;Instrução 95;27
+96;2023-09-24T07:45:00;;2023-09-24T11:15:00;Crossover;PEITORAL;imagem96.jpg;false;Instrução 96;15
+97;2023-09-24T08:00:00;;2023-09-24T11:30:00;Agachamento Hack;QUADRICEPS;imagem97.jpg;true;Instrução 97;36
+98;2023-09-24T08:15:00;;2023-09-24T11:45:00;Tríceps Banco;TRICEPS;imagem98.jpg;false;Instrução 98;37
+99;2023-09-24T08:30:00;;2023-09-24T12:00:00;Elevação Frontal;DELTOIDE;imagem99.jpg;true;Instrução 99;11
+100;2023-09-24T08:45:00;;2023-09-24T12:15:00;Remada Alta;TRAPEZIO;imagem100.jpg;false;Instrução 100;28
