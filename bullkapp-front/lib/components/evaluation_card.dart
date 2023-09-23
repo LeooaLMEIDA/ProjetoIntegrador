@@ -9,28 +9,25 @@ class EvaluationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
-        clipBehavior: Clip.hardEdge,
-        borderOnForeground: true,
-        color: Color.fromARGB(160, 4, 53, 101),
-        child: InkWell(
-          splashColor: Color.fromARGB(160, 4, 53, 101).withAlpha(255),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width - 250,
-            height: 160,
-            child: Center(
-              child: Text(
-                mainLabel,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      clipBehavior: Clip.hardEdge,
+      borderOnForeground: true,
+      color: Color.fromARGB(160, 4, 53, 101),
+      child: InkWell(
+        splashColor: Color.fromARGB(160, 4, 53, 101).withAlpha(255),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * .37,
+          //height: 160,
+          child: Center(
+            child: Text(
+              mainLabel,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
               ),
             ),
           ),

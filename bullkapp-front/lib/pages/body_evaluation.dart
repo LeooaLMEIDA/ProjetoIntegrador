@@ -1,7 +1,6 @@
 import 'package:bullkapp/components/appbar.dart' show CustomAppBar;
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:flutter/material.dart';
-
 import '../components/evaluation_card.dart';
 
 class BodyEvaluationScreen extends StatelessWidget {
@@ -34,23 +33,24 @@ class BodyEvaluationScreen extends StatelessWidget {
             const SearchField(),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 2,
-                    mainAxisSpacing: 5,
+                padding: const EdgeInsets.all(12.0),
+                child: Center(
+                  child: GridView.builder(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 2,
+                      mainAxisSpacing: 4,
+                    ),
+                    itemCount: 4,
+                    itemBuilder: (context, index) {
+                      return Row(
+                        children: [
+                          EvaluationCard(mainLabel: "31/07/2023"),
+                        ],
+                      );
+                    },
                   ),
-                  itemCount: 5,
-                  itemBuilder: (context, index) {
-                    return Row(
-                      children: [
-                        EvaluationCard(
-                          mainLabel: "31/07/2023",
-                        ),
-                      ],
-                    );
-                  },
                 ),
               ),
             ),
