@@ -42,6 +42,8 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                   children: [
                     Text(
                       description,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                       style: const TextStyle(
                         fontSize: 34,
                         fontFamily: 'Voltaire',
