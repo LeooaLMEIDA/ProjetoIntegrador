@@ -15,12 +15,10 @@ public class AvaliacaoDTO {
     private Long id;
     private String descricao;
     private String observacao;
-    private byte[] arqAvaliacao;
 
     public static AvaliacaoDTO consultaDTO(Avaliacao avaliacao){
         AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
         avaliacaoDTO.setId(avaliacao.getId());
-        avaliacaoDTO.setArqAvaliacao(avaliacao.getArqAvaliacao());
         avaliacaoDTO.setDescricao(avaliacao.getDescricao());
         avaliacaoDTO.setObservacao(avaliacao.getObservacao());
 

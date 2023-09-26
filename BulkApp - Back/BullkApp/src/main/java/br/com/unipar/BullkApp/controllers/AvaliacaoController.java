@@ -3,7 +3,6 @@ package br.com.unipar.BullkApp.controllers;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
-import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.core.io.ByteArrayResource;
@@ -25,9 +24,6 @@ public class AvaliacaoController {
 
     @Autowired
     private AvaliacaoService avaliacaoService;
-
-    @Autowired
-    private UsuarioService usuarioService;
 
     @GetMapping("/")
     public String get(Model model){
@@ -84,7 +80,7 @@ public class AvaliacaoController {
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Avaliação cadastrados no sistema")
-    public List<Avaliacao> findAll() throws Exception{
+    public List<AvaliacaoDTO> findAll() throws Exception{
         return avaliacaoService.findAll();
     }
 

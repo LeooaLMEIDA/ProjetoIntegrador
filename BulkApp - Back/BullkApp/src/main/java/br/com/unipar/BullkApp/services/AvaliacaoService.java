@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +41,10 @@ public class AvaliacaoService {
             MapperAvaliacao avaliacao = objectMapper.readValue(data, MapperAvaliacao.class);
 
             Avaliacao avaliacao1 = new Avaliacao();
-            avaliacao1.setUsuario(avaliacao.getUsuario());
+            avaliacao1.setUsuario(/*usuarioService.findById(1L)*/avaliacao.getUsuario());
             avaliacao1.setArqName(file.getName());
-            avaliacao1.setDescricao(avaliacao.getDescricao());
-            avaliacao1.setObservacao(avaliacao.getObservacao());
+            avaliacao1.setDescricao(/*"Teste"*/avaliacao.getDescricao());
+            avaliacao1.setObservacao(/*"Teste"*/avaliacao.getObservacao());
             avaliacao1.setArqType(file.getContentType());
             avaliacao1.setArqAvaliacao(file.getBytes());
 
@@ -94,8 +95,15 @@ public class AvaliacaoService {
         return avaliacaoRepository.findByDescricaoContainingAllIgnoringCase(descricao);
     }
 
-    public List<Avaliacao> findAll() throws Exception{
-        return avaliacaoRepository.findAll();
+    public List<AvaliacaoDTO> findAll() throws Exception{
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findAll();
+
+        List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
+
+        for (Avaliacao avaliacao : avaliacoes) {
+            avaliacaoDTOS.add(AvaliacaoDTO.consultaDTO(avaliacao));
+        }
+        return avaliacaoDTOS;
     }
 
     private void validaInsert(Avaliacao avaliacao) throws Exception{

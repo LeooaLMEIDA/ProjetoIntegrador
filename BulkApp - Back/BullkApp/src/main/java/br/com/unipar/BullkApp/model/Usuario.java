@@ -19,6 +19,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Table(name = "BULLK_USUARIO")
 @ApiModel(description = "Modelo para Representação de um Usuario")
 @Data
+@AllArgsConstructor
 public class Usuario {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
