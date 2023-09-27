@@ -25,7 +25,6 @@ public class UsuarioDTO {
     private String celular;
     private String email;
     private TipoUsuarioENUM tpUsuario;
-    private String urlAvatar = "x";
     private boolean status;
 
     public static UsuarioDTO consultaDTO(Usuario usuario){
@@ -37,7 +36,6 @@ public class UsuarioDTO {
         usuarioDTO.setEmail(usuario.getEmail());
         usuarioDTO.setStatus(usuario.isStatus());
         usuarioDTO.setDtNascimento(usuario.getDtNascimento());
-        usuarioDTO.setUrlAvatar(usuario.getUrlAvatar());
         usuarioDTO.setNome(usuario.getNome());
 
         return usuarioDTO;

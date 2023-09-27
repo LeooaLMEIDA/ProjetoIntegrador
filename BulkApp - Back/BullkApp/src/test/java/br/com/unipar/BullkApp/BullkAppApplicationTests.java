@@ -11,15 +11,15 @@ class BullkAppApplicationTests {
 
 	private static AparelhoRepository aparelhoRepository;
 
-//	@Test
-//	public void testeInsercaoAparelho() {
-//		Aparelho aparelhoTeste = new Aparelho();
-//		aparelhoTeste.setStatus(false);
-//		aparelhoTeste.setDescricao("teste");
-//
-//		aparelhoRepository.save(aparelhoTeste);
-//
-//		throw new RuntimeException();
-//	}
+	@Test
+	public void testeInsercaoAparelho() {
+		Aparelho aparelhoTeste = new Aparelho();
+		aparelhoTeste.setStatus(false);
+		aparelhoTeste.setDescricao("teste");
+
+		aparelhoRepository.save(aparelhoTeste);
+
+		throw new RuntimeException();
+	}
 
 }

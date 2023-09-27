@@ -5,14 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -53,7 +46,9 @@ public class Usuario {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoUsuarioENUM tpUsuario;
-	private String urlAvatar;
+	@Lob
+	private byte[] urlAvatar;
+	private String mediaType;
 	@NotNull
 	private boolean status;
 	@NotNull

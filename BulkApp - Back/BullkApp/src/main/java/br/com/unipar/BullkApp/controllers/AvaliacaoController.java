@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/avaliacao")
@@ -33,19 +34,18 @@ public class AvaliacaoController {
     }
 
     @PostMapping("/uploadArquivo")
-    public String uploadMultipleFiles(@RequestParam("files")MultipartFile[] files, @RequestParam("data") String data){
-        for (MultipartFile file : files) {
-            avaliacaoService.saveFile(file, data);
-        }
-        return "redirect:/";
+    public ResponseEntity<String> uploadMultipleFiles(@RequestParam("file")MultipartFile file, @RequestParam("data") String data){
+        return avaliacaoService.saveFile(file, data);
     }
 
     @GetMapping("/downloadFile/{fileId}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) {
-        Avaliacao avaliacao = avaliacaoService.getFile(fileId).get();
-        return ResponseEntity.ok().contentType(MediaType.parseMediaType(avaliacao.getArqType()))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment:filename=\""+avaliacao.getArqName()+"\"")
-                .body(new ByteArrayResource(avaliacao.getArqAvaliacao()));
+        Optional<Avaliacao> avaliacao = avaliacaoService.getFile(fileId);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "Avaliação - " + fileId + ".pdf");
+        ByteArrayResource resource = new ByteArrayResource(avaliacao.get().getArqAvaliacao());
+        return ResponseEntity.ok().headers(headers).body(resource);
     }
 
     @PostMapping

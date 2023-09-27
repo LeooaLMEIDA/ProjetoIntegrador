@@ -12,10 +12,16 @@ import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/usuario")
@@ -30,6 +36,26 @@ public class UsuarioController {
 
     @Autowired
     private AvaliacaoService avaliacaoService;
+
+    @PostMapping("/uploadArquivo")
+    public ResponseEntity<String> uploadMultipleFiles(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+        return usuarioService.saveFile(file, data);
+    }
+
+    @GetMapping("/getAvatar/{fileId}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) {
+        Optional<Usuario> usuario = usuarioService.getFile(fileId);
+        HttpHeaders headers = new HttpHeaders();
+
+        if (usuario.get().getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
+            headers.setContentType(MediaType.IMAGE_JPEG);
+        } else if (usuario.get().getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
+            headers.setContentType(MediaType.IMAGE_PNG);
+        }
+
+        ByteArrayResource resource = new ByteArrayResource(usuario.get().getUrlAvatar());
+        return ResponseEntity.ok().headers(headers).body(resource);
+    }
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")

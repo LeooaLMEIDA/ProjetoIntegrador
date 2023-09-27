@@ -8,10 +8,12 @@ import br.com.unipar.BullkApp.util.MapperAvaliacao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,27 +37,35 @@ public class AvaliacaoService {
         return avaliacaoRepository.findAll();
     }
 
-    public Avaliacao saveFile(MultipartFile file, String data){
+    public ResponseEntity<String> saveFile(MultipartFile file, String data){
         try {
+            System.out.println(file.getContentType());
+            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
+                throw new Exception("é necessário que o arquivo seja um PDF!");
+            }
             ObjectMapper objectMapper = new ObjectMapper();
             MapperAvaliacao avaliacao = objectMapper.readValue(data, MapperAvaliacao.class);
 
             Avaliacao avaliacao1 = new Avaliacao();
-            avaliacao1.setUsuario(/*usuarioService.findById(1L)*/avaliacao.getUsuario());
+            avaliacao1.setUsuario(avaliacao.getUsuario());
             avaliacao1.setArqName(file.getName());
-            avaliacao1.setDescricao(/*"Teste"*/avaliacao.getDescricao());
-            avaliacao1.setObservacao(/*"Teste"*/avaliacao.getObservacao());
+            avaliacao1.setDescricao(avaliacao.getDescricao());
+            avaliacao1.setObservacao(avaliacao.getObservacao());
             avaliacao1.setArqType(file.getContentType());
             avaliacao1.setArqAvaliacao(file.getBytes());
 
             avaliacao1.setDataCriacao(LocalDateTime.now());
             avaliacao1.setDataModificacao(LocalDateTime.now());
 
-            return avaliacaoRepository.saveAndFlush(avaliacao1);
-        } catch (Exception e) {
+            avaliacaoRepository.saveAndFlush(avaliacao1);
+
+            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
+        } catch (IOException e) {
             e.printStackTrace();
+            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
         }
-        return null;
     }
 
     public Avaliacao insert(Avaliacao avaliacao) throws Exception{
