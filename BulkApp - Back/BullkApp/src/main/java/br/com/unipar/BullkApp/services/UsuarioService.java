@@ -1,12 +1,12 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
-import br.com.unipar.BullkApp.model.Avaliacao;
+import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.UsuarioRepository;
-import br.com.unipar.BullkApp.util.MapperAvaliacao;
 import br.com.unipar.BullkApp.util.MapperUsuario;
+import br.com.unipar.BullkApp.util.MapperUsuarioWithId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -39,20 +37,13 @@ public class UsuarioService {
         } catch (Exception e) {
             throw new Exception("Erro: " + e.getMessage());
         }
-
     }
 
-    public Optional<Usuario> getFile(Long fileId) {
-        return usuarioRepository.findById(fileId);
-    }
-
-    public ResponseEntity<String> saveFile(MultipartFile file, String data) {
+    public ResponseEntity<String> insertWithFile(MultipartFile file, String data) {
         try {
-            System.out.println(file.getContentType());
             if (!MediaType.IMAGE_PNG_VALUE.equals(file.getContentType()))
                 if (!MediaType.IMAGE_JPEG_VALUE.equals(file.getContentType()))
-                    throw new Exception("é necessário que a imagem seja um PNG ou JPEG!");
-
+                    throw new GenericErrorMessage("é necessário que a imagem seja um PNG ou JPEG!");
 
             ObjectMapper objectMapper = new ObjectMapper();
             MapperUsuario usuario = objectMapper.readValue(data, MapperUsuario.class);
@@ -76,11 +67,52 @@ public class UsuarioService {
             usuarioRepository.saveAndFlush(usuario1);
 
             return ResponseEntity.ok().body("Upload com sucesso - Usuário id = " + usuario1.getId());
-        } catch (IOException e) {
+        } catch (GenericErrorMessage e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
+        try {
+            if (!MediaType.IMAGE_PNG_VALUE.equals(file.getContentType()))
+                if (!MediaType.IMAGE_JPEG_VALUE.equals(file.getContentType()))
+                    throw new GenericErrorMessage("é necessário que a imagem seja um PNG ou JPEG!");
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            MapperUsuarioWithId usuario = objectMapper.readValue(data, MapperUsuarioWithId.class);
+
+            Usuario usuario1 = findById(usuario.getId());
+
+            usuario1.setNome(usuario.getNome());
+            usuario1.setDtNascimento(usuario.getDtNascimento());
+            usuario1.setSexo(usuario.getSexo());
+            usuario1.setCelular(usuario.getCelular());
+            usuario1.setEmail(usuario.getEmail());
+            usuario1.setTpUsuario(usuario.getTpUsuario());
+            usuario1.setStatus(usuario.isStatus());
+            usuario1.setSenha(usuario.getSenha());
+
+            usuario1.setUrlAvatar(file.getBytes());
+            usuario1.setMediaType(file.getContentType());
+
+            usuario1.setDataModificacao(LocalDateTime.now());
+
+            if (usuario1.isStatus())
+                usuario1.setDataExclusao(null);
+            else
+                usuario1.setDataExclusao(LocalDateTime.now());
+
+            usuarioRepository.saveAndFlush(usuario1);
+
+            return ResponseEntity.ok().body("Usuário id = " + usuario1.getId() + " atualizado com sucesso!");
+        } catch (GenericErrorMessage e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
         }
     }
 
@@ -109,6 +141,8 @@ public class UsuarioService {
         Usuario usuario = findById(id);
         validaUpdate(usuario);
         usuario.setStatus(false);
+        usuario.setMediaType(null);
+        usuario.setUrlAvatar(null);
         usuario.setDataExclusao(LocalDateTime.now());
         usuario.setDataModificacao(LocalDateTime.now());
         usuarioRepository.saveAndFlush(usuario);

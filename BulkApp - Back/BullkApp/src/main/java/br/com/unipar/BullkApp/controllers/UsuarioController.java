@@ -38,22 +38,29 @@ public class UsuarioController {
     private AvaliacaoService avaliacaoService;
 
     @PostMapping("/uploadArquivo")
-    public ResponseEntity<String> uploadMultipleFiles(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-        return usuarioService.saveFile(file, data);
+    @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário com imagem do avatar")
+    public ResponseEntity<String> insertWithFile(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+        return usuarioService.insertWithFile(file, data);
+    }
+
+    @PutMapping()
+    @ApiOperation(value = "Operação resposável pela Atualização de um Usuário já existente com imagem do avatar")
+    public ResponseEntity<String> updateWithFile(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+        return usuarioService.updateWithFile(file, data);
     }
 
     @GetMapping("/getAvatar/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) {
-        Optional<Usuario> usuario = usuarioService.getFile(fileId);
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) throws Exception {
+        Usuario usuario = usuarioService.findById(fileId);
         HttpHeaders headers = new HttpHeaders();
 
-        if (usuario.get().getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
+        if (usuario.getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
             headers.setContentType(MediaType.IMAGE_JPEG);
-        } else if (usuario.get().getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
+        } else if (usuario.getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
             headers.setContentType(MediaType.IMAGE_PNG);
         }
 
-        ByteArrayResource resource = new ByteArrayResource(usuario.get().getUrlAvatar());
+        ByteArrayResource resource = new ByteArrayResource(usuario.getUrlAvatar());
         return ResponseEntity.ok().headers(headers).body(resource);
     }
 
@@ -63,11 +70,11 @@ public class UsuarioController {
         return usuarioService.insert(usuario);
     }
 
-    @PutMapping
-    @ApiOperation(value = "Operação responsável pela Atualização de um Usuário já existente")
-    public Usuario update(@RequestBody Usuario usuario) throws Exception{
-        return usuarioService.update(usuario);
-    }
+//    @PutMapping
+//    @ApiOperation(value = "Operação responsável pela Atualização de um Usuário já existente")
+//    public Usuario update(@RequestBody Usuario usuario) throws Exception{
+//        return usuarioService.update(usuario);
+//    }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Usuário existente")

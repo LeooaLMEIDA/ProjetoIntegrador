@@ -26,25 +26,25 @@ public class AvaliacaoController {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
-    @GetMapping("/")
-    public String get(Model model){
-        List<Avaliacao> avaliacaos = avaliacaoService.getFiles();
-        model.addAttribute("docs", avaliacaos);
-        return "avalicao";
+    @PostMapping("/uploadArquivo")
+    @ApiOperation(value = "Operação responsável pela Inserção de uma nova Avaliação")
+    public ResponseEntity<String> insertWithFile(@RequestParam("file")MultipartFile file, @RequestParam("data") String data){
+        return avaliacaoService.insertWithFile(file, data);
     }
 
-    @PostMapping("/uploadArquivo")
-    public ResponseEntity<String> uploadMultipleFiles(@RequestParam("file")MultipartFile file, @RequestParam("data") String data){
-        return avaliacaoService.saveFile(file, data);
+    @PutMapping()
+    @ApiOperation(value = "Operação responsável pela Atualização de uma Avaliação já existente")
+    public ResponseEntity<String> updateWithFile(@RequestParam("file")MultipartFile file, @RequestParam("data") String data){
+        return avaliacaoService.updateWithFile(file, data);
     }
 
     @GetMapping("/downloadFile/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) {
-        Optional<Avaliacao> avaliacao = avaliacaoService.getFile(fileId);
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) throws Exception {
+        Avaliacao avaliacao = avaliacaoService.findById(fileId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("attachment", "Avaliação - " + fileId + ".pdf");
-        ByteArrayResource resource = new ByteArrayResource(avaliacao.get().getArqAvaliacao());
+        ByteArrayResource resource = new ByteArrayResource(avaliacao.getArqAvaliacao());
         return ResponseEntity.ok().headers(headers).body(resource);
     }
 
@@ -54,11 +54,11 @@ public class AvaliacaoController {
         return avaliacaoService.insert(avaliacao);
     }
 
-    @PutMapping
-    @ApiOperation(value = "Operação responsável pela Atualização de uma Avaliação já existente")
-    public Avaliacao update(@RequestBody Avaliacao avaliacao) throws Exception{
-        return avaliacaoService.update(avaliacao);
-    }
+//    @PutMapping
+//    @ApiOperation(value = "Operação responsável pela Atualização de uma Avaliação já existente")
+//    public Avaliacao update(@RequestBody Avaliacao avaliacao) throws Exception{
+//        return avaliacaoService.update(avaliacao);
+//    }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar uma Avaliação existente")

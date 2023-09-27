@@ -26,7 +26,6 @@ public class Avaliacao {
 	private String descricao;
 	private String observacao;
 	@NonNull
-	//@Type(type = "org.hibernate.type.BinaryType")
 	@Lob
 	private byte[] arqAvaliacao;
 	private String arqType;

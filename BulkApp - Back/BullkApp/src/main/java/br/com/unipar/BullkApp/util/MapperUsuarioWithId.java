@@ -2,18 +2,15 @@ package br.com.unipar.BullkApp.util;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
-import br.com.unipar.BullkApp.model.Usuario;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 @Data
-public class MapperUsuario {
+public class MapperUsuarioWithId {
+    private Long id;
     private String nome;
     private Date dtNascimento;
     @Enumerated(EnumType.STRING)
@@ -25,4 +22,3 @@ public class MapperUsuario {
     private boolean status;
     private String senha;
 }
-

@@ -1,10 +1,12 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
 import br.com.unipar.BullkApp.util.MapperAvaliacao;
+import br.com.unipar.BullkApp.util.MapperAvaliacaoWithId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +35,11 @@ public class AvaliacaoService {
         return avaliacaoRepository.findById(fileId);
     }
 
-    public List<Avaliacao> getFiles(){
-        return avaliacaoRepository.findAll();
-    }
-
-    public ResponseEntity<String> saveFile(MultipartFile file, String data){
+    public ResponseEntity<String> insertWithFile(MultipartFile file, String data){
         try {
             System.out.println(file.getContentType());
             if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
-                throw new Exception("é necessário que o arquivo seja um PDF!");
+                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
             }
             ObjectMapper objectMapper = new ObjectMapper();
             MapperAvaliacao avaliacao = objectMapper.readValue(data, MapperAvaliacao.class);
@@ -60,11 +58,42 @@ public class AvaliacaoService {
             avaliacaoRepository.saveAndFlush(avaliacao1);
 
             return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
-        } catch (IOException e) {
+        } catch (GenericErrorMessage e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+        }
+    }
+
+    public ResponseEntity<String> updateWithFile(MultipartFile file, String data){
+        try {
+            System.out.println(file.getContentType());
+            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
+                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            MapperAvaliacaoWithId avaliacao = objectMapper.readValue(data, MapperAvaliacaoWithId.class);
+
+            Avaliacao avaliacao1 = findById(avaliacao.getId());
+
+            avaliacao1.setUsuario(avaliacao.getUsuario());
+            avaliacao1.setArqName(file.getName());
+            avaliacao1.setDescricao(avaliacao.getDescricao());
+            avaliacao1.setObservacao(avaliacao.getObservacao());
+            avaliacao1.setArqType(file.getContentType());
+            avaliacao1.setArqAvaliacao(file.getBytes());
+
+            avaliacao1.setDataModificacao(LocalDateTime.now());
+
+            avaliacaoRepository.saveAndFlush(avaliacao1);
+
+            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
+        } catch (GenericErrorMessage e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
         }
     }
 
