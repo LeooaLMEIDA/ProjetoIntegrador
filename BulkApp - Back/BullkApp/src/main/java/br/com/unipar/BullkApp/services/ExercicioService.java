@@ -43,14 +43,17 @@ public class ExercicioService {
 
         Exercicio exercicio1 = findById(exercicio.getId());
 
-        exercicio1.setDescricao(exercicio.getDescricao() != null ? exercicio.getDescricao() : exercicio1.getDescricao());
-        exercicio1.setStatus(exercicio.isStatus() == true ? exercicio.isStatus() : exercicio1.isStatus());
-        exercicio1.setAparelho(exercicio.getAparelho() != null ? aparelhoService.findById(exercicio.getAparelho().getId()) : exercicio1.getAparelho());
-        exercicio1.setGrpMusculos(exercicio.getGrpMusculos() != null ? exercicio.getGrpMusculos() : exercicio1.getGrpMusculos());
-        exercicio1.setImgIlustracao(exercicio.getImgIlustracao() != null ? exercicio.getImgIlustracao() : exercicio1.getImgIlustracao());
-        exercicio1.setVdInstrucao(exercicio.getVdInstrucao() != null ? exercicio.getVdInstrucao() : exercicio1.getVdInstrucao());
+        exercicio1.setDescricao(exercicio.getDescricao());
+        exercicio1.setStatus(exercicio.isStatus());
+        exercicio1.setAparelho(aparelhoService.findById(exercicio.getAparelho().getId()));
+        exercicio1.setGrpMusculos(exercicio.getGrpMusculos());
+        exercicio1.setImgIlustracao(exercicio.getImgIlustracao());
+        exercicio1.setVdInstrucao(exercicio.getVdInstrucao());
 
         exercicio1.setDataModificacao(LocalDateTime.now());
+
+        if (exercicio1.isStatus())
+            exercicio1.setDataExclusao(null);
 
         exercicioRepository.saveAndFlush(exercicio1);
         return exercicio1;

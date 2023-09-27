@@ -30,9 +30,12 @@ public class AparelhoService {
 
         Aparelho aparelho1 = findById(aparelho.getId());
 
-        aparelho1.setDescricao(aparelho.getDescricao() != null ? aparelho.getDescricao() : aparelho1.getDescricao());
-        aparelho1.setStatus(aparelho.isStatus() == true ? aparelho.isStatus() : aparelho1.isStatus());
+        aparelho1.setDescricao(aparelho.getDescricao());
+        aparelho1.setStatus(aparelho.isStatus());
         aparelho1.setDataModificacao(LocalDateTime.now());
+
+        if (aparelho1.isStatus())
+            aparelho1.setDataExclusao(null);
 
         aparelhoRepository.saveAndFlush(aparelho1);
         return aparelho1;

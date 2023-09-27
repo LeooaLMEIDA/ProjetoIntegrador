@@ -50,17 +50,20 @@ public class TreinoService {
 
         Treino treino1 = findById(treino.getId());
 
-        treino1.setCdTreino(treino.getCdTreino() != null ? treino.getCdTreino() : treino1.getCdTreino());
-        treino1.setStatus(treino.isStatus() == true ? treino.isStatus() : treino1.isStatus());
-        treino1.setExercicio(treino.getExercicio() != null ? exercicioService.findById(treino.getExercicio().getId()) : treino1.getExercicio());
-        treino1.setPeso(treino.getPeso() != null ? treino.getPeso() : treino1.getPeso());
-        treino1.setUsuario(treino.getUsuario() != null ? usuarioService.findById(treino.getUsuario().getId()) : treino1.getUsuario());
-        treino1.setDescanso(treino.getDescanso() != null ? treino.getDescanso() : treino1.getDescanso());
-        treino1.setRepeticoes(treino.getRepeticoes() != 0 ? treino.getRepeticoes() : treino1.getRepeticoes());
-        treino1.setSeries(treino.getSeries() != 0 ? treino.getSeries() : treino1.getSeries());
-        treino1.setAlternativo(treino.isAlternativo() == true ? treino.isAlternativo() : treino1.isAlternativo());
+        treino1.setCdTreino(treino.getCdTreino());
+        treino1.setStatus(treino.isStatus());
+        treino1.setExercicio(exercicioService.findById(treino.getExercicio().getId()));
+        treino1.setPeso(treino.getPeso());
+        treino1.setUsuario(usuarioService.findById(treino.getUsuario().getId()));
+        treino1.setDescanso(treino.getDescanso());
+        treino1.setRepeticoes(treino.getRepeticoes());
+        treino1.setSeries(treino.getSeries());
+        treino1.setAlternativo(treino.isAlternativo());
 
         treino1.setDataModificacao(LocalDateTime.now());
+
+        if (treino1.isStatus())
+            treino1.setDataExclusao(null);
 
         treinoRepository.saveAndFlush(treino1);
         return treino1;

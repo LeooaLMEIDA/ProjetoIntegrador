@@ -102,8 +102,6 @@ public class UsuarioService {
 
             if (usuario1.isStatus())
                 usuario1.setDataExclusao(null);
-            else
-                usuario1.setDataExclusao(LocalDateTime.now());
 
             usuarioRepository.saveAndFlush(usuario1);
 
