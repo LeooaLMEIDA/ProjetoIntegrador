@@ -1,13 +1,19 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
-
+import 'package:bullkapp/repositories/evaluation_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class EvaluationCard extends StatelessWidget {
+final EvaluationRepository evaluationRepository = EvaluationRepository();
+
+class EvaluationCard extends StatefulWidget {
   final String mainLabel;
 
   EvaluationCard({required this.mainLabel});
 
+  @override
+  State<EvaluationCard> createState() => _EvaluationCardState();
+}
+
+class _EvaluationCardState extends State<EvaluationCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -16,9 +22,9 @@ class EvaluationCard extends StatelessWidget {
       ),
       clipBehavior: Clip.hardEdge,
       borderOnForeground: true,
-      color: Color.fromARGB(160, 4, 53, 101),
+      color: const Color.fromARGB(160, 4, 53, 101),
       child: InkWell(
-        splashColor: Color.fromARGB(160, 4, 53, 101).withAlpha(255),
+        splashColor: const Color.fromARGB(160, 4, 53, 101).withAlpha(255),
         child: SizedBox(
           width: MediaQuery.of(context).size.width * .37,
           child: GestureDetector(
@@ -35,8 +41,8 @@ class EvaluationCard extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    mainLabel,
-                    style: TextStyle(
+                    widget.mainLabel,
+                    style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -55,10 +61,10 @@ class EvaluationCard extends StatelessWidget {
   }
 
   void abrirURL() async {
-    const url =
-        'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf';
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+    String teste = await evaluationRepository.getEvaluation(1);
+
+    if (await canLaunchUrl(Uri.parse(teste))) {
+      await launchUrl(Uri.parse(teste));
     }
   }
 }

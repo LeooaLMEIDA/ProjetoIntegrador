@@ -1,11 +1,23 @@
 import 'package:bullkapp/components/appbar.dart' show CustomAppBar;
 import 'package:bullkapp/components/bottombar.dart';
+import 'package:bullkapp/models/evaluation.dart';
+import 'package:bullkapp/repositories/evaluation_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../components/evaluation_card.dart';
 
-class BodyEvaluationScreen extends StatelessWidget {
+EvaluationRepository _evaluationRepository = EvaluationRepository();
+
+class BodyEvaluationScreen extends StatefulWidget {
   const BodyEvaluationScreen({super.key});
 
+  @override
+  State<BodyEvaluationScreen> createState() => _BodyEvaluationScreenState();
+}
+
+class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
+  bool _isLoading = false;
+  List<Evaluation> evaluations = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +69,30 @@ class BodyEvaluationScreen extends StatelessWidget {
       ),
       bottomNavigationBar: const CustomBottomAppBar(),
     );
+  }
+
+  Future<void> _getAllEvaluations(int id) async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      List<Evaluation> fetchedEvaluation =
+          await _evaluationRepository.getAllEvaluation(id);
+      setState(() {
+        evaluations = fetchedEvaluation;
+      });
+    } catch (e) {
+      Get.snackbar(
+        'ERRO',
+        'Erro ao obter os Treinos!',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
 
@@ -172,3 +208,5 @@ class Search extends SearchDelegate {
     );
   }
 }
+
+

@@ -188,7 +188,7 @@ class _LoginState extends State<Login> {
                                   'SUCESSO',
                                   "BEM VINDO(A)",
                                   snackPosition: SnackPosition.TOP,
-                                  duration: Duration(seconds: 2),
+                                  duration: Duration(seconds: 1),
                                   backgroundColor: Colors.green,
                                   colorText: Color.fromARGB(255, 255, 255, 255),
                                 );
@@ -243,4 +243,8 @@ class _LoginState extends State<Login> {
       }
     }
   }
+
+  // _getPhotoUser() async {
+
+  // }
 }
