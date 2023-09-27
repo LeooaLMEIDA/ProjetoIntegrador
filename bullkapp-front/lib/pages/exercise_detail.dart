@@ -34,6 +34,7 @@ class ExerciseDetail extends StatefulWidget {
 
 class _ExerciseDetailState extends State<ExerciseDetail> {
   Workout returnWorkout = Workout();
+  get _description => widget.description;
 
   @override
   void initState() {
@@ -56,6 +57,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
 
   @override
   Widget build(BuildContext context) {
+    int lengthExercice = _description.length;
     int iSeries = returnWorkout.series ?? 0;
     return Scaffold(
       appBar: const CustomAppBar(title: ""),
@@ -73,9 +75,18 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 child: Row(
                   children: [
                     Text(
-                      widget.description,
-                      style:
-                          const TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
+                      _description,
+                      style: TextStyle(
+                        fontSize: lengthExercice < 28
+                            ? 34
+                            : lengthExercice < 34
+                                ? 28
+                                : lengthExercice < 40
+                                    ? 24
+                                    : 18,
+                        fontFamily: 'Voltaire',
+                      ),
+                      softWrap: true,
                     ),
                   ],
                 ),

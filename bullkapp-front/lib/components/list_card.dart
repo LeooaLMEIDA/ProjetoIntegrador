@@ -16,6 +16,7 @@ class CustomListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int lengthExercice = exerciceName.length;
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
@@ -36,7 +37,10 @@ class CustomListCard extends StatelessWidget {
                 left: 20,
                 child: Text(
                   exerciceName,
-                  style: TextStyle(fontSize: 22, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: lengthExercice < 22 ? 22 : 18,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               Positioned(
@@ -44,7 +48,10 @@ class CustomListCard extends StatelessWidget {
                 right: 10,
                 child: Text(
                   '$series X $repetition',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
