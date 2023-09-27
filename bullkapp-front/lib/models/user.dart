@@ -8,7 +8,7 @@ class User {
   String celular = "";
   String email = "";
   String tpUsuario = "";
-  String urlAvatar = "";
+  String? urlAvatar = "";
   bool status = true;
   String? senha;
 

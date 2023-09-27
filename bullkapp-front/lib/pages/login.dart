@@ -187,8 +187,8 @@ class _LoginState extends State<Login> {
                                 Get.snackbar(
                                   'SUCESSO',
                                   "BEM VINDO(A)",
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  duration: Duration(seconds: 2),
+                                  snackPosition: SnackPosition.TOP,
+                                  duration: Duration(seconds: 1),
                                   backgroundColor: Colors.green,
                                   colorText: Color.fromARGB(255, 255, 255, 255),
                                 );
@@ -237,10 +237,13 @@ class _LoginState extends State<Login> {
         userController.setPhone(user.celular);
         userController.setDtBirth(user.dtNascimento);
         userController.setGender(user.sexo);
-        userController.setUrlAvatar(user.urlAvatar);
       } catch (e) {
         throw Exception(e);
       }
     }
   }
+
+  // _getPhotoUser() async {
+
+  // }
 }

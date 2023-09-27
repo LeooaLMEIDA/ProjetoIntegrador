@@ -34,9 +34,12 @@ class CustomListCard extends StatelessWidget {
               Positioned(
                 top: 20,
                 left: 20,
-                child: Text(
-                  exerciceName,
-                  style: TextStyle(fontSize: 22, color: Colors.white),
+                child: Expanded(
+                  child: Text(
+                    exerciceName,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(fontSize: 22, color: Colors.white),
+                  ),
                 ),
               ),
               Positioned(

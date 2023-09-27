@@ -1,11 +1,19 @@
+import 'package:bullkapp/repositories/evaluation_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class EvaluationCard extends StatelessWidget {
+final EvaluationRepository evaluationRepository = EvaluationRepository();
+
+class EvaluationCard extends StatefulWidget {
   final String mainLabel;
 
   EvaluationCard({required this.mainLabel});
 
+  @override
+  State<EvaluationCard> createState() => _EvaluationCardState();
+}
+
+class _EvaluationCardState extends State<EvaluationCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +41,7 @@ class EvaluationCard extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    mainLabel,
+                    widget.mainLabel,
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -53,10 +61,10 @@ class EvaluationCard extends StatelessWidget {
   }
 
   void abrirURL() async {
-    const url =
-        'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf';
-    if (await canLaunchUrl(Uri.parse(url))) {
-      await launchUrl(Uri.parse(url));
+    String teste = await evaluationRepository.getEvaluation(1);
+
+    if (await canLaunchUrl(Uri.parse(teste))) {
+      await launchUrl(Uri.parse(teste));
     }
   }
 }

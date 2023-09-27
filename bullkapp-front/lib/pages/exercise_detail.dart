@@ -74,8 +74,10 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   children: [
                     Text(
                       widget.description,
-                      style:
-                          const TextStyle(fontSize: 34, fontFamily: 'Voltaire'),
+                      style: const TextStyle(
+                        fontSize: 34,
+                        fontFamily: 'Voltaire',
+                      ),
                     ),
                   ],
                 ),
