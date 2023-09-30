@@ -25,6 +25,14 @@ public class AparelhoService {
         return aparelho;
     }
 
+    public Aparelho insertTeste(Aparelho aparelho) throws Exception{
+        aparelho.setStatus(true);
+        aparelho.setDataCriacao(LocalDateTime.now());
+        aparelho.setDataModificacao(LocalDateTime.now());
+        aparelhoRepository.save(aparelho);
+        throw new RuntimeException();
+    }
+
     public Aparelho update(Aparelho aparelho) throws Exception {
         validaUpdate(aparelho);
 
@@ -79,5 +87,19 @@ public class AparelhoService {
         if (aparelho.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Aparelho");
         }
+    }
+
+    public String validaInsertTeste(Aparelho aparelho) {
+        if (aparelho.getId() != null){
+            return "Não é necessário informar o ID para inserir um novo Aparelho";
+        }
+        return null;
+    }
+
+    public String validaUpdateTeste(Aparelho aparelho) {
+        if (aparelho.getId() == null){
+            return "É necessário informar o ID para atualizar o cadastro do Aparelho";
+        }
+        return null;
     }
 }

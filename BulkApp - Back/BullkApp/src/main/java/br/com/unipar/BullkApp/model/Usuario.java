@@ -42,7 +42,7 @@ public class Usuario {
 	@NotNull
 	private String celular;
 	@NotNull
-	@Email
+//	@Email
 	private String email;
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -60,7 +60,6 @@ public class Usuario {
 	private LocalDateTime dataModificacao;
 	@JsonIgnore
 	private LocalDateTime dataExclusao;
-
 
 	public Usuario() {
 

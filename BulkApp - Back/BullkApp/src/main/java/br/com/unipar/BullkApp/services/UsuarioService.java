@@ -181,6 +181,20 @@ public class UsuarioService {
         }
     }
 
+    public String validaInsertTeste(Usuario usuario) {
+        if (usuario.getId() != null){
+            return "Não é necessário informar o ID para inserir um novo Usuário";
+        }
+        return null;
+    }
+
+    public String validaUpdateTeste(Usuario usuario) {
+        if (usuario.getId() == null){
+            return "É necessário informar o ID para atualizar o cadastro do Usuário";
+        }
+        return null;
+    }
+
     public UsuarioDTO findByEmail(String email) throws Exception {
         Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByEmailIgnoreCase(email));
         if (usuario.isPresent()){

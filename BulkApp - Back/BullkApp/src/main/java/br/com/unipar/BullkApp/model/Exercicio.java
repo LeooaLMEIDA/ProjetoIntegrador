@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -25,12 +26,16 @@ public class Exercicio {
 	@NonNull
 	private Long id;
 	@NonNull
+	@Size(max = 40)
 	@ApiModelProperty(required = true)
 	private String descricao;
 	@NonNull
-	private String imgIlustracao;
+	private String orientacao;
 	@NonNull
-	private String vdInstrucao;
+	private byte[] imgIlustracao;
+	private String mediaType;
+//	@NonNull
+//	private String vdInstrucao;
 	private boolean status;
 	@ManyToOne
 	@NonNull

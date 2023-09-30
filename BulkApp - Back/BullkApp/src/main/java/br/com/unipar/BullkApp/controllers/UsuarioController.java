@@ -39,18 +39,18 @@ public class UsuarioController {
 
     @PostMapping("/uploadArquivo")
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário com imagem do avatar")
-    public ResponseEntity<String> insertWithFile(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+    public ResponseEntity<String> insertWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
         return usuarioService.insertWithFile(file, data);
     }
 
     @PutMapping()
     @ApiOperation(value = "Operação resposável pela Atualização de um Usuário já existente com imagem do avatar")
-    public ResponseEntity<String> updateWithFile(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+    public ResponseEntity<String> updateWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
         return usuarioService.updateWithFile(file, data);
     }
 
-    @GetMapping("/getAvatar/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) throws Exception {
+    @GetMapping("/getPhoto/{fileId}")
+    public ResponseEntity<ByteArrayResource> downloadPhoto(@PathVariable Long fileId) throws Exception {
         Usuario usuario = usuarioService.findById(fileId);
         HttpHeaders headers = new HttpHeaders();
 
