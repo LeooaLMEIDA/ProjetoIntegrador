@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import '../data/constants.dart';
@@ -11,24 +13,20 @@ class UserRepository {
     dio.interceptors.add(dioCacheManager.interceptor);
   }
 
-  Future<User> getByEmail(String email) async {
+  Future<String> getPhoto(int id) async {
     dioCacheManager.clearAll();
-    final String url = "$apiBaseURL/usuario/email?email=$email";
+    final String url = "$apiBaseURL/usuario/getPhoto/$id";
 
     try {
-      final response = await dio.get(
-        url,
-        options: buildCacheOptions(
-          const Duration(minutes: 120),
-        ),
-      );
+      final response = await dio.get(url);
 
       if (response.statusCode == 200 && response.data != null) {
-        User user = User.fromJson(response.data);
-        return user;
+        String photo = response.data;
+        return photo;
       } else {
         throw Exception(
-            "Erro ao buscar o usuário. Código de status: ${response.statusCode}");
+          "Erro ao buscar o usuário. Código de status: ${response.statusCode}",
+        );
       }
     } catch (e) {
       throw Exception("Houve um problema para requerir o usuário $e");

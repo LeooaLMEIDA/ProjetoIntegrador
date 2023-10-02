@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, unused_element, use_key_in_widget_constructors
-
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/repositories/login_repository.dart';
 import 'package:flutter/material.dart';
@@ -156,9 +155,6 @@ class _LoginState extends State<Login> {
                         padding: const EdgeInsets.all(16.0),
                         child: ElevatedButton(
                           style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(
-                              Size(160, 20),
-                            ),
                             backgroundColor: MaterialStateProperty.all(
                               Color.fromARGB(255, 255, 195, 1),
                             ),
@@ -237,14 +233,10 @@ class _LoginState extends State<Login> {
         userController.setPhone(user.celular);
         userController.setDtBirth(user.dtNascimento);
         userController.setGender(user.sexo);
-        //userController.setUrlAvatar(user.urlAvatar);
+        
       } catch (e) {
         throw Exception(e);
       }
     }
-  }
-
-  // _getPhotoUser() async {
-
-  // }
+  }  
 }
