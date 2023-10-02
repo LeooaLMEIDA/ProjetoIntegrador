@@ -25,14 +25,6 @@ public class AparelhoService {
         return aparelho;
     }
 
-    public Aparelho insertTeste(Aparelho aparelho) throws Exception{
-        aparelho.setStatus(true);
-        aparelho.setDataCriacao(LocalDateTime.now());
-        aparelho.setDataModificacao(LocalDateTime.now());
-        aparelhoRepository.save(aparelho);
-        throw new RuntimeException();
-    }
-
     public Aparelho update(Aparelho aparelho) throws Exception {
         validaUpdate(aparelho);
 

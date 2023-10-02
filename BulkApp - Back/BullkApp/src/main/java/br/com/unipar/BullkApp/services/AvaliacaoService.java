@@ -66,7 +66,7 @@ public class AvaliacaoService {
         }
     }
 
-    public ResponseEntity<String> updateWithFile(MultipartFile file, String data){
+    public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
         try {
             System.out.println(file.getContentType());
             if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
