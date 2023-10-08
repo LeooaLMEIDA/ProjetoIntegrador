@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.Aparelho;
+import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.ExercicioRepository;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -164,8 +166,15 @@ public class ExercicioService {
         return exercicioRepository.findByDescricaoContainingAllIgnoringCase(descricao);
     }
 
-    public List<Exercicio> findAll() throws Exception{
-        return exercicioRepository.findAll();
+    public List<ExercicioDTO> findAll() throws Exception{
+        List<Exercicio> exercicios = exercicioRepository.findAll();
+
+        List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
+
+        for (Exercicio exercicio : exercicios) {
+            exercicioDTOS.add(new ExercicioDTO().consultaDTO(exercicio));
+        }
+        return exercicioDTOS;
     }
 
     private void validaInsert(Exercicio exercicio) throws Exception{

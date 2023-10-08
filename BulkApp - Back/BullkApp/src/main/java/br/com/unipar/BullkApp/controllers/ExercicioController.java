@@ -1,21 +1,20 @@
 package br.com.unipar.BullkApp.controllers;
 
+import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
+import br.com.unipar.BullkApp.model.DTO.ImagemDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
-import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.ExercicioService;
 import br.com.unipar.BullkApp.services.TreinoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -42,14 +41,31 @@ public class ExercicioController {
     }
 
     @GetMapping("/getGif/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadGif(@PathVariable Long fileId) throws Exception {
+    public ImagemDTO downloadGif(@PathVariable Long fileId) throws Exception {
         Exercicio exercicio = exercicioService.findById(fileId);
-        HttpHeaders headers = new HttpHeaders();
+//        HttpHeaders headers = new HttpHeaders();
+//
+//        headers.setContentType(MediaType.IMAGE_GIF);
+//
+//        ByteArrayResource resource = new ByteArrayResource(exercicio.getImgIlustracao());
+//        return ResponseEntity.ok().headers(headers).body(resource);
+        ImagemDTO imagemDTO = new ImagemDTO();
+        imagemDTO.setImagem(Base64.getEncoder().encodeToString(exercicio.getImgIlustracao()));
+        return imagemDTO;
+    }
 
-        headers.setContentType(MediaType.IMAGE_GIF);
-
-        ByteArrayResource resource = new ByteArrayResource(exercicio.getImgIlustracao());
-        return ResponseEntity.ok().headers(headers).body(resource);
+    @PostMapping ("/postGif/{fileId}")
+    public ImagemDTO viewGif(@PathVariable Long fileId) throws Exception {
+        Exercicio exercicio = exercicioService.findById(fileId);
+//        HttpHeaders headers = new HttpHeaders();
+//
+//        headers.setContentType(MediaType.IMAGE_GIF);
+//
+//        ByteArrayResource resource = new ByteArrayResource(exercicio.getImgIlustracao());
+//        return ResponseEntity.ok().headers(headers).body(resource);
+        ImagemDTO imagemDTO = new ImagemDTO();
+        imagemDTO.setImagem(Base64.getEncoder().encodeToString(exercicio.getImgIlustracao()));
+        return imagemDTO;
     }
 
     @PostMapping
@@ -92,7 +108,7 @@ public class ExercicioController {
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Exercicios cadastrados no sistema")
-    public List<Exercicio> findAll() throws Exception{
+    public List<ExercicioDTO> findAll() throws Exception{
         return exercicioService.findAll();
     }
 }

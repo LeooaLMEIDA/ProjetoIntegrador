@@ -3,6 +3,7 @@ package br.com.unipar.BullkApp.controllers;
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.DTO.ImagemDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,18 +52,39 @@ public class UsuarioController {
     }
 
     @GetMapping("/getPhoto/{fileId}")
-    public ResponseEntity<ByteArrayResource> downloadPhoto(@PathVariable Long fileId) throws Exception {
+    public ImagemDTO downloadPhoto(@PathVariable Long fileId) throws Exception {
         Usuario usuario = usuarioService.findById(fileId);
-        HttpHeaders headers = new HttpHeaders();
+//        HttpHeaders headers = new HttpHeaders();
+//
+//        if (usuario.getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
+//            headers.setContentType(MediaType.IMAGE_JPEG);
+//        } else if (usuario.getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
+//            headers.setContentType(MediaType.IMAGE_PNG);
+//        }
+//
+//        ByteArrayResource resource = new ByteArrayResource(usuario.getUrlAvatar());
+//        return ResponseEntity.ok().headers(headers).body(resource);
+        ImagemDTO imagemDTO = new ImagemDTO();
+        imagemDTO.setImagem(Base64.getEncoder().encodeToString(usuario.getUrlAvatar()));
+        return imagemDTO;
+    }
 
-        if (usuario.getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
-            headers.setContentType(MediaType.IMAGE_JPEG);
-        } else if (usuario.getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
-            headers.setContentType(MediaType.IMAGE_PNG);
-        }
-
-        ByteArrayResource resource = new ByteArrayResource(usuario.getUrlAvatar());
-        return ResponseEntity.ok().headers(headers).body(resource);
+    @PostMapping("/postPhoto/{fileId}")
+    public ImagemDTO viewPhoto(@PathVariable Long fileId) throws Exception {
+        Usuario usuario = usuarioService.findById(fileId);
+//        HttpHeaders headers = new HttpHeaders();
+//
+//        if (usuario.getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
+//            headers.setContentType(MediaType.IMAGE_JPEG);
+//        } else if (usuario.getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
+//            headers.setContentType(MediaType.IMAGE_PNG);
+//        }
+//
+//        ByteArrayResource resource = new ByteArrayResource(usuario.getUrlAvatar());
+//        return ResponseEntity.ok().headers(headers).body(resource);
+        ImagemDTO imagemDTO = new ImagemDTO();
+        imagemDTO.setImagem(Base64.getEncoder().encodeToString(usuario.getUrlAvatar()));
+        return imagemDTO;
     }
 
     @PostMapping

@@ -22,14 +22,14 @@ public class TreinoDTO {
     private Time descanso;
     private boolean status;
     private Integer peso;
-    private Exercicio exercicio;
+    private ExercicioDTO exercicio;
 
     public static TreinoDTO consultaDTO(Treino treino){
         TreinoDTO treinoDTO = new TreinoDTO();
         treinoDTO.setId(treino.getId());
         treinoDTO.setCdTreino(treino.getCdTreino());
         treinoDTO.setDescanso(treino.getDescanso());
-        treinoDTO.setExercicio(treino.getExercicio());
+        treinoDTO.setExercicio(new ExercicioDTO().consultaDTO(treino.getExercicio()));
         treinoDTO.setPeso(treino.getPeso());
         treinoDTO.setStatus(treino.isStatus());
         treinoDTO.setSeries(treino.getSeries());
