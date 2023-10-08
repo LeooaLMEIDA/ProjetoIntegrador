@@ -12,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title!),
+      centerTitle: true,
       leading: Padding(
         padding: const EdgeInsets.only(left: 50),
         child: Transform.scale(

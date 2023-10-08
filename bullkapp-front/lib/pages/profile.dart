@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/controllers/user_controller.dart';
+import 'package:bullkapp/data/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/fields.dart';
@@ -69,18 +70,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: ClipRRect(
-                            child: photo != ""
-                                ? Image.memory(
-                                    photo,
-                                    fit: BoxFit.cover,
-                                    width: 50,
-                                    height: 50,
-                                  )
-                                : Text("ERRRRRRROOOOOOO"),
-                            // LoadImage(
-                            //   url: 'https://sistemasca.blob.core.windows.net/arquivos/exercicios/100.gif',
-                            //   defaultImage: defaultImageProfile,
-                            // ),
+                            child: Image.memory(
+                              photo,
+                              fit: BoxFit.cover,
+                              width: 60,
+                              height: 560,
+                              errorBuilder: (BuildContext context, Object error,
+                                  StackTrace? stackTrace) {
+                                return Image.asset(
+                                  defaultImageProfile,
+                                  fit: BoxFit.cover,
+                                  width: 50,
+                                  height: 50,
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),

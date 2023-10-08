@@ -38,7 +38,11 @@ class CustomListCard extends StatelessWidget {
                 child: Text(
                   exerciceName,
                   style: TextStyle(
-                    fontSize: lengthExercice < 22 ? 22 : 18,
+                    fontSize: lengthExercice < 26
+                        ? 22
+                        : lengthExercice < 32
+                            ? 20
+                            : 19,
                     color: Colors.white,
                   ),
                 ),

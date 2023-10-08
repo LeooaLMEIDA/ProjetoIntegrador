@@ -62,7 +62,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
     int lengthExercice = _description.length;
     int iSeries = returnWorkout.series ?? 0;
     return Scaffold(
-      appBar: const CustomAppBar(title: ""),
+      appBar: const CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.only(
           top: 8.0,
@@ -79,13 +79,11 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     Text(
                       _description,
                       style: TextStyle(
-                        fontSize: lengthExercice < 28
+                        fontSize: lengthExercice < 30
                             ? 34
-                            : lengthExercice < 34
-                                ? 28
-                                : lengthExercice < 40
-                                    ? 24
-                                    : 18,
+                            : lengthExercice < 41
+                                ? 26
+                                : 0,
                         fontFamily: 'Voltaire',
                       ),
                       softWrap: true,
@@ -103,8 +101,10 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   child: Stack(
                     children: [
                       LoadImage(
-                          url: widget.imgIllustration,
-                          defaultImage: defaultImageWorkout),
+                        url: widget.imgIllustration,
+                        defaultImage: defaultImageWorkout,
+                        widthImage: 250,
+                      ),
                       Positioned(
                         bottom: 1,
                         right: 1,
