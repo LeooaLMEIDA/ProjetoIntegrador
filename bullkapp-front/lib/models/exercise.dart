@@ -2,27 +2,27 @@ import 'package:bullkapp/models/equipment.dart';
 
 class Exercise {
   int? id;
-  String? descricao;
+  String? description;
+  String? orientation;
   String? imgIlustracao;
-  String? vdInstrucao;
   bool? status;
   Equipment? aparelho;
   String? grpMusculos;
 
   Exercise(
       {this.id,
-      this.descricao,
+      this.description,
+      this.orientation,
       this.imgIlustracao,
-      this.vdInstrucao,
       this.status,
       this.aparelho,
       this.grpMusculos});
 
   Exercise.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    descricao = json['descricao'];
+    description = json['descricao'];
+    orientation = json['orientacao'];
     imgIlustracao = json['imgIlustracao'];
-    vdInstrucao = json['vdInstrucao'];
     status = json['status'];
     aparelho =
         json['aparelho'] != null ? Equipment.fromJson(json['aparelho']) : null;
@@ -32,9 +32,8 @@ class Exercise {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
-    data['descricao'] = descricao;
+    data['descricao'] = description;
     data['imgIlustracao'] = imgIlustracao;
-    data['vdInstrucao'] = vdInstrucao;
     data['status'] = status;
     if (aparelho != null) {
       data['aparelho'] = aparelho!.toJson();

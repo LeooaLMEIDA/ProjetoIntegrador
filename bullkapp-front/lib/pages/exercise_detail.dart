@@ -14,6 +14,7 @@ import 'alternative_training_detail.dart';
 class ExerciseDetail extends StatefulWidget {
   final int? exerciseId;
   final String description;
+  final String orientation;
   final String imgIllustration;
   final int repetitions;
   final int series;
@@ -23,6 +24,7 @@ class ExerciseDetail extends StatefulWidget {
       {super.key,
       this.exerciseId,
       required this.description,
+      required this.orientation,
       required this.imgIllustration,
       required this.repetitions,
       required this.series,
@@ -92,7 +94,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 ),
               ),
               ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(20),
+                ),
                 child: Container(
                   color: Colors.black38,
                   height: 200,
@@ -113,21 +117,29 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       title: const Text(
-                                          'Informações do Exercício'),
-                                      content: Text(detailFlexao),
+                                        'Informações do Exercício',
+                                      ),
+                                      content: Text(
+                                        widget.orientation,
+                                      ),
                                       actions: [
                                         TextButton(
                                           onPressed: () {
                                             Get.back();
                                           },
-                                          child: const Text('Fechar'),
+                                          child: const Text(
+                                            'Fechar',
+                                          ),
                                         ),
                                       ],
                                     );
                                   },
                                 );
                               },
-                              icon: const Icon(Icons.info_outline, size: 25),
+                              icon: const Icon(
+                                Icons.info_outline,
+                                size: 25,
+                              ),
                             );
                           },
                         ),
@@ -167,7 +179,10 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   children: [
                     Text(
                       'Exercício Alternativo',
-                      style: TextStyle(fontSize: 22, fontFamily: 'Voltaire'),
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontFamily: 'Voltaire',
+                      ),
                     ),
                   ],
                 ),
@@ -177,7 +192,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 child: Row(
                   children: [
                     AlternativeWorkoutCard(
-                      description: returnWorkout.exercicio?.descricao ?? "",
+                      description: returnWorkout.exercicio?.description ?? "",
                       series: returnWorkout.series ?? 0,
                       repetitions: returnWorkout.repeticoes ?? 0,
                       imgIllustration:

@@ -102,12 +102,12 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                   children: [
                     CustomSmallCard(
                       mainLabel: "Repetições e Séries",
-                      secondLabel: "15 X 2",
+                      secondLabel: "$repetitions X $series",
                     ),
                     const Spacer(),
                     CustomSmallCard(
                       mainLabel: "Intervalo",
-                      secondLabel: "30 Segundos",
+                      secondLabel: rest,
                     ),
                   ],
                 ),
@@ -118,7 +118,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                     CustomLongCard(
                       serie: i.toString(),
                       repetition: repetitions.toString(),
-                    )
+                    ),
                 ],
               )
             ],

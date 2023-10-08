@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-
 import '../data/constants.dart';
 import '../models/evaluation.dart';
 
@@ -22,7 +21,8 @@ class EvaluationRepository {
         return workouts;
       } else {
         throw Exception(
-            "Erro ao buscar Avaliação. Código de Status: ${response.statusCode}");
+          "Erro ao buscar Avaliação. Código de Status: ${response.statusCode}",
+        );
       }
     } catch (e) {
       throw Exception("Houve um problema para requerir a Avaliação $e");

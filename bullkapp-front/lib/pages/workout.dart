@@ -93,12 +93,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         return Padding(
           padding: const EdgeInsets.all(4.0),
           child: CustomListCard(
-            exerciceName: workout.exercicio?.descricao ?? '',
+            exerciceName: workout.exercicio?.description ?? '',
             onTap: () async {
               await Get.to(
                 () => ExerciseDetail(
                   exerciseId: workout.id ?? 0,
-                  description: workout.exercicio?.descricao ?? '',
+                  description: workout.exercicio?.description ?? '',
+                  orientation: workout.exercicio?.orientation ?? '',
                   imgIllustration: workout.exercicio?.imgIlustracao ?? '',
                   repetitions: workout.repeticoes ?? 0,
                   rest: workout.descanso ?? "",

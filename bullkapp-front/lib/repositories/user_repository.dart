@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import '../data/constants.dart';
@@ -17,7 +19,7 @@ class UserRepository {
 
       if (response.statusCode == 200 && response.data != null) {
         Photo photo = Photo.fromJson(response.data);
-        return photo.imagem;
+        return photo.image;
       } else {
         throw Exception(
           "Erro ao buscar o usuário. Código de status: ${response.statusCode}",
@@ -25,6 +27,17 @@ class UserRepository {
       }
     } catch (e) {
       throw Exception("Houve um problema para requerir o usuário $e");
+    }
+  }
+
+  Future<Uint8List> fetchImage(int id) async {
+    final String url = "$apiBaseURL/usuario/getPhoto/$id";
+    try {
+      Response response = await Dio()
+          .get(url, options: Options(responseType: ResponseType.bytes));
+      return Uint8List.fromList(response.data);
+    } catch (error) {
+      throw Exception('Falha ao carregar a imagem: $error');
     }
   }
 

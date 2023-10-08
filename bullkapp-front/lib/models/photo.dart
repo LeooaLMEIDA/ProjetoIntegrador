@@ -1,22 +1,15 @@
 class Photo {
-  String? _imagem;
+  String? image;
 
-  Photo({String? imagem}) {
-    if (imagem != null) {
-      this._imagem = imagem;
-    }
-  }
-
-  String? get imagem => _imagem;
-  set imagem(String? imagem) => _imagem = imagem;
+  Photo({this.image});
 
   Photo.fromJson(Map<String, dynamic> json) {
-    _imagem = json['imagem'];
+    image = json['imagem'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['imagem'] = this._imagem;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['imagem'] = image;
     return data;
   }
 }

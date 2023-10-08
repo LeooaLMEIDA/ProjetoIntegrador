@@ -163,7 +163,8 @@ class _LoginState extends State<Login> {
                             ),
                             elevation: MaterialStateProperty.all(4.0),
                             padding: MaterialStateProperty.all(
-                              EdgeInsets.all(16.0),
+                              EdgeInsets.symmetric(
+                                  horizontal: 40.0, vertical: 16.0),
                             ),
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(
@@ -233,10 +234,9 @@ class _LoginState extends State<Login> {
         userController.setPhone(user.celular);
         userController.setDtBirth(user.dtNascimento);
         userController.setGender(user.sexo);
-        
       } catch (e) {
         throw Exception(e);
       }
     }
-  }  
+  }
 }
