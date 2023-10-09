@@ -53,14 +53,15 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
       });
     } catch (e) {
       throw Exception(
-          "Ocorreu um erro ao carregar as informações do Usuário $e");
+          "Ocorreu um erro ao carregar as informações do Treino Alternativo $e");
     }
   }
 
   @override
   Widget build(BuildContext context) {
     int lengthExercice = _description.length;
-    int iSeries = returnWorkout.series ?? 0;
+    int iSeries = widget.series;
+    print(returnWorkout);
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Padding(
@@ -79,9 +80,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     Text(
                       _description,
                       style: TextStyle(
-                        fontSize: lengthExercice < 30
+                        fontSize: lengthExercice < 26
                             ? 34
-                            : lengthExercice < 41
+                            : lengthExercice < 32
                                 ? 26
                                 : 0,
                         fontFamily: 'Voltaire',
@@ -127,9 +128,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                                           onPressed: () {
                                             Get.back();
                                           },
-                                          child: const Text(
-                                            'Fechar',
-                                          ),
+                                          child: const Text('Fechar'),
                                         ),
                                       ],
                                     );
@@ -153,9 +152,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 child: Row(
                   children: [
                     CustomSmallCard(
-                        mainLabel: "Repetições e Séries",
+                        mainLabel: "Séries e Repetições",
                         secondLabel:
-                            "${widget.repetitions} X ${widget.series}"),
+                            "${widget.series} X ${widget.repetitions}"),
                     const Spacer(),
                     CustomSmallCard(
                       mainLabel: "Intervalo",
@@ -169,39 +168,41 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   for (int i = 1; i <= iSeries; i++)
                     CustomLongCard(
                       serie: i.toString(),
-                      repetition: returnWorkout.repeticoes.toString(),
+                      repetition: widget.repetitions.toString(),
                     )
                 ],
               ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text(
-                      'Exercício Alternativo',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontFamily: 'Voltaire',
+              if (returnWorkout.id != -1)
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Exercício Alternativo',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: 'Voltaire',
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 4.0),
-                child: Row(
-                  children: [
-                    AlternativeWorkoutCard(
-                      description: returnWorkout.exercicio?.description ?? "",
-                      series: returnWorkout.series ?? 0,
-                      repetitions: returnWorkout.repeticoes ?? 0,
-                      imgIllustration:
-                          returnWorkout.exercicio?.imgIlustracao ?? "",
-                      rest: returnWorkout.descanso ?? "",
-                    ),
-                  ],
+              if (returnWorkout.id != -1)
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Row(
+                    children: [
+                      AlternativeWorkoutCard(
+                        description: returnWorkout.exercicio?.description ?? "",
+                        series: returnWorkout.series ?? 0,
+                        repetitions: returnWorkout.repeticoes ?? 0,
+                        imgIllustration:
+                            returnWorkout.exercicio?.imgIlustracao ?? "",
+                        rest: returnWorkout.descanso ?? "",
+                      ),
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),

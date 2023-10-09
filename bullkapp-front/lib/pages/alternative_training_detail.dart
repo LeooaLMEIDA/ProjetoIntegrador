@@ -60,6 +60,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                       const LoadImage(
                         url: "",
                         defaultImage: defaultImageWorkout,
+                        widthImage: 250,
                       ),
                       Positioned(
                         bottom: 1,
@@ -101,8 +102,8 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                 child: Row(
                   children: [
                     CustomSmallCard(
-                      mainLabel: "Repetições e Séries",
-                      secondLabel: "$repetitions X $series",
+                      mainLabel: "Séries e Repetições",
+                      secondLabel: "$series X $repetitions",
                     ),
                     const Spacer(),
                     CustomSmallCard(

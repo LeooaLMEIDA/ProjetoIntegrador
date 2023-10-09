@@ -42,9 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: "",
-      ),
+      appBar: const CustomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -80,8 +78,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 return Image.asset(
                                   defaultImageProfile,
                                   fit: BoxFit.cover,
-                                  width: 50,
-                                  height: 50,
+                                  width: 45,
+                                  height: 45,
                                 );
                               },
                             ),
