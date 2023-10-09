@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../controllers/user_controller.dart';
 import '../data/constants.dart';
+import '../models/photo.dart';
 
 class WorkoutRepository {
   final Dio dio = Dio();
@@ -81,6 +82,26 @@ class WorkoutRepository {
       }
     } catch (e) {
       throw Exception('Erro ao obter os treinos: $e');
+    }
+  }
+
+  Future<String?> getGif(int id) async {
+    dioCacheManager.clearAll();
+    final String url = "$apiBaseURL/usuario/getGif/$id";
+
+    try {
+      final response = await dio.get(url);
+
+      if (response.statusCode == 200 && response.data != null) {
+        Photo photo = Photo.fromJson(response.data);
+        return photo.image;
+      } else {
+        throw Exception(
+          "Erro ao buscar o usuário. Código de status: ${response.statusCode}",
+        );
+      }
+    } catch (e) {
+      throw Exception("Houve um problema para requerir o usuário $e");
     }
   }
 }
