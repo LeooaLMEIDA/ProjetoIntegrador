@@ -26,7 +26,7 @@ public class Treino {
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	private CdTreinoENUM cdTreino;
-//	@NonNull
+	@NonNull
 	private int series;
 //	@NonNull
 	private int repeticoes;

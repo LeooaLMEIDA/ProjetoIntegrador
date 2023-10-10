@@ -52,25 +52,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/getPhoto/{fileId}")
+    @ApiOperation(value = "Operação resposável pelo retorno da foto do Usuário")
     public ImagemDTO downloadPhoto(@PathVariable Long fileId) throws Exception {
-        Usuario usuario = usuarioService.findById(fileId);
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        if (usuario.getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
-//            headers.setContentType(MediaType.IMAGE_JPEG);
-//        } else if (usuario.getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
-//            headers.setContentType(MediaType.IMAGE_PNG);
-//        }
-//
-//        ByteArrayResource resource = new ByteArrayResource(usuario.getUrlAvatar());
-//        return ResponseEntity.ok().headers(headers).body(resource);
-        ImagemDTO imagemDTO = new ImagemDTO();
-        imagemDTO.setImagem(Base64.getEncoder().encodeToString(usuario.getUrlAvatar()));
-        return imagemDTO;
-    }
-
-    @PostMapping("/postPhoto/{fileId}")
-    public ImagemDTO viewPhoto(@PathVariable Long fileId) throws Exception {
         Usuario usuario = usuarioService.findById(fileId);
 //        HttpHeaders headers = new HttpHeaders();
 //
@@ -138,11 +121,13 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/email")
+    @ApiOperation(value = "Operação resposável pelo retorno de um Usuário pelo email cadastrado")
     public UsuarioDTO findByEmail(@RequestParam("email") String email) throws Exception {
         return usuarioService.findByEmail(email);
     }
 
     @GetMapping(path = "/sexo")
+    @ApiOperation(value = "Operação resposável pelo retorno de todos os ENUMs de Sexo")
     public List<SexoENUM> findSexo() throws Exception {
         return usuarioService.findSexo();
     }

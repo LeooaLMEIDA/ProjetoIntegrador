@@ -50,7 +50,7 @@ public class AvaliacaoController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de uma nova Avaliação")
-    public Avaliacao insert(@RequestBody @Valid Avaliacao avaliacao) throws Exception{
+    public AvaliacaoDTO insert(@RequestBody @Valid Avaliacao avaliacao) throws Exception{
         return avaliacaoService.insert(avaliacao);
     }
 
@@ -62,7 +62,7 @@ public class AvaliacaoController {
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar uma Avaliação existente")
-    public Avaliacao delete(@PathVariable Long id) throws Exception {
+    public AvaliacaoDTO delete(@PathVariable Long id) throws Exception {
         return avaliacaoService.delete(id);
     }
 

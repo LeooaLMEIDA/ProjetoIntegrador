@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
@@ -28,7 +29,7 @@ public class TreinoService {
     @Autowired
     private UsuarioService usuarioService;
 
-    public Treino insert(Treino treino) throws Exception{
+    public TreinoDTO insert(Treino treino) throws Exception{
         treino.setStatus(true);
 
         treino.setExercicio(exercicioService.findById(treino.getExercicio().getId()));
@@ -42,13 +43,16 @@ public class TreinoService {
 
         treinoRepository.saveAndFlush(treino);
 
-        return treino;
+        TreinoDTO treinoDTO = new TreinoDTO();
+        treinoDTO.consultaDTO(treino);
+
+        return treinoDTO;
     }
 
     public Treino update(Treino treino) throws Exception {
         validaUpdate(treino);
 
-        Treino treino1 = findById(treino.getId());
+        Treino treino1 = findByIdentificador(treino.getId());
 
         treino1.setCdTreino(treino.getCdTreino());
         treino1.setStatus(treino.isStatus());
@@ -70,7 +74,7 @@ public class TreinoService {
     }
 
     public Treino delete(Long id) throws  Exception {
-        Treino treino = findById(id);
+        Treino treino = findByIdentificador(id);
         validaUpdate(treino);
         treino.setStatus(false);
         treino.setDataExclusao(LocalDateTime.now());
@@ -79,7 +83,17 @@ public class TreinoService {
         return treino;
     }
 
-    public Treino findById(Long id) throws Exception{
+    public TreinoDTO findById(Long id) throws Exception{
+        Optional<Treino> retorno = treinoRepository.findById(id);
+        if (retorno.isPresent()){
+            return new TreinoDTO().consultaDTO(retorno.get());
+        }
+        else {
+            throw new Exception("Treino " + id + " não encontrado");
+        }
+    }
+
+    private Treino findByIdentificador(Long id) throws Exception{
         Optional<Treino> retorno = treinoRepository.findById(id);
         if (retorno.isPresent()){
             return retorno.get();
@@ -89,8 +103,16 @@ public class TreinoService {
         }
     }
 
-    public List<Treino> findByFiltersCdTreino(String cdTreino) throws Exception{
-        return treinoRepository.findByCdTreinoContainingAllIgnoringCase(cdTreino);
+    public List<TreinoDTO> findByFiltersCdTreino(String cdTreino) throws Exception{
+        List<Treino> treinos = treinoRepository.findByCdTreinoContainingAllIgnoreCase(cdTreino);
+
+        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+
+        for (Treino treino : treinos) {
+            treinoDTOS.add(new TreinoDTO().consultaDTO(treino));
+        }
+
+        return treinoDTOS;
     }
 
     public List<TreinoDTO> findByFiltersUsuarioTreino(String cdTreino, Long usuario_id) throws Exception{
@@ -123,8 +145,16 @@ public class TreinoService {
         return treinosAtivos;
     }
 
-    public List<Treino> findAll() throws Exception{
-        return treinoRepository.findAll();
+    public List<TreinoDTO> findAll() throws Exception{
+        List<Treino> treinos = treinoRepository.findAll();
+
+        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+
+        for (Treino treino : treinos) {
+            treinoDTOS.add(new TreinoDTO().consultaDTO(treino));
+        }
+
+        return treinoDTOS;
     }
 
     public List<Treino> findByExercicio(Exercicio exercicio) throws Exception{
@@ -156,7 +186,7 @@ public class TreinoService {
     }
 
     public TreinoDTO findAlternativo(Long idTreino) throws Exception {
-        Treino treino1 = findById(idTreino);
+        Treino treino1 = findByIdentificador(idTreino);
 
         List<Treino> treinos = findByUsuario(treino1.getUsuario());
 
@@ -167,9 +197,16 @@ public class TreinoService {
                 treinoDTOS.add(TreinoDTO.consultaDTO(treino));
             }
         }
+        ExercicioDTO exercicioDTO = new ExercicioDTO();
+        exercicioDTO.setDescricao("Nenhum treino alternativo para o treino atual");
+
+        TreinoDTO treinoDTO = new TreinoDTO();
+        treinoDTO.setId(-1L);
+        treinoDTO.setCdTreino(treino1.getCdTreino());
+        treinoDTO.setExercicio(exercicioDTO);
 
         if (treinoDTOS.size() == 0)
-            return null;
+            return treinoDTO;
         else if (treinoDTOS.size() == 1)
             return treinoDTOS.get(0);
         else

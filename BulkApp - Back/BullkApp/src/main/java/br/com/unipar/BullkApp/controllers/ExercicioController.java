@@ -41,21 +41,8 @@ public class ExercicioController {
     }
 
     @GetMapping("/getGif/{fileId}")
+    @ApiOperation(value = "Operação resposável pela visualização do gif do Exercício cadastrado")
     public ImagemDTO downloadGif(@PathVariable Long fileId) throws Exception {
-        Exercicio exercicio = exercicioService.findById(fileId);
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        headers.setContentType(MediaType.IMAGE_GIF);
-//
-//        ByteArrayResource resource = new ByteArrayResource(exercicio.getImgIlustracao());
-//        return ResponseEntity.ok().headers(headers).body(resource);
-        ImagemDTO imagemDTO = new ImagemDTO();
-        imagemDTO.setImagem(Base64.getEncoder().encodeToString(exercicio.getImgIlustracao()));
-        return imagemDTO;
-    }
-
-    @PostMapping ("/postGif/{fileId}")
-    public ImagemDTO viewGif(@PathVariable Long fileId) throws Exception {
         Exercicio exercicio = exercicioService.findById(fileId);
 //        HttpHeaders headers = new HttpHeaders();
 //
@@ -70,7 +57,7 @@ public class ExercicioController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Exercicio")
-    public Exercicio insert(@RequestBody @Valid Exercicio exercicio) throws Exception{
+    public ExercicioDTO insert(@RequestBody @Valid Exercicio exercicio) throws Exception{
         return exercicioService.insert(exercicio);
     }
 
@@ -82,7 +69,7 @@ public class ExercicioController {
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Exercicio existente")
-    public Exercicio delete(@PathVariable Long id) throws Exception {
+    public ExercicioDTO delete(@PathVariable Long id) throws Exception {
         Exercicio exercicio = exercicioService.delete(id);
 
         List<Treino> treinos = treinoService.findByExercicio(exercicio);
@@ -91,7 +78,10 @@ public class ExercicioController {
             treinoService.delete(treino.getId());
         }
 
-        return exercicio;
+        ExercicioDTO exercicioDTO = new ExercicioDTO();
+        exercicioDTO.consultaDTO(exercicio);
+
+        return exercicioDTO;
     }
 
     @GetMapping(path = "/{id}")

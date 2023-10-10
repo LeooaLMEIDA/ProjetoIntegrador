@@ -23,7 +23,7 @@ public class TreinoController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Treino")
-    public Treino insert(@RequestBody @Valid Treino treino) throws Exception{
+    public TreinoDTO insert(@RequestBody @Valid Treino treino) throws Exception{
         return treinoService.insert(treino);
     }
 
@@ -41,13 +41,13 @@ public class TreinoController {
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Treino via ID")
-    public Treino findById(@PathVariable Long id) throws Exception{
+    public TreinoDTO findById(@PathVariable Long id) throws Exception{
         return treinoService.findById(id);
     }
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Treino via código do Treino")
-    public List<Treino> findByFilters(@RequestParam("cdTreino") String cdTreino) throws Exception{
+    public List<TreinoDTO> findByFilters(@RequestParam("cdTreino") String cdTreino) throws Exception{
         return treinoService.findByFiltersCdTreino(cdTreino);
     }
 
@@ -59,7 +59,7 @@ public class TreinoController {
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Treinos cadastrados no sistema")
-    public List<Treino> findAll() throws Exception{
+    public List<TreinoDTO> findAll() throws Exception{
         return treinoService.findAll();
     }
 

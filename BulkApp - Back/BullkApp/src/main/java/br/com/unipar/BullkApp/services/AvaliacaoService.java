@@ -97,7 +97,7 @@ public class AvaliacaoService {
         }
     }
 
-    public Avaliacao insert(Avaliacao avaliacao) throws Exception{
+    public AvaliacaoDTO insert(Avaliacao avaliacao) throws Exception{
         avaliacao.setUsuario(usuarioService.findById(avaliacao.getUsuario().getId()));
 
         avaliacao.setDataCriacao(LocalDateTime.now());
@@ -105,19 +105,30 @@ public class AvaliacaoService {
 
         avaliacaoRepository.saveAndFlush(avaliacao);
 
-        return avaliacao;
+        AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
+        avaliacaoDTO.consultaDTO(avaliacao);
+
+        return avaliacaoDTO;
     }
 
-    public Avaliacao update(Avaliacao avaliacao) throws Exception {
+    public AvaliacaoDTO update(Avaliacao avaliacao) throws Exception {
         validaUpdate(avaliacao);
         avaliacaoRepository.saveAndFlush(avaliacao);
-        return avaliacao;
+
+        AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
+        avaliacaoDTO.consultaDTO(avaliacao);
+
+        return avaliacaoDTO;
     }
 
-    public Avaliacao delete(Long id) throws  Exception {
+    public AvaliacaoDTO delete(Long id) throws  Exception {
         Avaliacao avaliacao = findById(id);
         avaliacaoRepository.delete(avaliacao);
-        return avaliacao;
+
+        AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
+        avaliacaoDTO.consultaDTO(avaliacao);
+
+        return avaliacaoDTO;
     }
 
     public Avaliacao findById(Long id) throws Exception{

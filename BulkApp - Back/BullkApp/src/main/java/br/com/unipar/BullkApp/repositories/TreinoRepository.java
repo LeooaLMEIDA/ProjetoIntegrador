@@ -17,8 +17,11 @@ import br.com.unipar.BullkApp.model.Treino;
 public interface TreinoRepository extends JpaRepository<Treino, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Código do Treino")
-	public List<Treino> findByCdTreinoContainingAllIgnoringCase(String cdTreino);
+	public List<Treino> findByCdTreinoContainingAllIgnoreCase(String cdTreino);
 
+//	@Query
+//	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Código do Treino")
+//	public List<Treino> findByCdTreinoContainingIgnoreCase(String cdTreino);
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Código e Usuário do Treino")
 	public List<Treino> findByCdTreinoContainingAllIgnoringCaseAndUsuario(String cdTreino, Usuario usuario);

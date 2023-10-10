@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.Aparelho;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Usuario;
@@ -65,7 +66,7 @@ public class ExercicioService {
         }
     }
 
-    public Exercicio insert(Exercicio exercicio) throws Exception{
+    public ExercicioDTO insert(Exercicio exercicio) throws Exception{
         exercicio.setStatus(true);
 
         Aparelho aparelho = aparelhoService.findById(exercicio.getAparelho().getId());
@@ -79,7 +80,10 @@ public class ExercicioService {
 
         exercicioRepository.saveAndFlush(exercicio);
 
-        return exercicio;
+        ExercicioDTO exercicioDTO = new ExercicioDTO();
+        exercicioDTO.consultaDTO(exercicio);
+
+        return exercicioDTO;
     }
 
     public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
