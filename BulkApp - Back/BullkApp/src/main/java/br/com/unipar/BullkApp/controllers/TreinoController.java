@@ -29,14 +29,14 @@ public class TreinoController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Treino já existente")
-    public Treino update(@RequestBody Treino treino) throws Exception{
-        return treinoService.update(treino);
+    public TreinoDTO update(@RequestBody Treino treino) throws Exception{
+        return TreinoDTO.consultaDTO(treinoService.update(treino));
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Treino existente")
-    public Treino delete(@PathVariable Long id) throws Exception {
-        return treinoService.delete(id);
+    public TreinoDTO delete(@PathVariable Long id) throws Exception {
+        return TreinoDTO.consultaDTO(treinoService.delete(id));
     }
 
     @GetMapping(path = "/{id}")

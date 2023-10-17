@@ -78,21 +78,18 @@ public class ExercicioController {
             treinoService.delete(treino.getId());
         }
 
-        ExercicioDTO exercicioDTO = new ExercicioDTO();
-        exercicioDTO.consultaDTO(exercicio);
-
-        return exercicioDTO;
+        return ExercicioDTO.consultaDTO(exercicio);
     }
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Exercicio via ID")
-    public Exercicio findById(@PathVariable Long id) throws Exception{
-        return exercicioService.findById(id);
+    public ExercicioDTO findById(@PathVariable Long id) throws Exception{
+        return ExercicioDTO.consultaDTO(exercicioService.findById(id));
     }
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Exercicio via descrição")
-    public List<Exercicio> findByFilters(@RequestParam("descricao") String descricao)throws Exception{
+    public List<ExercicioDTO> findByFilters(@RequestParam("descricao") String descricao)throws Exception{
         return exercicioService.findByFilters(descricao);
     }
 

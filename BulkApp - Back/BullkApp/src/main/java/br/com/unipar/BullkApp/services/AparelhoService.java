@@ -18,7 +18,7 @@ public class AparelhoService {
     private AparelhoRepository aparelhoRepository;
 
     public Aparelho insert(Aparelho aparelho) throws Exception{
-        aparelho.setStatus(true);
+//        aparelho.setStatus(true);
         aparelho.setDataCriacao(LocalDateTime.now());
         aparelho.setDataModificacao(LocalDateTime.now());
         aparelhoRepository.saveAndFlush(aparelho);

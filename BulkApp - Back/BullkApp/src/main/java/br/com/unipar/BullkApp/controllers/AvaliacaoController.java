@@ -68,13 +68,13 @@ public class AvaliacaoController {
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Avaliação via ID")
-    public Avaliacao findById(@PathVariable Long id) throws Exception{
-        return avaliacaoService.findById(id);
+    public AvaliacaoDTO findById(@PathVariable Long id) throws Exception{
+        return AvaliacaoDTO.consultaDTO(avaliacaoService.findById(id));
     }
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Avaliação via descrição")
-    public List<Avaliacao> findByFilters(@RequestParam("usuario_id") String descricao)throws Exception{
+    public List<AvaliacaoDTO> findByFilters(@RequestParam("usuario_id") String descricao)throws Exception{
         return avaliacaoService.findByFilters(descricao);
     }
 

@@ -166,8 +166,15 @@ public class ExercicioService {
         }
     }
 
-    public List<Exercicio> findByFilters(String descricao) throws Exception{
-        return exercicioRepository.findByDescricaoContainingAllIgnoringCase(descricao);
+    public List<ExercicioDTO> findByFilters(String descricao) throws Exception{
+        List<Exercicio> exercicios = exercicioRepository.findByDescricaoContainingAllIgnoringCase(descricao);
+
+        List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
+
+        for (Exercicio exercicio : exercicios) {
+            exercicioDTOS.add(ExercicioDTO.consultaDTO(exercicio));
+        }
+        return exercicioDTOS;
     }
 
     public List<ExercicioDTO> findAll() throws Exception{
@@ -176,7 +183,7 @@ public class ExercicioService {
         List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
 
         for (Exercicio exercicio : exercicios) {
-            exercicioDTOS.add(new ExercicioDTO().consultaDTO(exercicio));
+            exercicioDTOS.add(ExercicioDTO.consultaDTO(exercicio));
         }
         return exercicioDTOS;
     }

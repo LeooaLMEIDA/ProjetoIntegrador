@@ -72,8 +72,8 @@ public class UsuarioController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")
-    public Usuario insert(@RequestBody @Valid Usuario usuario) throws Exception{
-        return usuarioService.insert(usuario);
+    public UsuarioDTO insert(@RequestBody @Valid Usuario usuario) throws Exception{
+        return UsuarioDTO.consultaDTO(usuarioService.insert(usuario));
     }
 
 //    @PutMapping
@@ -84,7 +84,7 @@ public class UsuarioController {
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Usuário existente")
-    public Usuario delete(@PathVariable Long id) throws Exception {
+    public UsuarioDTO delete(@PathVariable Long id) throws Exception {
         Usuario usuario = usuarioService.delete(id);
 
         List<Treino> treinos = treinoService.findByUsuario(usuario);
@@ -99,24 +99,24 @@ public class UsuarioController {
             avaliacaoService.delete(avaliacao.getId());
         }
 
-        return usuario;
+        return UsuarioDTO.consultaDTO(usuario);
     }
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Usuário via ID")
-    public Usuario findById(@PathVariable Long id) throws Exception{
-        return usuarioService.findById(id);
+    public UsuarioDTO findById(@PathVariable Long id) throws Exception{
+        return UsuarioDTO.consultaDTO(usuarioService.findById(id));
     }
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Usuário via Nome")
-    public List<Usuario> findByFilters(@RequestParam("nome") String nome)throws Exception{
+    public List<UsuarioDTO> findByFilters(@RequestParam("nome") String nome)throws Exception{
         return usuarioService.findByFilters(nome);
     }
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Usuário cadastrados no sistema")
-    public List<Usuario> findAll() throws Exception{
+    public List<UsuarioDTO> findAll() throws Exception{
         return usuarioService.findAll();
     }
 

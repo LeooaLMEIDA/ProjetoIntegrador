@@ -29,7 +29,7 @@ public class UsuarioService {
     public Usuario insert(Usuario usuario) throws Exception{
         try {
             validaInsert(usuario);
-            usuario.setStatus(true);
+//            usuario.setStatus(true);
             usuario.setDataCriacao(LocalDateTime.now());
             usuario.setDataModificacao(LocalDateTime.now());
             usuarioRepository.saveAndFlush(usuario);
@@ -157,12 +157,24 @@ public class UsuarioService {
         }
     }
 
-    public List<Usuario> findByFilters(String nome) throws Exception{
-        return usuarioRepository.findByNomeContainingAllIgnoringCase(nome);
+    public List<UsuarioDTO> findByFilters(String nome) throws Exception{
+        List<Usuario> usuarios = usuarioRepository.findByNomeContainingAllIgnoringCase(nome);
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (Usuario usuario : usuarios) {
+            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
+        }
+        return usuarioDTOS;
     }
 
-    public List<Usuario> findAll() throws Exception{
-        return usuarioRepository.findAll();
+    public List<UsuarioDTO> findAll() throws Exception{
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (Usuario usuario : usuarios) {
+            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
+        }
+        return usuarioDTOS;
     }
 
     private void validaInsert(Usuario usuario) throws Exception{

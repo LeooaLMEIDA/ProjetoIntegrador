@@ -30,7 +30,7 @@ public class TreinoService {
     private UsuarioService usuarioService;
 
     public TreinoDTO insert(Treino treino) throws Exception{
-        treino.setStatus(true);
+//        treino.setStatus(true);
 
         treino.setExercicio(exercicioService.findById(treino.getExercicio().getId()));
 

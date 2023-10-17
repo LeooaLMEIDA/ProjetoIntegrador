@@ -141,8 +141,15 @@ public class AvaliacaoService {
         }
     }
 
-    public List<Avaliacao> findByFilters(String descricao) throws Exception{
-        return avaliacaoRepository.findByDescricaoContainingAllIgnoringCase(descricao);
+    public List<AvaliacaoDTO> findByFilters(String descricao) throws Exception{
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByDescricaoContainingAllIgnoringCase(descricao);
+
+        List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
+
+        for (Avaliacao avaliacao : avaliacoes) {
+            avaliacaoDTOS.add(AvaliacaoDTO.consultaDTO(avaliacao));
+        }
+        return avaliacaoDTOS;
     }
 
     public List<AvaliacaoDTO> findAll() throws Exception{
