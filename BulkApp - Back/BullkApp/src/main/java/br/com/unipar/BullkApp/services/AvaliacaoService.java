@@ -4,7 +4,7 @@ import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.Usuario;
-import br.com.unipar.BullkApp.repositories.AvaliacaoRepository;
+import br.com.unipar.BullkApp.repositories.mobile.AvaliacaoRepository;
 import br.com.unipar.BullkApp.util.MapperAvaliacao;
 import br.com.unipar.BullkApp.util.MapperAvaliacaoWithId;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

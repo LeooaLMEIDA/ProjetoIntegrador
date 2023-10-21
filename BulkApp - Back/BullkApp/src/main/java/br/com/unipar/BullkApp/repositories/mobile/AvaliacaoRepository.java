@@ -1,4 +1,4 @@
-package br.com.unipar.BullkApp.repositories;
+package br.com.unipar.BullkApp.repositories.mobile;
 
 import java.util.List;
 

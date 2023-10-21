@@ -4,7 +4,7 @@ import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
-import br.com.unipar.BullkApp.repositories.UsuarioRepository;
+import br.com.unipar.BullkApp.repositories.mobile.UsuarioRepository;
 import br.com.unipar.BullkApp.util.MapperUsuario;
 import br.com.unipar.BullkApp.util.MapperUsuarioWithId;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -217,11 +217,6 @@ public class UsuarioService {
     }
 
     public List<SexoENUM> findSexo() {
-        List<SexoENUM> sexoENUMS = new ArrayList<>();
-
-        sexoENUMS.add(SexoENUM.FEMININO);
-        sexoENUMS.add(SexoENUM.MASCULINO);
-
-        return sexoENUMS;
+        return List.of(SexoENUM.values());
     }
 }

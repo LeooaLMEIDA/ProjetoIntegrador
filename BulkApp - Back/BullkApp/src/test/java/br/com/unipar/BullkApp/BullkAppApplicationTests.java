@@ -6,17 +6,14 @@ import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
 import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Usuario;
-import br.com.unipar.BullkApp.repositories.AparelhoRepository;
 import br.com.unipar.BullkApp.services.AparelhoService;
 import br.com.unipar.BullkApp.services.ExercicioService;
 import br.com.unipar.BullkApp.services.UsuarioService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
 
 @SpringBootTest
 class BullkAppApplicationTests {

@@ -1,12 +1,17 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Aparelho;
-import br.com.unipar.BullkApp.repositories.AparelhoRepository;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
+import br.com.unipar.BullkApp.repositories.mobile.AparelhoRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +71,7 @@ public class AparelhoService {
     }
 
     public List<Aparelho> findAll() throws Exception{
-        return aparelhoRepository.findAll();
+        return  aparelhoRepository.findAll();
     }
 
     private void validaInsert(Aparelho aparelho) throws Exception{
@@ -93,5 +98,34 @@ public class AparelhoService {
             return "É necessário informar o ID para atualizar o cadastro do Aparelho";
         }
         return null;
+    }
+
+    public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
+        List<Aparelho> aparelhos = findAll();
+
+        List<Aparelho> aparelhosRetorno = new ArrayList<>();
+
+        int registros = registrosSolic;
+
+        int inicio = 0;
+        int fim = registros;
+
+        if (page > 1) {
+            inicio = inicio + registros * (page - 1);
+            fim = page * registros;
+        }
+
+        if (aparelhos.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (aparelhos.size() < fim) {
+            fim = aparelhos.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            aparelhosRetorno.add(aparelhos.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhosRetorno.size());
+        return pageableDTO;
     }
 }

@@ -1,4 +1,4 @@
-package br.com.unipar.BullkApp.repositories;
+package br.com.unipar.BullkApp.repositories.mobile;
 
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;

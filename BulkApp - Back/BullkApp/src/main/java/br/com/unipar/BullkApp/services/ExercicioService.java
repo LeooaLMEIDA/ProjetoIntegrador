@@ -2,15 +2,11 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.Aparelho;
-import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
-import br.com.unipar.BullkApp.model.Usuario;
-import br.com.unipar.BullkApp.repositories.ExercicioRepository;
+import br.com.unipar.BullkApp.repositories.mobile.ExercicioRepository;
 import br.com.unipar.BullkApp.util.MapperExercicio;
 import br.com.unipar.BullkApp.util.MapperExercicioWithId;
-import br.com.unipar.BullkApp.util.MapperUsuario;
-import br.com.unipar.BullkApp.util.MapperUsuarioWithId;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +51,7 @@ public class ExercicioService {
             exercicio1.setDataCriacao(LocalDateTime.now());
             exercicio1.setDataModificacao(LocalDateTime.now());
 
+            validaInsert(exercicio1);
             exercicioRepository.saveAndFlush(exercicio1);
 
             return ResponseEntity.ok().body("Upload com sucesso - Exercício id = " + exercicio1.getId());
@@ -67,8 +64,6 @@ public class ExercicioService {
     }
 
     public ExercicioDTO insert(Exercicio exercicio) throws Exception{
-        exercicio.setStatus(true);
-
         Aparelho aparelho = aparelhoService.findById(exercicio.getAparelho().getId());
 
         exercicio.setAparelho(aparelho);
@@ -80,10 +75,7 @@ public class ExercicioService {
 
         exercicioRepository.saveAndFlush(exercicio);
 
-        ExercicioDTO exercicioDTO = new ExercicioDTO();
-        exercicioDTO.consultaDTO(exercicio);
-
-        return exercicioDTO;
+        return ExercicioDTO.consultaDTO(exercicio);
     }
 
     public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {

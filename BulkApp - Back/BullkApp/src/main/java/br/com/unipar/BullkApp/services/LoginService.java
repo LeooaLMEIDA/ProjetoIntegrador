@@ -2,9 +2,8 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Login;
-import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
-import br.com.unipar.BullkApp.repositories.LoginRepository;
+import br.com.unipar.BullkApp.repositories.mobile.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

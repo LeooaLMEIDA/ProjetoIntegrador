@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Aparelho;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.AparelhoService;
@@ -8,7 +9,6 @@ import br.com.unipar.BullkApp.services.ExercicioService;
 import br.com.unipar.BullkApp.services.TreinoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.coyote.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,5 +77,9 @@ public class AparelhoController {
         return aparelhoService.findAll();
     }
 
-
+    @GetMapping(path = "/pages")
+    @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
+    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+        return aparelhoService.findAllPageable(page, registros);
+    }
 }
