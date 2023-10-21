@@ -1,8 +1,10 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
+import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.AvaliacaoRepository;
 import br.com.unipar.BullkApp.util.MapperAvaliacao;
@@ -188,5 +190,34 @@ public class AvaliacaoService {
 
     public List<Avaliacao> findByUsuario(Usuario usuario) {
         return avaliacaoRepository.findByUsuario(usuario);
+    }
+
+    public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
+        List<AvaliacaoDTO> avaliacaos = findAll();
+
+        List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
+
+        int registros = registrosSolic;
+
+        int inicio = 0;
+        int fim = registros;
+
+        if (page > 1) {
+            inicio = inicio + registros * (page - 1);
+            fim = page * registros;
+        }
+
+        if (avaliacaos.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (avaliacaos.size() < fim) {
+            fim = avaliacaos.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            avaliacaosRetorno.add(avaliacaos.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaosRetorno.size());
+        return pageableDTO;
     }
 }

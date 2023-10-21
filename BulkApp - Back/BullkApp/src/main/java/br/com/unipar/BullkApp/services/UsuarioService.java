@@ -2,6 +2,8 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
+import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.UsuarioRepository;
@@ -218,5 +220,34 @@ public class UsuarioService {
 
     public List<SexoENUM> findSexo() {
         return List.of(SexoENUM.values());
+    }
+
+    public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarioDTOS = findAll();
+
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+
+        int registros = registrosSolic;
+
+        int inicio = 0;
+        int fim = registros;
+
+        if (page > 1) {
+            inicio = inicio + registros * (page - 1);
+            fim = page * registros;
+        }
+
+        if (usuarioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (usuarioDTOS.size() < fim) {
+            fim = usuarioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        return pageableDTO;
     }
 }

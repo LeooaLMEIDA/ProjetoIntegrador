@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
@@ -207,5 +208,34 @@ public class TreinoService {
             return treinoDTOS.get(0);
         else
             return treinoDTOS.get(new Random().nextInt(treinoDTOS.size()));
+    }
+
+    public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
+        List<TreinoDTO> treinoDTOS = findAll();
+
+        List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
+
+        int registros = registrosSolic;
+
+        int inicio = 0;
+        int fim = registros;
+
+        if (page > 1) {
+            inicio = inicio + registros * (page - 1);
+            fim = page * registros;
+        }
+
+        if (treinoDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (treinoDTOS.size() < fim) {
+            fim = treinoDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            treinoDTOSRetorno.add(treinoDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        return pageableDTO;
     }
 }

@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -88,5 +89,10 @@ public class AvaliacaoController {
     @ApiOperation(value = "Operação responsável pela busca dos Avaliações atribuidas a um Usuário")
     public List<AvaliacaoDTO> findByUsuario(@PathVariable Long id_usuario)throws Exception{
         return avaliacaoService.findByUsuario(id_usuario);
+    }
+
+    @GetMapping(path = "/pages")
+    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+        return avaliacaoService.findAllPageable(page, registros);
     }
 }

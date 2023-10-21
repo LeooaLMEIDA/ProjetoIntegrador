@@ -2,7 +2,9 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.Aparelho;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.repositories.mobile.ExercicioRepository;
 import br.com.unipar.BullkApp.util.MapperExercicio;
@@ -216,5 +218,34 @@ public class ExercicioService {
 
     public List<Exercicio> findByAparelho(Aparelho aparelho) {
         return exercicioRepository.findByAparelho(aparelho);
+    }
+
+    public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
+        List<ExercicioDTO> exercicioDTOS = findAll();
+
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
+
+        int registros = registrosSolic;
+
+        int inicio = 0;
+        int fim = registros;
+
+        if (page > 1) {
+            inicio = inicio + registros * (page - 1);
+            fim = page * registros;
+        }
+
+        if (exercicioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (exercicioDTOS.size() < fim) {
+            fim = exercicioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            exercicioDTOSRetorno.add(exercicioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        return pageableDTO;
     }
 }

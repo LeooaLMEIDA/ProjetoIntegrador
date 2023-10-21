@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.DTO.ImagemDTO;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.ExercicioService;
@@ -97,5 +98,10 @@ public class ExercicioController {
     @ApiOperation(value = "Operação resposável por listar todos os Exercicios cadastrados no sistema")
     public List<ExercicioDTO> findAll() throws Exception{
         return exercicioService.findAll();
+    }
+
+    @GetMapping(path = "/pages")
+    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+        return exercicioService.findAllPageable(page, registros);
     }
 }

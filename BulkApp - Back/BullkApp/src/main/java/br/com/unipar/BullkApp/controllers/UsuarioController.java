@@ -4,6 +4,7 @@ import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.ImagemDTO;
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
@@ -130,5 +131,10 @@ public class UsuarioController {
     @ApiOperation(value = "Operação resposável pelo retorno de todos os ENUMs de Sexo")
     public List<SexoENUM> findSexo() throws Exception {
         return usuarioService.findSexo();
+    }
+
+    @GetMapping(path = "/pages")
+    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+        return usuarioService.findAllPageable(page, registros);
     }
 }

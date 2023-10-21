@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.controllers;
 
+import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
@@ -73,5 +74,10 @@ public class TreinoController {
     @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
     public TreinoDTO findAlternativo(@PathVariable Long id_treino)throws Exception{
         return treinoService.findAlternativo(id_treino);
+    }
+
+    @GetMapping(path = "/pages")
+    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+        return treinoService.findAllPageable(page, registros);
     }
 }
