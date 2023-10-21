@@ -17,9 +17,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "Classe de Transferência de Informações referente a Usuário")
-public class UsuarioDTO {
-    private Long id;
-    private String nome;
+public class UsuarioDTO extends UsuarioWebDTO{
     private Date dtNascimento;
     private SexoENUM sexo;
     private String celular;

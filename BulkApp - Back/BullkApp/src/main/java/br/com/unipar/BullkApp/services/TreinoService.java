@@ -30,7 +30,6 @@ public class TreinoService {
     private UsuarioService usuarioService;
 
     public TreinoDTO insert(Treino treino) throws Exception{
-//        treino.setStatus(true);
 
         treino.setExercicio(exercicioService.findById(treino.getExercicio().getId()));
 
@@ -43,10 +42,7 @@ public class TreinoService {
 
         treinoRepository.saveAndFlush(treino);
 
-        TreinoDTO treinoDTO = new TreinoDTO();
-        treinoDTO.consultaDTO(treino);
-
-        return treinoDTO;
+        return TreinoDTO.consultaDTO(treino);
     }
 
     public Treino update(Treino treino) throws Exception {

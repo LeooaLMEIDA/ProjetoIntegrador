@@ -20,13 +20,10 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "Classe de Transferência de Informações referente a Exercicio")
-public class ExercicioDTO {
-    private Long id;
-    private String descricao;
+public class ExercicioDTO extends ExercicioWebDTO {
     private String orientacao;
     private boolean status;
     private Aparelho aparelho;
-    private GrupoMuscularENUM grpMusculos;
 
     public static ExercicioDTO consultaDTO(Exercicio exercicio){
         ExercicioDTO exercicioDTO = new ExercicioDTO();
