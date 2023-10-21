@@ -225,14 +225,12 @@ public class ExercicioService {
 
         List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
-        int registros = registrosSolic;
-
         int inicio = 0;
-        int fim = registros;
+        int fim = registrosSolic;
 
         if (page > 1) {
-            inicio = inicio + registros * (page - 1);
-            fim = page * registros;
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
         }
 
         if (exercicioDTOS.size() < inicio) {

@@ -31,7 +31,6 @@ public class TreinoService {
     private UsuarioService usuarioService;
 
     public TreinoDTO insert(Treino treino) throws Exception{
-
         treino.setExercicio(exercicioService.findById(treino.getExercicio().getId()));
 
         treino.setUsuario(usuarioService.findById(treino.getUsuario().getId()));
@@ -148,7 +147,7 @@ public class TreinoService {
         List<TreinoDTO> treinoDTOS = new ArrayList<>();
 
         for (Treino treino : treinos) {
-            treinoDTOS.add(new TreinoDTO().consultaDTO(treino));
+            treinoDTOS.add(TreinoDTO.consultaDTO(treino));
         }
 
         return treinoDTOS;
@@ -215,14 +214,12 @@ public class TreinoService {
 
         List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
 
-        int registros = registrosSolic;
-
         int inicio = 0;
-        int fim = registros;
+        int fim = registrosSolic;
 
         if (page > 1) {
-            inicio = inicio + registros * (page - 1);
-            fim = page * registros;
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
         }
 
         if (treinoDTOS.size() < inicio) {

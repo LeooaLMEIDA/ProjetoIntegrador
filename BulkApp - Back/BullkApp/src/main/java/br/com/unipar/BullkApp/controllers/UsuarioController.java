@@ -121,11 +121,11 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
-    @GetMapping(path = "/email")
-    @ApiOperation(value = "Operação resposável pelo retorno de um Usuário pelo email cadastrado")
-    public UsuarioDTO findByEmail(@RequestParam("email") String email) throws Exception {
-        return usuarioService.findByEmail(email);
-    }
+//    @GetMapping(path = "/email")
+//    @ApiOperation(value = "Operação resposável pelo retorno de um Usuário pelo email cadastrado")
+//    public UsuarioDTO findByEmail(@RequestParam("email") String email) throws Exception {
+//        return usuarioService.findByEmail(email);
+//    }
 
     @GetMapping(path = "/sexo")
     @ApiOperation(value = "Operação resposável pelo retorno de todos os ENUMs de Sexo")

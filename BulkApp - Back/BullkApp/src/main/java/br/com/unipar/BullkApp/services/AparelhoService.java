@@ -23,7 +23,6 @@ public class AparelhoService {
     private AparelhoRepository aparelhoRepository;
 
     public Aparelho insert(Aparelho aparelho) throws Exception{
-//        aparelho.setStatus(true);
         aparelho.setDataCriacao(LocalDateTime.now());
         aparelho.setDataModificacao(LocalDateTime.now());
         aparelhoRepository.saveAndFlush(aparelho);
@@ -105,14 +104,12 @@ public class AparelhoService {
 
         List<Aparelho> aparelhosRetorno = new ArrayList<>();
 
-        int registros = registrosSolic;
-
         int inicio = 0;
-        int fim = registros;
+        int fim = registrosSolic;
 
         if (page > 1) {
-            inicio = inicio + registros * (page - 1);
-            fim = page * registros;
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
         }
 
         if (aparelhos.size() < inicio) {

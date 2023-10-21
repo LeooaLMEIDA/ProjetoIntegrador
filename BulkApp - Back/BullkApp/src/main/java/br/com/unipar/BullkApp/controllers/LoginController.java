@@ -19,9 +19,15 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping
+    @PostMapping(value = "/mobile")
     @ApiOperation(value = "Operação resposável pela avaliação do usuário que está logando e retorno Usuário")
-    public UsuarioDTO login(@RequestBody Login login) throws Exception {
-        return loginService.login(login);
+    public UsuarioDTO loginMobile(@RequestBody Login login) throws Exception {
+        return loginService.loginMobile(login);
+    }
+
+    @PostMapping(value = "/web")
+    @ApiOperation(value = "Operação resposável pela avaliação do usuário que está logando e retorno Usuário")
+    public UsuarioDTO loginWeb(@RequestBody Login login) throws Exception {
+        return loginService.loginWeb(login);
     }
 }

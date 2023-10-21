@@ -31,7 +31,6 @@ public class UsuarioService {
     public Usuario insert(Usuario usuario) throws Exception{
         try {
             validaInsert(usuario);
-//            usuario.setStatus(true);
             usuario.setDataCriacao(LocalDateTime.now());
             usuario.setDataModificacao(LocalDateTime.now());
             usuarioRepository.saveAndFlush(usuario);
@@ -65,6 +64,8 @@ public class UsuarioService {
 
             usuario1.setDataCriacao(LocalDateTime.now());
             usuario1.setDataModificacao(LocalDateTime.now());
+
+            validaInsert(usuario1);
 
             usuarioRepository.saveAndFlush(usuario1);
 
@@ -101,6 +102,8 @@ public class UsuarioService {
             usuario1.setMediaType(file.getContentType());
 
             usuario1.setDataModificacao(LocalDateTime.now());
+
+            validaUpdate(usuario1);
 
             if (usuario1.isStatus())
                 usuario1.setDataExclusao(null);
@@ -183,15 +186,20 @@ public class UsuarioService {
         if (usuario.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir um novo Usuário");
         }
-        UsuarioDTO usuario1 = findByEmail(usuario.getEmail());
-        if (usuario1 != null) {
-            throw new Exception("Já existe um usuário cadastrado com o email " + usuario1.getEmail());
+        List<Usuario> usuario1 = findByEmail(usuario.getEmail());
+        if (usuario1.size() > 0) {
+            throw new Exception("Já existe um usuário cadastrado com o email " + usuario.getEmail());
         }
     }
 
     private void validaUpdate(Usuario usuario) throws Exception{
         if (usuario.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Usuário");
+        }
+
+        List<Usuario> usuarios = findByEmail(usuario.getEmail());
+        if (usuarios.size() > 1) {
+            throw new Exception("Já existe outro usuário cadastrado com o email " + usuario.getEmail());
         }
     }
 
@@ -209,13 +217,8 @@ public class UsuarioService {
         return null;
     }
 
-    public UsuarioDTO findByEmail(String email) throws Exception {
-        Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findByEmailIgnoreCase(email));
-        if (usuario.isPresent()){
-            return UsuarioDTO.consultaDTO(usuario.get());
-        } else {
-            return null;
-        }
+    private List<Usuario> findByEmail(String email) throws Exception {
+        return usuarioRepository.findByEmailIgnoreCase(email);
     }
 
     public List<SexoENUM> findSexo() {
@@ -227,14 +230,12 @@ public class UsuarioService {
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
-        int registros = registrosSolic;
-
         int inicio = 0;
-        int fim = registros;
+        int fim = registrosSolic;
 
         if (page > 1) {
-            inicio = inicio + registros * (page - 1);
-            fim = page * registros;
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
         }
 
         if (usuarioDTOS.size() < inicio) {
