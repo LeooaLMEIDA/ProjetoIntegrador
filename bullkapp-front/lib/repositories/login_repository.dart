@@ -4,7 +4,7 @@ import '../data/constants.dart';
 
 class LoginRepository {
   final Dio dio = Dio();
-  final String url = '$apiBaseURL/login';
+  final String url = '$apiBaseURL/login/mobile';
 
   Future<User> postLogin(String email, String password) async {
     Response response;

@@ -50,40 +50,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Column(
                 children: [
-                  SizedBox(
-                    height: 120,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: const Color.fromARGB(250, 1, 30, 62),
-                            width: 3.0,
-                          ),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: ClipRRect(
-                            child: Image.memory(
-                              photo,
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0),
+                      child: CircleAvatar(
+                        backgroundColor: defaultColor,
+                        radius: 60,
+                        child: CircleAvatar(
+                          backgroundImage: MemoryImage(photo),
+                          radius: 57,
+                          onBackgroundImageError: (exception, stackTrace) {
+                            Image.asset(
+                              defaultImageProfile,
                               fit: BoxFit.cover,
-                              width: 60,
-                              height: 560,
-                              errorBuilder: (BuildContext context, Object error,
-                                  StackTrace? stackTrace) {
-                                return Image.asset(
-                                  defaultImageProfile,
-                                  fit: BoxFit.cover,
-                                  width: 45,
-                                  height: 45,
-                                );
-                              },
-                            ),
-                          ),
+                              width: 45,
+                              height: 45,
+                            );
+                          },
                         ),
                       ),
                     ),
