@@ -112,16 +112,16 @@ public class TreinoService {
         return treinoDTOS;
     }
 
-    public List<TreinoWebDTO> findByFiltersUsuarioTreino(String cdTreino, Long usuario_id) throws Exception{
+    public List<TreinoDTO> findByFiltersUsuarioTreino(String cdTreino, Long usuario_id) throws Exception{
         Usuario usuario = usuarioService.findById(usuario_id);
 
         List<Treino> treinos = treinoRepository.findByCdTreinoContainingAllIgnoringCaseAndUsuario(cdTreino, usuario);
 
-        List<TreinoWebDTO> treinosAtivos = new ArrayList<TreinoWebDTO>();
+        List<TreinoDTO> treinosAtivos = new ArrayList<TreinoDTO>();
 
         for (Treino treino : treinos) {
             if (treino.isStatus() && !treino.isAlternativo()){
-                treinosAtivos.add(TreinoWebDTO.consultaDTO(treino));
+                treinosAtivos.add(TreinoDTO.consultaDTO(treino));
             }
         }
 
