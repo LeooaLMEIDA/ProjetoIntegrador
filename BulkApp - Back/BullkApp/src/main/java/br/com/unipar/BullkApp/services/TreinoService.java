@@ -142,16 +142,16 @@ public class TreinoService {
         return treinosAtivos;
     }
 
-    public List<TreinoDTO> findAll() throws Exception{
+    public List<TreinoWebDTO> findAll() throws Exception{
         List<Treino> treinos = treinoRepository.findAll();
 
-        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+        List<TreinoWebDTO> treinoWebDTOS = new ArrayList<>();
 
         for (Treino treino : treinos) {
-            treinoDTOS.add(TreinoDTO.consultaDTO(treino));
+            treinoWebDTOS.add(TreinoWebDTO.consultaDTO(treino));
         }
 
-        return treinoDTOS;
+        return treinoWebDTOS;
     }
 
     public List<Treino> findByExercicio(Exercicio exercicio) throws Exception{
@@ -211,11 +211,7 @@ public class TreinoService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<TreinoWebDTO> treinoDTOS = new ArrayList<>();
-
-        for (TreinoDTO treinoDTO : findAll()) {
-            treinoDTOS.add(TreinoWebDTO.consultaByDTO(treinoDTO));
-        }
+        List<TreinoWebDTO> treinoDTOS = findAll();
 
         List<TreinoWebDTO> treinoDTOSRetorno = new ArrayList<>();
 

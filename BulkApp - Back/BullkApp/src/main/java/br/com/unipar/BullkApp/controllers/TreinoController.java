@@ -59,7 +59,7 @@ public class TreinoController {
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Treinos cadastrados no sistema")
-    public List<TreinoDTO> findAll() throws Exception{
+    public List<TreinoWebDTO> findAll() throws Exception{
         return treinoService.findAll();
     }
 

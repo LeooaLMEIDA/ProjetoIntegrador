@@ -55,12 +55,6 @@ public class AvaliacaoController {
         return avaliacaoService.insert(avaliacao);
     }
 
-//    @PutMapping
-//    @ApiOperation(value = "Operação responsável pela Atualização de uma Avaliação já existente")
-//    public Avaliacao update(@RequestBody Avaliacao avaliacao) throws Exception{
-//        return avaliacaoService.update(avaliacao);
-//    }
-
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar uma Avaliação existente")
     public AvaliacaoDTO delete(@PathVariable Long id) throws Exception {
