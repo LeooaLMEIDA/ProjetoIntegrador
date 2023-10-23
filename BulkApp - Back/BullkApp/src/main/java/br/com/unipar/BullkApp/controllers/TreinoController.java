@@ -2,10 +2,9 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
+import br.com.unipar.BullkApp.model.DTO.TreinoWebDTO;
 import br.com.unipar.BullkApp.model.Treino;
-import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.TreinoService;
-import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,37 +23,37 @@ public class TreinoController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Treino")
-    public TreinoDTO insert(@RequestBody @Valid Treino treino) throws Exception{
+    public TreinoWebDTO insert(@RequestBody @Valid Treino treino) throws Exception{
         return treinoService.insert(treino);
     }
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Treino já existente")
-    public TreinoDTO update(@RequestBody Treino treino) throws Exception{
-        return TreinoDTO.consultaDTO(treinoService.update(treino));
+    public TreinoWebDTO update(@RequestBody Treino treino) throws Exception{
+        return TreinoWebDTO.consultaDTO(treinoService.update(treino));
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Treino existente")
-    public TreinoDTO delete(@PathVariable Long id) throws Exception {
-        return TreinoDTO.consultaDTO(treinoService.delete(id));
+    public TreinoWebDTO delete(@PathVariable Long id) throws Exception {
+        return TreinoWebDTO.consultaDTO(treinoService.delete(id));
     }
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Treino via ID")
-    public TreinoDTO findById(@PathVariable Long id) throws Exception{
+    public TreinoWebDTO findById(@PathVariable Long id) throws Exception{
         return treinoService.findById(id);
     }
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Treino via código do Treino")
-    public List<TreinoDTO> findByFilters(@RequestParam("cdTreino") String cdTreino) throws Exception{
+    public List<TreinoWebDTO> findByFilters(@RequestParam("cdTreino") String cdTreino) throws Exception{
         return treinoService.findByFiltersCdTreino(cdTreino);
     }
 
     @GetMapping(path = "/filter/usuario")
     @ApiOperation(value = "Operação responsável pela busca do Treino via código do Treino")
-    public List<TreinoDTO> findByFilters(@RequestParam("cdTreino") String cdTreino, @RequestParam("usuario_id") Long usuario_id)throws Exception{
+    public List<TreinoWebDTO> findByFilters(@RequestParam("cdTreino") String cdTreino, @RequestParam("usuario_id") Long usuario_id)throws Exception{
         return treinoService.findByFiltersUsuarioTreino(cdTreino, usuario_id);
     }
 

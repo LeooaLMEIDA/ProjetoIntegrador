@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.model.DTO;
 
 import br.com.unipar.BullkApp.model.Usuario;
+import br.com.unipar.BullkApp.services.UsuarioService;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +16,18 @@ public class UsuarioWebDTO {
     private String nome;
 
     public static UsuarioWebDTO consultaWebDTO(Usuario usuario){
+        UsuarioWebDTO usuarioDTO = new UsuarioWebDTO();
+        usuarioDTO.setId(usuario.getId());
+        usuarioDTO.setNome(usuario.getNome());
+
+        return usuarioDTO;
+    }
+
+    public static UsuarioWebDTO consultaWebDTOById(Long id){
+        UsuarioService usuarioService = new UsuarioService();
+
+        Usuario usuario = usuarioService.findById(id);
+
         UsuarioWebDTO usuarioDTO = new UsuarioWebDTO();
         usuarioDTO.setId(usuario.getId());
         usuarioDTO.setNome(usuario.getNome());

@@ -22,7 +22,7 @@ public class LoginService {
         }
 
         if (user.get().getTpUsuario().equals(TipoUsuarioENUM.ADMIN)){
-            throw new Exception("Ambiente destinhado a usuários com perfil aluno!");
+            throw new Exception("Ambiente destinado a usuários com perfil aluno!");
         }
 
         if (!user.get().isStatus()){
@@ -43,7 +43,7 @@ public class LoginService {
         }
 
         if (user.get().getTpUsuario().equals(TipoUsuarioENUM.ALUNO)){
-            throw new Exception("Ambiente destinhado a usuários com perfil administrador!");
+            throw new Exception("Ambiente destinado a usuários com perfil administrador!");
         }
 
         if (!user.get().isStatus()){

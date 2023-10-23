@@ -3,7 +3,6 @@ package br.com.unipar.BullkApp.services;
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
-import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.UsuarioRepository;
