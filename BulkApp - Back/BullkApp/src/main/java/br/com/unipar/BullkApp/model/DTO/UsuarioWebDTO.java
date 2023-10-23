@@ -23,7 +23,7 @@ public class UsuarioWebDTO {
         return usuarioDTO;
     }
 
-    public static UsuarioWebDTO consultaWebDTOById(Long id){
+    public static UsuarioWebDTO consultaWebDTOById(Long id) throws Exception {
         UsuarioService usuarioService = new UsuarioService();
 
         Usuario usuario = usuarioService.findById(id);
