@@ -2,20 +2,18 @@ package br.com.unipar.BullkApp.util;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
-import br.com.unipar.BullkApp.model.Usuario;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Lob;
-import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 
 @Data
 public class MapperUsuario {
     private String nome;
-    private Date dtNascimento;
+    private Instant dtNascimento;
     @Enumerated(EnumType.STRING)
     private SexoENUM sexo;
     private String celular;
@@ -24,5 +22,23 @@ public class MapperUsuario {
     private TipoUsuarioENUM tpUsuario;
     private boolean status;
     private String senha;
+
+    public void setDtNascimento(Date dtNascimento) throws Exception {
+        this.dtNascimento = dtNascimento.toInstant().plus(3, ChronoUnit.HOURS);
+    }
+
+//    public Date getDtNascimento() {
+//        return dtNascimento;
+//    }
+
+    //    public static Date formatDate(Instant value) {
+//        try {
+//            SimpleDateFormat formatter = new SimpleDateFormat("dd MM yyyy HH:mm:ss");
+//            return new Date(formatter.format(value));
+//        } catch (Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//        return null;
+//    }
 }
 

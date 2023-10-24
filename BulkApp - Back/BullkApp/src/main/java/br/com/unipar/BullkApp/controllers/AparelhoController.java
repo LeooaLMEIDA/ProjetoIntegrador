@@ -79,7 +79,13 @@ public class AparelhoController {
 
     @GetMapping(path = "/pages")
     @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
-    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
-        return aparelhoService.findAllPageable(page, registros);
+    public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
+        return aparelhoService.findAllPageable(page, limit);
+    }
+
+    @GetMapping(path = "/pages/filter")
+    @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
+    public PageableDTO findByFilterPageable(@RequestParam("descricao") String descricao, @RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
+        return aparelhoService.findByFilterPageable(descricao, page, limit);
     }
 }

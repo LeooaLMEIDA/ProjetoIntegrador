@@ -1,26 +1,17 @@
 package br.com.unipar.BullkApp.model;
 
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.springframework.lang.NonNull;
-
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.web.bind.annotation.RequestMapping;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "BULLK_USUARIO")

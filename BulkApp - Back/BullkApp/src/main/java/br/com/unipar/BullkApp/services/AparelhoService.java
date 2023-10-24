@@ -125,4 +125,31 @@ public class AparelhoService {
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhosRetorno.size());
         return pageableDTO;
     }
+
+    public PageableDTO findByFilterPageable(String descricao, int page, int registrosSolic) throws Exception {
+        List<Aparelho> aparelhos = findByFilters(descricao);
+
+        List<Aparelho> aparelhosRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (aparelhos.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (aparelhos.size() < fim) {
+            fim = aparelhos.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            aparelhosRetorno.add(aparelhos.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhosRetorno.size());
+        return pageableDTO;
+    }
 }

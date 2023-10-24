@@ -7,11 +7,8 @@ import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import java.sql.Date;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor

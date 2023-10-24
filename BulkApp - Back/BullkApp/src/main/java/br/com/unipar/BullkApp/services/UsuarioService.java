@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ public class UsuarioService {
 
             Usuario usuario1 = new Usuario();
             usuario1.setNome(usuario.getNome());
-            usuario1.setDtNascimento(usuario.getDtNascimento());
+            usuario1.setDtNascimento(Date.from(usuario.getDtNascimento()));
             usuario1.setSexo(usuario.getSexo());
             usuario1.setCelular(usuario.getCelular());
             usuario1.setEmail(usuario.getEmail());
