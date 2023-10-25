@@ -41,6 +41,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime dtNascTime = DateTime.parse(userController.dtBirth);
+    String dtNascimento =
+        "${dtNascTime.day.toString().padLeft(2, '0')}/${dtNascTime.month.toString().padLeft(2, '0')}/${dtNascTime.year}";
     return Scaffold(
       appBar: const CustomAppBar(),
       body: SingleChildScrollView(
@@ -53,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       child: CircleAvatar(
                         backgroundColor: defaultColor,
                         radius: 60,
@@ -110,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: CustomReadOnlyField(
                           label: "Data Nascimento",
                           inputType: TextInputType.datetime,
-                          content: userController.dtBirth,
+                          content: dtNascimento,
                         ),
                       ),
                       const SizedBox(width: 8.0),
