@@ -23,6 +23,8 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(notes = "Id Autogerado pelo sistema")
 	private Long id;
+//	@Lob
+	@Column(name = "nome")
 	@NotNull
 	private String nome;
 	@NotNull
@@ -39,6 +41,7 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private TipoUsuarioENUM tpUsuario;
 	@Lob
+	@Column(name = "urlAvatar")
 	private byte[] urlAvatar;
 	private String mediaType;
 	@NotNull

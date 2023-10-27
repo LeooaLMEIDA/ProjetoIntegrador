@@ -163,7 +163,7 @@ public class UsuarioService {
     }
 
     public List<UsuarioDTO> findByFilters(String nome) throws Exception{
-        List<Usuario> usuarios = usuarioRepository.findByNomeContainingAllIgnoringCase(nome);
+        List<Usuario> usuarios = usuarioRepository.findByNomeIsContainingIgnoreCase(nome);
         List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
 
         for (Usuario usuario : usuarios) {
@@ -221,12 +221,212 @@ public class UsuarioService {
         return usuarioRepository.findByEmailIgnoreCase(email);
     }
 
+    private List<Usuario> findBySexo(String sexo) throws Exception {
+        return usuarioRepository.findBySexoContainingIgnoreCase(sexo);
+    }
+
+    private List<Usuario> findByTipoUsuario(String tipoUsuario) throws Exception {
+        return usuarioRepository.findByTpUsuarioContainingIgnoreCase(tipoUsuario);
+    }
+
+    private List<Usuario> findByCelular(String celular) throws Exception {
+        return usuarioRepository.findByCelularContainingIgnoreCase(celular);
+    }
+
     public List<SexoENUM> findSexo() {
         return List.of(SexoENUM.values());
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
         List<UsuarioDTO> usuarioDTOS = findAll();
+
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (usuarioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (usuarioDTOS.size() < fim) {
+            fim = usuarioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByNomePageable(String nome, int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (UsuarioDTO usuarioDTO:findAll()) {
+            if (usuarioDTO.getNome().toUpperCase().contains(nome.toUpperCase()))
+                usuarioDTOS.add(usuarioDTO);
+        }
+
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (usuarioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (usuarioDTOS.size() < fim) {
+            fim = usuarioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findBySexoPageable(String sexo, int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (Usuario usuario:findBySexo(sexo)) {
+            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
+        }
+
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (usuarioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (usuarioDTOS.size() < fim) {
+            fim = usuarioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByTipoUsuarioPageable(String tpUsuario, int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (Usuario usuario:findByTipoUsuario(tpUsuario)) {
+            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
+        }
+
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (usuarioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (usuarioDTOS.size() < fim) {
+            fim = usuarioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByEmailPageable(String email, int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (Usuario usuario:findByEmail(email)) {
+            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
+        }
+
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (usuarioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (usuarioDTOS.size() < fim) {
+            fim = usuarioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByCelularPageable(String celular, int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (Usuario usuario:findByCelular(celular)) {
+            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
+        }
+
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (usuarioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (usuarioDTOS.size() < fim) {
+            fim = usuarioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+
+        for (UsuarioDTO usuarioDTO:findAll()) {
+            if (usuarioDTO.isStatus() == status)
+                usuarioDTOS.add(usuarioDTO);
+        }
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 

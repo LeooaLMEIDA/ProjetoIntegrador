@@ -3,6 +3,7 @@ package br.com.unipar.BullkApp.controllers;
 import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.DTO.ImagemDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
+import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.ExercicioService;
@@ -73,9 +74,9 @@ public class ExercicioController {
     public ExercicioDTO delete(@PathVariable Long id) throws Exception {
         Exercicio exercicio = exercicioService.delete(id);
 
-        List<Treino> treinos = treinoService.findByExercicio(exercicio);
+        List<TreinoDTO> treinos = treinoService.findByExercicio(id);
 
-        for (Treino treino : treinos) {
+        for (TreinoDTO treino : treinos) {
             treinoService.delete(treino.getId());
         }
 
@@ -101,7 +102,26 @@ public class ExercicioController {
     }
 
     @GetMapping(path = "/pages")
-    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+    public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         return exercicioService.findAllPageable(page, registros);
+    }
+
+    @GetMapping(path = "/pages/filter")
+    public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        if (chave.equalsIgnoreCase("descricao"))
+            return exercicioService.findByDescPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("grupo_muscular"))
+            return exercicioService.findByGrpMuscularPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("aparelho"))
+            return exercicioService.findByAparelhoPageable(valor,page,registros);
+
+        return null;
+    }
+
+    @GetMapping(path = "/pages/status")
+    public PageableDTO findByBoolPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        if (chave.equalsIgnoreCase("status"))
+            return exercicioService.findByStatusPageable(valor, page, registros);
+        return null;
     }
 }

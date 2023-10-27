@@ -20,6 +20,7 @@ public class TreinoWebDTO {
     private int repeticoes;
     private Time descanso;
     private boolean status;
+    private boolean alternativo;
     private Integer peso;
     private ExercicioWebDTO exercicio;
     private UsuarioWebDTO usuario;
@@ -32,6 +33,7 @@ public class TreinoWebDTO {
         treinoDTO.setExercicio(ExercicioWebDTO.consultaWebDTO(treino.getExercicio()));
         treinoDTO.setPeso(treino.getPeso());
         treinoDTO.setStatus(treino.isStatus());
+        treinoDTO.setAlternativo(treino.isAlternativo());
         treinoDTO.setSeries(treino.getSeries());
         treinoDTO.setRepeticoes(treino.getRepeticoes());
         treinoDTO.setUsuario(UsuarioWebDTO.consultaWebDTO(treino.getUsuario()));
@@ -47,6 +49,7 @@ public class TreinoWebDTO {
         treinoDTO.setExercicio(ExercicioWebDTO.consultaWebDTOById(treino.getExercicio().getId()));
         treinoDTO.setPeso(treino.getPeso());
         treinoDTO.setStatus(treino.isStatus());
+        treinoDTO.setAlternativo(treino.isAlternativo());
         treinoDTO.setSeries(treino.getSeries());
         treinoDTO.setRepeticoes(treino.getRepeticoes());
         treinoDTO.setUsuario(UsuarioWebDTO.consultaWebDTOById(treino.getUsuario().getId()));

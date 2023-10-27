@@ -21,6 +21,7 @@ public class TreinoDTO {
     private int repeticoes;
     private Time descanso;
     private boolean status;
+    private boolean alternativo;
     private Integer peso;
     private ExercicioDTO exercicio;
     private UsuarioDTO usuario;
@@ -33,6 +34,7 @@ public class TreinoDTO {
         treinoDTO.setExercicio(ExercicioDTO.consultaDTO(treino.getExercicio()));
         treinoDTO.setPeso(treino.getPeso());
         treinoDTO.setStatus(treino.isStatus());
+        treinoDTO.setAlternativo(treino.isAlternativo());
         treinoDTO.setSeries(treino.getSeries());
         treinoDTO.setRepeticoes(treino.getRepeticoes());
         treinoDTO.setUsuario(UsuarioDTO.consultaDTO(treino.getUsuario()));

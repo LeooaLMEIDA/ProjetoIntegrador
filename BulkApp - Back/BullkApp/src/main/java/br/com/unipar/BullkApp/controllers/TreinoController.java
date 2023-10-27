@@ -76,7 +76,27 @@ public class TreinoController {
     }
 
     @GetMapping(path = "/pages")
-    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+    public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         return treinoService.findAllPageable(page, registros);
+    }
+
+    @GetMapping(path = "/pages/filter")
+    public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        if (chave.equalsIgnoreCase("codigo_treino"))
+            return treinoService.findByCdTreinoPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("exercicio"))
+            return treinoService.findByExercicioPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("usuario"))
+            return treinoService.findByUsuarioPageable(valor, page, registros);
+        return null;
+    }
+
+    @GetMapping(path = "/pages/filter/bool")
+    public PageableDTO findByBoolPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        if (chave.equalsIgnoreCase("status"))
+            return treinoService.findByStatusPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("alternativo"))
+            return treinoService.findByAlternativoPageable(valor, page, registros);
+        return null;
     }
 }

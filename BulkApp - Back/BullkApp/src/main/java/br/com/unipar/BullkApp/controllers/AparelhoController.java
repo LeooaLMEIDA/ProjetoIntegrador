@@ -1,8 +1,9 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.Aparelho;
+import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
-import br.com.unipar.BullkApp.model.Exercicio;
+import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.AparelhoService;
 import br.com.unipar.BullkApp.services.ExercicioService;
@@ -46,12 +47,12 @@ public class AparelhoController {
     public Aparelho delete(@PathVariable Long id) throws Exception {
         Aparelho aparelho = aparelhoService.delete(id);
 
-        List<Exercicio> exercicios = exercicioService.findByAparelho(aparelho);
+        List<ExercicioDTO> exercicios = exercicioService.findByAparelho(aparelho);
 
-        for (Exercicio exercicio : exercicios) {
-            List<Treino> treinos = treinoService.findByExercicio(exercicioService.delete(exercicio.getId()));
+        for (ExercicioDTO exercicio : exercicios) {
+            List<TreinoDTO> treinos = treinoService.findByExercicio(exercicioService.delete(exercicio.getId()).getId());
 
-            for (Treino treino : treinos) {
+            for (TreinoDTO treino : treinos) {
                 treinoService.delete(treino.getId());
             }
 
@@ -85,7 +86,15 @@ public class AparelhoController {
 
     @GetMapping(path = "/pages/filter")
     @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
-    public PageableDTO findByFilterPageable(@RequestParam("descricao") String descricao, @RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
-        return aparelhoService.findByFilterPageable(descricao, page, limit);
+    public PageableDTO findByFilterPageable(@RequestParam("column") String chave, @RequestParam("value") String valor,@RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
+        if (chave.equals("descricao"))
+            return aparelhoService.findByFilterPageable(valor, page, limit);
+        return null;
+    }
+
+    @GetMapping(path = "/pages/status")
+    @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
+    public PageableDTO findByStatusPageable(@RequestParam("status") boolean status, @RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
+        return aparelhoService.findByStatusPageable(status, page, limit);
     }
 }

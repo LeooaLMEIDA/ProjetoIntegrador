@@ -15,12 +15,14 @@ public class AvaliacaoDTO {
     private Long id;
     private String descricao;
     private String observacao;
+    private UsuarioWebDTO usuarioWebDTO;
 
     public static AvaliacaoDTO consultaDTO(Avaliacao avaliacao){
         AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
         avaliacaoDTO.setId(avaliacao.getId());
         avaliacaoDTO.setDescricao(avaliacao.getDescricao());
         avaliacaoDTO.setObservacao(avaliacao.getObservacao());
+        avaliacaoDTO.setUsuarioWebDTO(UsuarioWebDTO.consultaWebDTO(avaliacao.getUsuario()));
 
         return avaliacaoDTO;
     }

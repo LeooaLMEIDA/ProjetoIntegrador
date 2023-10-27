@@ -3,6 +3,7 @@ package br.com.unipar.BullkApp.services;
 import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.repositories.mobile.AparelhoRepository;
+import br.com.unipar.BullkApp.util.GenericClass;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -128,6 +129,38 @@ public class AparelhoService {
 
     public PageableDTO findByFilterPageable(String descricao, int page, int registrosSolic) throws Exception {
         List<Aparelho> aparelhos = findByFilters(descricao);
+
+        List<Aparelho> aparelhosRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (aparelhos.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (aparelhos.size() < fim) {
+            fim = aparelhos.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            aparelhosRetorno.add(aparelhos.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhosRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByStatusPageable(Boolean status,int page, int registrosSolic) throws Exception {
+        List<Aparelho> aparelhos = new ArrayList<>();
+
+        for (Aparelho aparelho:findAll()) {
+            if (aparelho.isStatus() == status)
+                aparelhos.add(aparelho);
+        }
 
         List<Aparelho> aparelhosRetorno = new ArrayList<>();
 

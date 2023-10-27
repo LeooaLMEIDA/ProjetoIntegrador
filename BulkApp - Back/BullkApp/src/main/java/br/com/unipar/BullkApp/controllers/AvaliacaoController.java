@@ -86,7 +86,16 @@ public class AvaliacaoController {
     }
 
     @GetMapping(path = "/pages")
-    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+    public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         return avaliacaoService.findAllPageable(page, registros);
+    }
+
+    @GetMapping(path = "/pages/filter")
+    public PageableDTO findFilterDescPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        if (chave.equalsIgnoreCase("descricao"))
+            return avaliacaoService.findByFilterDescPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("usuario"))
+            return avaliacaoService.findByFilterUserPageable(valor, page, registros);
+        return null;
     }
 }

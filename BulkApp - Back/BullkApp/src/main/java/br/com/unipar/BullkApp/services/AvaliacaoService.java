@@ -5,6 +5,7 @@ import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.AvaliacaoRepository;
 import br.com.unipar.BullkApp.util.MapperAvaliacao;
@@ -194,6 +195,66 @@ public class AvaliacaoService {
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
         List<AvaliacaoDTO> avaliacaos = findAll();
+
+        List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (avaliacaos.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (avaliacaos.size() < fim) {
+            fim = avaliacaos.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            avaliacaosRetorno.add(avaliacaos.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaosRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByFilterDescPageable(String descricao, int page, int registrosSolic) throws Exception {
+        List<AvaliacaoDTO> avaliacaos = findByFilters(descricao);
+
+        List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (avaliacaos.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (avaliacaos.size() < fim) {
+            fim = avaliacaos.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            avaliacaosRetorno.add(avaliacaos.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaosRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByFilterUserPageable(String usuario, int page, int registrosSolic) throws Exception {
+        List<UsuarioDTO> usuarios = usuarioService.findByFilters(usuario);
+
+        List<AvaliacaoDTO> avaliacaos = new ArrayList<>();
+
+        for (UsuarioDTO usuarioDTO:usuarios) {
+            avaliacaos.addAll(findByUsuario(usuarioDTO.getId()));
+        }
 
         List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
 

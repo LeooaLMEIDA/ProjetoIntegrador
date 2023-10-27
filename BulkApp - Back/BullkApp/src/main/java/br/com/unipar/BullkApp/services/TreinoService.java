@@ -1,9 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
-import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
-import br.com.unipar.BullkApp.model.DTO.PageableDTO;
-import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
-import br.com.unipar.BullkApp.model.DTO.TreinoWebDTO;
+import br.com.unipar.BullkApp.model.DTO.*;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
@@ -154,8 +151,13 @@ public class TreinoService {
         return treinoWebDTOS;
     }
 
-    public List<Treino> findByExercicio(Exercicio exercicio) throws Exception{
-        return treinoRepository.findByExercicio(exercicio);
+    public List<TreinoDTO> findByExercicio(Long id) throws Exception{
+        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+
+        for (Treino treino:treinoRepository.findByExercicio(exercicioService.findById(id))) {
+            treinoDTOS.add(TreinoDTO.consultaDTO(treino));
+        }
+        return treinoDTOS;
     }
 
     private void validaInsert(Treino treino) throws Exception{
@@ -213,6 +215,160 @@ public class TreinoService {
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
         List<TreinoWebDTO> treinoDTOS = findAll();
 
+        List<TreinoWebDTO> treinoDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (treinoDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (treinoDTOS.size() < fim) {
+            fim = treinoDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            treinoDTOSRetorno.add(treinoDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByCdTreinoPageable(String cdTreino, int page, int registrosSolic) throws Exception {
+        List<TreinoWebDTO> treinoDTOS = findByFiltersCdTreino(cdTreino);
+
+        List<TreinoWebDTO> treinoDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (treinoDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (treinoDTOS.size() < fim) {
+            fim = treinoDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            treinoDTOSRetorno.add(treinoDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByExercicioPageable(String exercicio, int page, int registrosSolic) throws Exception {
+        List<TreinoWebDTO> treinoDTOS = new ArrayList<>();
+
+        for (ExercicioDTO exercicioDTO:exercicioService.findByFilters(exercicio)) {
+            for (TreinoDTO treinoDTO:findByExercicio(exercicioDTO.getId())) {
+                treinoDTOS.add(TreinoWebDTO.consultaByDTO(treinoDTO));
+            }
+        }
+        List<TreinoWebDTO> treinoDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (treinoDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (treinoDTOS.size() < fim) {
+            fim = treinoDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            treinoDTOSRetorno.add(treinoDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByUsuarioPageable(String usuario, int page, int registrosSolic) throws Exception {
+        List<TreinoWebDTO> treinoDTOS = new ArrayList<>();
+
+        for (UsuarioDTO usuarioDTO:usuarioService.findAll()) {
+            if (usuarioDTO.getNome().toUpperCase().contains(usuario.toUpperCase()))
+                for (Treino treino:treinoRepository.findByUsuario(usuarioService.findById(usuarioDTO.getId()))) {
+                    treinoDTOS.add(TreinoWebDTO.consultaDTO(treino));
+                }
+        }
+        List<TreinoWebDTO> treinoDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (treinoDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (treinoDTOS.size() < fim) {
+            fim = treinoDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            treinoDTOSRetorno.add(treinoDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
+        List<TreinoWebDTO> treinoDTOS = new ArrayList<>();
+
+        for (TreinoWebDTO treinoWebDTO:findAll()) {
+            if (treinoWebDTO.isStatus() == status)
+                treinoDTOS.add(treinoWebDTO);
+        }
+        List<TreinoWebDTO> treinoDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (treinoDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (treinoDTOS.size() < fim) {
+            fim = treinoDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            treinoDTOSRetorno.add(treinoDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByAlternativoPageable(boolean alternativo, int page, int registrosSolic) throws Exception {
+        List<TreinoWebDTO> treinoDTOS = new ArrayList<>();
+
+        for (TreinoWebDTO treinoWebDTO:findAll()) {
+            if (treinoWebDTO.isAlternativo() == alternativo)
+                treinoDTOS.add(treinoWebDTO);
+        }
         List<TreinoWebDTO> treinoDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;

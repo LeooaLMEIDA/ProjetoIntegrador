@@ -121,12 +121,6 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
 
-//    @GetMapping(path = "/email")
-//    @ApiOperation(value = "Operação resposável pelo retorno de um Usuário pelo email cadastrado")
-//    public UsuarioDTO findByEmail(@RequestParam("email") String email) throws Exception {
-//        return usuarioService.findByEmail(email);
-//    }
-
     @GetMapping(path = "/sexo")
     @ApiOperation(value = "Operação resposável pelo retorno de todos os ENUMs de Sexo")
     public List<SexoENUM> findSexo() throws Exception {
@@ -134,7 +128,29 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/pages")
-    public PageableDTO findAllPageable(@RequestParam("pagina") int page, @RequestParam("registros") int registros) throws Exception{
+    public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        return usuarioService.findAllPageable(page, registros);
+    }
+
+    @GetMapping(path = "/pages/filter")
+    public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        if (chave.equalsIgnoreCase("nome"))
+            return usuarioService.findByNomePageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("sexo"))
+            return usuarioService.findBySexoPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("tipo_usuario"))
+            return usuarioService.findByTipoUsuarioPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("email"))
+            return usuarioService.findByEmailPageable(valor, page, registros);
+        else if (chave.equalsIgnoreCase("celular"))
+            return usuarioService.findByCelularPageable(valor, page, registros);
+        return usuarioService.findAllPageable(page, registros);
+    }
+
+    @GetMapping(path = "/pages/status")
+    public PageableDTO findByBoolPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
+        if (chave.equalsIgnoreCase("status"))
+            return usuarioService.findByStatusPageable(valor, page, registros);
         return usuarioService.findAllPageable(page, registros);
     }
 }

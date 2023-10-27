@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.repositories.mobile;
 
 import java.util.List;
 
+import br.com.unipar.BullkApp.enums.GrupoMuscularENUM;
 import br.com.unipar.BullkApp.model.Aparelho;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,4 +22,8 @@ public interface ExercicioRepository extends JpaRepository<Exercicio, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Aparelho")
     public List<Exercicio> findByAparelho(Aparelho aparelho);
+
+	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Aparelho")
+	public List<Exercicio> findByGrpMusculos(GrupoMuscularENUM grupoMuscular);
 }

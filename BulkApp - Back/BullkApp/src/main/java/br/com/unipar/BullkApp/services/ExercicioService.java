@@ -1,5 +1,6 @@
 package br.com.unipar.BullkApp.services;
 
+import br.com.unipar.BullkApp.enums.GrupoMuscularENUM;
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
@@ -171,6 +172,17 @@ public class ExercicioService {
         return exercicioDTOS;
     }
 
+    public List<ExercicioDTO> findByFilterGrpMuscular(String grupoMuscular) throws Exception{
+        List<Exercicio> exercicios = exercicioRepository.findByGrpMusculos(GrupoMuscularENUM.valueOf(grupoMuscular));
+
+        List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
+
+        for (Exercicio exercicio : exercicios) {
+            exercicioDTOS.add(ExercicioDTO.consultaDTO(exercicio));
+        }
+        return exercicioDTOS;
+    }
+
     public List<ExercicioDTO> findAll() throws Exception{
         List<Exercicio> exercicios = exercicioRepository.findAll();
 
@@ -216,12 +228,140 @@ public class ExercicioService {
         return null;
     }
 
-    public List<Exercicio> findByAparelho(Aparelho aparelho) {
-        return exercicioRepository.findByAparelho(aparelho);
+    public List<ExercicioDTO> findByAparelho(Aparelho aparelho) {
+        List<Exercicio> exercicios = exercicioRepository.findByAparelho(aparelho);
+
+        List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
+
+        for (Exercicio exercicio:exercicios) {
+            exercicioDTOS.add(ExercicioDTO.consultaDTO(exercicio));
+        }
+
+        return exercicioDTOS;
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
         List<ExercicioDTO> exercicioDTOS = findAll();
+
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (exercicioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (exercicioDTOS.size() < fim) {
+            fim = exercicioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            exercicioDTOSRetorno.add(exercicioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByDescPageable(String descricao, int page, int registrosSolic) throws Exception {
+        List<ExercicioDTO> exercicioDTOS = findByFilters(descricao);
+
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (exercicioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (exercicioDTOS.size() < fim) {
+            fim = exercicioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            exercicioDTOSRetorno.add(exercicioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByGrpMuscularPageable(String descricao, int page, int registrosSolic) throws Exception {
+        List<ExercicioDTO> exercicioDTOS = findByFilterGrpMuscular(descricao);
+
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (exercicioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (exercicioDTOS.size() < fim) {
+            fim = exercicioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            exercicioDTOSRetorno.add(exercicioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByAparelhoPageable(String descricao, int page, int registrosSolic) throws Exception {
+        List<Aparelho> aparelhos = aparelhoService.findByFilters(descricao);
+
+        List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
+
+        for (Aparelho aparelho:aparelhos) {
+            exercicioDTOS.addAll(findByAparelho(aparelho));
+        }
+
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
+
+        int inicio = 0;
+        int fim = registrosSolic;
+
+        if (page > 1) {
+            inicio = inicio + registrosSolic * (page - 1);
+            fim = page * registrosSolic;
+        }
+
+        if (exercicioDTOS.size() < inicio) {
+            throw new Exception("Não há elementos na página informada!");
+        } else if (exercicioDTOS.size() < fim) {
+            fim = exercicioDTOS.size();
+        }
+
+        for (int i = inicio; i < fim; i++) {
+            exercicioDTOSRetorno.add(exercicioDTOS.get(i));
+        }
+
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        return pageableDTO;
+    }
+
+    public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
+
+        List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
+
+        for (ExercicioDTO exercicioDTO:findAll()) {
+            if (exercicioDTO.isStatus() == status)
+                exercicioDTOS.add(exercicioDTO);
+        }
 
         List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
