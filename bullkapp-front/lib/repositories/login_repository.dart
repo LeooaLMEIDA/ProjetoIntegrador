@@ -7,9 +7,8 @@ class LoginRepository {
   final String url = '$apiBaseURL/login/mobile';
 
   Future<User> postLogin(String email, String password) async {
-    Response response;
     try {
-      response = await dio.post(
+      final response = await dio.post(
         url,
         data: {
           "email": email,
@@ -18,22 +17,24 @@ class LoginRepository {
       );
 
       if (response.statusCode == 200) {
-        User user = User.fromJson(response.data);
-        return user;
+        return User.fromJson(response.data);
       } else {
-        final error = response.data;
-        throw Exception(error['message']);
+        final errorData = response.data;
+        throw _getErrorMessage(errorData);
       }
     } on DioError catch (e) {
-      if (e.response != null) {
-        final errorData = e.response?.data;
-        if (errorData != null) {
-          final errorMessage =
-              errorData['errors'][0] ?? 'Erro de autenticação desconhecido';
-          throw Exception(errorMessage);
-        }
+      final errorData = e.response?.data;
+      if (errorData != null) {
+        throw _getErrorMessage(errorData);
+      } else {
+        throw Exception('Erro de autenticação desconhecido');
       }
-      throw Exception(e.message);
     }
+  }
+
+  String _getErrorMessage(Map<String, dynamic> errorData) {
+    final errorMessage = errorData['message'] ??
+        (errorData['errors'][0] ?? 'Erro de autenticação desconhecido');
+    return errorMessage;
   }
 }
