@@ -22,6 +22,7 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
   bool _viewPassword = false;
   late User user;
+  late String nameUser = "";
 
   @override
   Widget build(BuildContext context) {
@@ -180,10 +181,12 @@ class _LoginState extends State<Login> {
                             if (email.isNotEmpty && senha.isNotEmpty) {
                               try {
                                 await _doLogin();
+                                nameUser = user.nome!;
+                                nameUser = nameUser.toUpperCase();
                                 Get.to(() => HomeScreen());
                                 Get.snackbar(
                                   'SUCESSO',
-                                  "BEM VINDO(A)",
+                                  "BEM VINDO $nameUser",
                                   snackPosition: SnackPosition.TOP,
                                   duration: Duration(seconds: 1),
                                   backgroundColor: Colors.green,
@@ -193,7 +196,7 @@ class _LoginState extends State<Login> {
                                 message = e.toString();
                                 Get.snackbar(
                                   'Credenciais Incorretas',
-                                  message.substring(22),
+                                  message,
                                   snackPosition: SnackPosition.BOTTOM,
                                   backgroundColor: Colors.red,
                                   colorText: Colors.white,
@@ -225,18 +228,14 @@ class _LoginState extends State<Login> {
     final password = _passwordController.text.trim();
 
     if (email.isNotEmpty || password.isNotEmpty) {
-      try {
-        final response = await loginRepository.postLogin(email, password);
-        user = response;
-        userController.setId(user.id ?? 0);
-        userController.setName(user.nome ?? "");
-        userController.setEmail(user.email);
-        userController.setPhone(user.celular);
-        userController.setDtBirth(user.dtNascimento);
-        userController.setGender(user.sexo);
-      } catch (e) {
-        throw Exception(e);
-      }
+      final response = await loginRepository.postLogin(email, password);
+      user = response;
+      userController.setId(user.id ?? 0);
+      userController.setName(user.nome ?? "");
+      userController.setEmail(user.email);
+      userController.setPhone(user.celular);
+      userController.setDtBirth(user.dtNascimento);
+      userController.setGender(user.sexo);
     }
   }
 }
