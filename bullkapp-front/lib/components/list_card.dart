@@ -7,12 +7,14 @@ class CustomListCard extends StatelessWidget {
   final String exerciceName;
   final String series;
   final String repetition;
+  final String equipment;
 
   CustomListCard(
       {required this.onTap,
       required this.exerciceName,
       required this.series,
-      required this.repetition});
+      required this.repetition,
+      required this.equipment});
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +56,17 @@ class CustomListCard extends StatelessWidget {
                   '$series X $repetition',
                   style: TextStyle(
                     fontSize: 16,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 50,
+                left: 20,
+                child: Text(
+                  equipment,
+                  style: TextStyle(
+                    fontSize: 14,
                     color: Colors.white,
                   ),
                 ),

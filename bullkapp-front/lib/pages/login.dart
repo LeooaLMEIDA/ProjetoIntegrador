@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/fields.dart';
 import '../models/user.dart';
+import '../repositories/user_repository.dart';
 import 'home.dart';
 import 'profile.dart';
 
@@ -183,6 +184,7 @@ class _LoginState extends State<Login> {
                                 await _doLogin();
                                 nameUser = user.nome!;
                                 nameUser = nameUser.toUpperCase();
+
                                 Get.to(() => HomeScreen());
                                 Get.snackbar(
                                   'SUCESSO',
@@ -194,6 +196,17 @@ class _LoginState extends State<Login> {
                                 );
                               } catch (e) {
                                 message = e.toString();
+                                if (message.contains("type")) {
+                                  message = "URL de Conexão não Encontrada";
+                                  Get.snackbar(
+                                    'ERRO DE CONEXÃO',
+                                    message,
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    backgroundColor: Colors.red,
+                                    colorText: Colors.white,
+                                  );
+                                }
+
                                 Get.snackbar(
                                   'Credenciais Incorretas',
                                   message,
@@ -236,6 +249,21 @@ class _LoginState extends State<Login> {
       userController.setPhone(user.celular);
       userController.setDtBirth(user.dtNascimento);
       userController.setGender(user.sexo);
+
+      final photoUser = await _getPhotoUser(user.id ?? 0);
+
+      userController.setPhoto(photoUser!);
+    }
+  }
+
+  Future<String?> _getPhotoUser(int id) async {
+    try {
+      UserRepository userRepository = UserRepository();
+      final userPhoto = await userRepository.getPhoto(id);
+      userPhoto?.replaceAll(RegExp(r'\s+'), '');
+      return userPhoto?.split(',').last;
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

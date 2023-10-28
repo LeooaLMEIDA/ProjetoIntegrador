@@ -18,6 +18,7 @@ class ExerciseDetail extends StatefulWidget {
   final int repetitions;
   final int series;
   final String rest;
+  final bool hasAlternative;
 
   const ExerciseDetail(
       {super.key,
@@ -27,7 +28,7 @@ class ExerciseDetail extends StatefulWidget {
       required this.imgIllustration,
       required this.repetitions,
       required this.series,
-      required this.rest});
+      required this.rest, required this.hasAlternative});
 
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
@@ -60,7 +61,6 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
   Widget build(BuildContext context) {
     int lengthExercice = _description.length;
     int iSeries = widget.series;
-    print(returnWorkout);
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Padding(
@@ -186,7 +186,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     ],
                   ),
                 ),
-              if (returnWorkout.id != -1)
+              //if (returnWorkout.id != -1)
+              if (widget.hasAlternative != false)
                 Padding(
                   padding: const EdgeInsets.only(top: 4.0),
                   child: Row(

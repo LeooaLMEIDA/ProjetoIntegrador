@@ -20,6 +20,7 @@ class WorkoutScreen extends StatefulWidget {
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
   bool _isLoading = false;
+  bool hasAlternative = false;
   String _trainingSelected = "";
   List<Workout> workouts = [];
 
@@ -92,7 +93,16 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
           padding: const EdgeInsets.all(4.0),
           child: CustomListCard(
             exerciceName: workout.exercicio?.description ?? '',
+            equipment:
+                "Aparelho: ${workout.exercicio?.aparelho?.descricao ?? ''}",
             onTap: () async {
+              Future alternativeWorkout =
+                  _fetchAlternativeWorkout(workout.id ?? 0);
+
+              if (alternativeWorkout != null) {
+                hasAlternative = true;
+              }
+
               await Get.to(
                 () => ExerciseDetail(
                   exerciseId: workout.id ?? 0,
@@ -102,6 +112,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   repetitions: workout.repeticoes ?? 0,
                   rest: workout.descanso ?? "",
                   series: workout.series ?? 0,
+                  hasAlternative: hasAlternative,
                 ),
               );
             },
@@ -135,5 +146,15 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  Future<Workout> _fetchAlternativeWorkout(int? code) async {
+    try {
+      Workout workout = await WorkoutRepository().getAlternativeWorkout(code);
+      return workout;
+    } catch (e) {
+      throw Exception(
+          "Ocorreu um erro ao carregar as informações do Treino Alternativo $e");
+    }
   }
 }

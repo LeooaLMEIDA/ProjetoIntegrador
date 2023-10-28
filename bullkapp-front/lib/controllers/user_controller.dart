@@ -7,6 +7,7 @@ class UserController extends GetxController {
   final RxString _email = ''.obs;
   final RxString _dtBirth = ''.obs;
   final RxString _gender = ''.obs;
+  final RxString _photo = ''.obs;
 
   int get id => _id.value;
   String get name => _name.value;
@@ -14,6 +15,7 @@ class UserController extends GetxController {
   String get email => _email.value;
   String get dtBirth => _dtBirth.value;
   String get gender => _gender.value;
+  String get photo => _photo.value;
 
   void setId(int id) {
     _id.value = id;
@@ -37,5 +39,9 @@ class UserController extends GetxController {
 
   void setGender(String gender) {
     _gender.value = gender;
+  }
+
+  void setPhoto(String photo) {
+    _photo.value = photo;
   }
 }

@@ -12,31 +12,29 @@ import 'body_evaluation.dart';
 
 UserController userController = Get.find();
 
-String userNome = "";
-String userEmail = "";
-String userTelefone = "";
-String userSexo = "";
-
-Uint8List photo = Uint8List(0);
-
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({Key? key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Uint8List photo = Uint8List(0);
+
   @override
   void initState() {
-    setPhoto();
     super.initState();
+    setPhoto();
   }
 
-  void setPhoto() async {
-    photo = base64Decode(
-      await _getPhotoUser(userController.id) ?? "",
-    );
+  Future<void> setPhoto() async {
+    final photoData = await _getPhotoUser(userController.id);
+    if (photoData != null) {
+      setState(() {
+        photo = base64Decode(photoData);
+      });
+    }
   }
 
   @override
@@ -169,9 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 class AlternativeWorkoutCard extends StatelessWidget {
-  const AlternativeWorkoutCard({
-    super.key,
-  });
+  const AlternativeWorkoutCard({super.key});
 
   @override
   Widget build(BuildContext context) {
