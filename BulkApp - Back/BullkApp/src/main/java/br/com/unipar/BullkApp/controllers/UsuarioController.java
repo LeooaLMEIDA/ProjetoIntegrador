@@ -94,9 +94,9 @@ public class UsuarioController {
             treinoService.delete(treino.getId());
         }
 
-        List<Avaliacao> avaliacoes = avaliacaoService.findByUsuario(usuario);
+        List<AvaliacaoDTO> avaliacoes = avaliacaoService.findByUsuario(usuario.getId());
 
-        for (Avaliacao avaliacao : avaliacoes) {
+        for (AvaliacaoDTO avaliacao : avaliacoes) {
             avaliacaoService.delete(avaliacao.getId());
         }
 

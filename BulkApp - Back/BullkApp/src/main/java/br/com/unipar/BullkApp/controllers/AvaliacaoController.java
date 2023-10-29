@@ -69,7 +69,7 @@ public class AvaliacaoController {
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Avaliação via descrição")
-    public List<AvaliacaoDTO> findByFilters(@RequestParam("usuario_id") String descricao)throws Exception{
+    public List<AvaliacaoDTO> findByFilters(@RequestParam("descricao") String descricao)throws Exception{
         return avaliacaoService.findByFilters(descricao);
     }
 

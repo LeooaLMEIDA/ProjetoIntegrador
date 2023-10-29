@@ -144,12 +144,13 @@ public class AvaliacaoService {
     }
 
     public List<AvaliacaoDTO> findByFilters(String descricao) throws Exception{
-        List<Avaliacao> avaliacoes = avaliacaoRepository.findByDescricaoContainingAllIgnoringCase(descricao);
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findAll();
 
         List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
 
         for (Avaliacao avaliacao : avaliacoes) {
-            avaliacaoDTOS.add(AvaliacaoDTO.consultaDTO(avaliacao));
+            if (avaliacao.getDescricao().toUpperCase().contains(descricao.toUpperCase()))
+                avaliacaoDTOS.add(AvaliacaoDTO.consultaDTO(avaliacao));
         }
         return avaliacaoDTOS;
     }
@@ -178,19 +179,15 @@ public class AvaliacaoService {
     }
 
     public List<AvaliacaoDTO> findByUsuario(Long id) throws Exception {
-        Usuario usuario = usuarioService.findById(id);
-        List<Avaliacao> avaliacoes = avaliacaoRepository.findByUsuario(usuario);
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findAll();
 
         List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
 
         for (Avaliacao avaliacao : avaliacoes) {
-            avaliacaoDTOS.add(AvaliacaoDTO.consultaDTO(avaliacao));
+            if (avaliacao.getUsuario().getId().equals(id))
+                avaliacaoDTOS.add(AvaliacaoDTO.consultaDTO(avaliacao));
         }
         return avaliacaoDTOS;
-    }
-
-    public List<Avaliacao> findByUsuario(Usuario usuario) {
-        return avaliacaoRepository.findByUsuario(usuario);
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
