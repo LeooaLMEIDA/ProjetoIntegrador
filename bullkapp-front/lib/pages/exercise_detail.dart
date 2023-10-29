@@ -28,7 +28,8 @@ class ExerciseDetail extends StatefulWidget {
       required this.imgIllustration,
       required this.repetitions,
       required this.series,
-      required this.rest, required this.hasAlternative});
+      required this.rest,
+      required this.hasAlternative});
 
   @override
   State<ExerciseDetail> createState() => _ExerciseDetailState();
@@ -151,9 +152,9 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                 child: Row(
                   children: [
                     CustomSmallCard(
-                        mainLabel: "Séries e Repetições",
-                        secondLabel:
-                            "${widget.series} X ${widget.repetitions}"),
+                      mainLabel: "Séries e Repetições",
+                      secondLabel: "${widget.series} X ${widget.repetitions}",
+                    ),
                     const Spacer(),
                     CustomSmallCard(
                       mainLabel: "Intervalo",
@@ -171,7 +172,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     )
                 ],
               ),
-              if (returnWorkout.id != -1)
+              if (widget.hasAlternative != false)
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Row(

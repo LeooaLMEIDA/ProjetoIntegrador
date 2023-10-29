@@ -11,7 +11,6 @@ final workoutRepository = WorkoutRepository();
 
 class WorkoutScreen extends StatefulWidget {
   final bool showBottomBar;
-
   const WorkoutScreen({super.key, required this.showBottomBar});
 
   @override
@@ -23,6 +22,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   bool hasAlternative = false;
   String _trainingSelected = "";
   List<Workout> workouts = [];
+  Workout alternativeWorkout = Workout();
 
   final Map<String, String> _trainingIcons = {
     "A": "images/TreinoA.png",
@@ -96,13 +96,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             equipment:
                 "Aparelho: ${workout.exercicio?.aparelho?.descricao ?? ''}",
             onTap: () async {
-              Future alternativeWorkout =
-                  _fetchAlternativeWorkout(workout.id ?? 0);
-
-              if (alternativeWorkout != null) {
-                hasAlternative = true;
+              await _fetchAlternativeWorkout(3);
+              if(alternativeWorkout.id == -1) {
+                hasAlternative = false;
               }
-
               await Get.to(
                 () => ExerciseDetail(
                   exerciseId: workout.id ?? 0,
@@ -148,13 +145,16 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     });
   }
 
-  Future<Workout> _fetchAlternativeWorkout(int? code) async {
+  Future<void> _fetchAlternativeWorkout(int id) async {
     try {
-      Workout workout = await WorkoutRepository().getAlternativeWorkout(code);
-      return workout;
+      Workout workout = await WorkoutRepository().getAlternativeWorkout(id);
+      setState(() {
+        alternativeWorkout = workout;
+      });
     } catch (e) {
       throw Exception(
-          "Ocorreu um erro ao carregar as informações do Treino Alternativo $e");
+        "Ocorreu um erro ao carregar as informações do Treino Alternativo $e",
+      );
     }
   }
 }
