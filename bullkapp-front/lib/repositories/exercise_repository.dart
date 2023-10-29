@@ -2,6 +2,8 @@ import 'package:bullkapp/data/constants.dart';
 import 'package:bullkapp/models/exercise.dart';
 import 'package:dio/dio.dart';
 
+import '../models/photo.dart';
+
 class ExerciseRepository {
   final Dio dio = Dio();
   final String url = '$apiBaseURL/exercicio';
@@ -21,4 +23,24 @@ class ExerciseRepository {
       throw Exception("Houve um problema para requerir o Exercício $e");
     }
   }
+
+  Future<String?> getGif(int id) async {
+    final String url = "$apiBaseURL/exercicio/getGif/$id";
+
+    try {
+      final response = await dio.get(url);
+
+      if (response.statusCode == 200 && response.data != null) {
+        Photo photo = Photo.fromJson(response.data);
+        return photo.image;
+      } else {
+        throw Exception(
+          "Erro ao buscar o usuário. Código de status: ${response.statusCode}",
+        );
+      }
+    } catch (e) {
+      throw Exception("Houve um problema para requerir o usuário $e");
+    }
+  }
+
 }

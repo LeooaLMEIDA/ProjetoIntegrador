@@ -1,4 +1,5 @@
 import 'package:bullkapp/components/appbar.dart';
+import 'package:bullkapp/repositories/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/bottombar.dart';
@@ -97,15 +98,19 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 "Aparelho: ${workout.exercicio?.aparelho?.descricao ?? ''}",
             onTap: () async {
               await _fetchAlternativeWorkout(3);
-              if(alternativeWorkout.id == -1) {
+              if (alternativeWorkout.id == -1) {
                 hasAlternative = false;
               }
+
+              final exerciseGif =
+                  await _getGifExercise(workout.exercicio?.id ?? 0);
+
               await Get.to(
                 () => ExerciseDetail(
                   exerciseId: workout.id ?? 0,
                   description: workout.exercicio?.description ?? '',
                   orientation: workout.exercicio?.orientation ?? '',
-                  imgIllustration: workout.exercicio?.imgIlustracao ?? '',
+                  imgIllustration: exerciseGif ?? "",
                   repetitions: workout.repeticoes ?? 0,
                   rest: workout.descanso ?? "",
                   series: workout.series ?? 0,
@@ -155,6 +160,17 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       throw Exception(
         "Ocorreu um erro ao carregar as informações do Treino Alternativo $e",
       );
+    }
+  }
+
+  Future<String?> _getGifExercise(int id) async {
+    try {
+      ExerciseRepository exerciseRepository = ExerciseRepository();
+      final exerciseGif = await exerciseRepository.getGif(id);
+      exerciseGif?.replaceAll(RegExp(r'\s+'), '');
+      return exerciseGif?.split(',').last;
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }

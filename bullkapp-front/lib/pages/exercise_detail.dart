@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/components/image.dart';
@@ -37,12 +40,22 @@ class ExerciseDetail extends StatefulWidget {
 
 class _ExerciseDetailState extends State<ExerciseDetail> {
   Workout returnWorkout = Workout();
+  Uint8List photo = Uint8List(0);
   get _description => widget.description;
 
   @override
   void initState() {
     super.initState();
     _fetchAlternativeWorkout();
+    setPhoto();
+  }
+
+  Future<void> setPhoto() async {
+    if (widget.imgIllustration != "") {
+      setState(() {
+        photo = base64Decode(widget.imgIllustration);
+      });
+    }
   }
 
   _fetchAlternativeWorkout() async {
@@ -101,11 +114,17 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   height: 200,
                   child: Stack(
                     children: [
-                      LoadImage(
-                        url: widget.imgIllustration,
-                        defaultImage: defaultImageWorkout,
-                        widthImage: 250,
+                      Image.memory(
+                        photo,
+                        errorBuilder: (context, exception, stackTrace) {
+                          return Image.asset(defaultImageWorkout);
+                        },
                       ),
+                      // LoadImage(
+                      //   url: widget.imgIllustration,
+                      //   defaultImage: defaultImageWorkout,
+                      //   widthImage: 250,
+                      // ),
                       Positioned(
                         bottom: 1,
                         right: 1,
