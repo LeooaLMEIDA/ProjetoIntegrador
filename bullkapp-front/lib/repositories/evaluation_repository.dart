@@ -10,7 +10,7 @@ class EvaluationRepository {
     return '$url/downloadFile/$evaluationId';
   }
 
-  Future<List<Evaluation>> getAllEvaluation(int id) async {
+  Future<List<Evaluation>> getEvaluationByUser(int id) async {
     try {
       final response = await dio.get('$url/filter/usuario/$id');
 
@@ -28,4 +28,24 @@ class EvaluationRepository {
       throw Exception("Houve um problema para requerir a Avaliação $e");
     }
   }
+
+  Future<List<Evaluation>> getAllEvaluation(int id) async {
+    try {
+      final response = await dio.get(url);
+
+      if (response.statusCode == 200) {
+        List<Evaluation> workouts = (response.data as List)
+            .map((json) => Evaluation.fromJson(json))
+            .toList();
+        return workouts;
+      } else {
+        throw Exception(
+          "Erro ao buscar Avaliação. Código de Status: ${response.statusCode}",
+        );
+      }
+    } catch (e) {
+      throw Exception("Houve um problema para requerir a Avaliação $e");
+    }
+  }
+
 }

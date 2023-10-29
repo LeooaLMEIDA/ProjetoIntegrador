@@ -27,7 +27,7 @@ class LoginRepository {
       if (errorData != null) {
         throw _getErrorMessage(errorData);
       } else {
-        throw Exception('Erro de autenticação desconhecido');
+        throw ('Erro de autenticação desconhecido');
       }
     }
   }
