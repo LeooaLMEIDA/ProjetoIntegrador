@@ -235,7 +235,7 @@ public class TreinoService {
             treinoDTOSRetorno.add(treinoDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
         return pageableDTO;
     }
 
@@ -262,7 +262,7 @@ public class TreinoService {
             treinoDTOSRetorno.add(treinoDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
         return pageableDTO;
     }
 
@@ -294,7 +294,7 @@ public class TreinoService {
             treinoDTOSRetorno.add(treinoDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
         return pageableDTO;
     }
 
@@ -327,7 +327,7 @@ public class TreinoService {
             treinoDTOSRetorno.add(treinoDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
         return pageableDTO;
     }
 
@@ -358,7 +358,7 @@ public class TreinoService {
             treinoDTOSRetorno.add(treinoDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
         return pageableDTO;
     }
 
@@ -389,7 +389,7 @@ public class TreinoService {
             treinoDTOSRetorno.add(treinoDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
         return pageableDTO;
     }
 }

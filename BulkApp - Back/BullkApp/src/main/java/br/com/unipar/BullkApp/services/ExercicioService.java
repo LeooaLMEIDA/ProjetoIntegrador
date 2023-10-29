@@ -263,7 +263,7 @@ public class ExercicioService {
             exercicioDTOSRetorno.add(exercicioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
         return pageableDTO;
     }
 
@@ -290,7 +290,7 @@ public class ExercicioService {
             exercicioDTOSRetorno.add(exercicioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
         return pageableDTO;
     }
 
@@ -317,7 +317,7 @@ public class ExercicioService {
             exercicioDTOSRetorno.add(exercicioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
         return pageableDTO;
     }
 
@@ -350,7 +350,7 @@ public class ExercicioService {
             exercicioDTOSRetorno.add(exercicioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
         return pageableDTO;
     }
 
@@ -383,7 +383,7 @@ public class ExercicioService {
             exercicioDTOSRetorno.add(exercicioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
         return pageableDTO;
     }
 }

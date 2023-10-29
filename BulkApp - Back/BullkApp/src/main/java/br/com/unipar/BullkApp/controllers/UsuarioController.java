@@ -109,11 +109,11 @@ public class UsuarioController {
         return UsuarioDTO.consultaDTO(usuarioService.findById(id));
     }
 
-    @GetMapping(path = "/filter")
-    @ApiOperation(value = "Operação responsável pela busca do Usuário via Nome")
-    public List<UsuarioDTO> findByFilters(@RequestParam("nome") String nome)throws Exception{
-        return usuarioService.findByFilters(nome);
-    }
+//    @GetMapping(path = "/filter")
+//    @ApiOperation(value = "Operação responsável pela busca do Usuário via Nome")
+//    public List<UsuarioDTO> findByFilters(@RequestParam("nome") String nome)throws Exception{
+//        return usuarioService.findByFilters(nome);
+//    }
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Usuário cadastrados no sistema")

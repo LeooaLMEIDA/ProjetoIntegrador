@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
+import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
 import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
@@ -162,15 +163,15 @@ public class UsuarioService {
         }
     }
 
-    public List<UsuarioDTO> findByFilters(String nome) throws Exception{
-        List<Usuario> usuarios = usuarioRepository.findByNomeIsContainingIgnoreCase(nome);
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
-
-        for (Usuario usuario : usuarios) {
-            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
-        }
-        return usuarioDTOS;
-    }
+//    public List<UsuarioDTO> findByFilters(String nome) throws Exception{
+//        List<Usuario> usuarios = usuarioRepository.findByNomeIsContainingIgnoreCase(nome);
+//        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+//
+//        for (Usuario usuario : usuarios) {
+//            usuarioDTOS.add(UsuarioDTO.consultaDTO(usuario));
+//        }
+//        return usuarioDTOS;
+//    }
 
     public List<UsuarioDTO> findAll() throws Exception{
         List<Usuario> usuarios = usuarioRepository.findAll();
@@ -222,11 +223,11 @@ public class UsuarioService {
     }
 
     private List<Usuario> findBySexo(String sexo) throws Exception {
-        return usuarioRepository.findBySexoContainingIgnoreCase(sexo);
+        return usuarioRepository.findBySexo(SexoENUM.valueOf(sexo));
     }
 
     private List<Usuario> findByTipoUsuario(String tipoUsuario) throws Exception {
-        return usuarioRepository.findByTpUsuarioContainingIgnoreCase(tipoUsuario);
+        return usuarioRepository.findByTpUsuario(TipoUsuarioENUM.valueOf(tipoUsuario));
     }
 
     private List<Usuario> findByCelular(String celular) throws Exception {
@@ -260,7 +261,7 @@ public class UsuarioService {
             usuarioDTOSRetorno.add(usuarioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
     }
 
@@ -292,7 +293,7 @@ public class UsuarioService {
             usuarioDTOSRetorno.add(usuarioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
     }
 
@@ -323,7 +324,7 @@ public class UsuarioService {
             usuarioDTOSRetorno.add(usuarioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
     }
 
@@ -354,7 +355,7 @@ public class UsuarioService {
             usuarioDTOSRetorno.add(usuarioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
     }
 
@@ -385,7 +386,7 @@ public class UsuarioService {
             usuarioDTOSRetorno.add(usuarioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
     }
 
@@ -416,7 +417,7 @@ public class UsuarioService {
             usuarioDTOSRetorno.add(usuarioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
     }
 
@@ -448,7 +449,7 @@ public class UsuarioService {
             usuarioDTOSRetorno.add(usuarioDTOS.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOSRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
     }
 }

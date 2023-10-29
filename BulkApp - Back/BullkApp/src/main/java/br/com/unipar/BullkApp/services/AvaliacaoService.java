@@ -216,7 +216,7 @@ public class AvaliacaoService {
             avaliacaosRetorno.add(avaliacaos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaosRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
         return pageableDTO;
     }
 
@@ -243,17 +243,16 @@ public class AvaliacaoService {
             avaliacaosRetorno.add(avaliacaos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaosRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
         return pageableDTO;
     }
 
     public PageableDTO findByFilterUserPageable(String usuario, int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarios = usuarioService.findByFilters(usuario);
-
         List<AvaliacaoDTO> avaliacaos = new ArrayList<>();
 
-        for (UsuarioDTO usuarioDTO:usuarios) {
-            avaliacaos.addAll(findByUsuario(usuarioDTO.getId()));
+        for (UsuarioDTO usuarioDTO:usuarioService.findAll()) {
+            if (usuarioDTO.getNome().toUpperCase().contains(usuario.toUpperCase()))
+                avaliacaos.addAll(findByUsuario(usuarioDTO.getId()));
         }
 
         List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
@@ -276,7 +275,7 @@ public class AvaliacaoService {
             avaliacaosRetorno.add(avaliacaos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaosRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
         return pageableDTO;
     }
 }

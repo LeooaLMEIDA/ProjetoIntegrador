@@ -123,7 +123,7 @@ public class AparelhoService {
             aparelhosRetorno.add(aparelhos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhosRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhos.size());
         return pageableDTO;
     }
 
@@ -150,7 +150,7 @@ public class AparelhoService {
             aparelhosRetorno.add(aparelhos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhosRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhos.size());
         return pageableDTO;
     }
 
@@ -182,7 +182,7 @@ public class AparelhoService {
             aparelhosRetorno.add(aparelhos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhosRetorno.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(aparelhosRetorno), page, aparelhos.size());
         return pageableDTO;
     }
 }
