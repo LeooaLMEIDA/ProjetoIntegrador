@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
+import '../repositories/exercise_repository.dart';
 import 'alternative_training_detail.dart';
 
 class ExerciseDetail extends StatefulWidget {
@@ -191,7 +192,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     )
                 ],
               ),
-              if (widget.hasAlternative != false)
+              if (widget.hasAlternative == true)
                 const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Row(
@@ -206,8 +207,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     ],
                   ),
                 ),
-              //if (returnWorkout.id != -1)
-              if (widget.hasAlternative != false)
+              if (widget.hasAlternative == true)
                 Padding(
                   padding: const EdgeInsets.only(top: 4.0),
                   child: Row(
@@ -230,6 +230,17 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
       //extendBody: false,
       bottomNavigationBar: const CustomBottomAppBar(),
     );
+  }
+
+  Future<String?> _getGifExercise(int id) async {
+    try {
+      ExerciseRepository exerciseRepository = ExerciseRepository();
+      final exerciseGif = await exerciseRepository.getGif(id);
+      exerciseGif?.replaceAll(RegExp(r'\s+'), '');
+      return exerciseGif?.split(',').last;
+    } catch (e) {
+      throw Exception(e);
+    }
   }
 }
 

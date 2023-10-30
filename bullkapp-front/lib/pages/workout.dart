@@ -98,8 +98,11 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 "Aparelho: ${workout.exercicio?.aparelho?.descricao ?? ''}",
             onTap: () async {
               await _fetchAlternativeWorkout(3);
+
               if (alternativeWorkout.id == -1) {
                 hasAlternative = false;
+              } else {
+                hasAlternative = true;
               }
 
               final exerciseGif =

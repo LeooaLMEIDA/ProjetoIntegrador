@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/components/image.dart';
@@ -7,7 +10,7 @@ import '../components/long_card.dart';
 import '../components/small_card.dart';
 import 'package:get/get.dart';
 
-class AlternativeWorkoutDetail extends StatelessWidget {
+class AlternativeWorkoutDetail extends StatefulWidget {
   final String description;
   final String imgIllustration;
   final int repetitions;
@@ -23,8 +26,30 @@ class AlternativeWorkoutDetail extends StatelessWidget {
       required this.rest});
 
   @override
+  State<AlternativeWorkoutDetail> createState() =>
+      _AlternativeWorkoutDetailState();
+}
+
+class _AlternativeWorkoutDetailState extends State<AlternativeWorkoutDetail> {
+  Uint8List photo = Uint8List(0);
+
+  @override
+  void initState() {
+    super.initState();
+    setPhoto();
+  }
+
+  Future<void> setPhoto() async {
+    if (widget.imgIllustration != "") {
+      setState(() {
+        photo = base64Decode(widget.imgIllustration);
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    int iSeries = series;
+    int iSeries = widget.series;
     return Scaffold(
       appBar: const CustomAppBar(title: ""),
       body: Padding(
@@ -41,7 +66,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      description,
+                      widget.description,
                       style: const TextStyle(
                         fontSize: 34,
                         fontFamily: 'Voltaire',
@@ -57,10 +82,16 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                   height: 200,
                   child: Stack(
                     children: [
-                      const LoadImage(
-                        url: "",
-                        defaultImage: defaultImageWorkout,
-                        widthImage: 250,
+                      // const LoadImage(
+                      //   url: "",
+                      //   defaultImage: defaultImageWorkout,
+                      //   widthImage: 250,
+                      // ),
+                      Image.memory(
+                        photo,
+                        errorBuilder: (context, exception, stackTrace) {
+                          return Image.asset(defaultImageWorkout);
+                        },
                       ),
                       Positioned(
                         bottom: 1,
@@ -103,12 +134,12 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                   children: [
                     CustomSmallCard(
                       mainLabel: "Séries e Repetições",
-                      secondLabel: "$series X $repetitions",
+                      secondLabel: "${widget.series} X ${widget.repetitions}",
                     ),
                     const Spacer(),
                     CustomSmallCard(
                       mainLabel: "Intervalo",
-                      secondLabel: rest,
+                      secondLabel: widget.rest,
                     ),
                   ],
                 ),
@@ -118,7 +149,7 @@ class AlternativeWorkoutDetail extends StatelessWidget {
                   for (int i = 1; i <= iSeries; i++)
                     CustomLongCard(
                       serie: i.toString(),
-                      repetition: repetitions.toString(),
+                      repetition: widget.repetitions.toString(),
                     ),
                 ],
               )
