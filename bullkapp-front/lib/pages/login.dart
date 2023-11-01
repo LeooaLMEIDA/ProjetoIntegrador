@@ -198,22 +198,26 @@ class _LoginState extends State<Login> {
                                 message = e.toString();
                                 if (message.contains("type")) {
                                   message = "URL de Conexão não Encontrada";
-                                  Get.snackbar(
-                                    'ERRO DE CONEXÃO',
-                                    message,
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    backgroundColor: Colors.red,
-                                    colorText: Colors.white,
-                                  );
+                                  if (!Get.isSnackbarOpen) {
+                                    Get.snackbar(
+                                      'ERRO DE CONEXÃO',
+                                      message,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: Colors.red,
+                                      colorText: Colors.white,
+                                    );
+                                  }
+                                } else {
+                                  if (!Get.isSnackbarOpen) {
+                                    Get.snackbar(
+                                      'Credenciais Incorretas',
+                                      message,
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      backgroundColor: Colors.red,
+                                      colorText: Colors.white,
+                                    );
+                                  }
                                 }
-
-                                Get.snackbar(
-                                  'Credenciais Incorretas',
-                                  message,
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  backgroundColor: Colors.red,
-                                  colorText: Colors.white,
-                                );
                               }
                             }
                           },

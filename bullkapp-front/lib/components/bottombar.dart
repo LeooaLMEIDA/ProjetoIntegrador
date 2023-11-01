@@ -3,6 +3,7 @@ import 'package:bullkapp/pages/login.dart';
 import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../data/constants.dart';
 import '../pages/profile.dart';
@@ -50,9 +51,15 @@ class CustomBottomAppBar extends StatelessWidget {
                       height: 60,
                     ),
                     onTap: () async {
-                      await Get.to(() => const WorkoutScreen(
-                            showBottomBar: true,
-                          ));
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      String training = prefs.getString('treino') ?? '';
+                      await Get.to(
+                        () => WorkoutScreen(
+                          showBottomBar: true,
+                          activeTraining: training,
+                        ),
+                      );
                     },
                   ),
                 ),

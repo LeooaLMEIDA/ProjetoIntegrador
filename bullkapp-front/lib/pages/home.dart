@@ -3,6 +3,7 @@ import 'package:bullkapp/pages/login.dart';
 import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/bottombar.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -31,8 +32,14 @@ class HomeScreen extends StatelessWidget {
                         child: Image.asset("images/Treino.png",
                             width: MediaQuery.of(context).size.width - 60),
                         onTap: () async {
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          String training = prefs.getString('treino') ?? '';
                           await Get.to(
-                            () => const WorkoutScreen(showBottomBar: true),
+                            () => WorkoutScreen(
+                              showBottomBar: true,
+                              activeTraining: training,
+                            ),
                           );
                         },
                       ),

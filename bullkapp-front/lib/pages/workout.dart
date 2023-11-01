@@ -1,7 +1,9 @@
 import 'package:bullkapp/components/appbar.dart';
+import 'package:bullkapp/pages/home.dart';
 import 'package:bullkapp/repositories/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../components/bottombar.dart';
 import '../components/list_card.dart';
 import '../models/workout.dart';
@@ -12,7 +14,12 @@ final workoutRepository = WorkoutRepository();
 
 class WorkoutScreen extends StatefulWidget {
   final bool showBottomBar;
-  const WorkoutScreen({super.key, required this.showBottomBar});
+  final String? activeTraining;
+  const WorkoutScreen({
+    super.key,
+    required this.showBottomBar,
+    required this.activeTraining,
+  });
 
   @override
   State<WorkoutScreen> createState() => _WorkoutScreenState();
@@ -56,10 +63,22 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         width: 92,
                       ),
                       onTap: () {
-                        setState(() {
-                          _trainingSelected = trainingCode;
-                        });
-                        _fetchWorkout();
+                        if (trainingCode == widget.activeTraining) {
+                          setState(() {
+                            _trainingSelected = trainingCode;
+                          });
+                          _fetchWorkout();
+                        } else {
+                          if (!Get.isSnackbarOpen) {
+                            Get.snackbar(
+                              'htrntsjoifd',
+                              'Finalize o outro primeiro, animal (SAPIENS)',
+                              snackPosition: SnackPosition.BOTTOM,
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                            );
+                          }
+                        }
                       },
                     ),
                   );
@@ -76,6 +95,33 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     : _getSelectedList(),
               ),
             ),
+            Container(
+              color: const Color.fromARGB(255, 255, 255, 255),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _setProximoTreino(widget.activeTraining!);
+                      });
+                      Get.back();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                      minimumSize: const Size(150, 50),
+                    ),
+                    child: const Text(
+                      'Concluir Treino',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -83,6 +129,23 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       bottomNavigationBar:
           widget.showBottomBar ? const CustomBottomAppBar() : null,
     );
+  }
+
+  void _setProximoTreino(String training) async {
+    final prefs = await SharedPreferences.getInstance();
+    switch (training) {
+      case "A":
+        prefs.setString("treino", "B");
+        break;
+      case "B":
+        prefs.setString("treino", "C");
+        break;
+      case "C":
+        prefs.setString("treino", "A");
+        break;
+      default:
+        break;
+    }
   }
 
   Widget _getSelectedList() {
@@ -140,13 +203,15 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         workouts = fetchedWorkout;
       });
     } catch (e) {
-      Get.snackbar(
-        'ERRO',
-        'Erro ao obter os Treinos!',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
+      if (!Get.isSnackbarOpen) {
+        Get.snackbar(
+          'ERRO',
+          'Erro ao obter os Treinos!',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+        );
+      }
     }
     setState(() {
       _isLoading = false;
