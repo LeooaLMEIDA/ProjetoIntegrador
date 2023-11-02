@@ -57,10 +57,18 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: GestureDetector(
-                      child: Image.asset(
-                        iconPath,
-                        width: 92,
-                      ),
+                      child: widget.activeTraining == entry.key
+                          ? Image.asset(
+                              iconPath,
+                              width: 92,
+                            )
+                          : Opacity(
+                              opacity: 0.5,
+                              child: Image.asset(
+                                iconPath,
+                                width: 92,
+                              ),
+                            ),
                       onTap: () {
                         if (trainingCode == widget.activeTraining) {
                           setState(() {
@@ -70,11 +78,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         } else {
                           if (!Get.isSnackbarOpen) {
                             Get.snackbar(
-                              'Treino Finalizado',
-                              'Para realizar o Treino selecionado, precisa finalizar o que está ativo',
+                              'Atenção',
+                              'Para trocar o Treino, precisa concluir o que está ativo',
                               snackPosition: SnackPosition.BOTTOM,
                               backgroundColor: Colors.red,
                               colorText: Colors.white,
+                              icon: const Icon(Icons.warning),
+                              duration: const Duration(seconds: 6),
                             );
                           }
                         }

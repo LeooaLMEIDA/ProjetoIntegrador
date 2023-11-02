@@ -51,7 +51,7 @@ class _AlternativeWorkoutDetailState extends State<AlternativeWorkoutDetail> {
   Widget build(BuildContext context) {
     int iSeries = widget.series;
     return Scaffold(
-      appBar: const CustomAppBar(title: ""),
+      appBar: const CustomAppBar(isAlternative: true),
       body: Padding(
         padding: const EdgeInsets.only(
           top: 8.0,
@@ -82,11 +82,6 @@ class _AlternativeWorkoutDetailState extends State<AlternativeWorkoutDetail> {
                   height: 200,
                   child: Stack(
                     children: [
-                      // const LoadImage(
-                      //   url: "",
-                      //   defaultImage: defaultImageWorkout,
-                      //   widthImage: 250,
-                      // ),
                       Image.memory(
                         photo,
                         errorBuilder: (context, exception, stackTrace) {

@@ -22,7 +22,9 @@ class CustomBottomAppBar extends StatelessWidget {
         height: 70,
         color: defaultColor,
         child: IconTheme(
-          data: const IconThemeData(color: Colors.white),
+          data: const IconThemeData(
+            color: Colors.white,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Row(
@@ -72,7 +74,9 @@ class CustomBottomAppBar extends StatelessWidget {
                     onTap: () async {
                       isProfile
                           ? toGoOut()
-                          : await Get.to(() => const ProfileScreen(),);
+                          : await Get.to(
+                              () => const ProfileScreen(),
+                            );
                     },
                   ),
                 ),

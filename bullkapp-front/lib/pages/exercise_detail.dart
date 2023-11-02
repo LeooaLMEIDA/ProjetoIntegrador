@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/data/constants.dart';
@@ -120,11 +119,6 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                           return Image.asset(defaultImageWorkout);
                         },
                       ),
-                      // LoadImage(
-                      //   url: widget.imgIllustration,
-                      //   defaultImage: defaultImageWorkout,
-                      //   widthImage: 250,
-                      // ),
                       Positioned(
                         bottom: 1,
                         right: 1,
@@ -188,7 +182,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     CustomLongCard(
                       serie: i.toString(),
                       repetition: widget.repetitions.toString(),
-                    )
+                    ),
                 ],
               ),
               if (widget.hasAlternative == true)
