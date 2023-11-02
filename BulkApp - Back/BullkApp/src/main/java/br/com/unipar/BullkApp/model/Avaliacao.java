@@ -1,6 +1,7 @@
 package br.com.unipar.BullkApp.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.util.Util;
@@ -25,6 +26,7 @@ public class Avaliacao {
 	@ApiModelProperty(notes = "Id Autogerado pelo sistema")
 	private Long id;
 	@NonNull
+	@Size(max = 10)
 	private String descricao;
 	private String observacao;
 	@NonNull
