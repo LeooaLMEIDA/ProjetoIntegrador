@@ -26,7 +26,7 @@ public class UsuarioWebDTO {
     public static UsuarioWebDTO consultaWebDTOById(Long id) throws Exception {
         UsuarioService usuarioService = new UsuarioService();
 
-        Usuario usuario = usuarioService.findById(id);
+        Usuario usuario = Usuario.consultaDTO(usuarioService.findById(id));
 
         UsuarioWebDTO usuarioDTO = new UsuarioWebDTO();
         usuarioDTO.setId(usuario.getId());

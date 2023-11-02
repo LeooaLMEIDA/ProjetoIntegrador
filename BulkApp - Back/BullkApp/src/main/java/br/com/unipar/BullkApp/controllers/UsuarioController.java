@@ -40,52 +40,43 @@ public class UsuarioController {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
-    @PostMapping("/uploadArquivo")
-    @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário com imagem do avatar")
-    public ResponseEntity<String> insertWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-        return usuarioService.insertWithFile(file, data);
-    }
+//    @PostMapping("/uploadArquivo")
+//    @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário com imagem do avatar")
+//    public ResponseEntity<String> insertWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+//        return usuarioService.insertWithFile(file, data);
+//    }
 
-    @PutMapping()
-    @ApiOperation(value = "Operação resposável pela Atualização de um Usuário já existente com imagem do avatar")
-    public ResponseEntity<String> updateWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-        return usuarioService.updateWithFile(file, data);
-    }
+//    @PutMapping()
+//    @ApiOperation(value = "Operação resposável pela Atualização de um Usuário já existente com imagem do avatar")
+//    public ResponseEntity<String> updateWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+//        return usuarioService.updateWithFile(file, data);
+//    }
 
-    @GetMapping("/getPhoto/{fileId}")
-    @ApiOperation(value = "Operação resposável pelo retorno da foto do Usuário")
-    public ImagemDTO downloadPhoto(@PathVariable Long fileId) throws Exception {
-        Usuario usuario = usuarioService.findById(fileId);
-//        HttpHeaders headers = new HttpHeaders();
+//    @GetMapping("/getPhoto/{fileId}")
+//    @ApiOperation(value = "Operação resposável pelo retorno da foto do Usuário")
+//    public ImagemDTO downloadPhoto(@PathVariable Long fileId) throws Exception {
+//        Usuario usuario = usuarioService.findById(fileId);
 //
-//        if (usuario.getMediaType().equals(MediaType.IMAGE_JPEG_VALUE)){
-//            headers.setContentType(MediaType.IMAGE_JPEG);
-//        } else if (usuario.getMediaType().equals(MediaType.IMAGE_PNG_VALUE)) {
-//            headers.setContentType(MediaType.IMAGE_PNG);
-//        }
-//
-//        ByteArrayResource resource = new ByteArrayResource(usuario.getUrlAvatar());
-//        return ResponseEntity.ok().headers(headers).body(resource);
-        ImagemDTO imagemDTO = new ImagemDTO();
-        imagemDTO.setImagem(Base64.getEncoder().encodeToString(usuario.getUrlAvatar()));
-        return imagemDTO;
-    }
+//        ImagemDTO imagemDTO = new ImagemDTO();
+//        imagemDTO.setImagem(Base64.getEncoder().encodeToString(usuario.getUrlAvatar()));
+//        return imagemDTO;
+//    }
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")
-    public UsuarioDTO insert(@RequestBody @Valid Usuario usuario) throws Exception{
-        return UsuarioDTO.consultaDTO(usuarioService.insert(usuario));
+    public Usuario insert(@RequestBody @Valid Usuario usuario) throws Exception{
+        return usuarioService.insert(usuario);
     }
 
-//    @PutMapping
-//    @ApiOperation(value = "Operação responsável pela Atualização de um Usuário já existente")
-//    public Usuario update(@RequestBody Usuario usuario) throws Exception{
-//        return usuarioService.update(usuario);
-//    }
+    @PutMapping
+    @ApiOperation(value = "Operação responsável pela Atualização de um Usuário já existente")
+    public Usuario update(@RequestBody @Valid Usuario usuario) throws Exception{
+        return usuarioService.update(usuario);
+    }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Usuário existente")
-    public UsuarioDTO delete(@PathVariable Long id) throws Exception {
+    public Usuario delete(@PathVariable Long id) throws Exception {
         Usuario usuario = usuarioService.delete(id);
 
         List<Treino> treinos = treinoService.findByUsuario(usuario);
@@ -100,20 +91,20 @@ public class UsuarioController {
             avaliacaoService.delete(avaliacao.getId());
         }
 
-        return UsuarioDTO.consultaDTO(usuario);
+        return usuario;
     }
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Usuário via ID")
     public UsuarioDTO findById(@PathVariable Long id) throws Exception{
-        return UsuarioDTO.consultaDTO(usuarioService.findById(id));
+        return usuarioService.findById(id);
     }
 
-//    @GetMapping(path = "/filter")
-//    @ApiOperation(value = "Operação responsável pela busca do Usuário via Nome")
-//    public List<UsuarioDTO> findByFilters(@RequestParam("nome") String nome)throws Exception{
-//        return usuarioService.findByFilters(nome);
-//    }
+    @GetMapping(path = "/filter")
+    @ApiOperation(value = "Operação responsável pela busca do Usuário via Nome")
+    public List<UsuarioDTO> findByFilters(@RequestParam("nome") String nome)throws Exception{
+        return usuarioService.findByFilters(nome);
+    }
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Usuário cadastrados no sistema")
@@ -132,7 +123,7 @@ public class UsuarioController {
         return usuarioService.findAllPageable(page, registros);
     }
 
-    @GetMapping(path = "/pages/filter")
+    @GetMapping(path = "/pages/filter/str")
     public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("nome"))
             return usuarioService.findByNomePageable(valor, page, registros);
@@ -147,7 +138,7 @@ public class UsuarioController {
         return usuarioService.findAllPageable(page, registros);
     }
 
-    @GetMapping(path = "/pages/status")
+    @GetMapping(path = "/pages/filter/bool")
     public PageableDTO findByBoolPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("status"))
             return usuarioService.findByStatusPageable(valor, page, registros);

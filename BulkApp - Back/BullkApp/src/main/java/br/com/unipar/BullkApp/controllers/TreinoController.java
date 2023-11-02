@@ -80,7 +80,7 @@ public class TreinoController {
         return treinoService.findAllPageable(page, registros);
     }
 
-    @GetMapping(path = "/pages/filter")
+    @GetMapping(path = "/pages/filter/str")
     public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("codigo_treino"))
             return treinoService.findByCdTreinoPageable(valor, page, registros);

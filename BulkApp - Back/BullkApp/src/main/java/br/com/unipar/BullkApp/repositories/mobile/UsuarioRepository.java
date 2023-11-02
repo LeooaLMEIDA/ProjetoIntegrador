@@ -20,7 +20,15 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
+	public List<Usuario> findByNomeContainsIgnoreCase(String nome);
+
+	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
 	public List<Usuario> findByEmailIgnoreCase(String email);
+
+	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
+	public List<Usuario> findByEmailIsContainingIgnoreCase(String email);
 
 	@Query
 	public List<Usuario> findBySexo(SexoENUM sexo);
@@ -29,5 +37,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public List<Usuario> findByTpUsuario(TipoUsuarioENUM tpUsuario);
 
 	@Query
-	public List<Usuario> findByCelularContainingIgnoreCase(String celular);
+	public List<Usuario> findByCelularContaining(String celular);
 }

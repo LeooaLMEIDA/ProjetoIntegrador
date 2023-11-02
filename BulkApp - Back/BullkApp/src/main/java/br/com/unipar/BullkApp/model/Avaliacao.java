@@ -2,6 +2,8 @@ package br.com.unipar.BullkApp.model;
 
 import javax.persistence.*;
 
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.Type;
@@ -10,6 +12,7 @@ import org.springframework.lang.NonNull;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,16 +23,13 @@ public class Avaliacao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(notes = "Id Autogerado pelo sistema")
-	@NonNull
 	private Long id;
 	@NonNull
 	private String descricao;
 	private String observacao;
 	@NonNull
-	@Lob
+	@Type(type = "org.hibernate.type.BinaryType")
 	private byte[] arqAvaliacao;
-	private String arqType;
-	private String arqName;
 	@OneToOne
 	@NonNull
 	private Usuario usuario;
@@ -42,5 +42,15 @@ public class Avaliacao {
 
 	public Avaliacao() {
 
+	}
+
+	public static Avaliacao consultaDTO(AvaliacaoDTO avaliacaoDTO) throws IOException {
+		Avaliacao avaliacao = new Avaliacao();
+		avaliacao.setId(avaliacaoDTO.getId());
+		avaliacao.setDescricao(avaliacaoDTO.getDescricao());
+		avaliacao.setObservacao(avaliacaoDTO.getObservacao());
+		avaliacao.setArqAvaliacao(Util.compressData(avaliacaoDTO.getArqAvaliacao()));
+
+		return avaliacao;
 	}
 }

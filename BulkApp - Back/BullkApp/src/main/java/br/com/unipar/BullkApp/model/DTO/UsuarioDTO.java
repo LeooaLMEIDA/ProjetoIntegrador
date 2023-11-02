@@ -3,12 +3,15 @@ package br.com.unipar.BullkApp.model.DTO;
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
 import br.com.unipar.BullkApp.model.Usuario;
+import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.zip.DataFormatException;
 
 @Data
 @AllArgsConstructor
@@ -21,8 +24,9 @@ public class UsuarioDTO extends UsuarioWebDTO{
     private String email;
     private TipoUsuarioENUM tpUsuario;
     private boolean status;
+    private String urlAvatar;
 
-    public static UsuarioDTO consultaDTO(Usuario usuario){
+    public static UsuarioDTO consultaDTO(Usuario usuario) throws DataFormatException, IOException {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
         usuarioDTO.setId(usuario.getId());
         usuarioDTO.setSexo(usuario.getSexo());
@@ -32,6 +36,7 @@ public class UsuarioDTO extends UsuarioWebDTO{
         usuarioDTO.setStatus(usuario.isStatus());
         usuarioDTO.setDtNascimento(usuario.getDtNascimento());
         usuarioDTO.setNome(usuario.getNome());
+        usuarioDTO.setUrlAvatar(Util.decompress(usuario.getUrlAvatar()));
 
         return usuarioDTO;
     }

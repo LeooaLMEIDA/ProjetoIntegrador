@@ -2,14 +2,19 @@ package br.com.unipar.BullkApp.model;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
+import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
+import br.com.unipar.BullkApp.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.Date;
 import java.time.LocalDateTime;
 
@@ -23,8 +28,6 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(notes = "Id Autogerado pelo sistema")
 	private Long id;
-//	@Lob
-	@Column(name = "nome")
 	@NotNull
 	private String nome;
 	@NotNull
@@ -35,15 +38,13 @@ public class Usuario {
 	@NotNull
 	private String celular;
 	@NotNull
-//	@Email
+	@Email
 	private String email;
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private TipoUsuarioENUM tpUsuario;
-	@Lob
-	@Column(name = "urlAvatar")
+	@Type(type = "org.hibernate.type.BinaryType")
 	private byte[] urlAvatar;
-	private String mediaType;
 	@NotNull
 	private boolean status;
 	@NotNull
@@ -57,5 +58,20 @@ public class Usuario {
 
 	public Usuario() {
 
+	}
+
+	public static Usuario consultaDTO(UsuarioDTO usuarioDTO) throws IOException {
+		Usuario usuario = new Usuario();
+		usuario.setId(usuarioDTO.getId());
+		usuario.setNome(usuarioDTO.getNome());
+		usuario.setDtNascimento(usuarioDTO.getDtNascimento());
+		usuario.setSexo(usuarioDTO.getSexo());
+		usuario.setCelular(usuarioDTO.getCelular());
+		usuario.setEmail(usuarioDTO.getEmail());
+		usuario.setTpUsuario(usuarioDTO.getTpUsuario());
+		usuario.setUrlAvatar(Util.compressData(usuarioDTO.getUrlAvatar()));
+		usuario.setStatus(usuarioDTO.isStatus());
+
+		return usuario;
 	}
 }

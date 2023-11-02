@@ -1,22 +1,15 @@
 package br.com.unipar.BullkApp.services;
 
-import br.com.unipar.BullkApp.exceptions.GenericErrorMessage;
-import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.AvaliacaoRepository;
-import br.com.unipar.BullkApp.util.MapperAvaliacao;
-import br.com.unipar.BullkApp.util.MapperAvaliacaoWithId;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,110 +26,107 @@ public class AvaliacaoService {
     @Autowired
     private UsuarioService usuarioService;
 
-    public Optional<Avaliacao> getFile(Long fileId) {
-        return avaliacaoRepository.findById(fileId);
-    }
+//    public ResponseEntity<String> insertWithFile(MultipartFile file, String data){
+//        try {
+//            System.out.println(file.getContentType());
+//            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
+//                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
+//            }
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            MapperAvaliacao avaliacao = objectMapper.readValue(data, MapperAvaliacao.class);
+//
+//            Avaliacao avaliacao1 = new Avaliacao();
+//            avaliacao1.setUsuario(avaliacao.getUsuario());
+//            avaliacao1.setDescricao(avaliacao.getDescricao());
+//            avaliacao1.setObservacao(avaliacao.getObservacao());
+//            avaliacao1.setArqAvaliacao(file.getBytes());
+//
+//            avaliacao1.setDataCriacao(LocalDateTime.now());
+//            avaliacao1.setDataModificacao(LocalDateTime.now());
+//
+//            avaliacaoRepository.saveAndFlush(avaliacao1);
+//
+//            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
+//        } catch (GenericErrorMessage e) {
+//            e.printStackTrace();
+//            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+//        }
+//    }
 
-    public ResponseEntity<String> insertWithFile(MultipartFile file, String data){
-        try {
-            System.out.println(file.getContentType());
-            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
-                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
-            }
-            ObjectMapper objectMapper = new ObjectMapper();
-            MapperAvaliacao avaliacao = objectMapper.readValue(data, MapperAvaliacao.class);
+//    public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
+//        try {
+//            System.out.println(file.getContentType());
+//            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
+//                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
+//            }
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            MapperAvaliacaoWithId avaliacao = objectMapper.readValue(data, MapperAvaliacaoWithId.class);
+//
+//            Avaliacao avaliacao1 = findById(avaliacao.getId());
+//
+//            avaliacao1.setUsuario(avaliacao.getUsuario());
+//            avaliacao1.setDescricao(avaliacao.getDescricao());
+//            avaliacao1.setObservacao(avaliacao.getObservacao());
+//            avaliacao1.setArqAvaliacao(file.getBytes());
+//
+//            avaliacao1.setDataModificacao(LocalDateTime.now());
+//
+//            avaliacaoRepository.saveAndFlush(avaliacao1);
+//
+//            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
+//        } catch (GenericErrorMessage e) {
+//            e.printStackTrace();
+//            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+//        }
+//    }
 
-            Avaliacao avaliacao1 = new Avaliacao();
-            avaliacao1.setUsuario(avaliacao.getUsuario());
-            avaliacao1.setArqName(file.getName());
-            avaliacao1.setDescricao(avaliacao.getDescricao());
-            avaliacao1.setObservacao(avaliacao.getObservacao());
-            avaliacao1.setArqType(file.getContentType());
-            avaliacao1.setArqAvaliacao(file.getBytes());
+    public AvaliacaoDTO insert(AvaliacaoDTO avaliacaoDTO) throws Exception{
+        validaInsert(avaliacaoDTO);
+        Avaliacao avaliacao = Avaliacao.consultaDTO(avaliacaoDTO);
 
-            avaliacao1.setDataCriacao(LocalDateTime.now());
-            avaliacao1.setDataModificacao(LocalDateTime.now());
-
-            avaliacaoRepository.saveAndFlush(avaliacao1);
-
-            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
-        } catch (GenericErrorMessage e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        }
-    }
-
-    public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
-        try {
-            System.out.println(file.getContentType());
-            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
-                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
-            }
-            ObjectMapper objectMapper = new ObjectMapper();
-            MapperAvaliacaoWithId avaliacao = objectMapper.readValue(data, MapperAvaliacaoWithId.class);
-
-            Avaliacao avaliacao1 = findById(avaliacao.getId());
-
-            avaliacao1.setUsuario(avaliacao.getUsuario());
-            avaliacao1.setArqName(file.getName());
-            avaliacao1.setDescricao(avaliacao.getDescricao());
-            avaliacao1.setObservacao(avaliacao.getObservacao());
-            avaliacao1.setArqType(file.getContentType());
-            avaliacao1.setArqAvaliacao(file.getBytes());
-
-            avaliacao1.setDataModificacao(LocalDateTime.now());
-
-            avaliacaoRepository.saveAndFlush(avaliacao1);
-
-            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
-        } catch (GenericErrorMessage e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        }
-    }
-
-    public AvaliacaoDTO insert(Avaliacao avaliacao) throws Exception{
-        avaliacao.setUsuario(usuarioService.findById(avaliacao.getUsuario().getId()));
+        avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
+        avaliacao.setArqAvaliacao(avaliacao.getArqAvaliacao());
 
         avaliacao.setDataCriacao(LocalDateTime.now());
         avaliacao.setDataModificacao(LocalDateTime.now());
 
         avaliacaoRepository.saveAndFlush(avaliacao);
 
-        AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
-        avaliacaoDTO.consultaDTO(avaliacao);
+        avaliacaoDTO.setId(avaliacao.getId());
 
         return avaliacaoDTO;
     }
 
-    public AvaliacaoDTO update(Avaliacao avaliacao) throws Exception {
-        validaUpdate(avaliacao);
-        avaliacaoRepository.saveAndFlush(avaliacao);
+    public AvaliacaoDTO update(AvaliacaoDTO avaliacaoDTO) throws Exception {
+        validaUpdate(avaliacaoDTO);
 
-        AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
-        avaliacaoDTO.consultaDTO(avaliacao);
+        Avaliacao avaliacao = Avaliacao.consultaDTO(avaliacaoDTO);
+
+        avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
+        avaliacao.setArqAvaliacao(avaliacao.getArqAvaliacao());
+
+        avaliacao.setDataModificacao(LocalDateTime.now());
+
+        avaliacaoRepository.saveAndFlush(avaliacao);
 
         return avaliacaoDTO;
     }
 
     public AvaliacaoDTO delete(Long id) throws  Exception {
-        Avaliacao avaliacao = findById(id);
+        Avaliacao avaliacao = Avaliacao.consultaDTO(findById(id));
         avaliacaoRepository.delete(avaliacao);
 
-        AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
-        avaliacaoDTO.consultaDTO(avaliacao);
-
-        return avaliacaoDTO;
+        return AvaliacaoDTO.consultaDTO(avaliacao);
     }
 
-    public Avaliacao findById(Long id) throws Exception{
+    public AvaliacaoDTO findById(Long id) throws Exception{
         Optional<Avaliacao> retorno = avaliacaoRepository.findById(id);
         if (retorno.isPresent()){
-            return retorno.get();
+            return AvaliacaoDTO.consultaDTO(retorno.get());
         }
         else {
             throw new Exception("Avaliacao " + id + " não encontrada");
@@ -166,14 +156,14 @@ public class AvaliacaoService {
         return avaliacaoDTOS;
     }
 
-    private void validaInsert(Avaliacao avaliacao) throws Exception{
-        if (avaliacao.getId() != null){
+    private void validaInsert(AvaliacaoDTO avaliacaoDTO) throws Exception{
+        if (avaliacaoDTO.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir uma nova Avaliacao");
         }
     }
 
-    private void validaUpdate(Avaliacao avaliacao) throws Exception{
-        if (avaliacao.getId() == null){
+    private void validaUpdate(AvaliacaoDTO avaliacaoDTO) throws Exception{
+        if (avaliacaoDTO.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro da Avaliacao");
         }
     }
@@ -213,8 +203,7 @@ public class AvaliacaoService {
             avaliacaosRetorno.add(avaliacaos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
-        return pageableDTO;
+        return new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
     }
 
     public PageableDTO findByFilterDescPageable(String descricao, int page, int registrosSolic) throws Exception {
@@ -240,8 +229,7 @@ public class AvaliacaoService {
             avaliacaosRetorno.add(avaliacaos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
-        return pageableDTO;
+        return new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
     }
 
     public PageableDTO findByFilterUserPageable(String usuario, int page, int registrosSolic) throws Exception {
@@ -272,7 +260,6 @@ public class AvaliacaoService {
             avaliacaosRetorno.add(avaliacaos.get(i));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
-        return pageableDTO;
+        return new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
     }
 }

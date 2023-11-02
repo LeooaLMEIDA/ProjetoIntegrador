@@ -22,7 +22,7 @@ public class Util {
         return bos.toByteArray();
     }
 
-    public static byte[] compressData(byte[] messageContent) throws IOException
+    public static byte[] compressDataByte(byte[] messageContent) throws IOException
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         GZIPOutputStream gzos = new GZIPOutputStream(bos);

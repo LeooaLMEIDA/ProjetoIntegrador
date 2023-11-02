@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.IOException;
 import java.sql.Time;
+import java.util.zip.DataFormatException;
 
 @Data
 @AllArgsConstructor
@@ -26,7 +28,7 @@ public class TreinoDTO {
     private ExercicioDTO exercicio;
     private UsuarioDTO usuario;
 
-    public static TreinoDTO consultaDTO(Treino treino){
+    public static TreinoDTO consultaDTO(Treino treino) throws DataFormatException, IOException {
         TreinoDTO treinoDTO = new TreinoDTO();
         treinoDTO.setId(treino.getId());
         treinoDTO.setCdTreino(treino.getCdTreino());
