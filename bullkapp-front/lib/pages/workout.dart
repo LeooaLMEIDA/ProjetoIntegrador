@@ -1,5 +1,4 @@
 import 'package:bullkapp/components/appbar.dart';
-import 'package:bullkapp/pages/home.dart';
 import 'package:bullkapp/repositories/exercise_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -71,8 +70,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         } else {
                           if (!Get.isSnackbarOpen) {
                             Get.snackbar(
-                              'htrntsjoifd',
-                              'Finalize o outro primeiro, animal (SAPIENS)',
+                              'Treino Finalizado',
+                              'Para realizar o Treino selecionado, precisa finalizar o que está ativo',
                               snackPosition: SnackPosition.BOTTOM,
                               backgroundColor: Colors.red,
                               colorText: Colors.white,
@@ -118,7 +117,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         fontSize: 20,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )

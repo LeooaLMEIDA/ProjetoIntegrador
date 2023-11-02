@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
-import 'package:bullkapp/components/image.dart';
 import 'package:bullkapp/data/constants.dart';
 import 'package:bullkapp/models/workout.dart';
 import 'package:bullkapp/repositories/workout_repository.dart';

@@ -54,7 +54,7 @@ class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
                     ),
                     itemCount: 4,
                     itemBuilder: (context, index) {
-                      return Row(
+                      return const Row(
                         children: [
                           EvaluationCard(mainLabel: "31/07/2023"),
                         ],

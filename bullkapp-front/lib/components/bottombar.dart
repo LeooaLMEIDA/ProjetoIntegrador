@@ -4,7 +4,6 @@ import 'package:bullkapp/pages/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../data/constants.dart';
 import '../pages/profile.dart';
 
@@ -73,7 +72,7 @@ class CustomBottomAppBar extends StatelessWidget {
                     onTap: () async {
                       isProfile
                           ? toGoOut()
-                          : await Get.to(() => const ProfileScreen());
+                          : await Get.to(() => const ProfileScreen(),);
                     },
                   ),
                 ),

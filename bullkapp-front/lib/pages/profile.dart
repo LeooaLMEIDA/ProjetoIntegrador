@@ -13,7 +13,7 @@ import 'body_evaluation.dart';
 UserController userController = Get.find();
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key});
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -191,7 +191,11 @@ class AlternativeWorkoutCard extends StatelessWidget {
               Positioned(
                 bottom: 12,
                 left: 15,
-                child: Image.asset('images/Balanca.png', width: 50, height: 55),
+                child: Image.asset(
+                  'images/Balanca.png',
+                  width: 50,
+                  height: 55,
+                ),
               ),
               const Positioned(
                 bottom: 25,

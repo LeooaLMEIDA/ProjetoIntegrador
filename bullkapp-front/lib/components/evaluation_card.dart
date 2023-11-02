@@ -7,7 +7,7 @@ final EvaluationRepository evaluationRepository = EvaluationRepository();
 class EvaluationCard extends StatefulWidget {
   final String mainLabel;
 
-  EvaluationCard({required this.mainLabel});
+  const EvaluationCard({super.key, required this.mainLabel});
 
   @override
   State<EvaluationCard> createState() => _EvaluationCardState();
