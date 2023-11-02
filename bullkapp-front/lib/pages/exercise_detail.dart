@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import '../components/long_card.dart';
 import '../components/small_card.dart';
 import '../repositories/exercise_repository.dart';
+import 'alternative_card.dart';
 import 'alternative_training_detail.dart';
 
 class ExerciseDetail extends StatefulWidget {
@@ -19,6 +20,7 @@ class ExerciseDetail extends StatefulWidget {
   final String imgIllustration;
   final int repetitions;
   final int series;
+  final double peso;
   final String rest;
   final bool hasAlternative;
 
@@ -30,6 +32,7 @@ class ExerciseDetail extends StatefulWidget {
       required this.imgIllustration,
       required this.repetitions,
       required this.series,
+      required this.peso,
       required this.rest,
       required this.hasAlternative});
 
@@ -41,6 +44,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
   Workout returnWorkout = Workout();
   Uint8List photo = Uint8List(0);
   get _description => widget.description;
+  late Future<String> exerciseGif;
 
   @override
   void initState() {
@@ -56,6 +60,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
       });
     }
   }
+
+  
 
   _fetchAlternativeWorkout() async {
     try {
@@ -182,6 +188,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                     CustomLongCard(
                       serie: i.toString(),
                       repetition: widget.repetitions.toString(),
+                      peso: widget.peso.toString(),
                     ),
                 ],
               ),
@@ -209,6 +216,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                         description: returnWorkout.exercicio?.description ?? "",
                         series: returnWorkout.series ?? 0,
                         repetitions: returnWorkout.repeticoes ?? 0,
+                        peso: returnWorkout.peso.toString(),
                         imgIllustration:
                             returnWorkout.exercicio?.imgIlustracao ?? "",
                         rest: returnWorkout.descanso ?? "",
@@ -220,84 +228,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
           ),
         ),
       ),
-      //extendBody: false,
       bottomNavigationBar: const CustomBottomAppBar(),
-    );
-  }
-
-  Future<String?> _getGifExercise(int id) async {
-    try {
-      ExerciseRepository exerciseRepository = ExerciseRepository();
-      final exerciseGif = await exerciseRepository.getGif(id);
-      exerciseGif?.replaceAll(RegExp(r'\s+'), '');
-      return exerciseGif?.split(',').last;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
-}
-
-class AlternativeWorkoutCard extends StatelessWidget {
-  final String description;
-  final String imgIllustration;
-  final int repetitions;
-  final int series;
-  final String rest;
-
-  const AlternativeWorkoutCard({
-    super.key,
-    required this.series,
-    required this.description,
-    required this.imgIllustration,
-    required this.repetitions,
-    required this.rest,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30),
-      ),
-      clipBehavior: Clip.hardEdge,
-      borderOnForeground: true,
-      color: const Color.fromARGB(250, 1, 30, 62),
-      child: InkWell(
-        onTap: () async => await Get.to(
-          AlternativeWorkoutDetail(
-            description: description,
-            imgIllustration: imgIllustration,
-            repetitions: repetitions,
-            rest: rest,
-            series: series,
-          ),
-        ),
-        splashColor: const Color.fromARGB(250, 1, 30, 62).withAlpha(255),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width - 25,
-          height: 46,
-          child: Stack(
-            children: [
-              Positioned(
-                bottom: 10,
-                left: 10,
-                child: Text(
-                  description,
-                  style: const TextStyle(fontSize: 20, color: Colors.white),
-                ),
-              ),
-              Positioned(
-                bottom: 10,
-                right: 12,
-                child: Text(
-                  '$series X $repetitions',
-                  style: const TextStyle(fontSize: 18, color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

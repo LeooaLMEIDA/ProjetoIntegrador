@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:bullkapp/components/appbar.dart';
 import 'package:bullkapp/components/bottombar.dart';
-import 'package:bullkapp/components/image.dart';
 import 'package:bullkapp/data/constants.dart';
 import 'package:flutter/material.dart';
 import '../components/long_card.dart';
@@ -15,6 +13,7 @@ class AlternativeWorkoutDetail extends StatefulWidget {
   final String imgIllustration;
   final int repetitions;
   final int series;
+  final double peso;
   final String rest;
 
   const AlternativeWorkoutDetail(
@@ -23,7 +22,8 @@ class AlternativeWorkoutDetail extends StatefulWidget {
       required this.imgIllustration,
       required this.repetitions,
       required this.series,
-      required this.rest});
+      required this.rest,
+      required this.peso});
 
   @override
   State<AlternativeWorkoutDetail> createState() =>
@@ -145,6 +145,7 @@ class _AlternativeWorkoutDetailState extends State<AlternativeWorkoutDetail> {
                     CustomLongCard(
                       serie: i.toString(),
                       repetition: widget.repetitions.toString(),
+                      peso: widget.peso.toString(),
                     ),
                 ],
               )

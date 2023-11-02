@@ -5,8 +5,13 @@ import 'package:flutter/material.dart';
 class CustomLongCard extends StatelessWidget {
   final String serie;
   final String repetition;
+  final String peso;
 
-  CustomLongCard({required this.serie, required this.repetition});
+  CustomLongCard({
+    required this.serie,
+    required this.repetition,
+    required this.peso,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,7 @@ class CustomLongCard extends StatelessWidget {
                 top: 12,
                 left: 10,
                 child: Text(
-                  '$serie ª X $repetition',
+                  '$serie ª X $repetition - $peso KG',
                   style: TextStyle(fontSize: 22, color: Colors.white),
                 ),
               ),

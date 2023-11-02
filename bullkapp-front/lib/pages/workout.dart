@@ -169,7 +169,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
             equipment:
                 "Aparelho: ${workout.exercicio?.aparelho?.descricao ?? ''}",
             onTap: () async {
-              await _fetchAlternativeWorkout(3);
+              await _fetchAlternativeWorkout(workout.id ?? 0);
 
               if (alternativeWorkout.id == -1) {
                 hasAlternative = false;
@@ -190,6 +190,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   rest: workout.descanso ?? "",
                   series: workout.series ?? 0,
                   hasAlternative: hasAlternative,
+                  peso: double.parse(workout.peso.toString()),
                 ),
               );
             },
