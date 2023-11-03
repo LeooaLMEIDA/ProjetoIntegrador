@@ -33,7 +33,7 @@ public class Util {
 
     public static String decompress(byte[] bytes) throws IOException, DataFormatException
     {
-        InputStream in = new GZIPInputStream(new ByteArrayInputStream(bytes));
+        InputStream in = new GZIPInputStream(new ByteArrayInputStream(compressDataByte(bytes)));
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         byte[] buffer = new byte[8192];
         int len;

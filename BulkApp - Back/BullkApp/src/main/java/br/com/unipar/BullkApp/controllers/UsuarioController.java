@@ -11,6 +11,7 @@ import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
 import br.com.unipar.BullkApp.services.TreinoService;
 import br.com.unipar.BullkApp.services.UsuarioService;
+import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,15 +53,15 @@ public class UsuarioController {
 //        return usuarioService.updateWithFile(file, data);
 //    }
 
-//    @GetMapping("/getPhoto/{fileId}")
-//    @ApiOperation(value = "Operação resposável pelo retorno da foto do Usuário")
-//    public ImagemDTO downloadPhoto(@PathVariable Long fileId) throws Exception {
-//        Usuario usuario = usuarioService.findById(fileId);
-//
-//        ImagemDTO imagemDTO = new ImagemDTO();
-//        imagemDTO.setImagem(Base64.getEncoder().encodeToString(usuario.getUrlAvatar()));
-//        return imagemDTO;
-//    }
+    @GetMapping("/getPhoto/{fileId}")
+    @ApiOperation(value = "Operação resposável pelo retorno da foto do Usuário")
+    public ImagemDTO getPhoto(@PathVariable Long fileId) throws Exception {
+        Usuario usuario = Usuario.consultaDTO(usuarioService.findById(fileId));
+
+        ImagemDTO imagemDTO = new ImagemDTO();
+        imagemDTO.setImagem(Util.decompress(usuario.getUrlAvatar()));
+        return imagemDTO;
+    }
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")
