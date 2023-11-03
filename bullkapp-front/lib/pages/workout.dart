@@ -27,9 +27,14 @@ class WorkoutScreen extends StatefulWidget {
 class _WorkoutScreenState extends State<WorkoutScreen> {
   bool _isLoading = false;
   bool hasAlternative = false;
-  String _trainingSelected = "";
   List<Workout> workouts = [];
   Workout alternativeWorkout = Workout();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchWorkout();
+  }
 
   final Map<String, String> _trainingIcons = {
     "A": "images/TreinoA.png",
@@ -72,7 +77,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                       onTap: () {
                         if (trainingCode == widget.activeTraining) {
                           setState(() {
-                            _trainingSelected = trainingCode;
                           });
                           _fetchWorkout();
                         } else {
@@ -207,8 +211,8 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       _isLoading = true;
     });
     try {
-      List<Workout> fetchedWorkout =
-          await workoutRepository.getWorkoutsByWorkoutCode(_trainingSelected);
+      List<Workout> fetchedWorkout = await workoutRepository
+          .getWorkoutsByWorkoutCode(widget.activeTraining ?? "");
       setState(() {
         workouts = fetchedWorkout;
       });
