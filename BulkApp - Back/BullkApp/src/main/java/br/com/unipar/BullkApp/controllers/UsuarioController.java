@@ -65,7 +65,7 @@ public class UsuarioController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")
-    public Usuario insert(@RequestBody @Valid Usuario usuario) throws Exception{
+    public UsuarioDTO insert(@RequestBody @Valid UsuarioDTO usuario) throws Exception{
         return usuarioService.insert(usuario);
     }
 

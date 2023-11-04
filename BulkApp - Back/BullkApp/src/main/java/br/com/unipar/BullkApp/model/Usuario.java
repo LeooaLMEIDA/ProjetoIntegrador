@@ -71,6 +71,7 @@ public class Usuario {
 		usuario.setTpUsuario(usuarioDTO.getTpUsuario());
 		usuario.setUrlAvatar(Util.compressData(usuarioDTO.getUrlAvatar()));
 		usuario.setStatus(usuarioDTO.isStatus());
+		usuario.setSenha(usuarioDTO.getSenha());
 
 		return usuario;
 	}

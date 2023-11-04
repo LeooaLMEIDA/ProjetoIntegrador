@@ -22,13 +22,14 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Usuario insert(Usuario usuario) throws Exception{
+    public UsuarioDTO insert(UsuarioDTO usuarioDTO) throws Exception{
+        Usuario usuario = Usuario.consultaDTO(usuarioDTO);
         validaInsert(usuario);
-        usuario.setUrlAvatar(usuario.getUrlAvatar());
         usuario.setDataCriacao(LocalDateTime.now());
         usuario.setDataModificacao(LocalDateTime.now());
         usuarioRepository.saveAndFlush(usuario);
-        return usuario;
+
+        return UsuarioDTO.consultaDTO(usuario);
     }
 
 //    public ResponseEntity<String> insertWithFile(MultipartFile file, String data) {
