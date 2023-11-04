@@ -21,6 +21,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   Uint8List photo = Uint8List(0);
+  late bool error = false;
 
   @override
   void initState() {
@@ -31,9 +32,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> setPhoto() async {
     final photoData = await _getPhotoUser(userController.id);
     if (photoData != null) {
-      setState(() {
-        photo = base64Decode(photoData);
-      });
+      try {
+        setState(() {
+          photo = base64Decode(photoData);
+        });
+      } catch (e) {
+        error = true;
+        throw Exception('Erro ao decodificar a imagem.');
+      }
     }
   }
 
@@ -58,18 +64,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: CircleAvatar(
                         backgroundColor: defaultColor,
                         radius: 60,
-                        child: CircleAvatar(
-                          backgroundImage: MemoryImage(photo),
-                          radius: 57,
-                          onBackgroundImageError: (exception, stackTrace) {
-                            Image.asset(
-                              defaultImageProfile,
-                              fit: BoxFit.cover,
-                              width: 45,
-                              height: 45,
-                            );
-                          },
-                        ),
+                        child: error
+                            ? CircleAvatar(
+                                backgroundImage: MemoryImage(photo),
+                                radius: 57,
+                              )
+                            : const CircleAvatar(
+                                backgroundImage:
+                                    AssetImage(defaultImageProfile),
+                                    radius: 57,
+                              ),
                       ),
                     ),
                   ),
