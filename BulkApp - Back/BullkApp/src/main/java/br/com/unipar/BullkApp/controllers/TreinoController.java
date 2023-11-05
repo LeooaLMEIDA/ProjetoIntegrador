@@ -23,31 +23,31 @@ public class TreinoController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Treino")
-    public TreinoWebDTO insert(@RequestBody @Valid Treino treino) throws Exception{
-        return treinoService.insert(treino);
+    public TreinoDTO insert(@RequestBody @Valid TreinoDTO treinoDTO) throws Exception{
+        return treinoService.insert(treinoDTO);
     }
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Treino já existente")
-    public TreinoWebDTO update(@RequestBody Treino treino) throws Exception{
-        return TreinoWebDTO.consultaDTO(treinoService.update(treino));
+    public TreinoDTO update(@RequestBody TreinoDTO treino) throws Exception{
+        return treinoService.update(treino);
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Treino existente")
-    public TreinoWebDTO delete(@PathVariable Long id) throws Exception {
-        return TreinoWebDTO.consultaDTO(treinoService.delete(id));
+    public TreinoDTO delete(@PathVariable Long id) throws Exception {
+        return treinoService.delete(id);
     }
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Treino via ID")
-    public TreinoWebDTO findById(@PathVariable Long id) throws Exception{
+    public TreinoDTO findById(@PathVariable Long id) throws Exception{
         return treinoService.findById(id);
     }
 
     @GetMapping(path = "/filter")
     @ApiOperation(value = "Operação responsável pela busca do Treino via código do Treino")
-    public List<TreinoWebDTO> findByFilters(@RequestParam("cdTreino") String cdTreino) throws Exception{
+    public List<TreinoDTO> findByFilters(@RequestParam("cdTreino") String cdTreino) throws Exception{
         return treinoService.findByFiltersCdTreino(cdTreino);
     }
 
@@ -59,7 +59,7 @@ public class TreinoController {
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Treinos cadastrados no sistema")
-    public List<TreinoWebDTO> findAll() throws Exception{
+    public List<TreinoDTO> findAll() throws Exception{
         return treinoService.findAll();
     }
 

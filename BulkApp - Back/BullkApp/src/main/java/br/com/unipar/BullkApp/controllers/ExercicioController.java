@@ -30,30 +30,14 @@ public class ExercicioController {
     @Autowired
     private TreinoService treinoService;
 
-//    @PostMapping("/uploadArquivo")
-//    @ApiOperation(value = "Operação resposável pela Inserção de um novo Exercicio com imagem do exercicio")
-//    public ResponseEntity<String> insertWithGif(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-//        return exercicioService.insertWithFile(file, data);
-//    }
-
-//    @PutMapping()
-//    @ApiOperation(value = "Operação resposável pela Atualização de um Exercicio já existente com imagem do exercicio")
-//    public ResponseEntity<String> updateWithGif(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-//        return exercicioService.updateWithFile(file, data);
-//    }
-
     @GetMapping("/getGif/{fileId}")
     @ApiOperation(value = "Operação resposável pela visualização do gif do Exercício cadastrado")
     public ImagemDTO downloadGif(@PathVariable Long fileId) throws Exception {
         ExercicioDTO exercicio = ExercicioDTO.consultaDTO(exercicioService.findById(fileId));
-//        HttpHeaders headers = new HttpHeaders();
-//
-//        headers.setContentType(MediaType.IMAGE_GIF);
-//
-//        ByteArrayResource resource = new ByteArrayResource(exercicio.getImgIlustracao());
-//        return ResponseEntity.ok().headers(headers).body(resource);
+
         ImagemDTO imagemDTO = new ImagemDTO();
         imagemDTO.setImagem(exercicio.getImgIlistracao());
+
         return imagemDTO;
     }
 
@@ -65,8 +49,8 @@ public class ExercicioController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Exercicio já existente")
-    public Exercicio update(@RequestBody Exercicio exercicio) throws Exception{
-        return exercicioService.update(exercicio);
+    public ExercicioDTO update(@RequestBody ExercicioDTO exercicioDTO) throws Exception{
+        return exercicioService.update(exercicioDTO);
     }
 
     @DeleteMapping(path = "/{id}")

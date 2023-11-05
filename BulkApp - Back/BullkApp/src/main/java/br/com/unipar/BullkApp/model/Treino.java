@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.persistence.*;
 
+import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.lang.NonNull;
@@ -28,13 +29,13 @@ public class Treino {
 	private CdTreinoENUM cdTreino;
 	@NonNull
 	private int series;
-//	@NonNull
+	@NonNull
 	private int repeticoes;
-//	@NonNull
+	@NonNull
 	private Time descanso;
-//	@NonNull
+	@NonNull
 	private boolean status;
-//	@NonNull
+	@NonNull
 	private Integer peso;
 	private boolean alternativo;
 	@ManyToOne
@@ -50,5 +51,19 @@ public class Treino {
 
 	public Treino() {
 
+	}
+
+	public static Treino consultaDTO(TreinoDTO treinoDTO) {
+		Treino treino = new Treino();
+		treino.setId(treinoDTO.getId());
+		treino.setCdTreino(treinoDTO.getCdTreino());
+		treino.setSeries(treinoDTO.getSeries());
+		treino.setRepeticoes(treinoDTO.getRepeticoes());
+		treino.setDescanso(treinoDTO.getDescanso());
+		treino.setStatus(treinoDTO.isStatus());
+		treino.setPeso(treinoDTO.getPeso());
+		treino.setAlternativo(treinoDTO.isAlternativo());
+
+		return treino;
 	}
 }

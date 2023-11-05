@@ -35,38 +35,6 @@ public class ExercicioService {
     @Autowired
     private AparelhoService aparelhoService;
 
-    public ResponseEntity<String> insertWithFile(MultipartFile file, String data) {
-        try {
-            if (!MediaType.IMAGE_GIF_VALUE.equals(file.getContentType()))
-                throw new GenericErrorMessage("é necessário que a imagem seja um GIF!");
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            MapperExercicio exercicio = objectMapper.readValue(data, MapperExercicio.class);
-
-            Exercicio exercicio1 = new Exercicio();
-            exercicio1.setDescricao(exercicio.getDescricao());
-            exercicio1.setOrientacao(exercicio.getOrientacao());
-            exercicio1.setStatus(exercicio.isStatus());
-            exercicio1.setAparelho(aparelhoService.findById(exercicio.getAparelho().getId()));
-            exercicio1.setGrpMusculos(exercicio.getGrpMusculos());
-
-            exercicio1.setImgIlustracao(file.getBytes());
-
-            exercicio1.setDataCriacao(LocalDateTime.now());
-            exercicio1.setDataModificacao(LocalDateTime.now());
-
-            validaInsert(exercicio1);
-            exercicioRepository.saveAndFlush(exercicio1);
-
-            return ResponseEntity.ok().body("Upload com sucesso - Exercício id = " + exercicio1.getId());
-        } catch (GenericErrorMessage e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        }
-    }
-
     public ExercicioDTO insert(ExercicioDTO exercicioDTO) throws Exception{
         Aparelho aparelho = aparelhoService.findById(exercicioDTO.getIdAparelho());
 
@@ -83,59 +51,20 @@ public class ExercicioService {
         return ExercicioDTO.consultaDTO(exercicio);
     }
 
-    public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
-        try {
-            if (!MediaType.IMAGE_GIF_VALUE.equals(file.getContentType()))
-                throw new GenericErrorMessage("é necessário que a imagem seja um GIF!");
+    public ExercicioDTO update(ExercicioDTO exercicioDTO) throws Exception {
+        Exercicio exercicio = Exercicio.consultaDTO(exercicioDTO);
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            MapperExercicioWithId exercicio = objectMapper.readValue(data, MapperExercicioWithId.class);
+        exercicio.setAparelho(aparelhoService.findById(exercicioDTO.getIdAparelho()));
 
-            Exercicio exercicio1 = findById(exercicio.getId());
-
-            exercicio1.setDescricao(exercicio.getDescricao());
-            exercicio1.setOrientacao(exercicio.getOrientacao());
-            exercicio1.setStatus(exercicio.isStatus());
-            exercicio1.setAparelho(aparelhoService.findById(exercicio.getAparelho().getId()));
-            exercicio1.setGrpMusculos(exercicio.getGrpMusculos());
-
-            exercicio1.setImgIlustracao(file.getBytes());
-
-            exercicio1.setDataModificacao(LocalDateTime.now());
-
-            if (exercicio1.isStatus())
-                exercicio1.setDataExclusao(null);
-
-            exercicioRepository.saveAndFlush(exercicio1);
-
-            return ResponseEntity.ok().body("Usuário id = " + exercicio1.getId() + " atualizado com sucesso!");
-        } catch (GenericErrorMessage e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-        }
-    }
-
-    public Exercicio update(Exercicio exercicio) throws Exception {
         validaUpdate(exercicio);
 
-        Exercicio exercicio1 = findById(exercicio.getId());
+        exercicio.setDataModificacao(LocalDateTime.now());
 
-        exercicio1.setDescricao(exercicio.getDescricao());
-        exercicio1.setOrientacao(exercicio.getOrientacao());
-        exercicio1.setStatus(exercicio.isStatus());
-        exercicio1.setAparelho(aparelhoService.findById(exercicio.getAparelho().getId()));
-        exercicio1.setGrpMusculos(exercicio.getGrpMusculos());
-        exercicio1.setImgIlustracao(exercicio.getImgIlustracao());
+        if (exercicio.isStatus())
+            exercicio.setDataExclusao(null);
 
-        exercicio1.setDataModificacao(LocalDateTime.now());
-
-        if (exercicio1.isStatus())
-            exercicio1.setDataExclusao(null);
-
-        exercicioRepository.saveAndFlush(exercicio1);
-        return exercicio1;
+        exercicioRepository.saveAndFlush(exercicio);
+        return ExercicioDTO.consultaDTO(exercicio);
     }
 
     public Exercicio delete(Long id) throws Exception {
