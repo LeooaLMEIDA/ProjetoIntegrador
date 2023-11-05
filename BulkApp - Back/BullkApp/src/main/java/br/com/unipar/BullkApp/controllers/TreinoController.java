@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
+import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.TreinoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -63,7 +64,7 @@ public class TreinoController {
 
     @GetMapping(path = "/filter/usuario/{id_usuario}")
     @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
-    public List<TreinoDTO> findByUsuario(@PathVariable Long id_usuario)throws Exception{
+    public List<Treino> findByUsuario(@PathVariable Long id_usuario)throws Exception{
         return treinoService.findByUsuario(id_usuario);
     }
 

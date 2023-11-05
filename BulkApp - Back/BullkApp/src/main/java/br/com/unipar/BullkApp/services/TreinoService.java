@@ -121,7 +121,7 @@ public class TreinoService {
         return treinosAtivos;
     }
 
-    public List<TreinoDTO> findByUsuario(Long id) throws Exception{
+    public List<Treino> findByUsuario(Long id) throws Exception{
         List<Treino> treinos = treinoRepository.findByUsuario(Usuario.consultaDTO(usuarioService.findById(id)));
 
         List<TreinoDTO> treinosAtivos = new ArrayList<TreinoDTO>();
@@ -132,7 +132,8 @@ public class TreinoService {
             }
         }
 
-        return treinosAtivos;
+//        return treinosAtivos;
+        return treinos;
     }
 
     public List<TreinoDTO> findAll() throws Exception{
