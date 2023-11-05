@@ -2,8 +2,6 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
-import br.com.unipar.BullkApp.model.DTO.TreinoWebDTO;
-import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.TreinoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
