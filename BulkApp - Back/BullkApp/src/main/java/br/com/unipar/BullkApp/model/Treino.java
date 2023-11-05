@@ -23,7 +23,6 @@ public class Treino {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(notes = "Id Autogerado pelo sistema")
-	@NonNull
 	private Long id;
 	@Enumerated(EnumType.STRING)
 	private CdTreinoENUM cdTreino;

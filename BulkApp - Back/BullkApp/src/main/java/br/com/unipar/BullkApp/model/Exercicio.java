@@ -63,6 +63,7 @@ public class Exercicio {
 		exercicio.setOrientacao(exercicioDTO.getOrientacao());
 		exercicio.setImgIlustracao(Util.compressData(exercicioDTO.getImgIlistracao()));
 		exercicio.setGrpMusculos(exercicioDTO.getGrpMusculos());
+		exercicio.setStatus(exercicioDTO.isStatus());
 
 		return exercicio;
 	}
