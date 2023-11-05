@@ -1,19 +1,26 @@
-import 'package:bullkapp/repositories/evaluation_repository.dart';
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-final EvaluationRepository evaluationRepository = EvaluationRepository();
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import '../models/evaluation.dart';
 
 class EvaluationCard extends StatefulWidget {
   final String mainLabel;
+  final List<Evaluation> evaluations;
 
-  const EvaluationCard({super.key, required this.mainLabel});
+  const EvaluationCard({
+    Key? key,
+    required this.mainLabel,
+    required this.evaluations,
+  }) : super(key: key);
 
   @override
   State<EvaluationCard> createState() => _EvaluationCardState();
 }
 
 class _EvaluationCardState extends State<EvaluationCard> {
+  Uint8List? pdf;
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -52,7 +59,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
               ],
             ),
             onTap: () {
-              abrirURL();
+              abrirPDF();
             },
           ),
         ),
@@ -60,11 +67,24 @@ class _EvaluationCardState extends State<EvaluationCard> {
     );
   }
 
-  void abrirURL() async {
-    String teste = await evaluationRepository.getEvaluation(1);
+  void abrirPDF() {
+    final pdfEvaluation = widget.evaluations[1].arqAvaliacao;
+    if (pdfEvaluation != null) {
+      final cleanedPdf = pdfEvaluation.replaceAll(RegExp(r'\s+'), '');
+      final pdfData = base64Decode(cleanedPdf);
+      setState(() {
+        pdf = pdfData;
+      });
+    }
+  }
 
-    if (await canLaunchUrl(Uri.parse(teste))) {
-      await launchUrl(Uri.parse(teste));
+  Widget buildPdfViewer() {
+    if (pdf != null) {
+      return SfPdfViewer.memory(
+        pdf!,
+      );
+    } else {
+      return const Text('PDF não disponível');
     }
   }
 }

@@ -1,4 +1,5 @@
 # This is a generated file; do not edit or check into version control.
+device_info_plus=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\device_info_plus-9.1.0\\
 flutter_inappwebview=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\flutter_inappwebview-5.7.2+3\\
 path_provider=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider-2.1.1\\
 path_provider_android=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\path_provider_android-2.2.0\\
@@ -12,6 +13,10 @@ shared_preferences_linux=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\p
 shared_preferences_web=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\shared_preferences_web-2.2.1\\
 shared_preferences_windows=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\shared_preferences_windows-2.3.2\\
 sqflite=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\sqflite-2.3.0\\
+syncfusion_flutter_pdfviewer=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\syncfusion_flutter_pdfviewer-23.1.43\\
+syncfusion_pdfviewer_macos=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\syncfusion_pdfviewer_macos-23.1.43\\
+syncfusion_pdfviewer_web=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\syncfusion_pdfviewer_web-23.1.43\\
+syncfusion_pdfviewer_windows=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\syncfusion_pdfviewer_windows-23.1.43\\
 url_launcher=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher-6.1.14\\
 url_launcher_android=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_android-6.1.0\\
 url_launcher_ios=C:\\Users\\leoal\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_ios-6.1.5\\

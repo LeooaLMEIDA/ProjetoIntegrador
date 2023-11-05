@@ -1,23 +1,21 @@
 import 'package:bullkapp/components/appbar.dart' show CustomAppBar;
 import 'package:bullkapp/components/bottombar.dart';
 import 'package:bullkapp/models/evaluation.dart';
-import 'package:bullkapp/repositories/evaluation_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import '../components/evaluation_card.dart';
 
-EvaluationRepository _evaluationRepository = EvaluationRepository();
-
 class BodyEvaluationScreen extends StatefulWidget {
-  const BodyEvaluationScreen({super.key});
+  final List<Evaluation> evaluations;
+  const BodyEvaluationScreen({
+    super.key,
+    required this.evaluations,
+  });
 
   @override
   State<BodyEvaluationScreen> createState() => _BodyEvaluationScreenState();
 }
 
 class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
-  bool _isLoading = false;
-  List<Evaluation> evaluations = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,11 +50,14 @@ class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
                       crossAxisSpacing: 2,
                       mainAxisSpacing: 4,
                     ),
-                    itemCount: 4,
+                    itemCount: widget.evaluations.length,
                     itemBuilder: (context, index) {
-                      return const Row(
+                      return Row(
                         children: [
-                          EvaluationCard(mainLabel: "31/07/2023"),
+                          EvaluationCard(
+                            evaluations: widget.evaluations,
+                            mainLabel: widget.evaluations[index].descricao!,
+                          ),
                         ],
                       );
                     },
@@ -69,30 +70,6 @@ class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
       ),
       bottomNavigationBar: const CustomBottomAppBar(),
     );
-  }
-
-  Future<void> _getAllEvaluations(int id) async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      List<Evaluation> fetchedEvaluation =
-          await _evaluationRepository.getAllEvaluation(id);
-      setState(() {
-        evaluations = fetchedEvaluation;
-      });
-    } catch (e) {
-      Get.snackbar(
-        'ERRO',
-        'Erro ao obter os Treinos!',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-    }
-    setState(() {
-      _isLoading = false;
-    });
   }
 }
 
@@ -208,5 +185,3 @@ class Search extends SearchDelegate {
     );
   }
 }
-
-

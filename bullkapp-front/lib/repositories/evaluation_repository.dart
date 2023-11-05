@@ -15,10 +15,10 @@ class EvaluationRepository {
       final response = await dio.get('$url/filter/usuario/$id');
 
       if (response.statusCode == 200) {
-        List<Evaluation> workouts = (response.data as List)
+        List<Evaluation> evaluations = (response.data as List)
             .map((json) => Evaluation.fromJson(json))
             .toList();
-        return workouts;
+        return evaluations;
       } else {
         throw Exception(
           "Erro ao buscar Avaliação. Código de Status: ${response.statusCode}",
@@ -47,5 +47,4 @@ class EvaluationRepository {
       throw Exception("Houve um problema para requerir a Avaliação $e");
     }
   }
-
 }

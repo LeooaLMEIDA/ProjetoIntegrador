@@ -7,6 +7,8 @@ import 'package:bullkapp/data/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../components/fields.dart';
+import '../models/evaluation.dart';
+import '../repositories/evaluation_repository.dart';
 import '../repositories/user_repository.dart';
 import 'body_evaluation.dart';
 
@@ -72,7 +74,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             : const CircleAvatar(
                                 backgroundImage:
                                     AssetImage(defaultImageProfile),
-                                    radius: 57,
+                                radius: 57,
                               ),
                       ),
                     ),
@@ -144,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   const Row(
                     children: [
-                      AlternativeWorkoutCard(),
+                      BodyEvaluationCard(),
                     ],
                   ),
                 ],
@@ -170,8 +172,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class AlternativeWorkoutCard extends StatelessWidget {
-  const AlternativeWorkoutCard({super.key});
+class BodyEvaluationCard extends StatefulWidget {
+  const BodyEvaluationCard({super.key});
+
+  @override
+  State<BodyEvaluationCard> createState() => _BodyEvaluationCardState();
+}
+
+class _BodyEvaluationCardState extends State<BodyEvaluationCard> {
+  List<Evaluation> evaluations = [];
 
   @override
   Widget build(BuildContext context) {
@@ -183,9 +192,14 @@ class AlternativeWorkoutCard extends StatelessWidget {
       borderOnForeground: true,
       color: const Color.fromARGB(250, 1, 30, 62),
       child: InkWell(
-        onTap: () async => await Get.to(
-          const BodyEvaluationScreen(),
-        ),
+        onTap: () async {
+          await _fetchEvaluationByUser(1);
+          return await Get.to(
+            BodyEvaluationScreen(
+              evaluations: evaluations,
+            ),
+          );
+        },
         splashColor: const Color.fromARGB(250, 1, 30, 62).withAlpha(255),
         child: SizedBox(
           width: 200,
@@ -218,5 +232,19 @@ class AlternativeWorkoutCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _fetchEvaluationByUser(int id) async {
+    try {
+      List<Evaluation> fetchedEvaluations =
+          await EvaluationRepository().getEvaluationByUser(id);
+      setState(() {
+        evaluations = fetchedEvaluations;
+      });
+    } catch (e) {
+      throw Exception(
+        "Ocorreu um erro ao carregar as informações do Treino Alternativo $e",
+      );
+    }
   }
 }
