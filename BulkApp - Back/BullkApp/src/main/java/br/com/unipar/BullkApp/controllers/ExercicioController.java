@@ -30,22 +30,22 @@ public class ExercicioController {
     @Autowired
     private TreinoService treinoService;
 
-    @PostMapping("/uploadArquivo")
-    @ApiOperation(value = "Operação resposável pela Inserção de um novo Exercicio com imagem do exercicio")
-    public ResponseEntity<String> insertWithGif(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-        return exercicioService.insertWithFile(file, data);
-    }
+//    @PostMapping("/uploadArquivo")
+//    @ApiOperation(value = "Operação resposável pela Inserção de um novo Exercicio com imagem do exercicio")
+//    public ResponseEntity<String> insertWithGif(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+//        return exercicioService.insertWithFile(file, data);
+//    }
 
-    @PutMapping()
-    @ApiOperation(value = "Operação resposável pela Atualização de um Exercicio já existente com imagem do exercicio")
-    public ResponseEntity<String> updateWithGif(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-        return exercicioService.updateWithFile(file, data);
-    }
+//    @PutMapping()
+//    @ApiOperation(value = "Operação resposável pela Atualização de um Exercicio já existente com imagem do exercicio")
+//    public ResponseEntity<String> updateWithGif(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
+//        return exercicioService.updateWithFile(file, data);
+//    }
 
     @GetMapping("/getGif/{fileId}")
     @ApiOperation(value = "Operação resposável pela visualização do gif do Exercício cadastrado")
     public ImagemDTO downloadGif(@PathVariable Long fileId) throws Exception {
-        Exercicio exercicio = exercicioService.findById(fileId);
+        ExercicioDTO exercicio = ExercicioDTO.consultaDTO(exercicioService.findById(fileId));
 //        HttpHeaders headers = new HttpHeaders();
 //
 //        headers.setContentType(MediaType.IMAGE_GIF);
@@ -53,21 +53,21 @@ public class ExercicioController {
 //        ByteArrayResource resource = new ByteArrayResource(exercicio.getImgIlustracao());
 //        return ResponseEntity.ok().headers(headers).body(resource);
         ImagemDTO imagemDTO = new ImagemDTO();
-        imagemDTO.setImagem(Base64.getEncoder().encodeToString(exercicio.getImgIlustracao()));
+        imagemDTO.setImagem(exercicio.getImgIlistracao());
         return imagemDTO;
     }
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Exercicio")
-    public ExercicioDTO insert(@RequestBody @Valid Exercicio exercicio) throws Exception{
-        return exercicioService.insert(exercicio);
+    public ExercicioDTO insert(@RequestBody @Valid ExercicioDTO exercicioDTO) throws Exception{
+        return exercicioService.insert(exercicioDTO);
     }
 
-//    @PutMapping
-//    @ApiOperation(value = "Operação responsável pela Atualização de um Exercicio já existente")
-//    public Exercicio update(@RequestBody Exercicio exercicio) throws Exception{
-//        return exercicioService.update(exercicio);
-//    }
+    @PutMapping
+    @ApiOperation(value = "Operação responsável pela Atualização de um Exercicio já existente")
+    public Exercicio update(@RequestBody Exercicio exercicio) throws Exception{
+        return exercicioService.update(exercicio);
+    }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Exercicio existente")

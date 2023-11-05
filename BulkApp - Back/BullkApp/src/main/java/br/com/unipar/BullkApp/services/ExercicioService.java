@@ -18,10 +18,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.zip.DataFormatException;
 
 @Service
 @ApiModel(description = "Classe responsável pela regras de Negócio referente ao Exercicio")
@@ -49,7 +51,6 @@ public class ExercicioService {
             exercicio1.setGrpMusculos(exercicio.getGrpMusculos());
 
             exercicio1.setImgIlustracao(file.getBytes());
-            exercicio1.setMediaType(file.getContentType());
 
             exercicio1.setDataCriacao(LocalDateTime.now());
             exercicio1.setDataModificacao(LocalDateTime.now());
@@ -66,9 +67,10 @@ public class ExercicioService {
         }
     }
 
-    public ExercicioDTO insert(Exercicio exercicio) throws Exception{
-        Aparelho aparelho = aparelhoService.findById(exercicio.getAparelho().getId());
+    public ExercicioDTO insert(ExercicioDTO exercicioDTO) throws Exception{
+        Aparelho aparelho = aparelhoService.findById(exercicioDTO.getIdAparelho());
 
+        Exercicio exercicio = Exercicio.consultaDTO(exercicioDTO);
         exercicio.setAparelho(aparelho);
 
         validaInsert(exercicio);
@@ -98,7 +100,6 @@ public class ExercicioService {
             exercicio1.setGrpMusculos(exercicio.getGrpMusculos());
 
             exercicio1.setImgIlustracao(file.getBytes());
-            exercicio1.setMediaType(file.getContentType());
 
             exercicio1.setDataModificacao(LocalDateTime.now());
 
@@ -228,7 +229,7 @@ public class ExercicioService {
         return null;
     }
 
-    public List<ExercicioDTO> findByAparelho(Aparelho aparelho) {
+    public List<ExercicioDTO> findByAparelho(Aparelho aparelho) throws DataFormatException, IOException {
         List<Exercicio> exercicios = exercicioRepository.findByAparelho(aparelho);
 
         List<ExercicioDTO> exercicioDTOS = new ArrayList<>();

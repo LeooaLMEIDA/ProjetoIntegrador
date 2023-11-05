@@ -111,14 +111,15 @@ public class UsuarioService {
 //        }
 //    }
 
-    public Usuario update(Usuario usuario) throws Exception {
+    public UsuarioDTO update(UsuarioDTO usuarioDTO) throws Exception {
+        Usuario usuario = Usuario.consultaDTO(usuarioDTO);
+
         validaUpdate(usuario);
 
-        usuario.setUrlAvatar(usuario.getUrlAvatar());
         usuario.setDataModificacao(LocalDateTime.now());
 
         usuarioRepository.saveAndFlush(usuario);
-        return usuario;
+        return usuarioDTO;
     }
 
     public Usuario delete(Long id) throws  Exception {
