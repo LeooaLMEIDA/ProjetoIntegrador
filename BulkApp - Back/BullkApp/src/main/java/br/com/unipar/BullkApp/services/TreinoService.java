@@ -208,7 +208,7 @@ public class TreinoService {
         TreinoDTO treinoDTO = new TreinoDTO();
         treinoDTO.setId(-1L);
         treinoDTO.setCdTreino(treino1.getCdTreino());
-        treinoDTO.setExercicio(exercicioDTO);
+        treinoDTO.setIdExercicio(exercicioDTO.getId());
 
         if (treinoDTOS.size() == 0)
             return treinoDTO;

@@ -22,21 +22,21 @@ public class TreinoWebDTO {
     private boolean status;
     private boolean alternativo;
     private Integer peso;
-    private ExercicioWebDTO exercicio;
-    private UsuarioWebDTO usuario;
+    private Long idExercicio;
+    private Long idUsuario;
 
     public static TreinoWebDTO consultaDTO(Treino treino){
         TreinoWebDTO treinoDTO = new TreinoWebDTO();
         treinoDTO.setId(treino.getId());
         treinoDTO.setCdTreino(treino.getCdTreino());
         treinoDTO.setDescanso(treino.getDescanso());
-        treinoDTO.setExercicio(ExercicioWebDTO.consultaWebDTO(treino.getExercicio()));
+        treinoDTO.setIdExercicio(treino.getExercicio().getId());
         treinoDTO.setPeso(treino.getPeso());
         treinoDTO.setStatus(treino.isStatus());
         treinoDTO.setAlternativo(treino.isAlternativo());
         treinoDTO.setSeries(treino.getSeries());
         treinoDTO.setRepeticoes(treino.getRepeticoes());
-        treinoDTO.setUsuario(UsuarioWebDTO.consultaWebDTO(treino.getUsuario()));
+        treinoDTO.setIdUsuario(treino.getUsuario().getId());
 
         return treinoDTO;
     }
@@ -46,13 +46,13 @@ public class TreinoWebDTO {
         treinoDTO.setId(treino.getId());
         treinoDTO.setCdTreino(treino.getCdTreino());
         treinoDTO.setDescanso(treino.getDescanso());
-        treinoDTO.setExercicio(ExercicioWebDTO.consultaWebDTOById(treino.getExercicio().getId()));
+        treinoDTO.setIdExercicio(treino.getIdExercicio());
         treinoDTO.setPeso(treino.getPeso());
         treinoDTO.setStatus(treino.isStatus());
         treinoDTO.setAlternativo(treino.isAlternativo());
         treinoDTO.setSeries(treino.getSeries());
         treinoDTO.setRepeticoes(treino.getRepeticoes());
-        treinoDTO.setUsuario(UsuarioWebDTO.consultaWebDTOById(treino.getUsuario().getId()));
+        treinoDTO.setIdUsuario(treino.getIdUsuario());
 
         return treinoDTO;
     }
