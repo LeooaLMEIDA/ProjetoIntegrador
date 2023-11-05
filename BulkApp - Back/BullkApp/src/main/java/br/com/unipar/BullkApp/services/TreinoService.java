@@ -105,7 +105,7 @@ public class TreinoService {
         return treinoDTOS;
     }
 
-    public List<TreinoDTO> findByFiltersUsuarioTreino(String cdTreino, Long usuario_id) throws Exception{
+    public List<Treino> findByFiltersUsuarioTreino(String cdTreino, Long usuario_id) throws Exception{
         Usuario usuario = Usuario.consultaDTO(usuarioService.findById(usuario_id));
 
         List<Treino> treinos = treinoRepository.findByCdTreinoContainingAllIgnoringCaseAndUsuario(cdTreino, usuario);
@@ -118,7 +118,7 @@ public class TreinoService {
             }
         }
 
-        return treinosAtivos;
+        return treinos;
     }
 
     public List<Treino> findByUsuario(Long id) throws Exception{

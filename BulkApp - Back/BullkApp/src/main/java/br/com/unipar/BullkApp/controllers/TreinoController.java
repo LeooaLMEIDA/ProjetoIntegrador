@@ -52,7 +52,7 @@ public class TreinoController {
 
     @GetMapping(path = "/filter/usuario")
     @ApiOperation(value = "Operação responsável pela busca do Treino via código do Treino")
-    public List<TreinoDTO> findByFilters(@RequestParam("cdTreino") String cdTreino, @RequestParam("usuario_id") Long usuario_id)throws Exception{
+    public List<Treino> findByFilters(@RequestParam("cdTreino") String cdTreino, @RequestParam("usuario_id") Long usuario_id)throws Exception{
         return treinoService.findByFiltersUsuarioTreino(cdTreino, usuario_id);
     }
 
