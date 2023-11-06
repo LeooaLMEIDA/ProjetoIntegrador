@@ -3,16 +3,12 @@ package br.com.unipar.BullkApp.services;
 import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.repositories.mobile.AparelhoRepository;
-import br.com.unipar.BullkApp.util.GenericClass;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -155,12 +151,7 @@ public class AparelhoService {
     }
 
     public PageableDTO findByStatusPageable(Boolean status,int page, int registrosSolic) throws Exception {
-        List<Aparelho> aparelhos = new ArrayList<>();
-
-        for (Aparelho aparelho:findAll()) {
-            if (aparelho.isStatus() == status)
-                aparelhos.add(aparelho);
-        }
+        List<Aparelho> aparelhos = aparelhoRepository.findByStatus(status);
 
         List<Aparelho> aparelhosRetorno = new ArrayList<>();
 

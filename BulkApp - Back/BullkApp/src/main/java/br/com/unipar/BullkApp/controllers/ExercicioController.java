@@ -1,22 +1,15 @@
 package br.com.unipar.BullkApp.controllers;
 
-import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
-import br.com.unipar.BullkApp.model.DTO.ImagemDTO;
-import br.com.unipar.BullkApp.model.DTO.PageableDTO;
-import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
+import br.com.unipar.BullkApp.model.DTO.*;
 import br.com.unipar.BullkApp.model.Exercicio;
-import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.ExercicioService;
 import br.com.unipar.BullkApp.services.TreinoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.Base64;
 import java.util.List;
 
 @RestController
@@ -43,19 +36,19 @@ public class ExercicioController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Exercicio")
-    public ExercicioDTO insert(@RequestBody @Valid ExercicioDTO exercicioDTO) throws Exception{
+    public ExercicioWebDTO insert(@RequestBody @Valid ExercicioWebDTO exercicioDTO) throws Exception{
         return exercicioService.insert(exercicioDTO);
     }
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Exercicio já existente")
-    public ExercicioDTO update(@RequestBody ExercicioDTO exercicioDTO) throws Exception{
+    public ExercicioWebDTO update(@RequestBody ExercicioWebDTO exercicioDTO) throws Exception{
         return exercicioService.update(exercicioDTO);
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Exercicio existente")
-    public ExercicioDTO delete(@PathVariable Long id) throws Exception {
+    public ExercicioWebDTO delete(@PathVariable Long id) throws Exception {
         Exercicio exercicio = exercicioService.delete(id);
 
         List<TreinoDTO> treinos = treinoService.findByExercicio(id);
@@ -64,7 +57,7 @@ public class ExercicioController {
             treinoService.delete(treino.getId());
         }
 
-        return ExercicioDTO.consultaDTO(exercicio);
+        return ExercicioWebDTO.consultaDTO(exercicio);
     }
 
     @GetMapping(path = "/{id}")

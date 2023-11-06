@@ -4,7 +4,6 @@ import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.util.Util;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,7 +27,6 @@ public class UsuarioDTO{
     private TipoUsuarioENUM tpUsuario;
     private boolean status;
     private String urlAvatar;
-    private String senha;
 
     public static UsuarioDTO consultaDTO(Usuario usuario) throws DataFormatException, IOException {
         UsuarioDTO usuarioDTO = new UsuarioDTO();
@@ -41,7 +39,6 @@ public class UsuarioDTO{
         usuarioDTO.setDtNascimento(usuario.getDtNascimento());
         usuarioDTO.setNome(usuario.getNome());
         usuarioDTO.setUrlAvatar(Util.decompress(usuario.getUrlAvatar()));
-        usuarioDTO.setSenha(usuario.getSenha());
 
         return usuarioDTO;
     }

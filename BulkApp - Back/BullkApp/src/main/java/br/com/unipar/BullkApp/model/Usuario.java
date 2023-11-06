@@ -3,6 +3,7 @@ package br.com.unipar.BullkApp.model;
 import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
+import br.com.unipar.BullkApp.model.DTO.UsuarioWebDTO;
 import br.com.unipar.BullkApp.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
@@ -61,6 +62,21 @@ public class Usuario {
 	}
 
 	public static Usuario consultaDTO(UsuarioDTO usuarioDTO) throws IOException {
+		Usuario usuario = new Usuario();
+		usuario.setId(usuarioDTO.getId());
+		usuario.setNome(usuarioDTO.getNome());
+		usuario.setDtNascimento(usuarioDTO.getDtNascimento());
+		usuario.setSexo(usuarioDTO.getSexo());
+		usuario.setCelular(usuarioDTO.getCelular());
+		usuario.setEmail(usuarioDTO.getEmail());
+		usuario.setTpUsuario(usuarioDTO.getTpUsuario());
+		usuario.setUrlAvatar(Util.compressData(usuarioDTO.getUrlAvatar()));
+		usuario.setStatus(usuarioDTO.isStatus());
+
+		return usuario;
+	}
+
+	public static Usuario consultaDTO(UsuarioWebDTO usuarioDTO) throws IOException {
 		Usuario usuario = new Usuario();
 		usuario.setId(usuarioDTO.getId());
 		usuario.setNome(usuarioDTO.getNome());

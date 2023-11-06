@@ -38,4 +38,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query
 	public List<Usuario> findByCelularContaining(String celular);
+
+	@Query
+	public List<Usuario> findByStatus(boolean status);
 }

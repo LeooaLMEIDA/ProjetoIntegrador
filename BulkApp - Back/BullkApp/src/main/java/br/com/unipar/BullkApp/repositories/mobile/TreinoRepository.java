@@ -31,4 +31,12 @@ public interface TreinoRepository extends JpaRepository<Treino, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Usuário")
 	public List<Treino> findByUsuario(Usuario usuario);
+
+	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Usuário")
+	public List<Treino> findByStatus(boolean status);
+
+	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Usuário")
+	public List<Treino> findByAlternativo(boolean status);
 }

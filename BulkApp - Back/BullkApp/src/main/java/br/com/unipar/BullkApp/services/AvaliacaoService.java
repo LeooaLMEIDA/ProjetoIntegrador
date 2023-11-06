@@ -2,11 +2,12 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoListDTO;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoWebDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
-import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.AvaliacaoRepository;
-import br.com.unipar.BullkApp.util.Util;
+import br.com.unipar.BullkApp.repositories.mobile.UsuarioRepository;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,67 +27,13 @@ public class AvaliacaoService {
     @Autowired
     private UsuarioService usuarioService;
 
-//    public ResponseEntity<String> insertWithFile(MultipartFile file, String data){
-//        try {
-//            System.out.println(file.getContentType());
-//            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
-//                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
-//            }
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            MapperAvaliacao avaliacao = objectMapper.readValue(data, MapperAvaliacao.class);
-//
-//            Avaliacao avaliacao1 = new Avaliacao();
-//            avaliacao1.setUsuario(avaliacao.getUsuario());
-//            avaliacao1.setDescricao(avaliacao.getDescricao());
-//            avaliacao1.setObservacao(avaliacao.getObservacao());
-//            avaliacao1.setArqAvaliacao(file.getBytes());
-//
-//            avaliacao1.setDataCriacao(LocalDateTime.now());
-//            avaliacao1.setDataModificacao(LocalDateTime.now());
-//
-//            avaliacaoRepository.saveAndFlush(avaliacao1);
-//
-//            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
-//        } catch (GenericErrorMessage e) {
-//            e.printStackTrace();
-//            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-//        }
-//    }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-//    public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
-//        try {
-//            System.out.println(file.getContentType());
-//            if (!file.getContentType().equals(MediaType.APPLICATION_PDF_VALUE)){
-//                throw new GenericErrorMessage("é necessário que o arquivo seja um PDF!");
-//            }
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            MapperAvaliacaoWithId avaliacao = objectMapper.readValue(data, MapperAvaliacaoWithId.class);
-//
-//            Avaliacao avaliacao1 = findById(avaliacao.getId());
-//
-//            avaliacao1.setUsuario(avaliacao.getUsuario());
-//            avaliacao1.setDescricao(avaliacao.getDescricao());
-//            avaliacao1.setObservacao(avaliacao.getObservacao());
-//            avaliacao1.setArqAvaliacao(file.getBytes());
-//
-//            avaliacao1.setDataModificacao(LocalDateTime.now());
-//
-//            avaliacaoRepository.saveAndFlush(avaliacao1);
-//
-//            return ResponseEntity.ok().body("Upload com sucesso - Avaliação id = " + avaliacao1.getId());
-//        } catch (GenericErrorMessage e) {
-//            e.printStackTrace();
-//            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-//        }
-//    }
-
-    public AvaliacaoDTO insert(AvaliacaoDTO avaliacaoDTO) throws Exception{
-        validaInsert(avaliacaoDTO);
+    public AvaliacaoWebDTO insert(AvaliacaoWebDTO avaliacaoDTO) throws Exception{
         Avaliacao avaliacao = Avaliacao.consultaDTO(avaliacaoDTO);
+
+        validaInsert(avaliacao);
 
         avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
         avaliacao.setArqAvaliacao(avaliacao.getArqAvaliacao());
@@ -101,10 +48,10 @@ public class AvaliacaoService {
         return avaliacaoDTO;
     }
 
-    public AvaliacaoDTO update(AvaliacaoDTO avaliacaoDTO) throws Exception {
-        validaUpdate(avaliacaoDTO);
-
+    public AvaliacaoWebDTO update(AvaliacaoWebDTO avaliacaoDTO) throws Exception {
         Avaliacao avaliacao = Avaliacao.consultaDTO(avaliacaoDTO);
+
+        validaUpdate(avaliacao);
 
         avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
         avaliacao.setArqAvaliacao(avaliacao.getArqAvaliacao());
@@ -116,11 +63,11 @@ public class AvaliacaoService {
         return avaliacaoDTO;
     }
 
-    public AvaliacaoDTO delete(Long id) throws  Exception {
+    public AvaliacaoWebDTO delete(Long id) throws  Exception {
         Avaliacao avaliacao = Avaliacao.consultaDTO(findById(id));
         avaliacaoRepository.delete(avaliacao);
 
-        return AvaliacaoDTO.consultaDTO(avaliacao);
+        return AvaliacaoWebDTO.consultaDTO(avaliacao);
     }
 
     public AvaliacaoDTO findById(Long id) throws Exception{
@@ -156,14 +103,14 @@ public class AvaliacaoService {
         return avaliacaoDTOS;
     }
 
-    private void validaInsert(AvaliacaoDTO avaliacaoDTO) throws Exception{
-        if (avaliacaoDTO.getId() != null){
+    private void validaInsert(Avaliacao avaliacao) throws Exception{
+        if (avaliacao.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir uma nova Avaliacao");
         }
     }
 
-    private void validaUpdate(AvaliacaoDTO avaliacaoDTO) throws Exception{
-        if (avaliacaoDTO.getId() == null){
+    private void validaUpdate(Avaliacao avaliacao) throws Exception{
+        if (avaliacao.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro da Avaliacao");
         }
     }
@@ -181,9 +128,9 @@ public class AvaliacaoService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<AvaliacaoDTO> avaliacaos = findAll();
+        List<Avaliacao> avaliacaos = avaliacaoRepository.findAll();
 
-        List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
+        List<AvaliacaoListDTO> avaliacaosRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -200,16 +147,16 @@ public class AvaliacaoService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            avaliacaosRetorno.add(avaliacaos.get(i));
+            avaliacaosRetorno.add(AvaliacaoListDTO.consultaDTO(avaliacaos.get(i)));
         }
 
         return new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
     }
 
     public PageableDTO findByFilterDescPageable(String descricao, int page, int registrosSolic) throws Exception {
-        List<AvaliacaoDTO> avaliacaos = findByFilters(descricao);
+        List<Avaliacao> avaliacaos = avaliacaoRepository.findByDescricaoContainingAllIgnoringCase(descricao);
 
-        List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
+        List<AvaliacaoListDTO> avaliacaosRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -226,21 +173,20 @@ public class AvaliacaoService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            avaliacaosRetorno.add(avaliacaos.get(i));
+            avaliacaosRetorno.add(AvaliacaoListDTO.consultaDTO(avaliacaos.get(i)));
         }
 
         return new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());
     }
 
     public PageableDTO findByFilterUserPageable(String usuario, int page, int registrosSolic) throws Exception {
-        List<AvaliacaoDTO> avaliacaos = new ArrayList<>();
+        List<Avaliacao> avaliacaos = new ArrayList<>();
 
-        for (UsuarioDTO usuarioDTO:usuarioService.findAll()) {
-            if (usuarioDTO.getNome().toUpperCase().contains(usuario.toUpperCase()))
-                avaliacaos.addAll(findByUsuario(usuarioDTO.getId()));
+        for (Usuario usuarioDTO: usuarioRepository.findByNomeContainsIgnoreCase(usuario)) {
+            avaliacaos.addAll(avaliacaoRepository.findByUsuario(usuarioDTO));
         }
 
-        List<AvaliacaoDTO> avaliacaosRetorno = new ArrayList<>();
+        List<AvaliacaoListDTO> avaliacaosRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -257,7 +203,7 @@ public class AvaliacaoService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            avaliacaosRetorno.add(avaliacaos.get(i));
+            avaliacaosRetorno.add(AvaliacaoListDTO.consultaDTO(avaliacaos.get(i)));
         }
 
         return new PageableDTO(new ArrayList<Object>(avaliacaosRetorno), page, avaliacaos.size());

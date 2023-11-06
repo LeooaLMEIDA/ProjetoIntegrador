@@ -1,7 +1,6 @@
 package br.com.unipar.BullkApp.model.DTO;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
-import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -15,20 +14,20 @@ import java.util.zip.DataFormatException;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "Classe de Transferência de Informações referente a Avaliação")
-public class AvaliacaoDTO {
+public class AvaliacaoListDTO {
     private Long id;
     private String descricao;
     private String observacao;
     private String arqAvaliacao;
-    private Usuario usuario;
+    private UsuarioListDTO usuario;
 
-    public static AvaliacaoDTO consultaDTO(Avaliacao avaliacao) throws DataFormatException, IOException {
-        AvaliacaoDTO avaliacaoDTO = new AvaliacaoDTO();
+    public static AvaliacaoListDTO consultaDTO(Avaliacao avaliacao) throws DataFormatException, IOException {
+        AvaliacaoListDTO avaliacaoDTO = new AvaliacaoListDTO();
         avaliacaoDTO.setId(avaliacao.getId());
         avaliacaoDTO.setDescricao(avaliacao.getDescricao());
         avaliacaoDTO.setObservacao(avaliacao.getObservacao());
         avaliacaoDTO.setArqAvaliacao(Util.decompress(avaliacao.getArqAvaliacao()));
-        avaliacaoDTO.setUsuario(avaliacao.getUsuario());
+        avaliacaoDTO.setUsuario(UsuarioListDTO.consultaDTO(avaliacao.getUsuario()));
 
         return avaliacaoDTO;
     }

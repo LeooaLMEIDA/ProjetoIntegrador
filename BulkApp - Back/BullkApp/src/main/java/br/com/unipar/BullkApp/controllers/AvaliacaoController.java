@@ -1,23 +1,16 @@
 package br.com.unipar.BullkApp.controllers;
 
-import br.com.unipar.BullkApp.model.Avaliacao;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoWebDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/avaliacao")
@@ -27,43 +20,21 @@ public class AvaliacaoController {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
-//    @PostMapping("/uploadArquivo")
-//    @ApiOperation(value = "Operação responsável pela Inserção de uma nova Avaliação")
-//    public ResponseEntity<String> insertWithFile(@RequestParam("file")MultipartFile file, @RequestParam("data") String data){
-//        return avaliacaoService.insertWithFile(file, data);
-//    }
-
-//    @PutMapping()
-//    @ApiOperation(value = "Operação responsável pela Atualização de uma Avaliação já existente")
-//    public ResponseEntity<String> updateWithFile(@RequestParam("file")MultipartFile file, @RequestParam("data") String data){
-//        return avaliacaoService.updateWithFile(file, data);
-//    }
-
-//    @GetMapping("/downloadFile/{fileId}")
-//    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable Long fileId) throws Exception {
-//        Avaliacao avaliacao = avaliacaoService.findById(fileId);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_PDF);
-//        headers.setContentDispositionFormData("attachment", "Avaliação - " + fileId + ".pdf");
-//        ByteArrayResource resource = new ByteArrayResource(avaliacao.getArqAvaliacao());
-//        return ResponseEntity.ok().headers(headers).body(resource);
-//    }
-
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de uma nova Avaliação")
-    public AvaliacaoDTO insert(@RequestBody AvaliacaoDTO avaliacaoDTO) throws Exception{
+    public AvaliacaoWebDTO insert(@RequestBody AvaliacaoWebDTO avaliacaoDTO) throws Exception{
         return avaliacaoService.insert(avaliacaoDTO);
     }
 
     @PutMapping
     @ApiOperation(value = "Operação resposável pela Inserção de uma nova Avaliação")
-    public AvaliacaoDTO update(@RequestBody @Valid AvaliacaoDTO avaliacaoDTO) throws Exception{
+    public AvaliacaoWebDTO update(@RequestBody @Valid AvaliacaoWebDTO avaliacaoDTO) throws Exception{
         return avaliacaoService.update(avaliacaoDTO);
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar uma Avaliação existente")
-    public AvaliacaoDTO delete(@PathVariable Long id) throws Exception {
+    public AvaliacaoWebDTO delete(@PathVariable Long id) throws Exception {
         return avaliacaoService.delete(id);
     }
 

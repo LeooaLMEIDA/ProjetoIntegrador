@@ -15,7 +15,7 @@ import java.util.zip.DataFormatException;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(description = "Classe de Transferência de Informações referente a Treino")
-public class TreinoDTO {
+public class TreinoWebDTO {
     private Long id;
     private CdTreinoENUM cdTreino;
     private int series;
@@ -24,21 +24,21 @@ public class TreinoDTO {
     private boolean status;
     private boolean alternativo;
     private Integer peso;
-    private ExercicioDTO exercicio;
-    private UsuarioDTO usuario;
+    private Long idExercicio;
+    private Long idUsuario;
 
-    public static TreinoDTO consultaDTO(Treino treino) throws DataFormatException, IOException {
-        TreinoDTO treinoDTO = new TreinoDTO();
+    public static TreinoWebDTO consultaDTO(Treino treino) throws DataFormatException, IOException {
+        TreinoWebDTO treinoDTO = new TreinoWebDTO();
         treinoDTO.setId(treino.getId());
         treinoDTO.setCdTreino(treino.getCdTreino());
         treinoDTO.setDescanso(treino.getDescanso());
-        treinoDTO.setExercicio(ExercicioDTO.consultaDTO(treino.getExercicio()));
+        treinoDTO.setIdExercicio(treino.getExercicio().getId());
         treinoDTO.setPeso(treino.getPeso());
         treinoDTO.setStatus(treino.isStatus());
         treinoDTO.setAlternativo(treino.isAlternativo());
         treinoDTO.setSeries(treino.getSeries());
         treinoDTO.setRepeticoes(treino.getRepeticoes());
-        treinoDTO.setUsuario(UsuarioDTO.consultaDTO(treino.getUsuario()));
+        treinoDTO.setIdUsuario(treino.getUsuario().getId());
 
         return treinoDTO;
     }

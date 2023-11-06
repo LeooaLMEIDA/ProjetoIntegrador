@@ -1,24 +1,14 @@
 package br.com.unipar.BullkApp.model;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.ArrayList;
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "BULLK_APARELHO")

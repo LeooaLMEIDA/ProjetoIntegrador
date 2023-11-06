@@ -16,4 +16,8 @@ public interface AparelhoRepository extends JpaRepository<Aparelho, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Aparelho pela descrição")
 	public List<Aparelho> findByDescricaoContainingAllIgnoringCase(String descricao);
+
+	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Aparelho pela descrição")
+	public List<Aparelho> findByStatus(boolean status);
 }

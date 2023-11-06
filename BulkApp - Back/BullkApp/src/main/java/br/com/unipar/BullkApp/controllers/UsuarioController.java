@@ -1,11 +1,7 @@
 package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.enums.SexoENUM;
-import br.com.unipar.BullkApp.model.Avaliacao;
-import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
-import br.com.unipar.BullkApp.model.DTO.ImagemDTO;
-import br.com.unipar.BullkApp.model.DTO.PageableDTO;
-import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
+import br.com.unipar.BullkApp.model.DTO.*;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
@@ -15,17 +11,10 @@ import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.Base64;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/usuario")
@@ -41,18 +30,6 @@ public class UsuarioController {
     @Autowired
     private AvaliacaoService avaliacaoService;
 
-//    @PostMapping("/uploadArquivo")
-//    @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário com imagem do avatar")
-//    public ResponseEntity<String> insertWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-//        return usuarioService.insertWithFile(file, data);
-//    }
-
-//    @PutMapping()
-//    @ApiOperation(value = "Operação resposável pela Atualização de um Usuário já existente com imagem do avatar")
-//    public ResponseEntity<String> updateWithPhoto(@RequestParam("file") MultipartFile file, @RequestParam("data") String data){
-//        return usuarioService.updateWithFile(file, data);
-//    }
-
     @GetMapping("/getPhoto/{fileId}")
     @ApiOperation(value = "Operação resposável pelo retorno da foto do Usuário")
     public ImagemDTO getPhoto(@PathVariable Long fileId) throws Exception {
@@ -65,19 +42,19 @@ public class UsuarioController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")
-    public UsuarioDTO insert(@RequestBody @Valid UsuarioDTO usuario) throws Exception{
+    public UsuarioWebDTO insert(@RequestBody @Valid UsuarioWebDTO usuario) throws Exception{
         return usuarioService.insert(usuario);
     }
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Usuário já existente")
-    public UsuarioDTO update(@RequestBody @Valid UsuarioDTO usuario) throws Exception{
+    public UsuarioWebDTO update(@RequestBody @Valid UsuarioWebDTO usuario) throws Exception{
         return usuarioService.update(usuario);
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Usuário existente")
-    public Usuario delete(@PathVariable Long id) throws Exception {
+    public UsuarioWebDTO delete(@PathVariable Long id) throws Exception {
         Usuario usuario = usuarioService.delete(id);
 
         List<Treino> treinos = treinoService.findByUsuario(usuario);
@@ -92,7 +69,7 @@ public class UsuarioController {
             avaliacaoService.delete(avaliacao.getId());
         }
 
-        return usuario;
+        return UsuarioWebDTO.consultaDTO(usuario);
     }
 
     @GetMapping(path = "/{id}")

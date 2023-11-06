@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.enums.CdTreinoENUM;
 import br.com.unipar.BullkApp.model.DTO.*;
+import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.TreinoRepository;
@@ -28,7 +29,7 @@ public class TreinoService {
     @Autowired
     private UsuarioService usuarioService;
 
-    public TreinoDTO insert(TreinoDTO treinoDTO) throws Exception{
+    public TreinoWebDTO insert(TreinoWebDTO treinoDTO) throws Exception{
         Treino treino = Treino.consultaDTO(treinoDTO);
 
         treino.setExercicio(exercicioService.findById(treinoDTO.getIdExercicio()));
@@ -42,10 +43,10 @@ public class TreinoService {
 
         treinoRepository.saveAndFlush(treino);
 
-        return TreinoDTO.consultaDTO(treino);
+        return TreinoWebDTO.consultaDTO(treino);
     }
 
-    public TreinoDTO update(TreinoDTO treinoDTO) throws Exception {
+    public TreinoWebDTO update(TreinoWebDTO treinoDTO) throws Exception {
         Treino treino = Treino.consultaDTO(treinoDTO);
 
         treino.setUsuario(Usuario.consultaDTO(usuarioService.findById(treinoDTO.getIdUsuario())));
@@ -59,17 +60,17 @@ public class TreinoService {
             treino.setDataExclusao(null);
 
         treinoRepository.saveAndFlush(treino);
-        return TreinoDTO.consultaDTO(treino);
+        return TreinoWebDTO.consultaDTO(treino);
     }
 
-    public TreinoDTO delete(Long id) throws  Exception {
+    public TreinoWebDTO delete(Long id) throws  Exception {
         Treino treino = findByIdentificador(id);
         validaUpdate(treino);
         treino.setStatus(false);
         treino.setDataExclusao(LocalDateTime.now());
         treino.setDataModificacao(LocalDateTime.now());
         treinoRepository.saveAndFlush(treino);
-        return TreinoDTO.consultaDTO(treino);
+        return TreinoWebDTO.consultaDTO(treino);
     }
 
     public TreinoDTO findById(Long id) throws Exception{
@@ -199,7 +200,7 @@ public class TreinoService {
         TreinoDTO treinoDTO = new TreinoDTO();
         treinoDTO.setId(-1L);
         treinoDTO.setCdTreino(treino1.getCdTreino());
-        treinoDTO.setIdExercicio(exercicioDTO.getId());
+        treinoDTO.setExercicio(exercicioDTO);
 
         if (treinoDTOS.size() == 0)
             return treinoDTO;
@@ -210,9 +211,9 @@ public class TreinoService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<TreinoDTO> treinoDTOS = findAll();
+        List<Treino> treinos = treinoRepository.findAll();
 
-        List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
+        List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -222,29 +223,24 @@ public class TreinoService {
             fim = page * registrosSolic;
         }
 
-        if (treinoDTOS.size() < inicio) {
+        if (treinos.size() < inicio) {
             throw new Exception("Não há elementos na página informada!");
-        } else if (treinoDTOS.size() < fim) {
-            fim = treinoDTOS.size();
+        } else if (treinos.size() < fim) {
+            fim = treinos.size();
         }
 
         for (int i = inicio; i < fim; i++) {
-            treinoDTOSRetorno.add(treinoDTOS.get(i));
+            treinoDTOSRetorno.add(TreinoListDTO.consultaDTO(treinos.get(i)));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinos.size());
         return pageableDTO;
     }
 
     public PageableDTO findByCdTreinoPageable(String cdTreino, int page, int registrosSolic) throws Exception {
-        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+        List<Treino> treinos = treinoRepository.findByCdTreino(CdTreinoENUM.valueOf(cdTreino));
 
-        for (TreinoDTO treinoWebDTO:findAll()) {
-            if (treinoWebDTO.getCdTreino().equals(CdTreinoENUM.valueOf(cdTreino)))
-                treinoDTOS.add(treinoWebDTO);
-        }
-
-        List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
+        List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -254,29 +250,28 @@ public class TreinoService {
             fim = page * registrosSolic;
         }
 
-        if (treinoDTOS.size() < inicio) {
+        if (treinos.size() < inicio) {
             throw new Exception("Não há elementos na página informada!");
-        } else if (treinoDTOS.size() < fim) {
-            fim = treinoDTOS.size();
+        } else if (treinos.size() < fim) {
+            fim = treinos.size();
         }
 
         for (int i = inicio; i < fim; i++) {
-            treinoDTOSRetorno.add(treinoDTOS.get(i));
+            treinoDTOSRetorno.add(TreinoListDTO.consultaDTO(treinos.get(i)));
         }
 
-        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
+        PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinos.size());
         return pageableDTO;
     }
 
     public PageableDTO findByExercicioPageable(String exercicio, int page, int registrosSolic) throws Exception {
-        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+        List<Treino> treinoDTOS = new ArrayList<>();
 
-        for (ExercicioDTO exercicioDTO:exercicioService.findAll()) {
-            if (exercicioDTO.getDescricao().toUpperCase().contains(exercicio.toUpperCase()))
-                treinoDTOS.addAll(findByExercicio(exercicioDTO.getId()));
+        for (ExercicioDTO exercicioDTO:exercicioService.findByFilters(exercicio)) {
+            treinoDTOS.addAll(treinoRepository.findByExercicio(Exercicio.consultaDTO(exercicioDTO)));
         }
 
-        List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
+        List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -293,7 +288,7 @@ public class TreinoService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            treinoDTOSRetorno.add(treinoDTOS.get(i));
+            treinoDTOSRetorno.add(TreinoListDTO.consultaDTO(treinoDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
@@ -301,15 +296,14 @@ public class TreinoService {
     }
 
     public PageableDTO findByUsuarioPageable(String usuario, int page, int registrosSolic) throws Exception {
-        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+        List<Treino> treinoDTOS = new ArrayList<>();
 
-        for (UsuarioDTO usuarioDTO:usuarioService.findAll()) {
-            if (usuarioDTO.getNome().toUpperCase().contains(usuario.toUpperCase()))
-                for (Treino treino:treinoRepository.findByUsuario(Usuario.consultaDTO(usuarioService.findById(usuarioDTO.getId())))) {
-                    treinoDTOS.add(TreinoDTO.consultaDTO(treino));
-                }
+        for (UsuarioDTO usuarioDTO:usuarioService.findByFilters(usuario)) {
+            for (Treino treino:treinoRepository.findByUsuario(Usuario.consultaDTO(usuarioDTO))) {
+                treinoDTOS.add(treino);
+            }
         }
-        List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
+        List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -326,7 +320,7 @@ public class TreinoService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            treinoDTOSRetorno.add(treinoDTOS.get(i));
+            treinoDTOSRetorno.add(TreinoListDTO.consultaDTO(treinoDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
@@ -334,13 +328,9 @@ public class TreinoService {
     }
 
     public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
-        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+        List<Treino> treinoDTOS = treinoRepository.findByStatus(status);
 
-        for (TreinoDTO treinoWebDTO:findAll()) {
-            if (treinoWebDTO.isStatus() == status)
-                treinoDTOS.add(treinoWebDTO);
-        }
-        List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
+        List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -357,7 +347,7 @@ public class TreinoService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            treinoDTOSRetorno.add(treinoDTOS.get(i));
+            treinoDTOSRetorno.add(TreinoListDTO.consultaDTO(treinoDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());
@@ -365,13 +355,9 @@ public class TreinoService {
     }
 
     public PageableDTO findByAlternativoPageable(boolean alternativo, int page, int registrosSolic) throws Exception {
-        List<TreinoDTO> treinoDTOS = new ArrayList<>();
+        List<Treino> treinoDTOS = treinoRepository.findByAlternativo(alternativo);
 
-        for (TreinoDTO treinoWebDTO:findAll()) {
-            if (treinoWebDTO.isAlternativo() == alternativo)
-                treinoDTOS.add(treinoWebDTO);
-        }
-        List<TreinoDTO> treinoDTOSRetorno = new ArrayList<>();
+        List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -388,7 +374,7 @@ public class TreinoService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            treinoDTOSRetorno.add(treinoDTOS.get(i));
+            treinoDTOSRetorno.add(TreinoListDTO.consultaDTO(treinoDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(treinoDTOSRetorno), page, treinoDTOS.size());

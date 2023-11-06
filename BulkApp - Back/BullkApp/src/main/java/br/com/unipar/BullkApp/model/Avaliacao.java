@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
+import br.com.unipar.BullkApp.model.DTO.AvaliacaoWebDTO;
 import br.com.unipar.BullkApp.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
@@ -47,6 +48,16 @@ public class Avaliacao {
 	}
 
 	public static Avaliacao consultaDTO(AvaliacaoDTO avaliacaoDTO) throws IOException {
+		Avaliacao avaliacao = new Avaliacao();
+		avaliacao.setId(avaliacaoDTO.getId());
+		avaliacao.setDescricao(avaliacaoDTO.getDescricao());
+		avaliacao.setObservacao(avaliacaoDTO.getObservacao());
+		avaliacao.setArqAvaliacao(Util.compressData(avaliacaoDTO.getArqAvaliacao()));
+
+		return avaliacao;
+	}
+
+	public static Avaliacao consultaDTO(AvaliacaoWebDTO avaliacaoDTO) throws IOException {
 		Avaliacao avaliacao = new Avaliacao();
 		avaliacao.setId(avaliacaoDTO.getId());
 		avaliacao.setDescricao(avaliacaoDTO.getDescricao());

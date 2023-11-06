@@ -3,19 +3,12 @@ package br.com.unipar.BullkApp.model.DTO;
 import br.com.unipar.BullkApp.enums.GrupoMuscularENUM;
 import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.Exercicio;
-import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToOne;
-import javax.validation.constraints.Size;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
@@ -30,7 +23,7 @@ public class ExercicioDTO {
     private String orientacao;
     private boolean status;
     private String imgIlistracao;
-    private Long idAparelho;
+    private Aparelho aparelho;
 
     public static ExercicioDTO consultaDTO(Exercicio exercicio) throws DataFormatException, IOException {
         ExercicioDTO exercicioDTO = new ExercicioDTO();
@@ -40,7 +33,7 @@ public class ExercicioDTO {
         exercicioDTO.setStatus(exercicio.isStatus());
         exercicioDTO.setGrpMusculos(exercicio.getGrpMusculos());
         exercicioDTO.setImgIlistracao(Util.decompress(exercicio.getImgIlustracao()));
-        exercicioDTO.setIdAparelho(exercicio.getAparelho().getId());
+        exercicioDTO.setAparelho(exercicio.getAparelho());
 
         return exercicioDTO;
     }

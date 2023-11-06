@@ -1,19 +1,17 @@
 package br.com.unipar.BullkApp.model;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
-import javax.persistence.*;
-
+import br.com.unipar.BullkApp.enums.CdTreinoENUM;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
+import br.com.unipar.BullkApp.model.DTO.TreinoWebDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.lang.NonNull;
 
-import br.com.unipar.BullkApp.enums.CdTreinoENUM;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import javax.persistence.*;
+import java.sql.Time;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "BULLK_TREINO")
@@ -53,6 +51,20 @@ public class Treino {
 	}
 
 	public static Treino consultaDTO(TreinoDTO treinoDTO) {
+		Treino treino = new Treino();
+		treino.setId(treinoDTO.getId());
+		treino.setCdTreino(treinoDTO.getCdTreino());
+		treino.setSeries(treinoDTO.getSeries());
+		treino.setRepeticoes(treinoDTO.getRepeticoes());
+		treino.setDescanso(treinoDTO.getDescanso());
+		treino.setStatus(treinoDTO.isStatus());
+		treino.setPeso(treinoDTO.getPeso());
+		treino.setAlternativo(treinoDTO.isAlternativo());
+
+		return treino;
+	}
+
+	public static Treino consultaDTO(TreinoWebDTO treinoDTO) {
 		Treino treino = new Treino();
 		treino.setId(treinoDTO.getId());
 		treino.setCdTreino(treinoDTO.getCdTreino());

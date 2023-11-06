@@ -2,6 +2,7 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
+import br.com.unipar.BullkApp.model.DTO.TreinoWebDTO;
 import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.TreinoService;
 import io.swagger.annotations.Api;
@@ -22,19 +23,19 @@ public class TreinoController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Treino")
-    public TreinoDTO insert(@RequestBody @Valid TreinoDTO treinoDTO) throws Exception{
+    public TreinoWebDTO insert(@RequestBody @Valid TreinoWebDTO treinoDTO) throws Exception{
         return treinoService.insert(treinoDTO);
     }
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Treino já existente")
-    public TreinoDTO update(@RequestBody TreinoDTO treino) throws Exception{
+    public TreinoWebDTO update(@RequestBody TreinoWebDTO treino) throws Exception{
         return treinoService.update(treino);
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Treino existente")
-    public TreinoDTO delete(@PathVariable Long id) throws Exception {
+    public TreinoWebDTO delete(@PathVariable Long id) throws Exception {
         return treinoService.delete(id);
     }
 

@@ -4,9 +4,10 @@ import br.com.unipar.BullkApp.enums.SexoENUM;
 import br.com.unipar.BullkApp.enums.TipoUsuarioENUM;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.UsuarioDTO;
+import br.com.unipar.BullkApp.model.DTO.UsuarioListDTO;
+import br.com.unipar.BullkApp.model.DTO.UsuarioWebDTO;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.UsuarioRepository;
-import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,96 +23,17 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioDTO insert(UsuarioDTO usuarioDTO) throws Exception{
+    public UsuarioWebDTO insert(UsuarioWebDTO usuarioDTO) throws Exception{
         Usuario usuario = Usuario.consultaDTO(usuarioDTO);
         validaInsert(usuario);
         usuario.setDataCriacao(LocalDateTime.now());
         usuario.setDataModificacao(LocalDateTime.now());
         usuarioRepository.saveAndFlush(usuario);
 
-        return UsuarioDTO.consultaDTO(usuario);
+        return UsuarioWebDTO.consultaDTO(usuario);
     }
 
-//    public ResponseEntity<String> insertWithFile(MultipartFile file, String data) {
-//        try {
-//            if (!MediaType.IMAGE_PNG_VALUE.equals(file.getContentType()))
-//                if (!MediaType.IMAGE_JPEG_VALUE.equals(file.getContentType()))
-//                    throw new GenericErrorMessage("é necessário que a imagem seja um PNG ou JPEG!");
-//
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            MapperUsuario usuario = objectMapper.readValue(data, MapperUsuario.class);
-//
-//            Usuario usuario1 = new Usuario();
-//            usuario1.setNome(usuario.getNome());
-//            usuario1.setDtNascimento(Date.from(usuario.getDtNascimento()));
-//            usuario1.setSexo(usuario.getSexo());
-//            usuario1.setCelular(usuario.getCelular());
-//            usuario1.setEmail(usuario.getEmail());
-//            usuario1.setTpUsuario(usuario.getTpUsuario());
-//            usuario1.setStatus(usuario.isStatus());
-//            usuario1.setSenha(usuario.getSenha());
-//
-//            usuario1.setUrlAvatar(file.getBytes());
-//            usuario1.setMediaType(file.getContentType());
-//
-//            usuario1.setDataCriacao(LocalDateTime.now());
-//            usuario1.setDataModificacao(LocalDateTime.now());
-//
-//            validaInsert(usuario1);
-//
-//            usuarioRepository.saveAndFlush(usuario1);
-//
-//            return ResponseEntity.ok().body("Upload com sucesso - Usuário id = " + usuario1.getId());
-//        } catch (GenericErrorMessage e) {
-//            e.printStackTrace();
-//            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-//        }
-//    }
-
-//    public ResponseEntity<String> updateWithFile(MultipartFile file, String data) {
-//        try {
-//            if (!MediaType.IMAGE_PNG_VALUE.equals(file.getContentType()))
-//                if (!MediaType.IMAGE_JPEG_VALUE.equals(file.getContentType()))
-//                    throw new GenericErrorMessage("é necessário que a imagem seja um PNG ou JPEG!");
-//
-//            ObjectMapper objectMapper = new ObjectMapper();
-//            MapperUsuarioWithId usuario = objectMapper.readValue(data, MapperUsuarioWithId.class);
-//
-//            Usuario usuario1 = findById(usuario.getId());
-//
-//            usuario1.setNome(usuario.getNome());
-//            usuario1.setDtNascimento(usuario.getDtNascimento());
-//            usuario1.setSexo(usuario.getSexo());
-//            usuario1.setCelular(usuario.getCelular());
-//            usuario1.setEmail(usuario.getEmail());
-//            usuario1.setTpUsuario(usuario.getTpUsuario());
-//            usuario1.setStatus(usuario.isStatus());
-//            usuario1.setSenha(usuario.getSenha());
-//
-//            usuario1.setUrlAvatar(file.getBytes());
-//            usuario1.setMediaType(file.getContentType());
-//
-//            usuario1.setDataModificacao(LocalDateTime.now());
-//
-//            validaUpdate(usuario1);
-//
-//            if (usuario1.isStatus())
-//                usuario1.setDataExclusao(null);
-//
-//            usuarioRepository.saveAndFlush(usuario1);
-//
-//            return ResponseEntity.ok().body("Usuário id = " + usuario1.getId() + " atualizado com sucesso!");
-//        } catch (GenericErrorMessage e) {
-//            e.printStackTrace();
-//            return ResponseEntity.badRequest().body("Problema ao realizar Upload " + e.getMessage());
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
-//        }
-//    }
-
-    public UsuarioDTO update(UsuarioDTO usuarioDTO) throws Exception {
+    public UsuarioWebDTO update(UsuarioWebDTO usuarioDTO) throws Exception {
         Usuario usuario = Usuario.consultaDTO(usuarioDTO);
 
         validaUpdate(usuario);
@@ -223,9 +145,9 @@ public class UsuarioService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarioDTOS = findAll();
+        List<Usuario> usuarioDTOS = usuarioRepository.findAll();
 
-        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioListDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -242,7 +164,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+            usuarioDTOSRetorno.add(UsuarioListDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -250,14 +172,9 @@ public class UsuarioService {
     }
 
     public PageableDTO findByNomePageable(String nome, int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+        List<Usuario> usuarioDTOS = usuarioRepository.findByNomeContainsIgnoreCase(nome);
 
-        for (UsuarioDTO usuarioDTO:findAll()) {
-            if (usuarioDTO.getNome().toUpperCase().contains(nome.toUpperCase()))
-                usuarioDTOS.add(usuarioDTO);
-        }
-
-        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioListDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -274,7 +191,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+            usuarioDTOSRetorno.add(UsuarioListDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -282,14 +199,9 @@ public class UsuarioService {
     }
 
     public PageableDTO findBySexoPageable(String sexo, int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+        List<Usuario> usuarioDTOS = usuarioRepository.findBySexo(SexoENUM.valueOf(sexo));
 
-        for (UsuarioDTO usuario:findAll()) {
-            if (usuario.getSexo().equals(SexoENUM.valueOf(sexo)))
-                usuarioDTOS.add(usuario);
-        }
-
-        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioListDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -306,7 +218,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+            usuarioDTOSRetorno.add(UsuarioListDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -314,14 +226,9 @@ public class UsuarioService {
     }
 
     public PageableDTO findByTipoUsuarioPageable(String tpUsuario, int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+        List<Usuario> usuarioDTOS = usuarioRepository.findByTpUsuario(TipoUsuarioENUM.valueOf(tpUsuario));
 
-        for (UsuarioDTO usuario:findAll()) {
-            if (usuario.getTpUsuario().equals(TipoUsuarioENUM.valueOf(tpUsuario)))
-                usuarioDTOS.add(usuario);
-        }
-
-        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioListDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -338,7 +245,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+            usuarioDTOSRetorno.add(UsuarioListDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -346,14 +253,9 @@ public class UsuarioService {
     }
 
     public PageableDTO findByEmailPageable(String email, int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+        List<Usuario> usuarioDTOS = usuarioRepository.findByEmailIsContainingIgnoreCase(email);
 
-        for (UsuarioDTO usuario: findAll()) {
-            if (usuario.getEmail().toUpperCase().contains(email.toUpperCase()))
-                usuarioDTOS.add(usuario);
-        }
-
-        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioListDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -370,7 +272,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+            usuarioDTOSRetorno.add(UsuarioListDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -378,14 +280,9 @@ public class UsuarioService {
     }
 
     public PageableDTO findByCelularPageable(String celular, int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+        List<Usuario> usuarioDTOS = usuarioRepository.findByCelularContaining(celular);
 
-        for (UsuarioDTO usuario:findAll()) {
-            if (usuario.getCelular().contains(celular))
-                usuarioDTOS.add(usuario);
-        }
-
-        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioListDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -402,7 +299,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+            usuarioDTOSRetorno.add(UsuarioListDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -410,14 +307,9 @@ public class UsuarioService {
     }
 
     public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
-        List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
+        List<Usuario> usuarioDTOS = usuarioRepository.findByStatus(status);
 
-        for (UsuarioDTO usuarioDTO:findAll()) {
-            if (usuarioDTO.isStatus() == status)
-                usuarioDTOS.add(usuarioDTO);
-        }
-
-        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioListDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -434,7 +326,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(usuarioDTOS.get(i));
+            usuarioDTOSRetorno.add(UsuarioListDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());

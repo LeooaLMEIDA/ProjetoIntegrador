@@ -4,7 +4,6 @@ import br.com.unipar.BullkApp.model.Aparelho;
 import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.DTO.TreinoDTO;
-import br.com.unipar.BullkApp.model.Treino;
 import br.com.unipar.BullkApp.services.AparelhoService;
 import br.com.unipar.BullkApp.services.ExercicioService;
 import br.com.unipar.BullkApp.services.TreinoService;
