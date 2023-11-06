@@ -59,8 +59,6 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
     }
   }
 
-  
-
   _fetchAlternativeWorkout() async {
     try {
       Workout workout =

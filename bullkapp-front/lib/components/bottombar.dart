@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../data/constants.dart';
 import '../pages/profile.dart';
+import '../repositories/user_repository.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   final bool isProfile;
@@ -72,11 +73,15 @@ class CustomBottomAppBar extends StatelessWidget {
                       height: 40,
                     ),
                     onTap: () async {
-                      isProfile
-                          ? toGoOut()
-                          : await Get.to(
-                              () => const ProfileScreen(),
-                            );
+                      if (isProfile) {
+                        toGoOut();
+                      } else {
+                        final photoData =
+                            await _getPhotoUser(userController.id);
+                        await Get.to(
+                          () => ProfileScreen(photoProfile: photoData),
+                        );
+                      }
                     },
                   ),
                 ),
@@ -86,6 +91,17 @@ class CustomBottomAppBar extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+Future<String?> _getPhotoUser(int id) async {
+  try {
+    UserRepository userRepository = UserRepository();
+    final userPhoto = await userRepository.getPhoto(id);
+    userPhoto?.replaceAll(RegExp(r'\s+'), '');
+    return userPhoto?.split(',').last;
+  } catch (e) {
+    throw Exception(e);
   }
 }
 

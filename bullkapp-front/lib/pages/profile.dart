@@ -15,7 +15,8 @@ import 'body_evaluation.dart';
 UserController userController = Get.find();
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  final String? photoProfile;
+  const ProfileScreen({super.key, this.photoProfile});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -32,16 +33,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> setPhoto() async {
-    final photoData = await _getPhotoUser(userController.id);
-    if (photoData != null) {
-      try {
-        setState(() {
-          photo = base64Decode(photoData);
-        });
-      } catch (e) {
-        error = true;
-        throw Exception('Erro ao decodificar a imagem.');
-      }
+    if (widget.photoProfile != null) {
+      photo = base64Decode(widget.photoProfile!);
     }
   }
 
@@ -66,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: CircleAvatar(
                         backgroundColor: defaultColor,
                         radius: 60,
-                        child: error
+                        child: photo.isNotEmpty
                             ? CircleAvatar(
                                 backgroundImage: MemoryImage(photo),
                                 radius: 57,
@@ -160,16 +153,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Future<String?> _getPhotoUser(int id) async {
-    try {
-      UserRepository userRepository = UserRepository();
-      final userPhoto = await userRepository.getPhoto(id);
-      userPhoto?.replaceAll(RegExp(r'\s+'), '');
-      return userPhoto?.split(',').last;
-    } catch (e) {
-      throw Exception(e);
-    }
-  }
 }
 
 class BodyEvaluationCard extends StatefulWidget {

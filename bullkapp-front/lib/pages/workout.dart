@@ -76,8 +76,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                             ),
                       onTap: () {
                         if (trainingCode == widget.activeTraining) {
-                          setState(() {
-                          });
+                          setState(() {});
                           _fetchWorkout();
                         } else {
                           if (!Get.isSnackbarOpen) {
@@ -249,8 +248,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     try {
       ExerciseRepository exerciseRepository = ExerciseRepository();
       final exerciseGif = await exerciseRepository.getGif(id);
-      exerciseGif?.replaceAll(RegExp(r'\s+'), '');
-      return exerciseGif?.split(',').last;
+      // exerciseGif?.replaceAll(RegExp(r'\s+'), '');
+      print("**********************************");
+      print(exerciseGif);
+      // exerciseGif?.split(',').last;
+      print("**********************************");
+      print(exerciseGif);
+      return exerciseGif;
     } catch (e) {
       throw Exception(e);
     }
