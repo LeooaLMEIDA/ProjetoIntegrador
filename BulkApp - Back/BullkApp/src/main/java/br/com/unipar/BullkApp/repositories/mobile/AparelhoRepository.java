@@ -18,6 +18,6 @@ public interface AparelhoRepository extends JpaRepository<Aparelho, Long> {
 	public List<Aparelho> findByDescricaoContainingAllIgnoringCase(String descricao);
 
 	@Query
-	@ApiModelProperty(value = "Método utilizado para Consultar um Aparelho pela descrição")
+	@ApiModelProperty(value = "Método utilizado para Consultar um Aparelho pelo status")
 	public List<Aparelho> findByStatus(boolean status);
 }

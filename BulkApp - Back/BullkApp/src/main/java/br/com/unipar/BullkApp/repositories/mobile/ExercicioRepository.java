@@ -24,10 +24,10 @@ public interface ExercicioRepository extends JpaRepository<Exercicio, Long> {
     public List<Exercicio> findByAparelho(Aparelho aparelho);
 
 	@Query
-	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Aparelho")
+	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Grupo Muscular")
 	public List<Exercicio> findByGrpMusculos(GrupoMuscularENUM grupoMuscular);
 
 	@Query
-	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Aparelho")
+	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Status")
 	public List<Exercicio> findByStatus(boolean status);
 }

@@ -55,6 +55,7 @@ public class TreinoService {
         validaUpdate(treino);
 
         treino.setDataModificacao(LocalDateTime.now());
+        treino.setDataCriacao(treinoRepository.findById(treino.getId()).get().getDataCriacao());
 
         if (treino.isStatus())
             treino.setDataExclusao(null);
@@ -67,6 +68,7 @@ public class TreinoService {
         Treino treino = findByIdentificador(id);
         validaUpdate(treino);
         treino.setStatus(false);
+        treino.setDataCriacao(treinoRepository.findById(treino.getId()).get().getDataCriacao());
         treino.setDataExclusao(LocalDateTime.now());
         treino.setDataModificacao(LocalDateTime.now());
         treinoRepository.saveAndFlush(treino);

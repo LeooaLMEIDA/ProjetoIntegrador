@@ -19,7 +19,7 @@ import br.com.unipar.BullkApp.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query
-	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo nome")
 	public List<Usuario> findByNomeContainsIgnoreCase(String nome);
 
 	@Query
@@ -27,18 +27,22 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	public List<Usuario> findByEmailIgnoreCase(String email);
 
 	@Query
-	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário que contém o e-mail")
 	public List<Usuario> findByEmailIsContainingIgnoreCase(String email);
 
 	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Sexo")
 	public List<Usuario> findBySexo(SexoENUM sexo);
 
 	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Tipo De Usuário")
 	public List<Usuario> findByTpUsuario(TipoUsuarioENUM tpUsuario);
 
 	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Celular")
 	public List<Usuario> findByCelularContaining(String celular);
 
 	@Query
+	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Status")
 	public List<Usuario> findByStatus(boolean status);
 }

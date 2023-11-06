@@ -79,11 +79,13 @@ public class ExercicioController {
     }
 
     @GetMapping(path = "/pages")
+    @ApiOperation(value = "Operação resposável por listar todos os Exercicios cadastrados no sistema de maneira paginada")
     public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         return exercicioService.findAllPageable(page, registros);
     }
 
     @GetMapping(path = "/pages/filter/str")
+    @ApiOperation(value = "Operação resposável por listar todos os Exercicios cadastrados no sistema de acordo com os filtros de texto disponíveis de maneira paginada")
     public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("descricao"))
             return exercicioService.findByDescPageable(valor, page, registros);
@@ -96,6 +98,7 @@ public class ExercicioController {
     }
 
     @GetMapping(path = "/pages/filter/bool")
+    @ApiOperation(value = "Operação resposável por listar todos os Exercicios cadastrados no sistema de acordo com os filtros booleanos disponíveis de maneira paginada")
     public PageableDTO findByBoolPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("status"))
             return exercicioService.findByStatusPageable(valor, page, registros);

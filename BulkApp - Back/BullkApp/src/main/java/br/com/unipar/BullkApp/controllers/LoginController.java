@@ -20,13 +20,13 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping(value = "/mobile")
-    @ApiOperation(value = "Operação resposável pela avaliação do usuário que está logando e retorno Usuário")
+    @ApiOperation(value = "Operação resposável pela avaliação do usuário que está logando na aplicação mobile e retorno Usuário")
     public UsuarioDTO loginMobile(@RequestBody Login login) throws Exception {
         return loginService.loginMobile(login);
     }
 
     @PostMapping(value = "/web")
-    @ApiOperation(value = "Operação resposável pela avaliação do usuário que está logando e retorno Usuário")
+    @ApiOperation(value = "Operação resposável pela avaliação do usuário que está logando na aplicação web e retorno Usuário")
     public UsuarioDTO loginWeb(@RequestBody Login login) throws Exception {
         return loginService.loginWeb(login);
     }

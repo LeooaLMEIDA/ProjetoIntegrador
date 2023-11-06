@@ -52,7 +52,7 @@ public class TreinoController {
     }
 
     @GetMapping(path = "/filter/usuario")
-    @ApiOperation(value = "Operação responsável pela busca do Treino via código do Treino")
+    @ApiOperation(value = "Operação responsável pela busca do Treino via código do Treino e Usuário")
     public List<Treino> findByFilters(@RequestParam("cdTreino") String cdTreino, @RequestParam("usuario_id") Long usuario_id)throws Exception{
         return treinoService.findByFiltersUsuarioTreino(cdTreino, usuario_id);
     }
@@ -70,17 +70,19 @@ public class TreinoController {
     }
 
     @GetMapping(path = "/filter/alternativo/{id_treino}")
-    @ApiOperation(value = "Operação responsável pela busca dos Treinos atribuidos a um Usuário")
+    @ApiOperation(value = "Operação responsável pela busca dos Treinos alternativos para um treino cadastrado")
     public TreinoDTO findAlternativo(@PathVariable Long id_treino)throws Exception{
         return treinoService.findAlternativo(id_treino);
     }
 
     @GetMapping(path = "/pages")
+    @ApiOperation(value = "Operação resposável por listar todos os Treinos cadastrados no sistema de maneira paginada")
     public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         return treinoService.findAllPageable(page, registros);
     }
 
     @GetMapping(path = "/pages/filter/str")
+    @ApiOperation(value = "Operação resposável por listar todos os Treinos cadastrados no sistema de acordo com os filtros de texto disponíveis de maneira paginada")
     public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("codigo_treino"))
             return treinoService.findByCdTreinoPageable(valor, page, registros);
@@ -92,6 +94,7 @@ public class TreinoController {
     }
 
     @GetMapping(path = "/pages/filter/bool")
+    @ApiOperation(value = "Operação resposável por listar todos os Treinos cadastrados no sistema de acordo com os filtros booleanos disponíveis de maneira paginada")
     public PageableDTO findByBoolPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("status"))
             return treinoService.findByStatusPageable(valor, page, registros);

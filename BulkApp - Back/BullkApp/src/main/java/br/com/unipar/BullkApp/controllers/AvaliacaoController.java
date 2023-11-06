@@ -27,13 +27,13 @@ public class AvaliacaoController {
     }
 
     @PutMapping
-    @ApiOperation(value = "Operação resposável pela Inserção de uma nova Avaliação")
+    @ApiOperation(value = "Operação resposável pela Atualização de uma Avaliação existente")
     public AvaliacaoWebDTO update(@RequestBody @Valid AvaliacaoWebDTO avaliacaoDTO) throws Exception{
         return avaliacaoService.update(avaliacaoDTO);
     }
 
     @DeleteMapping(path = "/{id}")
-    @ApiOperation(value = "Operação responsável por inativar uma Avaliação existente")
+    @ApiOperation(value = "Operação responsável por excluir uma Avaliação existente")
     public AvaliacaoWebDTO delete(@PathVariable Long id) throws Exception {
         return avaliacaoService.delete(id);
     }
@@ -45,29 +45,31 @@ public class AvaliacaoController {
     }
 
     @GetMapping(path = "/filter")
-    @ApiOperation(value = "Operação responsável pela busca do Avaliação via descrição")
+    @ApiOperation(value = "Operação responsável pela busca da Avaliação via descrição")
     public List<AvaliacaoDTO> findByFilters(@RequestParam("descricao") String descricao)throws Exception{
         return avaliacaoService.findByFilters(descricao);
     }
 
     @GetMapping
-    @ApiOperation(value = "Operação resposável por listar todos os Avaliação cadastrados no sistema")
+    @ApiOperation(value = "Operação resposável por listar todas as Avaliações cadastradas no sistema")
     public List<AvaliacaoDTO> findAll() throws Exception{
         return avaliacaoService.findAll();
     }
 
     @GetMapping(path = "/filter/usuario/{id_usuario}")
-    @ApiOperation(value = "Operação responsável pela busca dos Avaliações atribuidas a um Usuário")
+    @ApiOperation(value = "Operação responsável pela busca das Avaliações atribuidas a um Usuário")
     public List<AvaliacaoDTO> findByUsuario(@PathVariable Long id_usuario)throws Exception{
         return avaliacaoService.findByUsuario(id_usuario);
     }
 
     @GetMapping(path = "/pages")
+    @ApiOperation(value = "Operação resposável por listar todas as Avaliações cadastradas no sistema de maneira paginada")
     public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         return avaliacaoService.findAllPageable(page, registros);
     }
 
     @GetMapping(path = "/pages/filter/str")
+    @ApiOperation(value = "Operação resposável por listar as Avaliações cadastradas no sistema de acordo com os filtros de texto disponíveis de maneira paginada")
     public PageableDTO findFilterDescPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("descricao"))
             return avaliacaoService.findByFilterDescPageable(valor, page, registros);

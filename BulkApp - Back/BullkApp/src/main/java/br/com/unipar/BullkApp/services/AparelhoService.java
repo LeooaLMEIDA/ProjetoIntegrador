@@ -33,7 +33,9 @@ public class AparelhoService {
 
         aparelho1.setDescricao(aparelho.getDescricao());
         aparelho1.setStatus(aparelho.isStatus());
+
         aparelho1.setDataModificacao(LocalDateTime.now());
+        aparelho1.setDataCriacao(aparelhoRepository.findById(aparelho1.getId()).get().getDataCriacao());
 
         if (aparelho1.isStatus())
             aparelho1.setDataExclusao(null);
@@ -46,6 +48,7 @@ public class AparelhoService {
         Aparelho aparelho = findById(id);
         validaUpdate(aparelho);
         aparelho.setStatus(false);
+        aparelho.setDataCriacao(aparelhoRepository.findById(aparelho.getId()).get().getDataCriacao());
         aparelho.setDataExclusao(LocalDateTime.now());
         aparelho.setDataModificacao(LocalDateTime.now());
         aparelhoRepository.saveAndFlush(aparelho);

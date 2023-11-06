@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/aparelho")
-@Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Aparelho")
+@Api(description = "Controlador REST Responsável pelas Operações que representam o objeto de negócios Aparelho")
 public class AparelhoController {
 
     @Autowired
@@ -72,19 +72,19 @@ public class AparelhoController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
+    @ApiOperation(value = "Operação resposável por listar todos os Aparelhos cadastrados no sistema")
     public List<Aparelho> findAll() throws Exception{
         return aparelhoService.findAll();
     }
 
     @GetMapping(path = "/pages")
-    @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
+    @ApiOperation(value = "Operação resposável por listar todos os Aparelhos cadastrados no sistema de maneira paginada")
     public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
         return aparelhoService.findAllPageable(page, limit);
     }
 
     @GetMapping(path = "/pages/filter/str")
-    @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
+    @ApiOperation(value = "Operação resposável por listar os Aparelhos cadastrados no sistema de acordo com os filtros de texto disponíveis de maneira paginada")
     public PageableDTO findByFilterPageable(@RequestParam("column") String chave, @RequestParam("value") String valor,@RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
         if (chave.equals("descricao"))
             return aparelhoService.findByFilterPageable(valor, page, limit);
@@ -92,7 +92,7 @@ public class AparelhoController {
     }
 
     @GetMapping(path = "/pages/filter/bool")
-    @ApiOperation(value = "Operação resposável por listar todos os Aparelho cadastrados no sistema")
+    @ApiOperation(value = "Operação resposável por listar os Aparelhos cadastrados no sistema de acordo com os filtros booleanos disponíveis de maneira paginada")
     public PageableDTO findByStatusPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int limit) throws Exception{
         if (chave.equals("status"))
             return aparelhoService.findByStatusPageable(valor, page, limit);

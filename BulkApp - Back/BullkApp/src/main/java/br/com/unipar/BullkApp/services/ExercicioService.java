@@ -53,6 +53,7 @@ public class ExercicioService {
         validaUpdate(exercicio);
 
         exercicio.setDataModificacao(LocalDateTime.now());
+        exercicio.setDataCriacao(exercicioRepository.findById(exercicio.getId()).get().getDataCriacao());
 
         if (exercicio.isStatus())
             exercicio.setDataExclusao(null);
@@ -65,6 +66,7 @@ public class ExercicioService {
         Exercicio exercicio = findById(id);
         validaUpdate(exercicio);
         exercicio.setStatus(false);
+        exercicio.setDataCriacao(exercicioRepository.findById(exercicio.getId()).get().getDataCriacao());
         exercicio.setDataExclusao(LocalDateTime.now());
         exercicio.setDataModificacao(LocalDateTime.now());
         exercicioRepository.saveAndFlush(exercicio);

@@ -53,7 +53,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping(path = "/{id}")
-    @ApiOperation(value = "Operação responsável por inativar um Usuário existente")
+    @ApiOperation(value = "Operação responsável por inativar um Usuário existente e dos treinos atribuídos a ele")
     public UsuarioWebDTO delete(@PathVariable Long id) throws Exception {
         Usuario usuario = usuarioService.delete(id);
 
@@ -85,7 +85,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    @ApiOperation(value = "Operação resposável por listar todos os Usuário cadastrados no sistema")
+    @ApiOperation(value = "Operação resposável por listar todos os Usuários cadastrados no sistema")
     public List<UsuarioDTO> findAll() throws Exception{
         return usuarioService.findAll();
     }
@@ -97,11 +97,13 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/pages")
+    @ApiOperation(value = "Operação resposável por listar todos os Usuários cadastrados no sistema  de maneira paginada")
     public PageableDTO findAllPageable(@RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         return usuarioService.findAllPageable(page, registros);
     }
 
     @GetMapping(path = "/pages/filter/str")
+    @ApiOperation(value = "Operação resposável por listar todos os Usuários cadastrados no sistema de acordo com os filtros de texto disponíveis de maneira paginada")
     public PageableDTO findByStrPageable(@RequestParam("column") String chave, @RequestParam("value") String valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("nome"))
             return usuarioService.findByNomePageable(valor, page, registros);
@@ -117,6 +119,7 @@ public class UsuarioController {
     }
 
     @GetMapping(path = "/pages/filter/bool")
+    @ApiOperation(value = "Operação resposável por listar todos os Usuários cadastrados no sistema de acordo com os filtros booleanos disponíveis de maneira paginada")
     public PageableDTO findByBoolPageable(@RequestParam("column") String chave, @RequestParam("value") boolean valor, @RequestParam("page") int page, @RequestParam("limit") int registros) throws Exception{
         if (chave.equalsIgnoreCase("status"))
             return usuarioService.findByStatusPageable(valor, page, registros);

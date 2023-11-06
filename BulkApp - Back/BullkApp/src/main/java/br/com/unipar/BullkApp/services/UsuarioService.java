@@ -39,6 +39,10 @@ public class UsuarioService {
         validaUpdate(usuario);
 
         usuario.setDataModificacao(LocalDateTime.now());
+        usuario.setDataCriacao(usuarioRepository.findById(usuario.getId()).get().getDataCriacao());
+
+        if (usuario.isStatus())
+            usuario.setDataExclusao(null);
 
         usuarioRepository.saveAndFlush(usuario);
         return usuarioDTO;
@@ -49,6 +53,7 @@ public class UsuarioService {
         validaUpdate(usuario);
         usuario.setStatus(false);
         usuario.setUrlAvatar(null);
+        usuario.setDataCriacao(usuarioRepository.findById(usuario.getId()).get().getDataCriacao());
         usuario.setDataExclusao(LocalDateTime.now());
         usuario.setDataModificacao(LocalDateTime.now());
         usuarioRepository.saveAndFlush(usuario);
