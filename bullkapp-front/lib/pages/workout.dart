@@ -8,6 +8,7 @@ import '../components/list_card.dart';
 import '../models/workout.dart';
 import '../repositories/workout_repository.dart';
 import 'exercise_detail.dart';
+import 'home.dart';
 
 final workoutRepository = WorkoutRepository();
 
@@ -47,6 +48,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Container(
+        color: Colors.white,
         padding: const EdgeInsets.all(5),
         alignment: Alignment.topCenter,
         child: Column(
@@ -114,10 +116,32 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        _setProximoTreino(widget.activeTraining!);
-                      });
-                      Get.back();
+                      Get.defaultDialog(
+                        title: 'Confirmação de Saída',
+                        content: const Text(
+                            'Você realmente deseja sair da aplicação?'),
+                        textConfirm: 'Sim',
+                        textCancel: 'Não',
+                        confirmTextColor:
+                            const Color.fromARGB(255, 255, 255, 255),
+                        buttonColor: Colors.red,
+                        cancelTextColor: const Color.fromARGB(255, 0, 0, 0),
+                        onConfirm: () {
+                          setState(() {
+                            _setProximoTreino(widget.activeTraining!);
+                          });
+                          Get.snackbar(
+                            'SUCESSO',
+                            'Treino finalizado com sucesso!',
+                            icon: const Icon(Icons.done_outline_rounded),
+                            snackPosition: SnackPosition.BOTTOM,
+                            backgroundColor: Colors.green,
+                            duration: const Duration(seconds: 5),
+                            colorText: Colors.white,
+                          );
+                          Get.to(() => const HomeScreen());
+                        },
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
@@ -140,6 +164,24 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       extendBody: false,
       bottomNavigationBar:
           widget.showBottomBar ? const CustomBottomAppBar() : null,
+    );
+  }
+
+  void finishTraining() {
+    Get.defaultDialog(
+      title: 'Confirmação de Saída',
+      content: const Text('Você realmente deseja sair da aplicação?'),
+      textConfirm: 'Sim',
+      textCancel: 'Não',
+      confirmTextColor: const Color.fromARGB(255, 255, 255, 255),
+      buttonColor: Colors.red,
+      cancelTextColor: const Color.fromARGB(255, 0, 0, 0),
+      onConfirm: () {
+        setState(() {
+          _setProximoTreino(widget.activeTraining!);
+        });
+        // Get.back();
+      },
     );
   }
 
