@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import '../components/evaluation_card.dart';
 
 class BodyEvaluationScreen extends StatefulWidget {
-  final List<Evaluation> evaluations;
-  const BodyEvaluationScreen({
+  List<Evaluation> evaluations;
+  BodyEvaluationScreen({
     super.key,
     required this.evaluations,
   });
@@ -38,7 +38,37 @@ class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
                 ],
               ),
             ),
-            const SearchField(),
+            TextField(
+              onChanged: (value) {
+                var filtered = filterList(filter: value.toString());
+                setState(() {
+                  widget.evaluations = filtered;
+                });
+              },
+              keyboardType: TextInputType.datetime,
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 20.0,
+              ),
+              decoration: const InputDecoration(
+                filled: true,
+                fillColor: Color.fromARGB(255, 255, 212, 9),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+                suffixIcon: Icon(
+                  Icons.search,
+                  size: 32,
+                ),
+                suffixIconColor: Colors.black,
+                hintStyle: TextStyle(
+                  color: Colors.black,
+                ),
+                hintText: "Buscar",
+              ),
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -71,117 +101,24 @@ class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
       bottomNavigationBar: const CustomBottomAppBar(),
     );
   }
-}
 
-class SearchField extends StatelessWidget {
-  const SearchField({
-    super.key,
-  });
+  List<Evaluation> _originalList = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      keyboardType: TextInputType.text,
-      style: const TextStyle(
-        color: Colors.black,
-        fontSize: 20.0,
-      ),
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: const Color.fromARGB(255, 255, 212, 9),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        contentPadding:
-            const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-        suffixIcon: IconButton(
-          onPressed: () async {
-            final result = await showSearch(
-              context: context,
-              delegate: Search(),
-            );
-          },
-          icon: const Icon(
-            Icons.search,
-            size: 32,
-          ),
-        ),
-        suffixIconColor: Colors.black,
-        hintStyle: const TextStyle(
-          color: Colors.black,
-        ),
-        hintText: "Buscar",
-      ),
-    );
-  }
-}
+  List<Evaluation> filterList({
+    String? filter,
+  }) {
+    if (_originalList.isEmpty) {
+      _originalList = widget.evaluations.toList();
+    }
 
-class Search extends SearchDelegate {
-  final List<String> evaluationList = [
-    '31/07/2023',
-    '01/08/2023',
-    '01/09/2023'
-  ];
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      IconButton(
-        onPressed: () {
-          query = '';
-        },
-        icon: const Icon(Icons.clear),
-      ),
-    ];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        close(context, null);
-      },
-      icon: const Icon(Icons.arrow_back),
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    final List<String> filteredList = evaluationList
-        .where((evaluation) => evaluation.contains(query))
-        .toList();
-
-    return ListView.builder(
-      itemCount: filteredList.length,
-      itemBuilder: (context, index) {
-        final evaluation = filteredList[index];
-        return ListTile(
-          title: Text(evaluation),
-          onTap: () {
-            close(context, evaluation);
-          },
-        );
-      },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final List<String> filteredList = evaluationList
-        .where((evaluation) => evaluation.contains(query))
-        .toList();
-
-    return ListView.builder(
-      itemCount: filteredList.length,
-      itemBuilder: (context, index) {
-        final evaluation = filteredList[index];
-        return ListTile(
-          title: Text(evaluation),
-          onTap: () {
-            query = evaluation;
-          },
-        );
-      },
-    );
+    if (filter != null && filter.isNotEmpty) {
+      final filteredList = _originalList
+          .where((element) =>
+              element.descricao!.toLowerCase().contains(filter.toLowerCase()))
+          .toList();
+      return filteredList;
+    } else {
+      return _originalList;
+    }
   }
 }

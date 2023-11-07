@@ -10,18 +10,17 @@ class Workout {
   bool? status;
   int? peso;
   Exercise? exercicio;
-  User? usuario;
 
-  Workout(
-      {this.id,
-      this.cdTreino,
-      this.series,
-      this.repeticoes,
-      this.descanso,
-      this.status,
-      this.peso,
-      this.exercicio,
-      this.usuario});
+  Workout({
+    this.id,
+    this.cdTreino,
+    this.series,
+    this.repeticoes,
+    this.descanso,
+    this.status,
+    this.peso,
+    this.exercicio,
+  });
 
   Workout.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -33,7 +32,6 @@ class Workout {
     peso = json['peso'];
     exercicio =
         json['exercicio'] != null ? Exercise.fromJson(json['exercicio']) : null;
-    usuario = json['usuario'] != null ? User.fromJson(json['usuario']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -47,9 +45,6 @@ class Workout {
     data['peso'] = peso;
     if (exercicio != null) {
       data['exercicio'] = exercicio!.toJson();
-    }
-    if (usuario != null) {
-      data['usuario'] = usuario!.toJson();
     }
     return data;
   }
