@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:bullkapp/pages/evaluation_file.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../models/evaluation.dart';
 
@@ -59,7 +61,12 @@ class _EvaluationCardState extends State<EvaluationCard> {
               ],
             ),
             onTap: () {
-              abrirPDF();
+              convertPDF();
+              Get.to(
+                () => EvaluationFile(
+                  pdf: pdf,
+                ),
+              );
             },
           ),
         ),
@@ -67,7 +74,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
     );
   }
 
-  void abrirPDF() {
+  void convertPDF() {
     final pdfEvaluation = widget.evaluations[1].arqAvaliacao;
     if (pdfEvaluation != null) {
       final cleanedPdf = pdfEvaluation.replaceAll(RegExp(r'\s+'), '');
@@ -75,16 +82,6 @@ class _EvaluationCardState extends State<EvaluationCard> {
       setState(() {
         pdf = pdfData;
       });
-    }
-  }
-
-  Widget buildPdfViewer() {
-    if (pdf != null) {
-      return SfPdfViewer.memory(
-        pdf!,
-      );
-    } else {
-      return const Text('PDF não disponível');
     }
   }
 }
