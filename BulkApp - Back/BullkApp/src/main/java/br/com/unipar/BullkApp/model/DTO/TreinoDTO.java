@@ -25,7 +25,7 @@ public class TreinoDTO {
     private boolean alternativo;
     private Integer peso;
     private ExercicioDTO exercicio;
-    private UsuarioDTO usuario;
+    private UsuarioListDTO usuario;
 
     public static TreinoDTO consultaDTO(Treino treino) throws DataFormatException, IOException {
         TreinoDTO treinoDTO = new TreinoDTO();
@@ -38,7 +38,7 @@ public class TreinoDTO {
         treinoDTO.setAlternativo(treino.isAlternativo());
         treinoDTO.setSeries(treino.getSeries());
         treinoDTO.setRepeticoes(treino.getRepeticoes());
-        treinoDTO.setUsuario(UsuarioDTO.consultaDTO(treino.getUsuario()));
+        treinoDTO.setUsuario(UsuarioListDTO.consultaDTO(treino.getUsuario()));
 
         return treinoDTO;
     }

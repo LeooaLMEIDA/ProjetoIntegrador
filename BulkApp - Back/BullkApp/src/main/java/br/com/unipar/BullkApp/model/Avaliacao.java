@@ -30,7 +30,6 @@ public class Avaliacao {
 	@Size(max = 10)
 	private String descricao;
 	private String observacao;
-	@NonNull
 	@Type(type = "org.hibernate.type.BinaryType")
 	private byte[] arqAvaliacao;
 	@OneToOne

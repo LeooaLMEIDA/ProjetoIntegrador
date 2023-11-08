@@ -1,6 +1,8 @@
 package br.com.unipar.BullkApp.util;
 
 import com.google.common.base.Charsets;
+import org.apache.commons.codec.binary.Base64;
+import org.springframework.util.Base64Utils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -40,5 +42,11 @@ public class Util {
         while ((len = in.read(buffer)) > 0)
             baos.write(buffer, 0, len);
         return new String(baos.toByteArray(), Charsets.UTF_8);
+    }
+
+    public static String getFileType(String textoSerializado) {
+        Base64 base64 = new Base64();
+
+        return new String(base64.decode(textoSerializado));
     }
 }

@@ -1,13 +1,11 @@
 package br.com.unipar.BullkApp.services;
 
 import br.com.unipar.BullkApp.model.Avaliacao;
-import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
-import br.com.unipar.BullkApp.model.DTO.AvaliacaoListDTO;
-import br.com.unipar.BullkApp.model.DTO.AvaliacaoWebDTO;
-import br.com.unipar.BullkApp.model.DTO.PageableDTO;
+import br.com.unipar.BullkApp.model.DTO.*;
 import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.AvaliacaoRepository;
 import br.com.unipar.BullkApp.repositories.mobile.UsuarioRepository;
+import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +48,9 @@ public class AvaliacaoService {
 
     public AvaliacaoWebDTO update(AvaliacaoWebDTO avaliacaoDTO) throws Exception {
         Avaliacao avaliacao = Avaliacao.consultaDTO(avaliacaoDTO);
+
+        if (avaliacao.getArqAvaliacao() == null)
+            avaliacao.setArqAvaliacao(avaliacaoRepository.findById(avaliacao.getId()).get().getArqAvaliacao());
 
         validaUpdate(avaliacao);
 
@@ -107,11 +108,19 @@ public class AvaliacaoService {
         if (avaliacao.getId() != null){
             throw new Exception("Não é necessário informar o ID para inserir uma nova Avaliacao");
         }
+
+        if (!Util.getFileType(AvaliacaoDTO.consultaDTO(avaliacao).getArqAvaliacao().substring(0,6)).contains("PDF")){
+            throw new Exception("Não é possível inserir uma Avaliação com um arquivo diferente de PDF!");
+        }
     }
 
     private void validaUpdate(Avaliacao avaliacao) throws Exception{
         if (avaliacao.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro da Avaliacao");
+        }
+
+        if (!Util.getFileType(AvaliacaoDTO.consultaDTO(avaliacao).getArqAvaliacao().substring(0,6)).contains("PDF")){
+            throw new Exception("Não é possível atualizar uma Avaliação com um arquivo diferente de PDF!");
         }
     }
 

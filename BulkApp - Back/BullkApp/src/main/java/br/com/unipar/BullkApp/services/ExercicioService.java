@@ -8,6 +8,7 @@ import br.com.unipar.BullkApp.model.DTO.ExercicioWebDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.repositories.mobile.ExercicioRepository;
+import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -128,11 +129,19 @@ public class ExercicioService {
         if (!exercicio.getAparelho().isStatus()){
             throw new Exception("Não é possível inserir um exercício com um Aparelho inativado");
         }
+
+        if (!Util.getFileType(ExercicioDTO.consultaDTO(exercicio).getImgIlistracao().substring(0,6)).contains("GIF")){
+            throw new Exception("Não é possível inserir um exercício com uma ilustração diferente de um GIF!");
+        }
     }
 
     private void validaUpdate(Exercicio exercicio) throws Exception{
         if (exercicio.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Exercicio");
+        }
+
+        if (!Util.getFileType(ExercicioDTO.consultaDTO(exercicio).getImgIlistracao().substring(0,6)).contains("GIF")){
+            throw new Exception("Não é possível atualizar o exercício com uma ilustração diferente de um GIF!");
         }
     }
 

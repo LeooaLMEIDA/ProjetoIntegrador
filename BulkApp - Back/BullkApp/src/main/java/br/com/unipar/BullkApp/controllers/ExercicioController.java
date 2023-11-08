@@ -4,12 +4,14 @@ import br.com.unipar.BullkApp.model.DTO.*;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.services.ExercicioService;
 import br.com.unipar.BullkApp.services.TreinoService;
+import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import org.apache.commons.codec.binary.Base64;
 import java.util.List;
 
 @RestController
@@ -103,5 +105,18 @@ public class ExercicioController {
         if (chave.equalsIgnoreCase("status"))
             return exercicioService.findByStatusPageable(valor, page, registros);
         return null;
+    }
+
+    @GetMapping(path = "/teste/{id}")
+    public String findType(@PathVariable Long id) throws Exception {
+        ExercicioDTO exercicioDTO = ExercicioDTO.consultaDTO(exercicioService.findById(id));
+
+        String textoSerializado = exercicioDTO.getImgIlistracao().substring(0,6);
+
+        Base64 base64 = new Base64();
+
+        String textoDeserializado = new String(base64.decode(textoSerializado));
+
+        return textoDeserializado;
     }
 }

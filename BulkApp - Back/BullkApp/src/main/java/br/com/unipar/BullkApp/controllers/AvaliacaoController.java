@@ -2,10 +2,12 @@ package br.com.unipar.BullkApp.controllers;
 
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
 import br.com.unipar.BullkApp.model.DTO.AvaliacaoWebDTO;
+import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
 import br.com.unipar.BullkApp.model.DTO.PageableDTO;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,5 +78,18 @@ public class AvaliacaoController {
         else if (chave.equalsIgnoreCase("usuario"))
             return avaliacaoService.findByFilterUserPageable(valor, page, registros);
         return null;
+    }
+
+    @GetMapping(path = "/teste/{id}")
+    public String findType(@PathVariable Long id) throws Exception {
+        AvaliacaoDTO avaliacaoDTO = avaliacaoService.findById(id);
+
+        String textoSerializado = avaliacaoDTO.getArqAvaliacao().substring(0,6);
+
+        Base64 base64 = new Base64();
+
+        String textoDeserializado = new String(base64.decode(textoSerializado));
+
+        return textoDeserializado;
     }
 }
