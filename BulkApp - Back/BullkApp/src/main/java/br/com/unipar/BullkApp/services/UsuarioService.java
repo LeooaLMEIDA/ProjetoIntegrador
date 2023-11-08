@@ -35,6 +35,9 @@ public class UsuarioService {
     public UsuarioWebDTO update(UsuarioWebDTO usuarioDTO) throws Exception {
         Usuario usuario = Usuario.consultaDTO(usuarioDTO);
 
+        if (usuario.getUrlAvatar() == null)
+            usuario.setUrlAvatar(usuarioRepository.findById(usuario.getId()).get().getUrlAvatar());
+
         validaUpdate(usuario);
 
         usuario.setDataModificacao(LocalDateTime.now());

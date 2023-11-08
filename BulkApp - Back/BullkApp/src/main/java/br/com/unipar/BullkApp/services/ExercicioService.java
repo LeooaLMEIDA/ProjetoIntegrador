@@ -51,6 +51,9 @@ public class ExercicioService {
 
         exercicio.setAparelho(aparelhoService.findById(exercicioDTO.getIdAparelho()));
 
+        if (exercicio.getImgIlustracao() == null)
+            exercicio.setImgIlustracao(exercicioRepository.findById(exercicio.getId()).get().getImgIlustracao());
+
         validaUpdate(exercicio);
 
         exercicio.setDataModificacao(LocalDateTime.now());

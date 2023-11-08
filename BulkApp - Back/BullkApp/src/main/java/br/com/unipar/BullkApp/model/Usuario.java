@@ -70,7 +70,8 @@ public class Usuario {
 		usuario.setCelular(usuarioDTO.getCelular());
 		usuario.setEmail(usuarioDTO.getEmail());
 		usuario.setTpUsuario(usuarioDTO.getTpUsuario());
-		usuario.setUrlAvatar(Util.compressData(usuarioDTO.getUrlAvatar()));
+		if (usuarioDTO.getUrlAvatar() != null)
+			usuario.setUrlAvatar(Util.compressData(usuarioDTO.getUrlAvatar()));
 		usuario.setStatus(usuarioDTO.isStatus());
 
 		return usuario;
@@ -85,7 +86,8 @@ public class Usuario {
 		usuario.setCelular(usuarioDTO.getCelular());
 		usuario.setEmail(usuarioDTO.getEmail());
 		usuario.setTpUsuario(usuarioDTO.getTpUsuario());
-		usuario.setUrlAvatar(Util.compressData(usuarioDTO.getUrlAvatar()));
+		if (usuarioDTO.getUrlAvatar() != null)
+			usuario.setUrlAvatar(Util.compressData(usuarioDTO.getUrlAvatar()));
 		usuario.setStatus(usuarioDTO.isStatus());
 		usuario.setSenha(usuarioDTO.getSenha());
 
