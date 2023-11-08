@@ -46,7 +46,7 @@ public class AvaliacaoService {
         return avaliacaoDTO;
     }
 
-    public AvaliacaoWebDTO update(AvaliacaoWebDTO avaliacaoDTO) throws Exception {
+    public AvaliacaoListDTO update(AvaliacaoWebDTO avaliacaoDTO) throws Exception {
         Avaliacao avaliacao = Avaliacao.consultaDTO(avaliacaoDTO);
 
         if (avaliacao.getArqAvaliacao() == null)
@@ -61,7 +61,7 @@ public class AvaliacaoService {
 
         avaliacaoRepository.saveAndFlush(avaliacao);
 
-        return avaliacaoDTO;
+        return AvaliacaoListDTO.consultaDTO(avaliacao);
     }
 
     public AvaliacaoWebDTO delete(Long id) throws  Exception {

@@ -1,9 +1,6 @@
 package br.com.unipar.BullkApp.controllers;
 
-import br.com.unipar.BullkApp.model.DTO.AvaliacaoDTO;
-import br.com.unipar.BullkApp.model.DTO.AvaliacaoWebDTO;
-import br.com.unipar.BullkApp.model.DTO.ExercicioDTO;
-import br.com.unipar.BullkApp.model.DTO.PageableDTO;
+import br.com.unipar.BullkApp.model.DTO.*;
 import br.com.unipar.BullkApp.services.AvaliacaoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +27,7 @@ public class AvaliacaoController {
 
     @PutMapping
     @ApiOperation(value = "Operação resposável pela Atualização de uma Avaliação existente")
-    public AvaliacaoWebDTO update(@RequestBody @Valid AvaliacaoWebDTO avaliacaoDTO) throws Exception{
+    public AvaliacaoListDTO update(@RequestBody @Valid AvaliacaoWebDTO avaliacaoDTO) throws Exception{
         return avaliacaoService.update(avaliacaoDTO);
     }
 
