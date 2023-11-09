@@ -47,6 +47,8 @@ public class Util {
     public static String getFileType(String textoSerializado) {
         Base64 base64 = new Base64();
 
-        return new String(base64.decode(textoSerializado));
+        String valida = new String(base64.decode(textoSerializado));
+
+        return valida;
     }
 }

@@ -101,8 +101,10 @@ public class UsuarioService {
             throw new Exception("Já existe um usuário cadastrado com o email " + usuario.getEmail());
         }
 
-        if (!Util.getFileType(UsuarioDTO.consultaDTO(usuario).getUrlAvatar().substring(0,6)).contains("PNG")){
-            throw new Exception("Não é possível inserir um Usuário com um avatar diferente de PNG!");
+        String tipoArquivo = Util.getFileType(UsuarioDTO.consultaDTO(usuario).getUrlAvatar().substring(0,27));
+
+        if (!tipoArquivo.contains("PNG") && !tipoArquivo.contains("JFIF")){
+            throw new Exception("Não é possível inserir um Usuário com um avatar diferente de PNG ou JPEG/JPG!");
         }
     }
 
@@ -116,8 +118,10 @@ public class UsuarioService {
             throw new Exception("Já existe outro usuário cadastrado com o email " + usuario.getEmail());
         }
 
-        if (!Util.getFileType(UsuarioDTO.consultaDTO(usuario).getUrlAvatar().substring(0,6)).contains("PNG")){
-            throw new Exception("Não é possível atualizar um Usuário com um avatar diferente de PNG!");
+        String tipoArquivo = Util.getFileType(UsuarioDTO.consultaDTO(usuario).getUrlAvatar().substring(0,27));
+
+        if (!tipoArquivo.contains("PNG") && !tipoArquivo.contains("JFIF")){
+            throw new Exception("Não é possível inserir um Usuário com um avatar diferente de PNG ou JPEG/JPG!");
         }
     }
 
