@@ -128,7 +128,10 @@ public class UsuarioController {
     }
 
     @PostMapping(path = "/validatePassword")
-    public boolean validaSenha(@RequestBody @Valid UsuarioSenhaDTO usuario) throws Exception{
-        return usuarioService.validatePasswordDb(usuario);
+    public ResponseEntity validaSenha(@RequestBody @Valid UsuarioSenhaDTO usuario) throws Exception{
+        if (usuarioService.validatePasswordDb(usuario))
+            return ResponseEntity.noContent().build();
+        else
+            return ResponseEntity.notFound().build();
     }
 }
