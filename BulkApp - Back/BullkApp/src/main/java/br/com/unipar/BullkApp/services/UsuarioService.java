@@ -7,11 +7,14 @@ import br.com.unipar.BullkApp.model.Usuario;
 import br.com.unipar.BullkApp.repositories.mobile.UsuarioRepository;
 import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.ApiModel;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -356,18 +359,18 @@ public class UsuarioService {
         return pageableDTO;
     }
 
-    public void validaSenha(UsuarioWebDTO usuario) throws Exception {
+    public boolean validaSenha(UsuarioWebDTO usuario) throws Exception {
         String senha = usuario.getSenha();
 
-        Pattern pattern = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$)[^@\\.;\\(\\)\\_!?&\\-\\+\\^\\´âêôáéíóúÂÊÔÁÉÍÓÚ]+$");
+        Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$");
         Matcher matcher = pattern.matcher(senha);
-        if (senha.length() < 8 && senha.length() > 32) {
-            throw new Exception("Senha deve conter de 8 a 32 caracteres");
+
+        if (matcher.matches()) {
+            return true;
+        } else if (senha.length() < 8) {
+            throw new Exception("Senha deve conter ao menos 8 caracteres");
         } else {
-            if (matcher.find()) {
-            } else {
-                throw new Exception("Senha invalida, verifique se ha espacos ou caracteres improprios");
-            }
+            throw new Exception("Senha inválida, verifique se há espaços ou caracteres impróprios");
         }
     }
 }
