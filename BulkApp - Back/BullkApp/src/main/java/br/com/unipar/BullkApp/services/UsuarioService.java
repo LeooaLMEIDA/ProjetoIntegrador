@@ -376,7 +376,7 @@ public class UsuarioService {
         }
     }
 
-    public boolean validatePasswordDb(UsuarioWebDTO usuario) {
+    public boolean validatePasswordDb(UsuarioSenhaDTO usuario) {
         String senhaAtual = usuarioRepository.findById(usuario.getId()).get().getSenha();
 
         return senhaAtual.equals(usuario.getSenha());
