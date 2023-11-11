@@ -12,9 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 @ApiModel(description = "Classe responsável pela regras de Negócio referente ao Usuário")
@@ -353,5 +354,20 @@ public class UsuarioService {
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
         return pageableDTO;
+    }
+
+    public void validaSenha(UsuarioWebDTO usuario) throws Exception {
+        String senha = usuario.getSenha();
+
+        Pattern pattern = Pattern.compile("(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$)[^@\\.;\\(\\)\\_!?&\\-\\+\\^\\´âêôáéíóúÂÊÔÁÉÍÓÚ]+$");
+        Matcher matcher = pattern.matcher(senha);
+        if (senha.length() < 8 && senha.length() > 32) {
+            throw new Exception("Senha deve conter de 8 a 32 caracteres");
+        } else {
+            if (matcher.find()) {
+            } else {
+                throw new Exception("Senha invalida, verifique se ha espacos ou caracteres improprios");
+            }
+        }
     }
 }

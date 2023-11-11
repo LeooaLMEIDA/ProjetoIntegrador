@@ -11,6 +11,7 @@ import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -124,5 +125,11 @@ public class UsuarioController {
         if (chave.equalsIgnoreCase("status"))
             return usuarioService.findByStatusPageable(valor, page, registros);
         return usuarioService.findAllPageable(page, registros);
+    }
+
+    @PostMapping(path = "/validatePassword")
+    public ResponseEntity validaSenha(@RequestBody @Valid UsuarioWebDTO usuario) throws Exception{
+        usuarioService.validaSenha(usuario);
+        return ResponseEntity.ok().build();
     }
 }
