@@ -22,17 +22,20 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioWebDTO insert(UsuarioWebDTO usuarioDTO) throws Exception{
+    public UsuarioListDTO insert(UsuarioWebDTO usuarioDTO) throws Exception{
         Usuario usuario = Usuario.consultaDTO(usuarioDTO);
         validaInsert(usuario);
         usuario.setDataCriacao(LocalDateTime.now());
         usuario.setDataModificacao(LocalDateTime.now());
         usuarioRepository.saveAndFlush(usuario);
 
-        return UsuarioWebDTO.consultaDTO(usuario);
+        return UsuarioListDTO.consultaDTO(usuario);
     }
 
-    public UsuarioWebDTO update(UsuarioWebDTO usuarioDTO) throws Exception {
+    public UsuarioListDTO update(UsuarioWebDTO usuarioDTO) throws Exception {
+        if (usuarioDTO.getSenha() == null)
+            usuarioDTO.setSenha(usuarioRepository.findById(usuarioDTO.getId()).get().getSenha());
+
         Usuario usuario = Usuario.consultaDTO(usuarioDTO);
 
         if (usuario.getUrlAvatar() == null)
@@ -47,7 +50,7 @@ public class UsuarioService {
             usuario.setDataExclusao(null);
 
         usuarioRepository.saveAndFlush(usuario);
-        return usuarioDTO;
+        return UsuarioListDTO.consultaDTO(usuario);
     }
 
     public Usuario delete(Long id) throws  Exception {
@@ -166,7 +169,7 @@ public class UsuarioService {
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
         List<Usuario> usuarioDTOS = usuarioRepository.findAll();
 
-        List<UsuarioWebDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -183,7 +186,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(UsuarioWebDTO.consultaDTO(usuarioDTOS.get(i)));
+            usuarioDTOSRetorno.add(UsuarioDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -193,7 +196,7 @@ public class UsuarioService {
     public PageableDTO findByNomePageable(String nome, int page, int registrosSolic) throws Exception {
         List<Usuario> usuarioDTOS = usuarioRepository.findByNomeContainsIgnoreCase(nome);
 
-        List<UsuarioWebDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -210,7 +213,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(UsuarioWebDTO.consultaDTO(usuarioDTOS.get(i)));
+            usuarioDTOSRetorno.add(UsuarioDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -220,7 +223,7 @@ public class UsuarioService {
     public PageableDTO findBySexoPageable(String sexo, int page, int registrosSolic) throws Exception {
         List<Usuario> usuarioDTOS = usuarioRepository.findBySexo(SexoENUM.valueOf(sexo));
 
-        List<UsuarioWebDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -237,7 +240,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(UsuarioWebDTO.consultaDTO(usuarioDTOS.get(i)));
+            usuarioDTOSRetorno.add(UsuarioDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -247,7 +250,7 @@ public class UsuarioService {
     public PageableDTO findByTipoUsuarioPageable(String tpUsuario, int page, int registrosSolic) throws Exception {
         List<Usuario> usuarioDTOS = usuarioRepository.findByTpUsuario(TipoUsuarioENUM.valueOf(tpUsuario));
 
-        List<UsuarioWebDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -264,7 +267,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(UsuarioWebDTO.consultaDTO(usuarioDTOS.get(i)));
+            usuarioDTOSRetorno.add(UsuarioDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -274,7 +277,7 @@ public class UsuarioService {
     public PageableDTO findByEmailPageable(String email, int page, int registrosSolic) throws Exception {
         List<Usuario> usuarioDTOS = usuarioRepository.findByEmailIsContainingIgnoreCase(email);
 
-        List<UsuarioWebDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -291,7 +294,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(UsuarioWebDTO.consultaDTO(usuarioDTOS.get(i)));
+            usuarioDTOSRetorno.add(UsuarioDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -301,7 +304,7 @@ public class UsuarioService {
     public PageableDTO findByCelularPageable(String celular, int page, int registrosSolic) throws Exception {
         List<Usuario> usuarioDTOS = usuarioRepository.findByCelularContaining(celular);
 
-        List<UsuarioWebDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -318,7 +321,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(UsuarioWebDTO.consultaDTO(usuarioDTOS.get(i)));
+            usuarioDTOSRetorno.add(UsuarioDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());
@@ -328,7 +331,7 @@ public class UsuarioService {
     public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
         List<Usuario> usuarioDTOS = usuarioRepository.findByStatus(status);
 
-        List<UsuarioWebDTO> usuarioDTOSRetorno = new ArrayList<>();
+        List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -345,7 +348,7 @@ public class UsuarioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            usuarioDTOSRetorno.add(UsuarioWebDTO.consultaDTO(usuarioDTOS.get(i)));
+            usuarioDTOSRetorno.add(UsuarioDTO.consultaDTO(usuarioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(usuarioDTOSRetorno), page, usuarioDTOS.size());

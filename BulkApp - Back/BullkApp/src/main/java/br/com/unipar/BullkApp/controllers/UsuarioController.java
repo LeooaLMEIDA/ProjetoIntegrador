@@ -42,19 +42,19 @@ public class UsuarioController {
 
     @PostMapping
     @ApiOperation(value = "Operação resposável pela Inserção de um novo Usuário")
-    public UsuarioWebDTO insert(@RequestBody @Valid UsuarioWebDTO usuario) throws Exception{
+    public UsuarioListDTO insert(@RequestBody @Valid UsuarioWebDTO usuario) throws Exception{
         return usuarioService.insert(usuario);
     }
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Usuário já existente")
-    public UsuarioWebDTO update(@RequestBody @Valid UsuarioWebDTO usuario) throws Exception{
+    public UsuarioListDTO update(@RequestBody @Valid UsuarioWebDTO usuario) throws Exception{
         return usuarioService.update(usuario);
     }
 
     @DeleteMapping(path = "/{id}")
     @ApiOperation(value = "Operação responsável por inativar um Usuário existente e dos treinos atribuídos a ele")
-    public UsuarioWebDTO delete(@PathVariable Long id) throws Exception {
+    public UsuarioListDTO delete(@PathVariable Long id) throws Exception {
         Usuario usuario = usuarioService.delete(id);
 
         List<Treino> treinos = treinoService.findByUsuario(usuario);
@@ -69,7 +69,7 @@ public class UsuarioController {
             avaliacaoService.delete(avaliacao.getId());
         }
 
-        return UsuarioWebDTO.consultaDTO(usuario);
+        return UsuarioListDTO.consultaDTO(usuario);
     }
 
     @GetMapping(path = "/{id}")
