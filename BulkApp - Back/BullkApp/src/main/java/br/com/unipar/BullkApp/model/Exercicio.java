@@ -29,7 +29,6 @@ public class Exercicio {
 	@Size(max = 40)
 	@ApiModelProperty(required = true)
 	private String descricao;
-	@NonNull
 	private String orientacao;
 	@NonNull
 	@Type(type = "org.hibernate.type.BinaryType")
@@ -58,7 +57,7 @@ public class Exercicio {
 		exercicio.setId(exercicioDTO.getId());
 		exercicio.setDescricao(exercicioDTO.getDescricao());
 		exercicio.setOrientacao(exercicioDTO.getOrientacao());
-		exercicio.setImgIlustracao(Util.compressData(exercicioDTO.getImgIlistracao()));
+		exercicio.setImgIlustracao(Util.compressData(exercicioDTO.getImgIlustracao()));
 		exercicio.setGrpMusculos(exercicioDTO.getGrpMusculos());
 		exercicio.setStatus(exercicioDTO.isStatus());
 
@@ -70,7 +69,7 @@ public class Exercicio {
 		exercicio.setId(exercicioDTO.getId());
 		exercicio.setDescricao(exercicioDTO.getDescricao());
 		exercicio.setOrientacao(exercicioDTO.getOrientacao());
-		exercicio.setImgIlustracao(Util.compressData(exercicioDTO.getImgIlistracao()));
+		exercicio.setImgIlustracao(Util.compressData(exercicioDTO.getImgIlustracao()));
 		exercicio.setGrpMusculos(exercicioDTO.getGrpMusculos());
 		exercicio.setStatus(exercicioDTO.isStatus());
 

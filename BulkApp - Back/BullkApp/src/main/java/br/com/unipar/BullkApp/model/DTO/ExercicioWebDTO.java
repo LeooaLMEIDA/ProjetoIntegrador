@@ -21,7 +21,7 @@ public class ExercicioWebDTO {
     private GrupoMuscularENUM grpMusculos;
     private String orientacao;
     private boolean status;
-    private String imgIlistracao;
+    private String imgIlustracao;
     private Long idAparelho;
 
     public static ExercicioWebDTO consultaDTO(Exercicio exercicio) throws DataFormatException, IOException {
@@ -31,7 +31,7 @@ public class ExercicioWebDTO {
         exercicioDTO.setOrientacao(exercicio.getOrientacao());
         exercicioDTO.setStatus(exercicio.isStatus());
         exercicioDTO.setGrpMusculos(exercicio.getGrpMusculos());
-        exercicioDTO.setImgIlistracao(Util.decompress(exercicio.getImgIlustracao()));
+        exercicioDTO.setImgIlustracao(Util.decompress(exercicio.getImgIlustracao()));
         exercicioDTO.setIdAparelho(exercicio.getAparelho().getId());
 
         return exercicioDTO;

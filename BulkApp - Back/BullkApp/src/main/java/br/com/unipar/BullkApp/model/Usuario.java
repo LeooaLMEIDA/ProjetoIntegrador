@@ -40,6 +40,7 @@ public class Usuario {
 	private String celular;
 	@NotNull
 	@Email
+	@Column (unique = true)
 	private String email;
 	@NotNull
 	@Enumerated(EnumType.STRING)

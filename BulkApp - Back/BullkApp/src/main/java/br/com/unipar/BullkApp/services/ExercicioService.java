@@ -133,7 +133,7 @@ public class ExercicioService {
             throw new Exception("Não é possível inserir um exercício com um Aparelho inativado");
         }
 
-        if (!Util.getFileType(ExercicioDTO.consultaDTO(exercicio).getImgIlistracao().substring(0,6)).contains("GIF")){
+        if (!Util.getFileType(ExercicioDTO.consultaDTO(exercicio).getImgIlustracao().substring(0,6)).contains("GIF")){
             throw new Exception("Não é possível inserir um exercício com uma ilustração diferente de um GIF!");
         }
     }
@@ -143,7 +143,7 @@ public class ExercicioService {
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Exercicio");
         }
 
-        if (!Util.getFileType(ExercicioDTO.consultaDTO(exercicio).getImgIlistracao().substring(0,6)).contains("GIF")){
+        if (!Util.getFileType(ExercicioDTO.consultaDTO(exercicio).getImgIlustracao().substring(0,6)).contains("GIF")){
             throw new Exception("Não é possível atualizar o exercício com uma ilustração diferente de um GIF!");
         }
     }
@@ -181,7 +181,7 @@ public class ExercicioService {
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
         List<Exercicio> exercicioDTOS = exercicioRepository.findAll();
 
-        List<ExercicioListDTO> exercicioDTOSRetorno = new ArrayList<>();
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -198,7 +198,7 @@ public class ExercicioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            exercicioDTOSRetorno.add(ExercicioListDTO.consultaDTO(exercicioDTOS.get(i)));
+            exercicioDTOSRetorno.add(ExercicioDTO.consultaDTO(exercicioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
@@ -208,7 +208,7 @@ public class ExercicioService {
     public PageableDTO findByDescPageable(String descricao, int page, int registrosSolic) throws Exception {
         List<Exercicio> exercicioDTOS = exercicioRepository.findByDescricaoContainingAllIgnoringCase(descricao);
 
-        List<ExercicioListDTO> exercicioDTOSRetorno = new ArrayList<>();
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -225,7 +225,7 @@ public class ExercicioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            exercicioDTOSRetorno.add(ExercicioListDTO.consultaDTO(exercicioDTOS.get(i)));
+            exercicioDTOSRetorno.add(ExercicioDTO.consultaDTO(exercicioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
@@ -235,7 +235,7 @@ public class ExercicioService {
     public PageableDTO findByGrpMuscularPageable(String descricao, int page, int registrosSolic) throws Exception {
         List<Exercicio> exercicioDTOS = exercicioRepository.findByGrpMusculos(GrupoMuscularENUM.valueOf(descricao));
 
-        List<ExercicioListDTO> exercicioDTOSRetorno = new ArrayList<>();
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -252,7 +252,7 @@ public class ExercicioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            exercicioDTOSRetorno.add(ExercicioListDTO.consultaDTO(exercicioDTOS.get(i)));
+            exercicioDTOSRetorno.add(ExercicioDTO.consultaDTO(exercicioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
@@ -266,7 +266,7 @@ public class ExercicioService {
             exercicioDTOS.addAll(exercicioRepository.findByAparelho(aparelho));
         }
 
-        List<ExercicioListDTO> exercicioDTOSRetorno = new ArrayList<>();
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -283,7 +283,7 @@ public class ExercicioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            exercicioDTOSRetorno.add(ExercicioListDTO.consultaDTO(exercicioDTOS.get(i)));
+            exercicioDTOSRetorno.add(ExercicioDTO.consultaDTO(exercicioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());
@@ -294,7 +294,7 @@ public class ExercicioService {
 
         List<Exercicio> exercicioDTOS = exercicioRepository.findByStatus(status);
 
-        List<ExercicioListDTO> exercicioDTOSRetorno = new ArrayList<>();
+        List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
         int inicio = 0;
         int fim = registrosSolic;
@@ -311,7 +311,7 @@ public class ExercicioService {
         }
 
         for (int i = inicio; i < fim; i++) {
-            exercicioDTOSRetorno.add(ExercicioListDTO.consultaDTO(exercicioDTOS.get(i)));
+            exercicioDTOSRetorno.add(ExercicioDTO.consultaDTO(exercicioDTOS.get(i)));
         }
 
         PageableDTO pageableDTO = new PageableDTO(new ArrayList<Object>(exercicioDTOSRetorno), page, exercicioDTOS.size());

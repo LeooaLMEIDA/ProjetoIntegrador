@@ -4,7 +4,6 @@ import br.com.unipar.BullkApp.model.DTO.*;
 import br.com.unipar.BullkApp.model.Exercicio;
 import br.com.unipar.BullkApp.services.ExercicioService;
 import br.com.unipar.BullkApp.services.TreinoService;
-import br.com.unipar.BullkApp.util.Util;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class ExercicioController {
         ExercicioDTO exercicio = ExercicioDTO.consultaDTO(exercicioService.findById(fileId));
 
         ImagemDTO imagemDTO = new ImagemDTO();
-        imagemDTO.setImagem(exercicio.getImgIlistracao());
+        imagemDTO.setImagem(exercicio.getImgIlustracao());
 
         return imagemDTO;
     }
@@ -111,7 +110,7 @@ public class ExercicioController {
     public String findType(@PathVariable Long id) throws Exception {
         ExercicioDTO exercicioDTO = ExercicioDTO.consultaDTO(exercicioService.findById(id));
 
-        String textoSerializado = exercicioDTO.getImgIlistracao().substring(0,6);
+        String textoSerializado = exercicioDTO.getImgIlustracao().substring(0,6);
 
         Base64 base64 = new Base64();
 

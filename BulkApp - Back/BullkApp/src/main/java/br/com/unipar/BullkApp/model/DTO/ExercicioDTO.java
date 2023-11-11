@@ -22,7 +22,7 @@ public class ExercicioDTO {
     private GrupoMuscularENUM grpMusculos;
     private String orientacao;
     private boolean status;
-    private String imgIlistracao;
+    private String imgIlustracao;
     private Aparelho aparelho;
 
     public static ExercicioDTO consultaDTO(Exercicio exercicio) throws DataFormatException, IOException {
@@ -32,7 +32,7 @@ public class ExercicioDTO {
         exercicioDTO.setOrientacao(exercicio.getOrientacao());
         exercicioDTO.setStatus(exercicio.isStatus());
         exercicioDTO.setGrpMusculos(exercicio.getGrpMusculos());
-        exercicioDTO.setImgIlistracao(Util.decompress(exercicio.getImgIlustracao()));
+        exercicioDTO.setImgIlustracao(Util.decompress(exercicio.getImgIlustracao()));
         exercicioDTO.setAparelho(exercicio.getAparelho());
 
         return exercicioDTO;
