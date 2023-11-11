@@ -113,6 +113,8 @@ public class UsuarioService {
         if (!tipoArquivo.contains("PNG") && !tipoArquivo.contains("JFIF")){
             throw new Exception("Não é possível inserir um Usuário com um avatar diferente de PNG ou JPEG/JPG!");
         }
+
+        validaSenha(usuario.getSenha());
     }
 
     private void validaUpdate(Usuario usuario) throws Exception{
@@ -130,6 +132,8 @@ public class UsuarioService {
         if (!tipoArquivo.contains("PNG") && !tipoArquivo.contains("JFIF")){
             throw new Exception("Não é possível inserir um Usuário com um avatar diferente de PNG ou JPEG/JPG!");
         }
+
+        validaSenha(usuario.getSenha());
     }
 
     public String validaInsertTeste(Usuario usuario) {
@@ -359,9 +363,7 @@ public class UsuarioService {
         return pageableDTO;
     }
 
-    public boolean validaSenha(UsuarioWebDTO usuario) throws Exception {
-        String senha = usuario.getSenha();
-
+    public boolean validaSenha(String senha) throws Exception {
         Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$");
         Matcher matcher = pattern.matcher(senha);
 
@@ -372,5 +374,11 @@ public class UsuarioService {
         } else {
             throw new Exception("Senha inválida, verifique se há espaços ou caracteres impróprios");
         }
+    }
+
+    public boolean validatePasswordDb(UsuarioWebDTO usuario) {
+        String senhaAtual = usuarioRepository.findById(usuario.getId()).get().getSenha();
+
+        return senhaAtual.equals(usuario.getSenha());
     }
 }
