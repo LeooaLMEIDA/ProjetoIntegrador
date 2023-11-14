@@ -97,7 +97,7 @@ public class TreinoService {
 
     public List<TreinoDTO> findByFiltersCdTreino(String cdTreino) throws Exception{
         CdTreinoENUM cdTreinoENUM = CdTreinoENUM.valueOf(cdTreino);
-        List<Treino> treinos = treinoRepository.findByCdTreino(cdTreinoENUM);
+        List<Treino> treinos = treinoRepository.findByCdTreinoOrderById(cdTreinoENUM);
 
         List<TreinoDTO> treinoDTOS = new ArrayList<>();
 
@@ -111,7 +111,7 @@ public class TreinoService {
     public List<TreinoDTO> findByFiltersUsuarioTreino(String cdTreino, Long usuario_id) throws Exception{
         Usuario usuario = Usuario.consultaDTO(usuarioService.findById(usuario_id));
 
-        List<Treino> treinos = treinoRepository.findByCdTreinoContainingAllIgnoringCaseAndUsuario(cdTreino, usuario);
+        List<Treino> treinos = treinoRepository.findByCdTreinoContainingAllIgnoringCaseAndUsuarioOrderById(cdTreino, usuario);
 
         List<TreinoDTO> treinosAtivos = new ArrayList<TreinoDTO>();
 
@@ -125,7 +125,7 @@ public class TreinoService {
     }
 
     public List<Treino> findByUsuario(Long id) throws Exception{
-        List<Treino> treinos = treinoRepository.findByUsuario(Usuario.consultaDTO(usuarioService.findById(id)));
+        List<Treino> treinos = treinoRepository.findByUsuarioOrderById(Usuario.consultaDTO(usuarioService.findById(id)));
 
         List<TreinoDTO> treinosAtivos = new ArrayList<TreinoDTO>();
 
@@ -140,7 +140,7 @@ public class TreinoService {
     }
 
     public List<TreinoDTO> findAll() throws Exception{
-        List<Treino> treinos = treinoRepository.findAll();
+        List<Treino> treinos = treinoRepository.findByOrderById();
 
         List<TreinoDTO> treinoWebDTOS = new ArrayList<>();
 
@@ -154,7 +154,7 @@ public class TreinoService {
     public List<TreinoDTO> findByExercicio(Long id) throws Exception{
         List<TreinoDTO> treinoDTOS = new ArrayList<>();
 
-        for (Treino treino:treinoRepository.findByExercicio(exercicioService.findById(id))) {
+        for (Treino treino:treinoRepository.findByExercicioOrderById(exercicioService.findById(id))) {
             treinoDTOS.add(TreinoDTO.consultaDTO(treino));
         }
         return treinoDTOS;
@@ -181,7 +181,7 @@ public class TreinoService {
     }
 
     public List<Treino> findByUsuario(Usuario usuario) {
-        return treinoRepository.findByUsuario(usuario);
+        return treinoRepository.findByUsuarioOrderById(usuario);
     }
 
     public TreinoDTO findAlternativo(Long idTreino) throws Exception {
@@ -213,7 +213,7 @@ public class TreinoService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<Treino> treinos = treinoRepository.findAll();
+        List<Treino> treinos = treinoRepository.findByOrderById();
 
         List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
@@ -240,7 +240,7 @@ public class TreinoService {
     }
 
     public PageableDTO findByCdTreinoPageable(String cdTreino, int page, int registrosSolic) throws Exception {
-        List<Treino> treinos = treinoRepository.findByCdTreino(CdTreinoENUM.valueOf(cdTreino.toUpperCase()));
+        List<Treino> treinos = treinoRepository.findByCdTreinoOrderById(CdTreinoENUM.valueOf(cdTreino.toUpperCase()));
 
         List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
@@ -270,7 +270,7 @@ public class TreinoService {
         List<Treino> treinoDTOS = new ArrayList<>();
 
         for (ExercicioDTO exercicioDTO:exercicioService.findByFilters(exercicio)) {
-            treinoDTOS.addAll(treinoRepository.findByExercicio(Exercicio.consultaDTO(exercicioDTO)));
+            treinoDTOS.addAll(treinoRepository.findByExercicioOrderById(Exercicio.consultaDTO(exercicioDTO)));
         }
 
         List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
@@ -301,7 +301,7 @@ public class TreinoService {
         List<Treino> treinoDTOS = new ArrayList<>();
 
         for (UsuarioDTO usuarioDTO:usuarioService.findByFilters(usuario)) {
-            for (Treino treino:treinoRepository.findByUsuario(Usuario.consultaDTO(usuarioDTO))) {
+            for (Treino treino:treinoRepository.findByUsuarioOrderById(Usuario.consultaDTO(usuarioDTO))) {
                 treinoDTOS.add(treino);
             }
         }
@@ -330,7 +330,7 @@ public class TreinoService {
     }
 
     public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
-        List<Treino> treinoDTOS = treinoRepository.findByStatus(status);
+        List<Treino> treinoDTOS = treinoRepository.findByStatusOrderById(status);
 
         List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
@@ -357,7 +357,7 @@ public class TreinoService {
     }
 
     public PageableDTO findByAlternativoPageable(boolean alternativo, int page, int registrosSolic) throws Exception {
-        List<Treino> treinoDTOS = treinoRepository.findByAlternativo(alternativo);
+        List<Treino> treinoDTOS = treinoRepository.findByAlternativoOrderById(alternativo);
 
         List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 

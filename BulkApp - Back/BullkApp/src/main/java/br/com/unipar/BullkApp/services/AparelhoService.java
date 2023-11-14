@@ -70,7 +70,7 @@ public class AparelhoService {
     }
 
     public List<Aparelho> findAll() throws Exception{
-        return  aparelhoRepository.findAll();
+        return  aparelhoRepository.findByOrderById();
     }
 
     private void validaInsert(Aparelho aparelho) throws Exception{

@@ -82,7 +82,7 @@ public class AvaliacaoService {
     }
 
     public List<AvaliacaoDTO> findByFilters(String descricao) throws Exception{
-        List<Avaliacao> avaliacoes = avaliacaoRepository.findAll();
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByOrderById();
 
         List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
 
@@ -94,7 +94,7 @@ public class AvaliacaoService {
     }
 
     public List<AvaliacaoDTO> findAll() throws Exception{
-        List<Avaliacao> avaliacoes = avaliacaoRepository.findAll();
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByOrderById();
 
         List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
 
@@ -125,7 +125,7 @@ public class AvaliacaoService {
     }
 
     public List<AvaliacaoDTO> findByUsuario(Long id) throws Exception {
-        List<Avaliacao> avaliacoes = avaliacaoRepository.findAll();
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByOrderById();
 
         List<AvaliacaoDTO> avaliacaoDTOS = new ArrayList<>();
 
@@ -137,7 +137,7 @@ public class AvaliacaoService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<Avaliacao> avaliacaos = avaliacaoRepository.findAll();
+        List<Avaliacao> avaliacaos = avaliacaoRepository.findByOrderById();
 
         List<AvaliacaoListDTO> avaliacaosRetorno = new ArrayList<>();
 
@@ -191,7 +191,7 @@ public class AvaliacaoService {
     public PageableDTO findByFilterUserPageable(String usuario, int page, int registrosSolic) throws Exception {
         List<Avaliacao> avaliacaos = new ArrayList<>();
 
-        for (Usuario usuarioDTO: usuarioRepository.findByNomeContainsIgnoreCase(usuario)) {
+        for (Usuario usuarioDTO: usuarioRepository.findByNomeContainsIgnoreCaseOrderById(usuario)) {
             avaliacaos.addAll(avaliacaoRepository.findByUsuario(usuarioDTO));
         }
 

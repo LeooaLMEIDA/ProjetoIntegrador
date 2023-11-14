@@ -18,25 +18,28 @@ import br.com.unipar.BullkApp.model.Treino;
 public interface TreinoRepository extends JpaRepository<Treino, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Código do Treino")
-	public List<Treino> findByCdTreino(CdTreinoENUM cdTreino);
+	public List<Treino> findByCdTreinoOrderById(CdTreinoENUM cdTreino);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Código e Usuário do Treino")
-	public List<Treino> findByCdTreinoContainingAllIgnoringCaseAndUsuario(String cdTreino, Usuario usuario);
+	public List<Treino> findByCdTreinoContainingAllIgnoringCaseAndUsuarioOrderById(String cdTreino, Usuario usuario);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Exercício")
-	public List<Treino> findByExercicio(Exercicio exercicio);
+	public List<Treino> findByExercicioOrderById(Exercicio exercicio);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Usuário")
-	public List<Treino> findByUsuario(Usuario usuario);
+	public List<Treino> findByUsuarioOrderById(Usuario usuario);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Status")
-	public List<Treino> findByStatus(boolean status);
+	public List<Treino> findByStatusOrderById(boolean status);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Treino pelo Tipo de Treino (alternativo)")
-	public List<Treino> findByAlternativo(boolean status);
+	public List<Treino> findByAlternativoOrderById(boolean status);
+
+	@Query
+	public List<Treino> findByOrderById();
 }

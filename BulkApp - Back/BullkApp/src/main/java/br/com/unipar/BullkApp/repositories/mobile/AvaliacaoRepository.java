@@ -21,4 +21,7 @@ public interface AvaliacaoRepository extends JpaRepository<Avaliacao, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar uma Avaliação pelo Usuário")
     public List<Avaliacao> findByUsuario(Usuario usuario);
+
+	@Query
+	public List<Avaliacao> findByOrderById();
 }

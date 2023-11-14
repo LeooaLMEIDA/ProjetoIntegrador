@@ -92,7 +92,7 @@ public class ExercicioService {
     }
 
     public List<ExercicioDTO> findByFilters(String descricao) throws Exception{
-        List<Exercicio> exercicios = exercicioRepository.findByDescricaoContainingAllIgnoringCase(descricao);
+        List<Exercicio> exercicios = exercicioRepository.findByDescricaoContainingAllIgnoringCaseOrderById(descricao);
 
         List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
 
@@ -103,7 +103,7 @@ public class ExercicioService {
     }
 
     public List<ExercicioDTO> findByFilterGrpMuscular(String grupoMuscular) throws Exception{
-        List<Exercicio> exercicios = exercicioRepository.findByGrpMusculos(GrupoMuscularENUM.valueOf(grupoMuscular));
+        List<Exercicio> exercicios = exercicioRepository.findByGrpMusculosOrderById(GrupoMuscularENUM.valueOf(grupoMuscular));
 
         List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
 
@@ -114,7 +114,7 @@ public class ExercicioService {
     }
 
     public List<ExercicioDTO> findAll() throws Exception{
-        List<Exercicio> exercicios = exercicioRepository.findAll();
+        List<Exercicio> exercicios = exercicioRepository.findAllByOrderById();
 
         List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
 
@@ -167,7 +167,7 @@ public class ExercicioService {
     }
 
     public List<ExercicioDTO> findByAparelho(Aparelho aparelho) throws DataFormatException, IOException {
-        List<Exercicio> exercicios = exercicioRepository.findByAparelho(aparelho);
+        List<Exercicio> exercicios = exercicioRepository.findByAparelhoOrderById(aparelho);
 
         List<ExercicioDTO> exercicioDTOS = new ArrayList<>();
 
@@ -179,7 +179,7 @@ public class ExercicioService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<Exercicio> exercicioDTOS = exercicioRepository.findAll();
+        List<Exercicio> exercicioDTOS = exercicioRepository.findAllByOrderById();
 
         List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
@@ -206,7 +206,7 @@ public class ExercicioService {
     }
 
     public PageableDTO findByDescPageable(String descricao, int page, int registrosSolic) throws Exception {
-        List<Exercicio> exercicioDTOS = exercicioRepository.findByDescricaoContainingAllIgnoringCase(descricao);
+        List<Exercicio> exercicioDTOS = exercicioRepository.findByDescricaoContainingAllIgnoringCaseOrderById(descricao);
 
         List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
@@ -233,7 +233,7 @@ public class ExercicioService {
     }
 
     public PageableDTO findByGrpMuscularPageable(String descricao, int page, int registrosSolic) throws Exception {
-        List<Exercicio> exercicioDTOS = exercicioRepository.findByGrpMusculos(GrupoMuscularENUM.valueOf(descricao));
+        List<Exercicio> exercicioDTOS = exercicioRepository.findByGrpMusculosOrderById(GrupoMuscularENUM.valueOf(descricao));
 
         List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 
@@ -263,7 +263,7 @@ public class ExercicioService {
         List<Exercicio> exercicioDTOS = new ArrayList<>();
 
         for (Aparelho aparelho:aparelhoService.findByFilters(descricao)) {
-            exercicioDTOS.addAll(exercicioRepository.findByAparelho(aparelho));
+            exercicioDTOS.addAll(exercicioRepository.findByAparelhoOrderById(aparelho));
         }
 
         List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
@@ -292,7 +292,7 @@ public class ExercicioService {
 
     public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
 
-        List<Exercicio> exercicioDTOS = exercicioRepository.findByStatus(status);
+        List<Exercicio> exercicioDTOS = exercicioRepository.findByStatusOrderById(status);
 
         List<ExercicioDTO> exercicioDTOSRetorno = new ArrayList<>();
 

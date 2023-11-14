@@ -80,7 +80,7 @@ public class UsuarioService {
     }
 
     public List<UsuarioDTO> findByFilters(String nome) throws Exception{
-        List<Usuario> usuarios = usuarioRepository.findByNomeContainsIgnoreCase(nome);
+        List<Usuario> usuarios = usuarioRepository.findByNomeContainsIgnoreCaseOrderById(nome);
         List<UsuarioDTO> usuarioDTOS = new ArrayList<>();
 
         for (Usuario usuario : usuarios) {
@@ -155,19 +155,19 @@ public class UsuarioService {
     }
 
     private List<Usuario> findByEmail(String email) throws Exception {
-        return usuarioRepository.findByEmailIsContainingIgnoreCase(email);
+        return usuarioRepository.findByEmailIsContainingIgnoreCaseOrderById(email);
     }
 
     private List<Usuario> findBySexo(String sexo) throws Exception {
-        return usuarioRepository.findBySexo(SexoENUM.valueOf(sexo));
+        return usuarioRepository.findBySexoOrderById(SexoENUM.valueOf(sexo));
     }
 
     private List<Usuario> findByTipoUsuario(String tipoUsuario) throws Exception {
-        return usuarioRepository.findByTpUsuario(TipoUsuarioENUM.valueOf(tipoUsuario));
+        return usuarioRepository.findByTpUsuarioOrderById(TipoUsuarioENUM.valueOf(tipoUsuario));
     }
 
     private List<Usuario> findByCelular(String celular) throws Exception {
-        return usuarioRepository.findByCelularContaining(celular);
+        return usuarioRepository.findByCelularContainingOrderById(celular);
     }
 
     public List<SexoENUM> findSexo() {
@@ -175,7 +175,7 @@ public class UsuarioService {
     }
 
     public PageableDTO findAllPageable(int page, int registrosSolic) throws Exception {
-        List<Usuario> usuarioDTOS = usuarioRepository.findAll();
+        List<Usuario> usuarioDTOS = usuarioRepository.findByOrderById();
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
@@ -202,7 +202,7 @@ public class UsuarioService {
     }
 
     public PageableDTO findByNomePageable(String nome, int page, int registrosSolic) throws Exception {
-        List<Usuario> usuarioDTOS = usuarioRepository.findByNomeContainsIgnoreCase(nome);
+        List<Usuario> usuarioDTOS = usuarioRepository.findByNomeContainsIgnoreCaseOrderById(nome);
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
@@ -229,7 +229,7 @@ public class UsuarioService {
     }
 
     public PageableDTO findBySexoPageable(String sexo, int page, int registrosSolic) throws Exception {
-        List<Usuario> usuarioDTOS = usuarioRepository.findBySexo(SexoENUM.valueOf(sexo));
+        List<Usuario> usuarioDTOS = usuarioRepository.findBySexoOrderById(SexoENUM.valueOf(sexo));
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
@@ -256,7 +256,7 @@ public class UsuarioService {
     }
 
     public PageableDTO findByTipoUsuarioPageable(String tpUsuario, int page, int registrosSolic) throws Exception {
-        List<Usuario> usuarioDTOS = usuarioRepository.findByTpUsuario(TipoUsuarioENUM.valueOf(tpUsuario));
+        List<Usuario> usuarioDTOS = usuarioRepository.findByTpUsuarioOrderById(TipoUsuarioENUM.valueOf(tpUsuario));
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
@@ -283,7 +283,7 @@ public class UsuarioService {
     }
 
     public PageableDTO findByEmailPageable(String email, int page, int registrosSolic) throws Exception {
-        List<Usuario> usuarioDTOS = usuarioRepository.findByEmailIsContainingIgnoreCase(email);
+        List<Usuario> usuarioDTOS = usuarioRepository.findByEmailIsContainingIgnoreCaseOrderById(email);
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
@@ -310,7 +310,7 @@ public class UsuarioService {
     }
 
     public PageableDTO findByCelularPageable(String celular, int page, int registrosSolic) throws Exception {
-        List<Usuario> usuarioDTOS = usuarioRepository.findByCelularContaining(celular);
+        List<Usuario> usuarioDTOS = usuarioRepository.findByCelularContainingOrderById(celular);
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 
@@ -337,7 +337,7 @@ public class UsuarioService {
     }
 
     public PageableDTO findByStatusPageable(boolean status, int page, int registrosSolic) throws Exception {
-        List<Usuario> usuarioDTOS = usuarioRepository.findByStatus(status);
+        List<Usuario> usuarioDTOS = usuarioRepository.findByStatusOrderById(status);
 
         List<UsuarioDTO> usuarioDTOSRetorno = new ArrayList<>();
 

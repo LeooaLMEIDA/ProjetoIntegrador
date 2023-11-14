@@ -20,7 +20,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo nome")
-	public List<Usuario> findByNomeContainsIgnoreCase(String nome);
+	public List<Usuario> findByNomeContainsIgnoreCaseOrderById(String nome);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo e-mail")
@@ -28,21 +28,24 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário que contém o e-mail")
-	public List<Usuario> findByEmailIsContainingIgnoreCase(String email);
+	public List<Usuario> findByEmailIsContainingIgnoreCaseOrderById(String email);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Sexo")
-	public List<Usuario> findBySexo(SexoENUM sexo);
+	public List<Usuario> findBySexoOrderById(SexoENUM sexo);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Tipo De Usuário")
-	public List<Usuario> findByTpUsuario(TipoUsuarioENUM tpUsuario);
+	public List<Usuario> findByTpUsuarioOrderById(TipoUsuarioENUM tpUsuario);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Celular")
-	public List<Usuario> findByCelularContaining(String celular);
+	public List<Usuario> findByCelularContainingOrderById(String celular);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Usuário pelo Status")
-	public List<Usuario> findByStatus(boolean status);
+	public List<Usuario> findByStatusOrderById(boolean status);
+
+	@Query
+	public List<Usuario> findByOrderById();
 }

@@ -20,4 +20,7 @@ public interface AparelhoRepository extends JpaRepository<Aparelho, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Aparelho pelo status")
 	public List<Aparelho> findByStatus(boolean status);
+
+	@Query
+	public List<Aparelho> findByOrderById();
 }

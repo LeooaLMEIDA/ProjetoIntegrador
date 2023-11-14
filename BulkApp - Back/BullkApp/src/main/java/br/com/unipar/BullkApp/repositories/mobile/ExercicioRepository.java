@@ -17,17 +17,20 @@ import br.com.unipar.BullkApp.model.Exercicio;
 public interface ExercicioRepository extends JpaRepository<Exercicio, Long> {
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pela descrição")
-	public List<Exercicio> findByDescricaoContainingAllIgnoringCase(String descricao);
+	public List<Exercicio> findByDescricaoContainingAllIgnoringCaseOrderById(String descricao);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Aparelho")
-    public List<Exercicio> findByAparelho(Aparelho aparelho);
+    public List<Exercicio> findByAparelhoOrderById(Aparelho aparelho);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Grupo Muscular")
-	public List<Exercicio> findByGrpMusculos(GrupoMuscularENUM grupoMuscular);
+	public List<Exercicio> findByGrpMusculosOrderById(GrupoMuscularENUM grupoMuscular);
 
 	@Query
 	@ApiModelProperty(value = "Método utilizado para Consultar um Exercício pelo Status")
-	public List<Exercicio> findByStatus(boolean status);
+	public List<Exercicio> findByStatusOrderById(boolean status);
+
+	@Query
+	public List<Exercicio> findAllByOrderById();
 }
