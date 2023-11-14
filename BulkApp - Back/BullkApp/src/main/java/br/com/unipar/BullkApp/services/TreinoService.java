@@ -240,7 +240,7 @@ public class TreinoService {
     }
 
     public PageableDTO findByCdTreinoPageable(String cdTreino, int page, int registrosSolic) throws Exception {
-        List<Treino> treinos = treinoRepository.findByCdTreino(CdTreinoENUM.valueOf(cdTreino));
+        List<Treino> treinos = treinoRepository.findByCdTreino(CdTreinoENUM.valueOf(cdTreino.toUpperCase()));
 
         List<TreinoListDTO> treinoDTOSRetorno = new ArrayList<>();
 
