@@ -12,11 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -115,6 +113,8 @@ public class UsuarioService {
         }
 
         validaSenha(usuario.getSenha());
+
+        validaDtNascimento(usuario.getDtNascimento());
     }
 
     private void validaUpdate(Usuario usuario) throws Exception{
@@ -134,6 +134,8 @@ public class UsuarioService {
         }
 
         validaSenha(usuario.getSenha());
+
+        validaDtNascimento(usuario.getDtNascimento());
     }
 
     public String validaInsertTeste(Usuario usuario) {
@@ -363,16 +365,24 @@ public class UsuarioService {
         return pageableDTO;
     }
 
-    public boolean validaSenha(String senha) throws Exception {
+    public void validaSenha(String senha) throws Exception {
         Pattern pattern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%?&#])[A-Za-z\\d@$!%?&#]{8,}$");
         Matcher matcher = pattern.matcher(senha);
 
-        if (matcher.matches()) {
-            return true;
-        } else if (senha.length() < 8) {
-            throw new Exception("Senha deve conter ao menos 8 caracteres");
-        } else {
-            throw new Exception("Senha inválida, verifique se há espaços ou caracteres impróprios");
+        if (!matcher.matches()) {
+            if (senha.length() < 8) {
+                throw new Exception("Senha deve conter ao menos 8 caracteres");
+            } else {
+                throw new Exception("Senha inválida, verifique se há espaços ou caracteres impróprios");
+            }
+        }
+    }
+
+    public void validaDtNascimento(Date dtNasc) throws Exception {
+        LocalDate nascimento = dtNasc.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+        LocalDate hoje = LocalDate.now();
+        if (hoje.isBefore(nascimento)) {
+            throw new Exception("Não é possível registrar um usuário com data de nascimento maior do que a data de hoje!");
         }
     }
 
