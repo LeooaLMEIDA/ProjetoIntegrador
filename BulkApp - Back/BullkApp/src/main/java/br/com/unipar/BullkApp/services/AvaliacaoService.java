@@ -31,9 +31,10 @@ public class AvaliacaoService {
     public AvaliacaoWebDTO insert(AvaliacaoWebDTO avaliacaoDTO) throws Exception{
         Avaliacao avaliacao = Avaliacao.consultaDTO(avaliacaoDTO);
 
+        avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
+
         validaInsert(avaliacao);
 
-        avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
         avaliacao.setArqAvaliacao(avaliacao.getArqAvaliacao());
 
         avaliacao.setDataCriacao(LocalDateTime.now());
@@ -52,9 +53,10 @@ public class AvaliacaoService {
         if (avaliacao.getArqAvaliacao() == null)
             avaliacao.setArqAvaliacao(avaliacaoRepository.findById(avaliacao.getId()).get().getArqAvaliacao());
 
+        avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
+
         validaUpdate(avaliacao);
 
-        avaliacao.setUsuario(Usuario.consultaDTO(usuarioService.findById(avaliacaoDTO.getIdUsuario())));
         avaliacao.setArqAvaliacao(avaliacao.getArqAvaliacao());
 
         avaliacao.setDataModificacao(LocalDateTime.now());
@@ -105,23 +107,25 @@ public class AvaliacaoService {
     }
 
     private void validaInsert(Avaliacao avaliacao) throws Exception{
-        if (avaliacao.getId() != null){
-            throw new Exception("Não é necessário informar o ID para inserir uma nova Avaliacao");
-        }
+        if (avaliacao.getId() != null)
+            throw new Exception("Não é necessário informar o ID para inserir uma nova Avaliação");
 
-        if (!Util.getFileType(AvaliacaoDTO.consultaDTO(avaliacao).getArqAvaliacao().substring(0,6)).contains("PDF")){
+        if (!avaliacao.getUsuario().isStatus())
+            throw new Exception("Não é possível atribuir uma Avaliação a um Usuário inativo");
+
+        if (!Util.getFileType(AvaliacaoDTO.consultaDTO(avaliacao).getArqAvaliacao().substring(0,6)).contains("PDF"))
             throw new Exception("Não é possível inserir uma Avaliação com um arquivo diferente de PDF!");
-        }
     }
 
     private void validaUpdate(Avaliacao avaliacao) throws Exception{
-        if (avaliacao.getId() == null){
+        if (avaliacao.getId() == null)
             throw new Exception("É necessário informar o ID para atualizar o cadastro da Avaliacao");
-        }
 
-        if (!Util.getFileType(AvaliacaoDTO.consultaDTO(avaliacao).getArqAvaliacao().substring(0,6)).contains("PDF")){
+        if (!avaliacao.getUsuario().isStatus())
+            throw new Exception("Não é possível atribuir uma Avaliação a um Usuário inativo");
+
+        if (!Util.getFileType(AvaliacaoDTO.consultaDTO(avaliacao).getArqAvaliacao().substring(0,6)).contains("PDF"))
             throw new Exception("Não é possível atualizar uma Avaliação com um arquivo diferente de PDF!");
-        }
     }
 
     public List<AvaliacaoDTO> findByUsuario(Long id) throws Exception {
