@@ -3,18 +3,19 @@ import 'dart:typed_data';
 import 'package:bullkapp/pages/evaluation_file.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import '../models/evaluation.dart';
 
 class EvaluationCard extends StatefulWidget {
   final String mainLabel;
+  final int index;
   final List<Evaluation> evaluations;
 
   const EvaluationCard({
-    Key? key,
+    super.key,
     required this.mainLabel,
     required this.evaluations,
-  }) : super(key: key);
+    required this.index,
+  });
 
   @override
   State<EvaluationCard> createState() => _EvaluationCardState();
@@ -75,7 +76,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
   }
 
   void convertPDF() {
-    final pdfEvaluation = widget.evaluations[1].arqAvaliacao;
+    final pdfEvaluation = widget.evaluations[widget.index].arqAvaliacao;
     if (pdfEvaluation != null) {
       final cleanedPdf = pdfEvaluation.replaceAll(RegExp(r'\s+'), '');
       final pdfData = base64Decode(cleanedPdf);

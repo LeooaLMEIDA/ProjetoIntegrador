@@ -85,6 +85,7 @@ class _BodyEvaluationScreenState extends State<BodyEvaluationScreen> {
                       return Row(
                         children: [
                           EvaluationCard(
+                            index: index,
                             evaluations: widget.evaluations,
                             mainLabel: widget.evaluations[index].descricao!,
                           ),
