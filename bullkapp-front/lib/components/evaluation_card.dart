@@ -26,18 +26,18 @@ class _EvaluationCardState extends State<EvaluationCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
-      clipBehavior: Clip.hardEdge,
-      borderOnForeground: true,
-      color: const Color.fromARGB(160, 4, 53, 101),
-      child: InkWell(
-        splashColor: const Color.fromARGB(160, 4, 53, 101).withAlpha(255),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * .37,
-          child: GestureDetector(
+    return GestureDetector(
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        clipBehavior: Clip.hardEdge,
+        borderOnForeground: true,
+        color: const Color.fromARGB(160, 4, 53, 101),
+        child: InkWell(
+          splashColor: const Color.fromARGB(160, 4, 53, 101).withAlpha(255),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * .37,
             child: Stack(
               children: [
                 Positioned(
@@ -61,17 +61,17 @@ class _EvaluationCardState extends State<EvaluationCard> {
                 ),
               ],
             ),
-            onTap: () {
-              convertPDF();
-              Get.to(
-                () => EvaluationFile(
-                  pdf: pdf,
-                ),
-              );
-            },
           ),
         ),
       ),
+      onTap: () {
+        convertPDF();
+        Get.to(
+          () => EvaluationFile(
+            pdf: pdf,
+          ),
+        );
+      },
     );
   }
 

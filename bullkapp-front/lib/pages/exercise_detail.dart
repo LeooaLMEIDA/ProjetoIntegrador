@@ -209,6 +209,7 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                   child: Row(
                     children: [
                       AlternativeWorkoutCard(
+                        idAlternative: returnWorkout.exercicio?.id ?? 0,
                         description: returnWorkout.exercicio?.description ?? "",
                         series: returnWorkout.series ?? 0,
                         repetitions: returnWorkout.repeticoes ?? 0,
@@ -216,6 +217,8 @@ class _ExerciseDetailState extends State<ExerciseDetail> {
                         imgIllustration:
                             returnWorkout.exercicio?.imgIlustracao ?? "",
                         rest: returnWorkout.descanso ?? "",
+                        orientation:
+                            returnWorkout.exercicio?.orientation ?? "",
                       ),
                     ],
                   ),

@@ -4,12 +4,14 @@ import '../repositories/exercise_repository.dart';
 import 'alternative_training_detail.dart';
 
 class AlternativeWorkoutCard extends StatelessWidget {
+  final int idAlternative;
   final String description;
   final String imgIllustration;
   final int repetitions;
   final int series;
   final String rest;
   final String peso;
+  final String orientation;
 
   const AlternativeWorkoutCard({
     super.key,
@@ -19,6 +21,8 @@ class AlternativeWorkoutCard extends StatelessWidget {
     required this.repetitions,
     required this.rest,
     required this.peso,
+    required this.idAlternative,
+    required this.orientation,
   });
 
   @override
@@ -32,10 +36,11 @@ class AlternativeWorkoutCard extends StatelessWidget {
       color: const Color.fromARGB(250, 1, 30, 62),
       child: InkWell(
         onTap: () async {
-          final exerciseGif = await _getGifExercise(3);
+          final exerciseGif = await _getGifExercise(idAlternative);
           return await Get.to(
             AlternativeWorkoutDetail(
               description: description,
+              orientation: orientation,
               imgIllustration: exerciseGif ?? "",
               repetitions: repetitions,
               rest: rest,

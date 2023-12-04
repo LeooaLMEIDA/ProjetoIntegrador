@@ -25,7 +25,7 @@ class WorkoutRepository {
       final response = await dio.get(
         '$url/filter/usuario?cdTreino=$workoutCode&usuario_id=${userController.id}',
         options: buildCacheOptions(
-          const Duration(minutes: 4),
+          const Duration(seconds: 1),
         ),
       );
 

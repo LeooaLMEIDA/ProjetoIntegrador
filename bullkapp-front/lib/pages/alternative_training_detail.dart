@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class AlternativeWorkoutDetail extends StatefulWidget {
   final String description;
+  final String orientation;
   final String imgIllustration;
   final int repetitions;
   final int series;
@@ -23,7 +24,8 @@ class AlternativeWorkoutDetail extends StatefulWidget {
       required this.repetitions,
       required this.series,
       required this.rest,
-      required this.peso});
+      required this.peso,
+      required this.orientation});
 
   @override
   State<AlternativeWorkoutDetail> createState() =>
@@ -101,7 +103,7 @@ class _AlternativeWorkoutDetailState extends State<AlternativeWorkoutDetail> {
                                     return AlertDialog(
                                       title: const Text(
                                           'Informações do Exercício'),
-                                      content: const Text('Nome Do Exercício:'),
+                                      content: Text(widget.orientation),
                                       actions: [
                                         TextButton(
                                           onPressed: () {

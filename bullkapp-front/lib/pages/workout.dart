@@ -119,7 +119,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                       Get.defaultDialog(
                         title: 'Confirmação de Saída',
                         content: const Text(
-                            'Você realmente deseja sair da aplicação?'),
+                            'Você realmente deseja finalizar o treino?'),
                         textConfirm: 'Sim',
                         textCancel: 'Não',
                         confirmTextColor:
@@ -164,24 +164,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
       extendBody: false,
       bottomNavigationBar:
           widget.showBottomBar ? const CustomBottomAppBar() : null,
-    );
-  }
-
-  void finishTraining() {
-    Get.defaultDialog(
-      title: 'Confirmação de Saída',
-      content: const Text('Você realmente deseja sair da aplicação?'),
-      textConfirm: 'Sim',
-      textCancel: 'Não',
-      confirmTextColor: const Color.fromARGB(255, 255, 255, 255),
-      buttonColor: Colors.red,
-      cancelTextColor: const Color.fromARGB(255, 0, 0, 0),
-      onConfirm: () {
-        setState(() {
-          _setProximoTreino(widget.activeTraining!);
-        });
-        // Get.back();
-      },
     );
   }
 
