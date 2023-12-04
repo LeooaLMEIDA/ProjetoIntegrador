@@ -57,9 +57,9 @@ public class UsuarioService {
 
     public Usuario delete(Long id) throws  Exception {
         Usuario usuario = Usuario.consultaDTO(findById(id));
-        validaUpdate(usuario);
         usuario.setStatus(false);
         usuario.setUrlAvatar(null);
+        usuario.setSenha("");
         usuario.setDataCriacao(usuarioRepository.findById(usuario.getId()).get().getDataCriacao());
         usuario.setDataExclusao(LocalDateTime.now());
         usuario.setDataModificacao(LocalDateTime.now());
